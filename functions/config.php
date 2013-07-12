@@ -344,31 +344,6 @@ Config::$theme_settings = array(
 			),
 		)),
 	),
-	'Styles' => array(
-		new RadioField(array(
-			'name'        => 'Enable Responsiveness',
-			'id'          => THEME_OPTIONS_NAME.'[bootstrap_enable_responsive]',
-			'description' => 'Turn on responsive styles provided by the Twitter Bootstrap framework.  This setting should be decided upon before building out subpages, etc. to ensure content is designed to shrink down appropriately.  Turning this off will enable the single 940px-wide Bootstrap layout.',
-			'default'     => 1,
-			'choices'     => array(
-				'On'  => 1,
-				'Off' => 0,
-			),
-			'value'       => $theme_options['bootstrap_enable_responsive'],
-	    )),
-		new SelectField(array(
-			'name'        => 'Header Menu Styles',
-			'id'          => THEME_OPTIONS_NAME.'[bootstrap_menu_styles]',
-			'description' => 'Adjust the styles that the header menu links will use.  Non-default options Twitter Bootstrap navigation components for sub-navigation support.',
-			'default'     => 'default',
-			'choices'     => array(
-				'Default (list of links with dropdowns)'  => 'default',
-				'Tabs with dropdowns' => 'nav-tabs',
-				'Pills with dropdowns' => 'nav-pills'
-			),
-			'value'       => $theme_options['bootstrap_menu_styles'],
-	    )),
-	),
 );
 
 Config::$links = array(
@@ -383,30 +358,16 @@ Config::$styles = array(
 	THEME_STATIC_URL.'/bootstrap/bootstrap/css/bootstrap.css',
 );
 
-if ($theme_options['bootstrap_enable_responsive'] == 1) {
-	array_push(Config::$styles, 
-		THEME_STATIC_URL.'/bootstrap/bootstrap/css/bootstrap-responsive.css'
-	);		
-}
-
 array_push(Config::$styles,	
 	plugins_url( 'gravityforms/css/forms.css' ),
 	THEME_CSS_URL.'/webcom-base.css', 
 	get_bloginfo('stylesheet_url')
 );
 
-if ($theme_options['bootstrap_enable_responsive'] == 1) {
-	array_push(Config::$styles, 
-		THEME_URL.'/style-responsive.css'
-	);	
-}
-
 Config::$scripts = array(
 	array('admin' => True, 'src' => THEME_JS_URL.'/admin.js',),
 	'http://universityheader.ucf.edu/bar/js/university-header.js',
-	//array('name' => 'jquery', 'src' => 'http://code.jquery.com/jquery-1.7.1.min.js',),
 	THEME_STATIC_URL.'/bootstrap/bootstrap/js/bootstrap.js',
-	//THEME_JS_URL.'/jquery-extras.js',
 	array('name' => 'base-script',  'src' => THEME_JS_URL.'/webcom-base.js',),
 	array('name' => 'theme-script', 'src' => THEME_JS_URL.'/script.js',),
 );
