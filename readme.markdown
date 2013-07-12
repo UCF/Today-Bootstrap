@@ -38,7 +38,7 @@ UCF's fork of the Bootstrap project (http://github.com/UCF/bootstrap/) is added 
 5. Navigate back to the root bootstrap directory and remove the compiled bootstrap directory, if it exists.
 
 ### Compiling
-Once the setup instructions above have been completed, you can compile modified .less files from the root bootstrap directory with `make bootstrap`. Compiles files will save to a new directory 'bootstrap' within the root directory (static/bootstrap/bootstrap/).
+Once the setup instructions above have been completed, you can compile modified .less files from the root bootstrap directory with `make bootstrap`. Compiled files will save to a new directory 'bootstrap' within the root directory (static/bootstrap/bootstrap/).
 
 
 
