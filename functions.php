@@ -337,14 +337,18 @@ function resolve_posts($atts, $args = Array(), $filters = True, $strip_tags = Tr
 
 
 /**
- * Excerpt from post
+ * Get the excerpt for a post.
+ *
+ * Attempts to grab an excerpt from stripped post content,
+ * selected by a highlighted term, and append ellipses.
+ * Falls back to the standard WP get_the_excerpt().
  *
  * @return string
  * @author Chris Conover
  **/
 function get_excerpt($post, $hl_term = '')
 {
-	setup_postdata($post);
+	setup_postdata($post); // TODO: find this function in old theme
 	
 	if($hl_term != '') {
 		$stripped_content = strip_tags($post->post_content);
