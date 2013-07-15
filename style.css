@@ -5,3 +5,103 @@ Github Theme URI: https://github.com/UCF/Today-Bootstrap
 Version: v2.0.0
 */
 
+/** Universal **/
+.border-left,
+.border-right,
+.border-both { position: relative; }
+.border-left:before,
+.border-right:after,
+.border-both:before,
+.border-both:after {
+	display: block;
+	width: 1px;
+	height: 100%;
+	content: "";
+	position: absolute;
+	top: 0;
+	background-color: #eee;
+}
+.border-left:before,
+.border-both:before {
+	left: -11px;
+}
+.border-right:after,
+.border-both:after {
+	right: -11px;
+}
+.border-bottom { padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px solid #eee; }
+.border-top { margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee; }
+
+ul.story-list,
+ul.event-list,
+ul.video-list,
+ul.announcement-list,
+ul.comment-list,
+ul.term-list,
+ul.photoset-list { list-style-type: none; margin-left: 0; }
+
+h3,
+h4,
+h5,
+h6 { font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif; }
+h4 { font-weight: normal; }
+
+h3 a,
+h4 a,
+h5 a,
+h6 a,
+h3 a:hover,
+h4 a:hover,
+h5 a:hover,
+h6 a:hover { color: #333; }
+ul > li:first-child > h3,
+ul > li:first-child > h4 { margin-top: 0; }
+
+
+/** Header **/
+#header-menu { overflow: auto; background-color: #F1F1F1; padding-top: 4px; margin-bottom: 30px; }
+#header-menu li { margin: 0; padding-bottom: 4px; }
+#header-menu li:after { content: ""; margin-left: 0; }
+
+
+/** Footer **/
+#footer { border-top: 1px solid #eee; padding-top: 9px; margin: 15px 0 25px 0; }
+
+
+/** Sidebar **/
+#sidebar h3:first-child { margin-top: 0; }
+#sidebar .events { top: -10px; }
+
+
+/** Subpages **/
+#feature h3,
+#feature h4 { font-weight: bold; font-size: 27px; line-height: 34px; margin-top: 4px; }
+
+
+/** Home Page **/
+#home h3 { 
+	font-size: 11.5px; 
+	text-transform: uppercase; 
+	letter-spacing: 0.5px; 
+	line-height: 28px;
+	margin: 0 0 12px 0;
+}
+#home h3.listing { display: block; float: left; }
+#home h3.listing + a.listing {
+	float: right; 
+	clear: right; 
+	margin: 0 0 12px 0; 
+	font-size: 12px; 
+	line-height: 28px;
+	font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
+	color: #333;
+}
+
+#home #more_headlines .thumb { float: left; }
+#home #more_headlines .social { float: right; width: 75px; z-index: 2; margin-left: 10px; }
+#home #more_headlines .content { margin-left: 110px; }
+#home #more_headlines .content h4 { margin-top: -4px; }
+
+#home #sidebar {
+
+}

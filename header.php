@@ -48,8 +48,8 @@
 	</head>
 	<body class="<?=body_classes()?>">
 		<div class="container">
-			<div class="row">
-				<div id="header" class="span9">
+			<div class="row" id="header">
+				<div id="page-title" class="span9">
 					<h1><a href="<?=bloginfo('url')?>"><?=bloginfo('name')?></a></h1>
 				</div>
 				<div id="weather_bug" class="span3">
