@@ -245,7 +245,6 @@ if (typeof jQuery != 'undefined'){
 		Generic.PostTypeSearch($);
 
 		handleAlerts($);
-		var _ellipsizer = new ellipsizer();
-		$('.ellipse').each(function() {_ellipsizer.addElement(this);});
+		
 	});
 }else{console.log('jQuery dependency failed to load');}
