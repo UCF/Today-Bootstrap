@@ -49,21 +49,21 @@
 	<body class="<?=body_classes()?>">
 		<div class="container">
 			<div class="row">
-				<div id="header" class="row-border-bottom-top">
-					<h1 class="span9"><a href="<?=bloginfo('url')?>"><?=bloginfo('name')?></a></h1>
-					<?php $options = get_option(THEME_OPTIONS_NAME);?>
-					<?php if($options['facebook_url'] or $options['twitter_url']):?>
-					<ul class="social menu horizontal span3">
-						<?php if($options['facebook_url']):?>
-						<li><a class="ignore-external facebook" href="<?=$options['facebook_url']?>">Facebook</a></li>
-						<?php endif;?>
-						<?php if($options['twitter_url']):?>
-						<li><a class="ignore-external twitter" href="<?=$options['twitter_url']?>">Twitter</a></li>
-						<?php endif;?>
-					</ul>
-					<?php else:?>
-					<div class="social span3">&nbsp;</div>
-					<?php endif;?>
+				<div id="header" class="span9">
+					<h1><a href="<?=bloginfo('url')?>"><?=bloginfo('name')?></a></h1>
+				</div>
+				<div id="weather_bug" class="span3">
+					<?php $weather = get_weather_data(); ?>
+					<div id="wb_date">
+						<?=date('l, F j, Y')?>
+					</div>
+					<a id="wb_more" href="<?=WEATHER_CLICK_URL?>">more weather</a>
+					<div id="wb_status_img">
+						<img src="<?php bloginfo('stylesheet_directory'); ?>/static/img/weather/WC<?=$weather['img']?>.png" alt="<?=$weather['condition']?>" />
+					</div>
+					<div id="wb_status_txt">
+						<?=$weather['condition']?>, <span><?=$weather['temp']?></span>
+					</div>
 				</div>
 			</div>
 			<?=wp_nav_menu(array(
