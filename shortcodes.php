@@ -1,173 +1,5 @@
-<?php
-
-
-/**
- * Create a javascript slideshow of each top level element in the
- * shortcode.  All attributes are optional, but may default to less than ideal
- * values.  Available attributes:
- * 
- * height     => css height of the outputted slideshow, ex. height="100px"
- * width      => css width of the outputted slideshow, ex. width="100%"
- * transition => length of transition in milliseconds, ex. transition="1000"
- * cycle      => length of each cycle in milliseconds, ex cycle="5000"
- * animation  => The animation type, one of: 'slide' or 'fade'
- *
- * Example:
- * [slideshow height="500px" transition="500" cycle="2000"]
- * <img src="http://some.image.com" .../>
- * <div class="robots">Robots are coming!</div>
- * <p>I'm a slide!</p>
- * [/slideshow]
- **/
-function sc_slideshow($attr, $content=null){
-	$content = cleanup(str_replace('<br />', '', $content));
-	$content = DOMDocument::loadHTML($content);
-	$html    = $content->childNodes->item(1);
-	$body    = $html->childNodes->item(0);
-	$content = $body->childNodes;
-	
-	# Find top level elements and add appropriate class
-	$items = array();
-	foreach($content as $item){
-		if ($item->nodeName != '#text'){
-			$classes   = explode(' ', $item->getAttribute('class'));
-			$classes[] = 'slide';
-			$item->setAttribute('class', implode(' ', $classes));
-			$items[] = $item->ownerDocument->saveXML($item);
-		}
-	}
-	
-	$animation = ($attr['animation']) ? $attr['animation'] : 'slide';
-	$height    = ($attr['height']) ? $attr['height'] : '100px';
-	$width     = ($attr['width']) ? $attr['width'] : '100%';
-	$tran_len  = ($attr['transition']) ? $attr['transition'] : 1000;
-	$cycle_len = ($attr['cycle']) ? $attr['cycle'] : 5000;
-	
-	ob_start();
-	?>
-	<div 
-		class="slideshow <?=$animation?>"
-		data-tranlen="<?=$tran_len?>"
-		data-cyclelen="<?=$cycle_len?>"
-		style="height: <?=$height?>; width: <?=$width?>;"
-	>
-		<?php foreach($items as $item):?>
-		<?=$item?>
-		<?php endforeach;?>
-	</div>
-	<?php
-	$html = ob_get_clean();
-	
-	return $html;
-}
-add_shortcode('slideshow', 'sc_slideshow');
-
-
-function sc_search_form() {
-	ob_start();
-	?>
-	<div class="search">
-		<?get_search_form()?>
-	</div>
-	<?
-	return ob_get_clean();
-}
-add_shortcode('search_form', 'sc_search_form');
-
-
-/**
- * Include the defined publication, referenced by pub title:
- *
- *     [publication name="Where are the robots Magazine"]
- **/
-function sc_publication($attr, $content=null){
-	$pub      = @$attr['pub'];
-	$pub_name = @$attr['name'];
-	$pub_id   = @$attr['id'];
-	
-	if (!$pub and is_numeric($pub_id)){
-		$pub = get_post($pub);
-	}
-	if (!$pub and $pub_name){
-		$pub = get_page_by_title($pub_name, OBJECT, 'publication');
-	}
-	
-	$pub->url   = get_post_meta($pub->ID, "publication_url", True);
-	$pub->thumb = get_the_post_thumbnail($pub->ID, 'publication-thumb');
-	
-	ob_start(); ?>
-	
-	<div class="pub">
-		<a class="track pub-track" title="<?=$pub->post_title?>" data-toggle="modal" href="#pub-modal-<?=$pub->ID?>">
-			<?=$pub->thumb?>
-			<span><?=$pub->post_title?></span>
-		</a>
-		<p class="pub-desc"><?=$pub->post_content?></p>
-		<div class="modal hide fade" id="pub-modal-<?=$pub->ID?>" role="dialog" aria-labelledby="<?=$pub->post_title?>" aria-hidden="true">
-			<iframe src="<?=$pub->url?>" width="100%" height="100%" scrolling="no"></iframe>
-			<a href="#" class="btn" data-dismiss="modal">Close</a>
-		</div>
-	</div>
-	
-	<?php
-	return ob_get_clean();
-}
-add_shortcode('publication', 'sc_publication');
-
-
-
-function sc_person_picture_list($atts) {
-	$atts['type']	= ($atts['type']) ? $atts['type'] : null;
-	$row_size 		= ($atts['row_size']) ? (intval($atts['row_size'])) : 5;
-	$categories		= ($atts['categories']) ? $atts['categories'] : null;
-	$org_groups		= ($atts['org_groups']) ? $atts['org_groups'] : null;
-	$limit			= ($atts['limit']) ? (intval($atts['limit'])) : -1;
-	$join			= ($atts['join']) ? $atts['join'] : 'or';
-	$people 		= sc_object_list(
-						array(
-							'type' => 'person', 
-							'limit' => $limit,
-							'join' => $join,
-							'categories' => $categories, 
-							'org_groups' => $org_groups
-						), 
-						array(
-							'objects_only' => True,
-						));
-	
-	ob_start();
-	
-	?><div class="person-picture-list"><?
-	$count = 0;
-	foreach($people as $person) {
-		
-		$image_url = get_featured_image_url($person->ID);
-		
-		$link = ($person->post_content != '') ? True : False;
-		if( ($count % $row_size) == 0) {
-			if($count > 0) {
-				?></div><?
-			}
-			?><div class="row"><?
-		}
-		
-		?>
-		<div class="span2 person-picture-wrap">
-			<? if($link) {?><a href="<?=get_permalink($person->ID)?>"><? } ?>
-				<img src="<?=$image_url ? $image_url : get_bloginfo('stylesheet_directory').'/static/img/no-photo.jpg'?>" />
-				<div class="name"><?=Person::get_name($person)?></div>
-				<div class="title"><?=get_post_meta($person->ID, 'person_jobtitle', True)?></div>
-				<? if($link) {?></a><?}?>
-		</div>
-		<?
-		$count++;
-	}
-	?>	</div>
-	</div>
-	<?
-	return ob_get_clean();
-}
-add_shortcode('person-picture-list', 'sc_person_picture_list');
+<?php 
+/** GENERIC THEME SHORTCODES **/
 
 /**
  * Post search
@@ -353,4 +185,1654 @@ function sc_post_type_search($params=array(), $content='') {
 	return ob_get_clean();
 }
 add_shortcode('post-type-search', 'sc_post_type_search');
+
+
+
+/** TODAY SHORTCODES **/
+
+/**
+ * Generate home page feature story html
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_feature($atts = Array(), $id_only = False)
+{	
+	global $wp_embed;
+	
+	$css = (isset($atts['css'])) ? $atts['css'] : '';
+	
+	if(is_front_page()) {
+		
+		$feature = resolve_posts(	Array(),
+			Array(
+				'numberposts' => 1,
+				'meta_query' => Array(
+					Array(
+						'key' => 'display_type',
+						'value' => 'featured'))));
+		
+		if($feature !== False) {
+			$video_url = get_post_meta($feature->ID, 'video_url', True);
+			
+			if($video_url != '') {
+				$feature_media = $wp_embed->run_shortcode('[embed width="417" height="343"]'.$video_url.'[/embed]');
+			} else {
+				$feature_media = '<a href="'.get_permalink($feature->ID).'">'.get_img_html($feature->ID, 'feature').'</a>';
+			}
+			
+			ob_start();
+			?>
+			<div class="<?=$css?>" id="feature">
+				<!--<h3>Features Article</h3>-->
+				<div class="thumb">
+					<?=$feature_media?>
+				</div>
+				<h4><a href="<?=get_permalink($feature->ID)?>"><?=$feature->post_title?></a></h4>
+			</div>
+			<?
+			return ob_get_clean();
+		}
+	} else if(is_category() || is_tag() || is_page()) {
+		
+		global $wp_query;
+		
+		if(is_category()) {
+			$resolve_atts = Array('category' => $wp_query->queried_object->slug);
+		} else if(is_tag()) {
+			$resolve_atts = Array('tag' => $wp_query->queried_object->slug);
+		} else {
+			$resolve_atts = Array();
+		}
+		
+		$top_feature = resolve_posts(	$resolve_atts, 
+										Array('numberposts' => 1));
+		if($id_only) return $top_feature->ID;
+		
+		$video_url = get_post_meta($top_feature->ID, 'video_url', True);
+		if($video_url != '') {
+			$feature_media = $wp_embed->run_shortcode('[embed width="469" height="500"]'.$video_url.'[/embed]');
+		} else {
+			$feature_media = '<a href="'.get_permalink($top_feature->ID).'">'.get_img_html($top_feature->ID, 'subpage_feature').'</a>';
+		}
+		
+		ob_start();
+		?>
+		<div class="clearfix <?=$css?>" id="feature">
+			<!-- Top Feature -->
+			<div class="thumb">
+				<?=$feature_media?>
+			</div>
+			<h4><a href="<?=get_permalink($top_feature->ID)?>"><?=$top_feature->post_title?></a></h4>
+			<p class="ellipse">
+				<?=get_excerpt($top_feature)?>
+			</p>
+			<div class="social">
+				<iframe 	src="http://www.facebook.com/plugins/like.php?href=<?=get_permalink($top_feature->ID)?>&amp;send=false&amp;layout=button_count&amp;width=80&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" 
+							scrolling="no" 
+							frameborder="0"
+							style="border:none; overflow:hidden; width:80px; height:21px;" 
+							allowTransparency="true">
+				</iframe>
+				<a href="http://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a>
+				<g:plusone size="medium" href="<?=get_permalink($top_feature->ID)?>"></g:plusone>
+			</div>
+		</div>
+		<?
+		return ob_get_clean();
+	}
+}
+add_shortcode('feature', 'sc_feature');
+
+
+/**
+ * Generate more headlines html
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_more_headlines($atts = Array())
+{
+	$css = (isset($atts['css'])) ? $atts['css'] : '';
+	
+	$social		= (isset($atts['social'])) ? $atts['social'] : True;
+	$header		= (isset($atts['header'])) ? $atts['header'] : True;
+	$num_posts	= (isset($atts['num_posts']) && is_numeric($atts['num_posts'])) ? (int)$atts['num_posts'] : 3;
+	
+	$resolve_params = Array();
+	
+	if(is_front_page()) {
+		/*
+			It's currently not possible to select posts that aren't
+			marked as promotional or featured using meta_query. I think this
+			is because display_option is a part of the post meta and isn't
+			actually set on all posts, just those specified explicitly. That
+			and there is non way to select empty values without dropping into
+			SQL.
+		
+			Because of that, create an excluded_posts list containing all the
+			post_ids of of the featured and promotional posts. This list should
+			be a relatively small which will keep the processing time down.
+		*/
+		$excluded_posts = Array();
+		$promos = get_posts(Array(
+			'numberposts' => 3,
+			'meta_query' => Array(
+				Array(
+					'key' => 'display_type',
+					'value' => 'promotional',
+					'compare' => '='))));
+		$features = get_posts(Array(
+			'numberposts' => 1,
+			'meta_query' => Array(
+				Array(
+					'key' => 'display_type',
+					'value' => 'featured',
+					'compare' => '='))));
+		foreach(array_merge($promos,$features) as $_post) {array_push($excluded_posts, $_post->ID);}
+	
+		$resolve_params['exclude'] = $excluded_posts;
+	} else if(is_category()) {
+		global $wp_query;
+		$atts['category'] = $wp_query->queried_object->slug;
+	} else if(is_tag()) {
+		global $wp_query;
+		$atts['tag'] = $wp_query->queried_object->slug;
+	} else if(is_page()) {
+		global $wp_query;
+		$atts['tag'] = str_replace(' ', '', strtolower($wp_query->queried_object->post_title));
+	}
+
+	# Category and tag pages have a top story. Don't allow the top story
+	# to also show up in the More Headlines sections below it.
+	if(!isset($resolve_params['exclude']) && (is_category() || is_tag())) {
+		$resolve_params['exclude'] = array_merge(Array(sc_feature(Array(), True)), sc_subpage_features(Array(), True));
+	}
+	
+	$headlines = resolve_posts($atts, array_merge(Array('numberposts' => $num_posts), $resolve_params)); 
+	
+	ob_start();
+	?>	
+		<div class="<?=$css?>" id="more_headlines">
+			<?=($header) ? '<h3>More Headlines</h3>' : ''?>
+			<ul>
+	<?
+	$count = 0;
+	foreach($headlines as $headline) {
+		$thumb_html = get_img_html($headline->ID, 'story');
+		?>
+				<li class="clearfix<?=(($count + 1) == count($headlines) ? ' last' : '')?>">
+					<div class="thumb">
+						<a href="<?=get_permalink($headline->ID)?>">
+							<?=$thumb_html?>
+						</a>
+					</div>
+					<? if($social) { ?>
+					<div class="social">
+						<fb:like href="<?=get_permalink($headline->ID)?>" send="false" layout="button_count" width="450" show_faces="false" font=""></fb:like>
+						<a href="http://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a>
+						<g:plusone size="medium" href="<?=get_permalink($headline->ID)?>"></g:plusone>
+					</div>
+					<? } ?>
+					<div class="content<?=($social) ? '' : ' nosocial'?>">
+						<h4><a href="<?=get_permalink($headline->ID)?>"><?=$headline->post_title?></a></h4>
+						<p class="ellipse">
+							<?=get_excerpt($headline)?>
+						</p>
+					</div>
+					
+					
+				</li>
+		<?
+		$count++;
+	}
+	?>
+			</ul>
+		</div>
+	<?
+	$html = ob_get_contents();
+	ob_end_clean();
+	return $html;
+	
+}
+add_shortcode('more_headlines', 'sc_more_headlines');
+
+
+/**
+ * Generate UCF photo section
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_ucf_photo($atts = Array())
+{
+	$css = (isset($atts['css'])) ? $atts['css'] : '';
+	$front_page = isset($atts['front_page']) ? True : False;
+	
+	$link_page_name = (isset($atts['link_page_name'])) ? $atts['link_page_name'] : 'Photos';
+	
+	$photosets = resolve_posts($atts, Array('post_type' => 'photoset',
+											'numberposts' => 4));
+	
+	if(count($photosets) > 0) {
+		$first = True;
+		ob_start();
+		?>
+		
+			<div class="<?=$css?>" id="ucf_photo">
+				<h3 class="listing"><?=$link_page_name?></h3><a href="<?=get_page_link(get_page_by_title($link_page_name)->ID)?>" class="listing">More &raquo;</a>
+		<?
+		foreach($photosets as $photoset) {
+			if($first) {
+				$first = False;
+			
+				if($front_page) {
+				
+					$image_html = get_img_html($photoset->ID, 'ucf_photo');//wp_get_attachment_image_src($first_image->ID, 'ucf_photo');
+				} else {
+					$image_html = get_img_html($photoset->ID, 'ucf_photo_subpage');wp_get_attachment_image_src($first_image->ID, 'ucf_photo_subpage');
+				}
+			
+				?>
+					<a href="<?=get_permalink($photoset->ID)?>">
+						<?=$image_html?>
+					</a>
+					<h4 class="clear"><a href="<?=get_permalink($photoset->ID)?>"><?=$photoset->post_title?></a></h4>
+					<p class="ellipse"><?=get_excerpt($photoset)?></p>
+				<ul>
+				<?
+
+			}
+		}
+	
+		?>
+			</ul>
+		</div><?
+		return ob_get_clean();
+	}
+}
+add_shortcode('ucf_photo', 'sc_ucf_photo');
+
+
+/**
+ * Generate UCF video section
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_ucf_video($atts = Array())
+{
+	global $wp_query, $wp_embed;
+		
+	$css = (isset($atts['css'])) ? $atts['css'] : '';
+	
+	$height	= (isset($atts['height'])) ? $atts['height'] : '';
+	$width	= (isset($atts['width'])) ? $atts['width'] : 400;
+	
+	if(is_category()) $atts['category'] = $wp_query->queried_object->slug;
+	if(is_tag()) $atts['tag'] = $wp_query->queried_object->slug;
+	
+	if(is_front_page()) {
+		$video =  resolve_posts($atts, Array('post_type' => 'video', 'meta_key' => 'video_main_page', 'meta_value' => 'on'));
+	} else {
+		$video =  resolve_posts($atts, Array('post_type' => 'video'));
+	}
+	
+	if($video !== False) {
+		$video_url = get_post_meta($video->ID, 'video_url', True);
+		if($video_url != '') {
+			$embed_string = '[embed width="'.$width.'" '.($height != '' ? 'height="'.$height.'"' : '').']'.$video_url.'[/embed]';
+			ob_start();
+			?>
+			<div class="<?=$css?>" id="ucf_video">
+				<h3 class="listing">Watch Video</h3><a href="<?=get_page_link(get_page_by_title('Videos')->ID)?>" class="listing">More &raquo;</a>
+				<?=$wp_embed->run_shortcode($embed_string)?>
+				<h4><?=$video->post_title?></h4>
+				<p><?=$video->post_content?></p>
+			</div>
+			<?
+			return ob_get_clean();
+		}
+	}
+}
+add_shortcode('ucf_video', 'sc_ucf_video');
+
+
+/**
+ * Generate advertisement section
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_advertisement($atts)
+{
+	global $post, $wp_query;
+	
+	$css = (isset($atts['css'])) ? $atts['css'] : '';
+	$location = (isset($atts['location'])) ? $atts['location'] : null;
+	$type = (isset($atts['type'])) ? $atts['type'] : 'vertical';
+	if($type != 'vertical' && $type != 'horizontal') {
+		$type = 'vertical';
+	}
+	
+	if(!is_null($location)) {
+		ob_start();?>
+		<?=do_action('ad-minister', array('position' => $location));?>
+		<?
+		$generic_content = ob_get_clean();
+		
+		$specific_content = '';
+		if(is_category() || is_single()) {
+			
+			if(is_category()) {
+				$current_category = get_category($wp_query->queried_object->term_id);
+			} else if(is_single()) {
+				$post_categories = wp_get_post_categories($post->ID);
+				$current_category = ($post_categories > 0) ? $post_categories[0] : False;
+			}
+			
+			if($current_category) {
+				foreach(get_categories() as $cat) {
+					ob_start();?>
+					<?=do_action('ad-minister', array('position' => $location.' - '.$cat->slug))?>
+					<?
+					if($current_category->term_id == $cat->term_id) {
+						$specific_content = ob_get_clean();
+					} else {
+						ob_end_clean();
+					}
+				}
+			}
+		}
+		$content = (trim($specific_content) != '') ? $specific_content : $generic_content;
+		
+		if(!is_null($content) && trim($content) != '') {
+			ob_start();
+			?>
+			<div class="<?=$css?> ad<?=($type == 'vertical') ? ' center': ''?>">
+				<h3>Advertisement</h3>
+				<?=$content?>
+			</div>
+			<?
+			return ob_get_clean();
+		}
+	}
+}
+add_shortcode('advertisement', 'sc_advertisement');
+
+
+/**
+ * Generate resource section
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_resources($atts = Array())
+{
+	$css = (isset($atts['css'])) ? $atts['css'] : '';
+	
+	$args = Array('menu' => 'Resources', 'container' => '', 'menu_id'=> '');
+	
+	ob_start();
+	?>
+	<div class="<?=$css?>" id="resources">
+		<h3>Resources</h3>
+		<?=wp_nav_menu($args)?>
+	</div>
+	<?
+	$html = ob_get_contents(); ob_end_clean();
+	return $html;
+}
+add_shortcode('resources', 'sc_resources');
+
+
+/**
+ * Generate event section
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_events($atts = Array())
+{
+	$css = (isset($atts['css'])) ? $atts['css'] : '';
+	
+	ob_start();
+	?>
+	<div class="events <?=$css?>">
+		<h3>Events @ UCF</h3>
+		<ul>
+			<? foreach(get_event_data() as $event) {
+					$event_start = strtotime($event->starts);
+			?>
+				<li class="clearfix">
+					<span class="date">
+						<?=date('M', $event_start)?>
+						<br />
+						<span class="num"><?=date('j', $event_start)?></span>
+					</span>
+					<a href="<?=EVENTS_URL.'?eventdatetime_id='.$event->id?>"><?=$event->title?></a>
+				</li>
+			<? } ?>
+		</ul>
+		<p><a href="http://events.ucf.edu?upcoming=upcoming">More Events</a></p>
+	</div>
+	<?
+	$html = ob_get_contents(); ob_end_clean();
+	return $html;
+}
+add_shortcode('events', 'sc_events');
+
+
+/**
+ * Internal list items of promo ul
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_promos($atts = Array())
+{	
+	$css = (isset($atts['css'])) ? $atts['css'] : '';
+	
+	$promos = resolve_posts($atts,	Array(	'numberposts' => 3,
+						 					'meta_query' => Array(	
+																Array(	'key' => 'display_type',
+																		'value' => 'promotional'
+																)
+															)
+									));
+	if(count($promos) > 0) {
+		ob_start();
+		?>
+			<div class="<?=$css?>" id="promos">
+				<!-- <h3>Promos</h3> -->
+				<ul>
+		<?
+		$count = 0;
+		foreach($promos as $promo) {
+			?>
+			<li<?=(($count + 1) == count($promos) ? ' class="last"' : '')?>>
+				<h4><a href="<?=get_permalink($promo->ID)?>"><?=$promo->post_title?></a></h4>
+				<p class="ellipse">
+					<?=get_excerpt($promo)?>
+				</p>
+			</li>
+			<?
+			$count++;
+		}
+		?>
+				</ul>
+			</div>
+		<?
+		$html = ob_get_contents(); ob_end_clean();
+		return $html;
+	}
+}
+add_shortcode('promos', 'sc_promos');
+
+
+/**
+ * Generate expert html
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_expert_short($atts = Array())
+{
+	$css = (isset($atts['css'])) ? $atts['css'] : '';
+	$expert = resolve_posts($atts, Array('numberposts' => 1, 'post_type' => 'expert'));
+	
+	if($expert !== False) {
+		ob_start();
+		?>
+		<div class="clearfix <?=$css?>" id="expert_short">
+			<h3>Experts at UCF</h3>
+			<a href="<?=get_permalink($expert->ID)?>">
+			  <?=get_img_html($expert->ID, 'story')?>
+			</a>
+			<h4>
+				<a href="<?=get_permalink($expert->ID)?>"><?=get_post_meta($expert->ID, 'expert_name', True)?></a>
+			</h4>
+			<p class="title"><?=get_post_meta($expert->ID, 'expert_title', True)?></p>
+			<p class="ellipse bio">
+				<?=$expert->post_content?>
+			</p>
+		</div>
+		<?
+		$html = ob_get_contents(); ob_end_clean();
+		return $html;
+	}
+}
+add_shortcode('expert_short', 'sc_expert_short');
+
+
+/**
+ * Generate profile html
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_profile($atts = Array())
+{	
+	$css = (isset($atts['css'])) ? $atts['css'] : '';
+	$profile = resolve_posts($atts, Array('post_type' => 'profile'));
+	
+	if($profile !== False) {
+		ob_start();
+		?>
+		<div class="<?=$css?>" id="profile">
+			<a href="<?=get_permalink($profile->ID)?>">
+				<h3>Get to Know: <span class="orange"><?=$profile->post_title?></span></h3>
+				<?=get_img_html($profile->ID, 'profile_img')?>
+				<p>
+					<?=get_post_meta($profile->ID, 'profile_bio', True)?>
+				</p>
+			</a>
+		</div>
+		<?
+		$html = ob_get_contents(); ob_end_clean();
+		return $html;
+	}
+}
+add_shortcode('profile', 'sc_profile');
+
+
+/**
+ * Subpage features
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_subpage_features($atts = Array(), $id_only = False)
+{
+	global $wp_query;
+	
+	$css = (isset($atts['css'])) ? $atts['css'] : '';
+	
+	if(is_category()) {
+		$resolve_atts = Array('category' => $wp_query->queried_object->slug);
+	} else if(is_tag()) {
+		$resolve_atts = Array('tag' => $wp_query->queried_object->slug);
+	}
+	
+	$features = resolve_posts(	$resolve_atts, 
+								Array(	'numberposts' => 3,
+										'exclude' => Array(sc_feature(Array(), True))));
+	
+	if($id_only) {
+		return array_map(create_function('$p', 'return $p->ID;'), $features);
+	}
+	if(count($features) > 0) {
+		ob_start();
+		?>
+		<div class="<?=$css?>" id="features">
+			<!-- Features -->
+			<ul>
+				<? 
+				for($i = 0; $i < count($features);$i++) {
+					$feature = $features[$i];
+					$class = '';
+					if($i == 0) {$class = 'first';}
+					if(($i + 1) == count($features)) {$class = 'last';}
+				?>
+				<li<?=($class != '') ? ' class="'.$class.'" ':''?>>
+					<div>
+						<a href="<?=get_permalink($feature->ID)?>">
+							<?=get_img_html($feature->ID, 'category_story')?>
+						</a>
+					</div>
+					<h4><a href="<?=get_permalink($feature->ID)?>"><?=$feature->post_title?></a></h4>
+					<p class="ellipse">
+						<?=get_excerpt($feature)?>
+					</p>
+				</li>
+				<? } ?>
+			</ul>
+		</div>
+		<?
+		$html = ob_get_contents(); ob_end_clean();
+		return $html;
+	}
+}
+add_shortcode('subpage_features', 'sc_subpage_features');
+
+
+/**
+ * Video Carousel
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_video_carousel($atts = Array())
+{
+	global $wp_query, $wp_embed;
+	
+	$css = (isset($atts['css'])) ? $atts['css'] : '';
+	
+	$videos = resolve_posts(	Array(	'tag' => $wp_query->queried_object->slug), 
+								Array(	'post_type' => 'video',
+										'numberposts' => 0));
+	if(count($videos) > 0) {
+		ob_start();
+		?>
+		<div class="<?=$css?>" id="video_carousel">
+			<h3>Watch UCF Videos</h3>
+			<div class="carousel">
+				<ul>
+				<? foreach($videos as $video) {
+						$wp_embed->post_ID = $video->ID;
+						$video_url = get_post_meta($video->ID, 'video_url', True);
+						$embed_string = '[embed width="355"]'.$video_url.'[/embed]';
+					
+						if($video_url != '') {
+							?>
+							<li class="video">
+								<div class="icon">
+									<?=$wp_embed->run_shortcode($embed_string)?>
+								</div>
+								<h4><?=$video->post_title?></h4>
+							</li>
+				<?		} 
+					} 
+				?>
+				</ul>
+			</div>
+		</div>
+		<?
+		$html = ob_get_contents(); ob_end_clean();
+		return $html;
+	}
+}
+add_shortcode('video_carousel', 'sc_video_carousel');
+
+
+/**
+ * Update
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_update($atts = Array())
+{
+	global $wp_query;
+	
+	$css = (isset($atts['css'])) ? $atts['css'] : '';
+	
+	$update = resolve_posts(	Array(	'tag' => $wp_query->queried_object->slug), 
+								Array(	'post_type' => 'update',
+										'numberposts' => 1),
+								False,
+								False);
+	if($update !== False) {
+		ob_start();
+		?>
+		<div class="<?=$css?>" id="update">
+			<h3>Update</h3>
+			<div>
+				<h4><?=$update->post_title?></h4>
+				<?=get_img_html($update->ID, 'update')?>
+				<?=$update->post_content?>
+			</div>
+		</div>
+		<?
+		$html = ob_get_contents(); ob_end_clean();
+		return $html;
+	}
+}
+add_shortcode('update', 'sc_update');
+
+
+/**
+ * MyUCF Sign On Form
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_myucf_signon($atts = Array())
+{
+	$css = (isset($atts['css'])) ? $atts['css'] : '';
+	
+	ob_start();
+	?>
+	<div class="<?=$css?>" id="myucf_signon">
+		<h3>MyUCF</h3>
+		<form action="https://my.ucf.edu/psp/PAPROD/EMPLOYEE/EMPL/?cmd=login" method="post" autocomplete="off">
+			<input type="hidden" name="httpPort" value="">
+			<input type="hidden" name="timezoneOffset" value="0">
+			<h4>Sign On:</h4>
+			<label for="userid">PID:</label>
+			<input type="text" name="userid" id="userid" />
+			<label for="pwd">Password:</label>
+			<input type="password" name="pwd" id="pwd" />
+			<input type="submit" value="Sign in" />
+			<a href="my.ucf.edu">Having trouble signing in?</a>
+			<a href="my.ucf.edu">What are my PID and NID?</a>
+			<a href="my.ucf.edu">Need myUCF help?</a>
+		</form>
+	</div>
+	<?
+	$html = ob_get_contents(); ob_end_clean();
+	return $html;
+}
+add_shortcode('myucf_signon', 'sc_myucf_signon');
+
+
+/**
+ * External UCF stories
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_external_stories($atts = Array()) 
+{
+	global $wp_query;
+	
+	$css = (isset($atts['css'])) ? $atts['css'] : '';
+	
+	$stories = resolve_posts(	Array(	'tag' => $wp_query->queried_object->slug), 
+								Array(	'post_type' => 'externalstory',
+										'numberposts' => 4));
+	if(count($stories) > 0) {
+		ob_start();
+		?>
+		<div class="<?=$css?>" id="external_stories">
+			<h3>Stories About UCF</h3>
+			<ul>
+				<? foreach($stories as $story) { ?>
+					<li>
+						<a href="<?=get_post_meta($story->ID, 'externalstory_url', True)?>">
+							<?=get_post_meta($story->ID, 'externalstory_text', True)?>
+						</a>
+						<span><?=get_post_meta($story->ID, 'externalstory_source', True)?></span>
+					</li>
+				<? } ?>
+			</ul>
+		</div>
+		<?
+		$html = ob_get_contents(); ob_end_clean();
+		return $html;
+	}
+}
+add_shortcode('external_stories', 'sc_external_stories');
+
+
+/**
+ * Announcements
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_announcements($atts = Array())
+{
+	global $wp_query;
+	
+	$css = (isset($atts['css'])) ? $atts['css'] : '';
+	
+	$cat_tag = $wp_query->queried_object->slug;
+	
+	$feed_mapping = Array('At Work' => ANNOUNCE_STAFF);
+		
+	if(isset($feed_mapping[$cat_tag])) {
+		$feed = $feed_mapping[$cat_tag];
+	} else {
+		$feed = ANNOUNCE_DEFAULT;
+	}
+	
+	if( ($html = get_transient($feed)) !== False) {
+		return $html;
+	} else {
+		$rss = fetch_feed($feed);
+		$rss_items = $rss->get_items(0, $rss->get_item_quantity(3));
+		if(!is_wp_error($rss)) {
+			if($rss_items !== False) {
+
+				ob_start();
+				?>
+				<div class="<?=$css?>" id="announcements">
+					<h3>Announcements</h3>
+					<ul>
+						<? foreach($rss_items as $item) { ?>
+							<li>
+								<h4><a  class="orange" href="<?=$item->get_permalink()?>"><?=$item->get_title()?></a></h4>
+								<p class="ellipse">
+									<?=$item->get_content()?>
+								</p>
+							</li>
+						<? } ?>
+					</ul>
+				</div>
+				<?
+				$html = ob_get_contents(); 
+				set_transient($feed, $html, ANNOUNCE_CACHE_DURATION);
+				ob_end_clean();
+				return $html;
+			}
+		}
+	}
+}
+add_shortcode('announcements', 'sc_announcements');
+
+
+/**
+ * Single post. Handles expert posts as well
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_single_post($atts = Array())
+{
+	global $post, $wp_embed;
+	
+	$expert = (get_post_type($post->ID) == 'expert') ? True : False;
+	
+	$css = (isset($atts['css'])) ? $atts['css'] : '';
+	
+	if($expert) {
+		$title = get_post_meta($post->ID, 'expert_name', True).', '.get_post_meta($post->ID, 'expert_title', True);
+		$subtitle = get_post_meta($post->ID, 'expert_association', True);
+	} else {
+		$title = $post->post_title;
+		$subtitle = get_post_meta($post->ID, 'subtitle', True);
+	}
+	$subtitle = ($subtitle == '') ? '' : '<p id="subtitle">'.$subtitle.'</p>';
+	
+	$img_attach = get_img_html($post->ID, 'story_feature', Array('return_id' => True));
+	
+	if($img_attach['attachment_id'] != '') {
+		$attachment = get_post($img_attach['attachment_id']);
+	}
+	
+	$comment_form_args = Array(	'fields' => Array(	'<label for="share_name">Name</label><input type="text" id="share_name" name="author" />', 
+													'<label for="share_email">Email</label>
+													<input type="text" id="share_email" name="email" />'),
+								'comment_field' => '<textarea name="comment"></textarea>',
+								'comment_notes_after' => '',
+								'comment_notes_before' => '',
+								'title_reply' => 'Share Your Thoughts',
+						);
+						
+
+	$content = get_the_content();
+	$content = apply_filters('the_content', $content);
+	$content = str_replace(']]>', ']]&gt;', $content);
+	
+	# The story image might have been extacted from the content.
+	# If so remove, it and any surrounding links or captions.
+	$pattern = '/(\[caption[^\]]*\])?(<a[^>]*>)?<img[^>]*class="[^"]*wp-image-'.$attachment->ID.'[^"]*"[^>]*>(<\/a>)?(\[\/caption\])?/';
+	$content = preg_replace($pattern, '', $content);
+	
+	# Sometimes a image has been inserted at the start of a story
+	# that isn't the featured image. Remove those too.
+	if(preg_match('/^<p>(<caption>)?(<a>)?<img/', $content)) {
+		$pattern = '/(\[caption[^\]]*\])?(<a[^>]*>)?<img[^>]*>(<\/a>)?(\[\/caption\])?/';
+		$content = preg_replace($pattern, '', $content);
+	}
+	
+	$video_url = get_post_meta($post->ID, 'video_url', True);
+	
+	ob_start();
+	?>
+	<div class="<?=$css?>">
+		<h3><?=$title?></h3>
+		<?=$subtitle?>
+		<? if($video_url != '') { ?>
+			<?=$wp_embed->run_shortcode('[embed width="550" height="500"]'.$video_url.'[/embed]')?>
+		<? } else { ?>
+		<div id="story_feat_img">
+			<?=$img_attach['html']?>
+		</div>
+		<? } ?>
+		<p id="caption"><?=(isset($attachment)) ? $attachment->post_excerpt: ''?></p>
+		<div id="content">
+			<?=strip_tags($content, '<p><a><ol><ul><li><em><strong><img><blockquote>')?>
+		</div>
+		<div class="social">
+			<iframe 	src="http://www.facebook.com/plugins/like.php?href=<?=get_permalink($post->ID)?>&amp;send=false&amp;layout=button_count&amp;width=80&amp;show_faces=true&amp;action=recommend&amp;colorscheme=light&amp;font&amp;height=21" 
+						scrolling="no" 
+						frameborder="0"
+						style="border:none; overflow:hidden; width:80px; height:21px;" 
+						allowTransparency="true">
+			</iframe>
+			<a href="http://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a>
+			<g:plusone size="medium" href="<?=get_permalink($post->ID)?>"></g:plusone>
+		</div>
+		<div id="share">
+			<?=comment_form($comment_form_args, $post->ID)?>
+		</div>
+	</div>
+	<?
+	$html = ob_get_contents(); ob_end_clean();
+	return $html;
+}
+add_shortcode('single_post', 'sc_single_post');
+
+
+/**
+ * Single post meta. Also handles expert.
+ *
+ * @return string.
+ * @author Chris Conover
+ **/
+function sc_single_post_meta($atts = Array())
+{
+	global $post;
+	
+	$css = (isset($atts['css'])) ? $atts['css'] : '';
+	
+	$author_title = get_post_meta($post->ID, 'author_title', True);
+	$author_title = ($author_title != '') ? '<p id="author_title">'.$author_title.'</p>' : '';
+	
+	$source = apply_filters('the_content', get_post_meta($post->ID, 'source', True));
+	$source = ($source != '') ? '<div id="source">'.$source.'</div>' : '';
+	
+	$byline = get_post_meta($post->ID, 'author_byline', True);
+	$byline = ($byline != '') ? $byline : get_the_author();
+	
+	ob_start()?>
+	<div class="<?=$css?>" id="meta">
+		<div>
+			<p id="byline">By <?=$byline?></p>
+			<?=$author_title?>
+			<p><?=date('l, F j, Y', strtotime($post->post_date))?></p>
+			<?=$source?>
+			<? if(function_exists('wp_print')) {?>
+				<div id="print">
+					<a href="print" target="_blank">Print this Article</a>
+				</div>
+			<? } ?>
+		</div>
+		<div class="social">
+			<iframe 	src="http://www.facebook.com/plugins/like.php?href=<?=get_permalink($post->ID)?>&amp;send=false&amp;layout=button_count&amp;width=80&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" 
+						scrolling="no" 
+						frameborder="0"
+						style="border:none; overflow:hidden; width:80px; height:21px;" 
+						allowTransparency="true">
+			</iframe>
+			<a href="http://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a>
+			<g:plusone size="medium" href="<?=get_permalink($post->ID)?>"></g:plusone>
+		</div>
+	</div>
+	<?
+	$html = ob_get_contents(); ob_end_clean();
+	return $html;
+}
+add_shortcode('single_post_meta', 'sc_single_post_meta');
+
+
+/**
+ * Single post "More about" tag
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_single_post_more_tag($atts = Array())
+{
+	global $post;
+	
+	$css	= (isset($atts['css'])) ? $atts['css'] : '';
+	
+	$primary_tag_id = get_post_meta($post->ID, 'primary_tag', True);
+	
+	if($primary_tag_id == '') {
+		$tags = wp_get_post_tags($post->ID);
+		if(count($tags) > 0) {
+			$primary_tag = $tags[0];
+		} else {
+			return '';
+		}
+	} else {
+		$primary_tag = get_tag($primary_tag_id);
+	}
+	$primary_tag_posts = resolve_posts(	Array(	'tag' => $primary_tag->slug), 
+										Array(	'numberposts' => 3,
+												'exclude' => Array($post->ID))
+									);
+	if(count($primary_tag_posts) > 0) {
+		ob_start();
+		?>
+		<div class="link_list <?=$css?>">
+			<h3>More about <?=$primary_tag->name?></h3>
+			<ul>
+				<? foreach($primary_tag_posts as $tag_post) {?>
+				<li>
+					<a href="<?=get_permalink($tag_post->ID)?>"><?=$tag_post->post_title?></a>
+				</li>
+				<? } ?>
+			</ul>
+		</div>
+		<?
+		$html = ob_get_contents(); ob_end_clean();
+		return $html;
+	}
+}
+add_shortcode('single_post_more_tag', 'sc_single_post_more_tag');
+
+
+/**
+ * Single post "More about" tag
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_single_post_more_cat($atts = Array())
+{
+	global $post;
+	
+	$css	= (isset($atts['css'])) ? $atts['css'] : '';
+	
+	$cats = wp_get_post_categories($post->ID);
+	
+	if(count($cats) > 0) {
+		$cat = get_category($cats[0]);
+		$cat_posts = resolve_posts(	Array(	'category' => $cat->slug), 
+									Array(	'numberposts' => 3,
+											'exclude' => Array($post->ID))
+								);
+
+		ob_start();
+		?>
+		<div class="link_list <?=$css?>">
+			<h3>More about <?=$cat->name?></h3>
+			<ul>
+				<? foreach($cat_posts as $cat_post) {?>
+				<li>
+					<a href="<?=get_permalink($cat_post->ID)?>"><?=$cat_post->post_title?></a>
+				</li>
+				<? } ?>
+			</ul>
+		</div>
+		<?
+		$html = ob_get_contents(); ob_end_clean();
+		return $html;
+	}
+}
+add_shortcode('single_post_more_cat', 'sc_single_post_more_cat');
+
+
+/**
+ * Single post comments
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_single_post_comments($atts = Array())
+{
+	global $post;
+	
+	$css	= (isset($atts['css'])) ? $atts['css'] : '';
+	
+	$comments = get_comments(Array(	'post_id' => $post->ID,
+									'status' => 'approve',
+									'number' => 3,
+									'type' => ''
+								)
+							);
+
+	if(count($comments) > 0) {
+		ob_start();
+		?>
+		<div class="<?=$css?>" id="comments">
+			<h3>Comments</h3>
+			<ul>
+				<? foreach($comments as $comment) {?>
+				<li>
+					<p class="meta"><?=$comment->comment_author?>, <?=$comment->comment_date?></p>
+					<p class="content">
+						<?=$comment->comment_content?>
+					</p>
+				</li>
+				<? } ?>
+			</ul>
+		</div>
+		<?
+		$html = ob_get_contents(); ob_end_clean();
+		return $html;
+	}
+}
+add_shortcode('single_post_comments', 'sc_single_post_comments');
+
+
+/**
+ * Single post topics
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_single_post_topics($atts = Array())
+{
+	global $post;
+	
+	$css	= (isset($atts['css'])) ? $atts['css'] : '';
+	
+	$tags = wp_get_post_tags($post->ID);
+	
+	// Never display Main Site Tag in More Topics section
+	$mainsite_tag = get_mainsite_tag();
+	
+	if(count($tags) > 0) {
+		ob_start();
+		?>
+		<div class="link_list <?=$css?>" id="more_tags">
+			<h3>More Topics</h3>
+			<ul>
+				<?	for($i = 0; $i < count($tags);$i++) {
+						$tag = $tags[$i];
+						if($tag->term_id != $mainsite_tag->term_id) {
+				?>
+				<li>
+					<a href="<?=get_tag_link($tag->term_id)?>">
+						<?=$tag->name?><?=(($i + 1) != count($tags)) ? ',' : ''?>
+					</a>
+				</li>
+				<? 
+					}
+				} ?>
+			</ul>
+		</div>
+		<?
+		$html = ob_get_contents(); ob_end_clean();
+		return $html;
+	}
+}
+add_shortcode('single_post_topics', 'sc_single_post_topics');
+
+
+/**
+ * Single post recommendations. Do not display for expert
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_single_post_recommended($atts = Array())
+{
+	global $post;
+	if(get_post_type($post->ID) == 'expert') return '';
+	
+	$css	= (isset($atts['css'])) ? $atts['css'] : '';
+	
+	ob_start();
+	?>
+	<div class="<?=$css?>" id="recommended">
+		<h3>Recommended Stories</h3>
+		<div id="fb-root"></div>
+		<script>(function(d, s, id) {
+		  var js, fjs = d.getElementsByTagName(s)[0];
+		  if (d.getElementById(id)) return;
+		  js = d.createElement(s); js.id = id;
+		  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+		  fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));</script>
+		<div class="fb-recommendations" data-site="today.ucf.edu" data-width="310" data-height="480" data-header="false" font="" border_color="#FFF"></div>
+	</div>
+	<?
+	$html = ob_get_contents(); ob_end_clean();
+	return $html;
+}
+add_shortcode('single_post_recommended', 'sc_single_post_recommended');
+
+
+/**
+ * Single post related experts
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_single_post_related_experts($atts = Array())
+{
+	global $post;
+	
+	$css	= (isset($atts['css'])) ? $atts['css'] : '';
+	
+	$experts = wp_get_object_terms($post->ID, 'experts');
+	
+	ob_start();
+	foreach($experts as $expert) {
+		$stories = resolve_posts(	Array(), 
+									Array(	'numberposts' => 5, 
+											'exclude'     => Array($post->ID),
+											'tax_query'   => Array(
+																Array(	'taxonomy' => 'experts',
+																		'field'    => 'slug',
+																		'terms'    => $expert->slug))));
+		if(count($stories) > 0) {
+			?>
+			<div class="link_list <?=$css?>" id="related_experts">
+				<h3>More About <?=$expert->name?></h3>
+				<ul>
+			<?
+				foreach($stories as $story) { ?>
+					<li><a href="<?=get_permalink($story->ID)?>"><?=$story->post_title?></a></li>
+			<? } ?>
+				</ul>
+			</div>
+			<?
+		}
+	}
+	return ob_get_clean();
+}
+
+add_shortcode('single_post_related_experts', 'sc_single_post_related_experts');
+
+
+/**
+ * Expert meta
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_expert_meta($atts = Array())
+{
+	global $post;
+	
+	$css = (isset($atts['css'])) ? $atts['css'] : '';
+	
+	$email  = get_post_meta($post->ID, 'expert_email', True);
+	$phones = explode(',', get_post_meta($post->ID, 'expert_phone', True));
+	
+	$img_html = '';
+	$img_details = get_img_html($post->ID, 'full', Array('return_id' => True));
+	if($img_details['attachment_id'] != '') {
+		$img_src = wp_get_attachment_image_src($img_details['attachment_id'], 'full');
+		if($img_src != False) {
+			$img_html = '<p><a href="'.$img_src[0].'" target="_blank">Download Profile Image</a></p>';
+		}
+	}
+	
+	ob_start();
+	?>
+	<div class="<?=$css?>" id="expert_meta">
+		<h3>Contact Information</h3>
+		<? if($email != '') {?>
+		<p><a href="mailto:<?=$email?>"><?=$email?></a></p>
+		<? } ?>
+		<? if(count($phones) > 0) {?>
+		<ul>
+			<? foreach($phones as $phone ) {?>
+			<li><?=$phone?></li>
+			<? } ?>
+		</ul>
+		<?}?>
+		<?=$img_html?>
+	</div>
+	<?
+	$html = ob_get_contents(); ob_end_clean();
+	return $html;
+}
+add_shortcode('expert_meta', 'sc_expert_meta');
+
+
+/**
+ * More expert stories
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_expert_tagged($atts = Array())
+{
+	global $post;
+		
+	$css	= (isset($atts['css'])) ? $atts['css'] : '';
+	
+	$term = get_term_by('name', get_post_meta($post->ID, 'expert_name', True), 'experts');
+
+	$stories = resolve_posts(Array(),Array(	'numberposts' => 5, 
+											'tax_query' => Array(
+																Array(
+																		'taxonomy' => 'experts',
+																		'field' => 'slug', 
+																		'terms' => $term->slug
+																	)
+															)
+										)
+							);
+	if(count($stories) > 0) {
+		ob_start();
+		?>
+		<div class="link_list <?=$css?>">
+			<h3>More about <?=get_post_meta($post->ID, 'expert_name', True)?></h3>
+			<ul>
+				<? foreach($stories as $story) {?>
+				<li><a href="<?=get_permalink($story->ID)?>"><?=$story->post_title?></a></li>
+				<?}?>
+			</ul>
+		</div>
+		<?
+		$html = ob_get_contents(); ob_end_clean();
+		return $html;
+	}
+}
+add_shortcode('expert_tagged', 'sc_expert_tagged');
+
+
+/**
+ * More expert videos
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_expert_videos($atts = Array())
+{
+	global $post;
+		
+	$css	= (isset($atts['css'])) ? $atts['css'] : '';
+	
+	$term = get_term_by('name', get_post_meta($post->ID, 'expert_name', True), 'experts');
+	
+	$videos = resolve_posts(Array(),Array(	'post_type' => 'video',
+											'numberposts' => 5, 
+											'tax_query' => Array(
+																Array(
+																		'taxonomy' => 'experts',
+																		'field' => 'slug', 
+																		'terms' => $term->slug
+																	)
+															)
+										)
+							);
+	$video_page = get_page_by_title('Videos');
+	
+	if(count($videos) > 0) {
+		ob_start();
+		?>
+		<div class="link_list <?=$css?>">
+			<h3>Videos about <?=get_post_meta($post->ID, 'expert_name', True)?></h3>
+			<ul>
+				<? foreach($videos as $video) {?>
+				<li><a href="<?=get_permalink($video->ID)?>"><?=$video->post_title?></a></li>
+				<?}?>
+			</ul>
+		</div>
+		<?
+		$html = ob_get_contents(); ob_end_clean();
+		return $html;
+	}
+}
+add_shortcode('expert_videos', 'sc_expert_videos');
+
+
+/**
+ * More expert photosets
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_expert_photos($atts = Array())
+{
+	global $post;
+		
+	$css	= (isset($atts['css'])) ? $atts['css'] : '';
+	
+	$term = get_term_by('name', get_post_meta($post->ID, 'expert_name', True), 'experts');
+	
+	$photosets = resolve_posts(Array(),Array(	'post_type' => 'photoset',
+												'numberposts' => 5, 
+												'tax_query' => Array(
+																Array(
+																		'taxonomy' => 'experts',
+																		'field' => 'slug', 
+																		'terms' => $term->slug
+																	)
+															)
+										)
+							);
+	
+	if(count($photosets) > 0) {
+		ob_start();
+		?>
+		<div class="link_list <?=$css?>">
+			<h3>Photos about <?=get_post_meta($post->ID, 'expert_name', True)?></h3>
+			<ul>
+				<? foreach($photosets as $photoset) {?>
+				<li><a href="<?=get_permalink($photoset->ID)?>"><?=$photoset->post_title?></a></li>
+				<?}?>
+			</ul>
+		</div>
+		<?
+		$html = ob_get_contents(); ob_end_clean();
+		return $html;
+	}
+}
+add_shortcode('expert_photos', 'sc_expert_photos');
+
+
+/**
+ * Photo set
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_photo_set($atts = Array())
+{
+	global $post;
+	
+	
+	$images = resolve_posts(Array(), Array(	'post_type' => 'attachment',
+											'post_parent' => $post->ID,
+											'numberposts' => -1,
+											'orderby' => 'menu_order',
+											'order' => 'ASC'
+											));
+											
+	ob_start();
+	?>
+	<div id="photoset">
+		<h3 class="span-16"><?=$post->post_title?></h3>
+		<div class="social span-8 last">
+			<iframe 	src="http://www.facebook.com/plugins/like.php?href=<?=get_permalink($post->ID)?>&amp;send=false&amp;layout=button_count&amp;width=80&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" 
+						scrolling="no" 
+						frameborder="0"
+						style="border:none; overflow:hidden; width:80px; height:21px;" 
+						allowTransparency="true">
+			</iframe>
+			<a href="http://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a>
+			<g:plusone size="medium" href="<?=get_permalink($post->ID)?>"></g:plusone>
+		</div>
+		<p class="clear"><?=$post->post_content?> <strong>(<?=count($images)?> photos total)</strong></p>
+		<ul>
+			<? for($i = 1; $i <= count($images);$i++) {
+				$image_obj = $images[$i - 1];
+				$text = '';
+				// caption -> post_excerpt
+				// description -> post_content
+				if($image_obj->post_excerpt != '') {
+					$text = $image_obj->post_excerpt;
+				} else if($image_obj->post_content != '') {
+					$text = $image_obj->post_content;
+				}
+				?>
+			<li class="image" id="photo-<?=$i?>">
+				<?=get_img_html($image_obj->ID, 'photoset_photo', Array('sent_attach' => True))?>
+				<p class="clearfix"><span><?=$i?></span><?=$text?></p>
+			</li>
+		<? } ?>
+		</ul>
+	</div>
+	<?
+	$html = ob_get_contents(); ob_end_clean();
+	return $html;
+}
+add_shortcode('photo_set', 'sc_photo_set');
+
+
+/**
+ * Photo set listing
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_photo_sets($atts = Array())
+{
+	
+	$css = (isset($atts['css'])) ? $atts['css'] : '';
+	
+	$photo_sets = resolve_posts(Array(), Array(	'post_type' => 'photoset',
+												'numberposts' => -1));
+	$first = True;
+	ob_start();?>
+	<div id="_photo-sets">
+	<?
+	$count = 0;
+	foreach($photo_sets as $photo_set) {
+		
+		$image_id = 0;
+		if( ($image_id = get_post_meta($photo_set->ID, '_thumbnail_id', True)) == '') {
+			$image = resolve_posts(Array(), Array(
+				'post_type'   => 'attachment',
+				'post_parent' => $photo_set->ID,
+				'numberposts' => 1,
+				'order'       => 'DESC'));
+			if($image !== False) {
+				$image_id = $image->ID;
+			}
+		}
+		
+		if($first) { ?>
+			<div class="span-15 append-1">
+				<a href="<?=get_permalink($photo_set->ID)?>">
+					<?=get_img_html($image_id, 'photoset_preview', Array('sent_attach' => True))?>
+				</a>
+			</div>
+			<div class="span-8 last ">
+				<h3><a href="<?=get_permalink($photo_set->ID)?>"><?=$photo_set->post_title?></a></h3>
+				<p><?=$photo_set->post_content?></p>
+			</div>
+			<ul class="span-24 clear border-top">
+		<? } else {
+			$css_class = '';
+			if(($count + 1) % 5 == 0) {
+				$css_class = 'last';
+			} else if($count % 5 == 0) {
+				$css_class = 'clear';
+			}
+			?>
+			<li class="<?=$css_class?>">
+				<a href="<?=get_permalink($photo_set->ID)?>">
+					<?=get_img_html($image_id, 'category_story', Array('sent_attach' => True))?>
+				</a>
+				<h3><a href="<?=get_permalink($photo_set->ID)?>"><?=$photo_set->post_title?></a></h3>
+			</li>
+		<? $count++;
+		} 
+		$first = false;
+		?>
+	<? } ?>
+	</ul>
+	</div>
+	<?
+	return ob_get_clean();
+}
+add_shortcode('photo_sets', 'sc_photo_sets');
+
+
+/**
+ * Video listing
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_videos($atts = Array())
+{
+	global $wp_embed;
+	
+	$css            = (isset($atts['css'])) ? $atts['css'] : '';
+	$specific_video = (isset($atts['specific_video'])) ? $atts['specific_video'] : False;
+	
+	$video = null;
+	
+	
+	if($specific_video !== False) {
+		$specific_video = get_post($specific_video);
+		if($specific_video != False) {
+			$videos = resolve_posts(Array(), Array( 'post_type' => 'video', 
+													'numberposts' => -1,
+													'exclude' => Array($specific_video->ID)));
+			$videos = array_merge(Array($specific_video), $videos);
+		}
+	} else {
+		$videos = resolve_posts(Array(), Array( 'post_type' => 'video', 
+												'numberposts' => -1,
+												'exclude' => Array($specific_video->ID)));
+	}
+	
+	$first = True;
+	$count = 1;
+	ob_start();?><?
+	foreach($videos as $video) {
+		$video_url = get_post_meta($video->ID, 'video_url', True);
+		if($video_url != '') {
+			if($first) {
+				$first = false;
+				$embed_string = '[embed width="590" height="430"]'.$video_url.'[/embed]';
+				?>
+				<div class="feature span-15 append-1">
+					<?=$wp_embed->run_shortcode($embed_string)?>
+				</div>
+				<div class="span-8 last">
+					<h3><?=$video->post_title?></h3>
+					<p><?=$video->post_content?></p>
+				</div>
+				<ul class="clear border-top">
+			<? } else {
+				if(strpos($video_url, 'youtube.com')) {
+					preg_match('/v=(?<video_id>[^&]+)&?/', get_post_meta($video->ID, 'video_url', True), $matches);
+					if(isset($matches['video_id'])) {
+						$video_id = $matches['video_id'];
+					?>
+					<li class="<?=(($count % 3) == 0) ? 'last' : ''?>" id="<?=$count?>">
+						<a href="<?=get_permalink($video->ID)?>">
+							<img src="http://i1.ytimg.com/vi/<?=$matches['video_id']?>/hqdefault.jpg" />
+							<h3><?=$video->post_title?></h3>
+						</a>
+					</li>
+				<? $count++;
+					}
+				}
+			}
+		}
+	} ?>
+	</ul><?
+	return ob_get_clean();
+}
+add_shortcode('videos', 'sc_videos');
+
+
+/**
+ * Special profile feature
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_profile_feature($atts = Array())
+{
+	
+	$css = (isset($atts['css'])) ? $atts['css'] : '';
+	
+	if(isset($atts['group'])) {
+		$group_name = $atts['group'];
+		if( ($group = get_term_by('name', $group_name, 'groups')) !== False) {
+			$profiles = get_posts(Array('numberposts' => 4, 'post_type' => 'profile', 'group' => $group->slug));
+			ob_start();?>
+			<div class="span-24 clear profile_feature  <?=$css?>">
+				<h3><span class="orange">Special Feature:</span> <?=$group->name?></h3>
+				<ul>
+			<?$count = 0;
+				foreach($profiles as $profile) {?>
+					<li class="span-6<?=(($count == 3) ? ' last' : '')?>">
+						<a href="<?=get_permalink($profile->ID)?>">
+							<?=get_the_post_thumbnail($profile->ID, 'profile_feature')?>
+						<p>
+								<?=$profile->post_title?>
+						</p>
+						<p>
+								<strong><?=get_post_meta($profile->ID, 'profile_jobtitle', True)?></strong>
+						</p>
+						</a>
+					</li>
+			<?$count++;
+				}?>
+				</ul>
+			</div><?
+		}
+	}
+}
+add_shortcode('profile_feature', 'sc_profile_feature');
 ?>

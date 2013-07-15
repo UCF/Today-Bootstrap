@@ -1,81 +1,5 @@
 var Generic = {};
 
-Generic.resizeSearch = function($){
-	var form          = $('.search-form');
-	var height        = form.height();
-	var search_field  = form.find('.search-field');
-	var search_button = form.find('.search-submit');
-	
-	var loops = 0;
-	
-	while (form.height() == height){
-		var width = search_field.width();
-		search_field.width(++width);
-		
-		loops++;
-		if (loops > 1024){break;}
-	}
-	search_field.width(search_field.width() + search_button.width() - 1);
-};
-
-Generic.homeDimensions = function($){
-	var cls = this;
-	cls.home_element = $('#home');
-	
-	cls.resizeToHeight = function(element, target_height){
-		if(element.length < 1){return;}
-		
-		var loops = 0;
-		
-		var difference = function(){
-			return Math.abs(element.height() - target_height);
-		};
-		
-		// Adjust smaller if the text is too large
-		while (element.height() > target_height){
-			var current_font_size = parseInt(element.css('font-size'));
-			element.css('font-size', --current_font_size + 'px');
-			if (current_font_size < 10){
-				break;
-			}
-			if (++loops > 1024){break;}
-		}
-		
-		
-		// Adjust larger if the text is too small
-		while (element.height() < target_height && difference() > 8){
-			var current_font_size = parseInt(element.css('font-size'));
-			element.css('font-size', ++current_font_size + 'px');
-			if (element.height() > target_height && difference() > 8){
-				element.css('font-size', --current_font_size + 'px');
-				break;
-			}
-			if (++loops > 1024){break;}
-			console.log(element.height(), target_height, current_font_size);
-		}
-		
-		element.height(target_height);
-	};
-	
-	cls.uniformHeight = function(){
-		var template = cls.home_element.data()['template'];
-		
-		if (template == "home-nodescription"){
-			cls.resizeToHeight($('.content'), $('.site-image').height());
-		}
-		
-		if (template == "home-description"){
-			cls.resizeToHeight($('.right-column .description'), $('.site-image').height() - $('.search').height());
-		}
-		return;
-	};
-	
-	if (cls.home_element.length < 1){return;}
-	
-	cls.uniformHeight();
-};
-
-
 Generic.defaultMenuSeparators = function($) {
 	// Because IE sucks, we're removing the last stray separator
 	// on default navigation menus for browsers that don't 
@@ -89,45 +13,7 @@ Generic.removeExtraGformStyles = function($) {
 	// by default, we're removing the reference to the script if
 	// it exists on the page (if CSS hasn't been turned off in GF settings.)
 	$('link#gforms_css-css').remove();
-}
-
-Generic.mobileNavBar = function($) {
-	// Switch the navigation bar from standard horizontal nav to bootstrap mobile nav
-	// when the browser is at mobile size:
-	var mobile_wrap = function() {
-		$('#header-menu').wrap('<div class="navbar navbar-inverse"><div class="navbar-inner"><div class="container" id="mobile_dropdown_container"><div class="nav-collapse"></div></div></div></div>');
-		$('<a class="btn btn-navbar" id="mobile_dropdown_toggle" data-target=".nav-collapse" data-toggle="collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="#">Navigation</a>').prependTo('#mobile_dropdown_container');
-		$('.current-menu-item, .current_page_item').addClass('active');
-	}
-	var mobile_unwrap = function() {
-		$('#mobile_dropdown_toggle .icon-bar').remove();
-		$('#mobile_dropdown_toggle').remove();
-		$('#mobile_dropdown_container a.brand').remove();
-		$('#header-menu').unwrap();
-		$('#header-menu').unwrap();
-		$('#header-menu').unwrap();
-		$('#header-menu').unwrap();
-	}
-	var adjust_mobile_nav = function() {
-		if ($(window).width() < 480) {
-			if ($('#mobile_dropdown_container').length < 1) {
-				mobile_wrap();
-			}
-		}
-		else {
-			if ($('#mobile_dropdown_container').length > 0) {
-				mobile_unwrap();
-			}
-		}
-	}
-	
-	if ( !($.browser.msie && $.browser.version < 9) ) { /* Don't resize in IE8 or older */
-		adjust_mobile_nav();
-		$(window).resize(function() {
-			adjust_mobile_nav();
-		});
-	}
-}
+};
 
 Generic.PostTypeSearch = function($) {
 	$('.post-type-search')
@@ -278,7 +164,73 @@ Generic.PostTypeSearch = function($) {
 				}
 			}
 		});
-}
+};
+
+
+var handleAlerts = function($) {
+	var ALERT_COOKIE_NAME = 'ucf_today_alerts';
+	
+	function extract_post_meta(data) {
+		var post = [];
+		post['id'] 		= data.substr(0, data.indexOf('-'));
+		post['time']	= data.substr(data.indexOf('-') + 1, data.length);
+		return (post['id'] == undefined || post['time'] == undefined) ? null : post;
+	}
+	function compact_post_meta(id, time) {return id + '-' + time;}
+	
+	$('#alerts > li')
+		.each(function(index, li){
+			$(li)
+				.find('a.close')
+				.click(function(_event) {
+					_event.preventDefault();
+					var li 				= $('#alerts > li:eq(' + index + ')'),
+						hidden_posts 	= $.cookie(ALERT_COOKIE_NAME);
+						
+					var cur_post = extract_post_meta(li.attr('id').replace('alert-', ''));
+					
+					if(cur_post != null) {	
+						if(hidden_posts !== null) { // the cookie is not set
+							if(hidden_posts.indexOf(cur_post['id']) != -1) { // first time this post is being hidden? 
+								hidden_posts = hidden_posts.split(',');
+							
+								for(var _index in hidden_posts) {
+									var post = extract_post_meta(hidden_posts[_index]);
+									if(post != null && cur_post['id'] == post['id']) {
+										if(cur_post['time'] != post['id']) {
+											/*	
+												This alert is being hidden after it was updated in Wordpress.
+												Update the cookie with the new post_modified time.
+											*/ 
+											$.cookie(ALERT_COOKIE_NAME, 
+												$.cookie(ALERT_COOKIE_NAME)
+													.replace(compact_post_meta(post['id'],post['time']), 
+														compact_post_meta(cur_post['id'], cur_post['time'])),
+															{ path: '/', domain: '.ucf.edu'});
+										}
+										break;
+									}
+								}
+							} else {
+								$.cookie(
+									ALERT_COOKIE_NAME, 
+									$.cookie(ALERT_COOKIE_NAME) + ',' + compact_post_meta(cur_post['id'], cur_post['time']),
+									{ path: '/', domain: '.ucf.edu'}
+								);
+							}
+						} else {
+							$.cookie(
+								ALERT_COOKIE_NAME, 
+								compact_post_meta(cur_post['id'], cur_post['time']),
+								{ path: '/', domain: '.ucf.edu'}
+							);
+						}
+					}
+					li.hide();
+				});
+		});
+};
+
 
 if (typeof jQuery != 'undefined'){
 	jQuery(document).ready(function($) {
@@ -288,11 +240,12 @@ if (typeof jQuery != 'undefined'){
 		Webcom.loadMoreSearchResults($);
 		
 		/* Theme Specific Code Here */
-		//Generic.homeDimensions($);
-		//Generic.resizeSearch($);
 		Generic.defaultMenuSeparators($);
 		Generic.removeExtraGformStyles($);
-		Generic.mobileNavBar($);
 		Generic.PostTypeSearch($);
+
+		handleAlerts($);
+		var _ellipsizer = new ellipsizer();
+		$('.ellipse').each(function() {_ellipsizer.addElement(this);});
 	});
-}else{console.log('jQuery dependancy failed to load');}
+}else{console.log('jQuery dependency failed to load');}
