@@ -6,6 +6,7 @@ Theme to replace the original Today WordPress theme, which relies on the Themati
 
 ## Installation Requirements:
 * Settings > Permalinks: set Category base to 'section'; set Tag base to 'topic'
+# Home page: replace span divs with span4, span5, and span3 respectively
 
 
 ## Deployment
