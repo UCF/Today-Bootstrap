@@ -355,7 +355,7 @@ function sc_more_headlines($atts = Array())
 	?>	
 		<div class="<?=$css?>" id="more_headlines">
 			<?=($header) ? '<h3>More Headlines</h3>' : ''?>
-			<ul>
+			<ul class="story-list">
 	<?
 	$count = 0;
 	foreach($headlines as $headline) {
@@ -600,8 +600,8 @@ function sc_events($atts = Array())
 	?>
 	<div class="events <?=$css?>">
 		<h3>Events @ UCF</h3>
-		<ul>
-			<? foreach(get_event_data() as $event) {
+		<ul class="event-list">
+			<? foreach(get_events() as $event) {
 					$event_start = strtotime($event->starts);
 			?>
 				<li class="clearfix">
@@ -645,7 +645,7 @@ function sc_promos($atts = Array())
 		?>
 			<div class="<?=$css?>" id="promos">
 				<!-- <h3>Promos</h3> -->
-				<ul>
+				<ul class="story-list">
 		<?
 		$count = 0;
 		foreach($promos as $promo) {
@@ -766,7 +766,7 @@ function sc_subpage_features($atts = Array(), $id_only = False)
 		?>
 		<div class="<?=$css?>" id="features">
 			<!-- Features -->
-			<ul>
+			<ul class="story-list">
 				<? 
 				for($i = 0; $i < count($features);$i++) {
 					$feature = $features[$i];
@@ -817,7 +817,7 @@ function sc_video_carousel($atts = Array())
 		<div class="<?=$css?>" id="video_carousel">
 			<h3>Watch UCF Videos</h3>
 			<div class="carousel">
-				<ul>
+				<ul class="video-list">
 				<? foreach($videos as $video) {
 						$wp_embed->post_ID = $video->ID;
 						$video_url = get_post_meta($video->ID, 'video_url', True);
@@ -936,7 +936,7 @@ function sc_external_stories($atts = Array())
 		?>
 		<div class="<?=$css?>" id="external_stories">
 			<h3>Stories About UCF</h3>
-			<ul>
+			<ul class="story-list">
 				<? foreach($stories as $story) { ?>
 					<li>
 						<a href="<?=get_post_meta($story->ID, 'externalstory_url', True)?>">
@@ -989,10 +989,10 @@ function sc_announcements($atts = Array())
 				?>
 				<div class="<?=$css?>" id="announcements">
 					<h3>Announcements</h3>
-					<ul>
+					<ul class="announcement-list">
 						<? foreach($rss_items as $item) { ?>
 							<li>
-								<h4><a  class="orange" href="<?=$item->get_permalink()?>"><?=$item->get_title()?></a></h4>
+								<h4><a class="orange" href="<?=$item->get_permalink()?>"><?=$item->get_title()?></a></h4>
 								<p class="ellipse">
 									<?=$item->get_content()?>
 								</p>
@@ -1191,7 +1191,7 @@ function sc_single_post_more_tag($atts = Array())
 		?>
 		<div class="link_list <?=$css?>">
 			<h3>More about <?=$primary_tag->name?></h3>
-			<ul>
+			<ul class="story-list">
 				<? foreach($primary_tag_posts as $tag_post) {?>
 				<li>
 					<a href="<?=get_permalink($tag_post->ID)?>"><?=$tag_post->post_title?></a>
@@ -1232,7 +1232,7 @@ function sc_single_post_more_cat($atts = Array())
 		?>
 		<div class="link_list <?=$css?>">
 			<h3>More about <?=$cat->name?></h3>
-			<ul>
+			<ul class="story-list">
 				<? foreach($cat_posts as $cat_post) {?>
 				<li>
 					<a href="<?=get_permalink($cat_post->ID)?>"><?=$cat_post->post_title?></a>
@@ -1272,7 +1272,7 @@ function sc_single_post_comments($atts = Array())
 		?>
 		<div class="<?=$css?>" id="comments">
 			<h3>Comments</h3>
-			<ul>
+			<ul class="comment-list">
 				<? foreach($comments as $comment) {?>
 				<li>
 					<p class="meta"><?=$comment->comment_author?>, <?=$comment->comment_date?></p>
@@ -1313,7 +1313,7 @@ function sc_single_post_topics($atts = Array())
 		?>
 		<div class="link_list <?=$css?>" id="more_tags">
 			<h3>More Topics</h3>
-			<ul>
+			<ul class="term-list">
 				<?	for($i = 0; $i < count($tags);$i++) {
 						$tag = $tags[$i];
 						if($tag->term_id != $mainsite_tag->term_id) {
@@ -1397,7 +1397,7 @@ function sc_single_post_related_experts($atts = Array())
 			?>
 			<div class="link_list <?=$css?>" id="related_experts">
 				<h3>More About <?=$expert->name?></h3>
-				<ul>
+				<ul class="story-list">
 			<?
 				foreach($stories as $story) { ?>
 					<li><a href="<?=get_permalink($story->ID)?>"><?=$story->post_title?></a></li>
@@ -1489,7 +1489,7 @@ function sc_expert_tagged($atts = Array())
 		?>
 		<div class="link_list <?=$css?>">
 			<h3>More about <?=get_post_meta($post->ID, 'expert_name', True)?></h3>
-			<ul>
+			<ul class="story-list">
 				<? foreach($stories as $story) {?>
 				<li><a href="<?=get_permalink($story->ID)?>"><?=$story->post_title?></a></li>
 				<?}?>
@@ -1535,7 +1535,7 @@ function sc_expert_videos($atts = Array())
 		?>
 		<div class="link_list <?=$css?>">
 			<h3>Videos about <?=get_post_meta($post->ID, 'expert_name', True)?></h3>
-			<ul>
+			<ul class="video-list">
 				<? foreach($videos as $video) {?>
 				<li><a href="<?=get_permalink($video->ID)?>"><?=$video->post_title?></a></li>
 				<?}?>
@@ -1580,7 +1580,7 @@ function sc_expert_photos($atts = Array())
 		?>
 		<div class="link_list <?=$css?>">
 			<h3>Photos about <?=get_post_meta($post->ID, 'expert_name', True)?></h3>
-			<ul>
+			<ul class="photoset-list">
 				<? foreach($photosets as $photoset) {?>
 				<li><a href="<?=get_permalink($photoset->ID)?>"><?=$photoset->post_title?></a></li>
 				<?}?>
@@ -1686,16 +1686,16 @@ function sc_photo_sets($atts = Array())
 		}
 		
 		if($first) { ?>
-			<div class="span-15 append-1">
+			<div class="span8">
 				<a href="<?=get_permalink($photo_set->ID)?>">
 					<?=get_img_html($image_id, 'photoset_preview', Array('sent_attach' => True))?>
 				</a>
 			</div>
-			<div class="span-8 last ">
+			<div class="span4 last">
 				<h3><a href="<?=get_permalink($photo_set->ID)?>"><?=$photo_set->post_title?></a></h3>
 				<p><?=$photo_set->post_content?></p>
 			</div>
-			<ul class="span-24 clear border-top">
+			<ul class="span12 border-top">
 		<? } else {
 			$css_class = '';
 			if(($count + 1) % 5 == 0) {
@@ -1770,7 +1770,7 @@ function sc_videos($atts = Array())
 					<h3><?=$video->post_title?></h3>
 					<p><?=$video->post_content?></p>
 				</div>
-				<ul class="clear border-top">
+				<ul class="video-list clear border-top">
 			<? } else {
 				if(strpos($video_url, 'youtube.com')) {
 					preg_match('/v=(?<video_id>[^&]+)&?/', get_post_meta($video->ID, 'video_url', True), $matches);

@@ -267,38 +267,6 @@ function display_events($header='h2'){?>
 }
 
 
-function display_news($header='h2'){?>
-	<?php $options = get_option(THEME_OPTIONS_NAME);?>
-	<?php $count   = $options['news_max_items'];?>
-	<?php $news    = get_news(0, ($count) ? $count : 2);?>
-	<?php if(count($news)):?>
-		<<?=$header?>><a href="<?=$news[0]->get_feed()->get_link()?>"><?=$news[0]->get_feed()->get_title()?></a></<?=$header?>>
-		<ul class="news">
-			<?php foreach($news as $key=>$item): $image = get_article_image($item); $first = ($key == 0);?>
-			<li class="item<?php if($first):?> first<?php else:?> not-first<?php endif;?>">
-				<h3 class="title"><a href="<?=$item->get_link()?>" class="ignore-external title"><?=$item->get_title()?></a></h3>
-				<p>
-					<a class="image ignore-external" href="<?=$item->get_link()?>">
-						<?php if($image):?>
-						<img src="<?=$image?>" alt="Feed image for <?=$item->get_title()?>" />
-						<?php endif;?>
-					</a>
-					<a class="description ignore-external"  href="<?=$item->get_link()?>">
-						<?= $item->get_description();?>
-					</a>
-				</p>
-				<div class="end"><!-- --></div>
-			</li>
-			<?php endforeach;?>
-		</ul>
-		<div class="end"><!-- --></div>
-	<?php else:?>
-		<p>Unable to fetch news.</p>
-	<?php endif;?>
-<?php
-}
-
-
 function get_events($start=null, $limit=null){
 	$options = get_option(THEME_OPTIONS_NAME);
 	$qstring = (bool)strpos($options['events_url'], '?');
@@ -312,14 +280,6 @@ function get_events($start=null, $limit=null){
 	$events  = array_reverse(FeedManager::get_items($url));
 	$events  = array_slice($events, $start, $limit);
 	return $events;
-}
-
-
-function get_news($start=null, $limit=null){
-	$options = get_option(THEME_OPTIONS_NAME);
-	$url     = $options['news_url'];
-	$news    = FeedManager::get_items($url, $start, $limit);
-	return $news;
 }
 
 
