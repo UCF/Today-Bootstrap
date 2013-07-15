@@ -67,7 +67,7 @@
 				</div>
 			</div>
 			<?=wp_nav_menu(array(
-				'theme_location' => 'header-menu', 
+				'menu' => 'Top Navigation', 
 				'container' => 'false', 
 				'menu_class' => 'menu '.get_header_styles(), 
 				'menu_id' => 'header-menu', 

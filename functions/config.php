@@ -11,65 +11,55 @@
 function __init__(){
 	add_theme_support('menus');
 	add_theme_support('post-thumbnails');
-	add_image_size('homepage', 620);
-	add_image_size('homepage-secondary', 540);
-	register_nav_menu('header-menu', __('Header Menu'));
-	register_nav_menu('footer-menu', __('Footer Menu'));
+	// Custom Image Sizes
+	add_image_size('feature', 417, 343, True);
+	add_image_size('story', 95, 91, True); // also used for expert thumb
+	add_image_size('subpage_feature', 469, 270, True);
+	add_image_size('category_story', 167, 154, True);
+	add_image_size('update', 308, 204, True);
+	add_image_size('profile_img', 295, 367, True);
+	add_image_size('story_feature', 548, 396, False);
+	add_image_size('photoset_preview', 590, 443, True); // unknown
+	add_image_size('alert', 47, 49, True);
+	add_image_size('ucf_photo', 300, 230, False);
+	add_image_size('ucf_photo_subpage', 380, 300, True);
+	add_image_size('profile_feature', 230, 286, True);
+	add_image_size('homepage', 66, 66, True);
+	// Widgets
 	register_sidebar(array(
-		'name'          => __('Sidebar'),
-		'id'            => 'sidebar',
-		'description'   => 'Sidebar found on two column page templates and search pages',
+		'name'          => __('Primary Aside'),
+		'id'            => 'primary-aside',
+		'description'   => 'The primary widget area, most often used as a sidebar.',
 		'before_widget' => '<div id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</div>',
 	));
 	register_sidebar(array(
-		'name'          => __('Below the Fold - Left'),
-		'id'            => 'bottom-left',
+		'name'          => __('Secondary Aside'),
+		'id'            => 'secondary-aside',
 		'description'   => 'Left column on the bottom of pages, after flickr images if enabled.',
 		'before_widget' => '<div id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</div>',
 	));
 	register_sidebar(array(
-		'name'          => __('Below the Fold - Center'),
-		'id'            => 'bottom-center',
-		'description'   => 'Center column on the bottom of pages, after news if enabled.',
+		'name'          => __('1st Subsidary Aside'),
+		'id'            => '1st-subsidiary-aside',
+		'description'   => 'The 1st widget area in the footer.',
 		'before_widget' => '<div id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</div>',
 	));
 	register_sidebar(array(
-		'name'          => __('Below the Fold - Right'),
-		'id'            => 'bottom-right',
-		'description'   => 'Right column on the bottom of pages, after events if enabled.',
+		'name'          => __('2nd Subsidary Aside'),
+		'id'            => '2nd-subsidiary-aside',
+		'description'   => 'The 2nd widget area in the footer.',
 		'before_widget' => '<div id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</div>',
 	));
 	register_sidebar(array(
-		'name' => __('Footer - Column One'),
-		'id' => 'bottom-one',
-		'description' => 'Far left column in footer on the bottom of pages.',
+		'name'          => __('3rd Subsidary Aside'),
+		'id'            => '3rd-subsidiary-aside',
+		'description'   => 'The 3rd widget area in the footer.',
 		'before_widget' => '<div id="%1$s" class="widget %2$s">',
-		'after_widget' => '</div>',
-	));
-	register_sidebar(array(
-		'name' => __('Footer - Column Two'),
-		'id' => 'bottom-two',
-		'description' => 'Second column from the left in footer, on the bottom of pages.',
-		'before_widget' => '<div id="%1$s" class="widget %2$s">',
-		'after_widget' => '</div>',
-	));
-	register_sidebar(array(
-		'name' => __('Footer - Column Three'),
-		'id' => 'bottom-three',
-		'description' => 'Third column from the left in footer, on the bottom of pages.',
-		'before_widget' => '<div id="%1$s" class="widget %2$s">',
-		'after_widget' => '</div>',
-	));
-	register_sidebar(array(
-		'name' => __('Footer - Column Four'),
-		'id' => 'bottom-four',
-		'description' => 'Far right in footer on the bottom of pages.',
-		'before_widget' => '<div id="%1$s" class="widget %2$s">',
-		'after_widget' => '</div>',
+		'after_widget'  => '</div>',
 	));
 	foreach(Config::$styles as $style){Config::add_css($style);}
 	foreach(Config::$scripts as $script){Config::add_script($script);}
