@@ -85,29 +85,53 @@ abstract class CustomTaxonomy {
 	}
 }
 
-
 /**
- * Describes organizational groups
+ * Expert taxonomy
  *
+ * @package default
  * @author Chris Conover
  **/
-class OrganizationalGroups extends CustomTaxonomy
-{
+class Experts extends CustomTaxonomy{
 	public
-		$name               = 'org_groups',
-		$general_name       = 'Organizational Groups',
-		$singular_name      = 'Organizational Group',
-		$search_items       = 'Search Organizational Groups',
-		$popular_items      = 'Popular Organizational Groups',
-		$all_times          = 'All Organizational Groups',
-		$parent_item        = 'Parent Organizational Group',
-		$parent_item_colon  = 'Parent Organizational Group:',
-		$edit_item          = 'Edit Organizational Group',
-		$update_item        = 'Update Organizational Group',
-		$add_new_item       = 'Add New Organizational Group',
-		$new_item_name      = 'New Tag Organizational Group',
-		
-		$hierarchical = True;
-} // END class 
+		$name				= 'experts',
+		$general_name		= 'Post Experts',
+		$singular_name 		= 'Post Expert',
+		$search_items		= 'Search Experts',
+		$popular_items		= 'Popular Experts',
+		$all_times			= 'All Experts',
+		$parent_item		= 'Parent Expert',
+		$parent_item_colon	= 'Parent Expert:',
+		$edit_item			= 'Edit Expert',
+		$update_item		= 'Update Expert',
+		$add_new_item		= 'Add New Expert',
+		$new_item_name		= 'New Expert Name',
+		$menu_name			= NULL,
+		$hierarchical		= True;
+}
+
+/**
+ * Group profiles
+ *
+ * @package default
+ * @author Chris Conover
+ **/
+class Groups extends CustomTaxonomy{
+	public
+		$name				= 'groups',
+		$general_name		= 'Post Groups',
+		$singular_name 		= 'Post Group',
+		$search_items		= 'Search Groups',
+		$popular_items		= 'Popular Groups',
+		$all_times			= 'All Groups',
+		$parent_item		= 'Parent Group',
+		$parent_item_colon	= 'Parent Group:',
+		$edit_item			= 'Edit Group',
+		$update_item		= 'Update Group',
+		$add_new_item		= 'Add New Group',
+		$new_item_name		= 'New Group Name',
+		$menu_name			= NULL,
+		$hierarchical		= False;
+}
+
 
 ?>

@@ -112,16 +112,19 @@ define('CB_DOMAIN', $theme_options['cb_domain']);
  * object.
  **/
 Config::$custom_post_types = array(
+	'Alert',
+	'Post',
+	'Expert',
+	'PhotoSet',
 	'Video',
-	'Document',
-	'Publication',
-	'Page',
-	'Person',
-	'Post'
+	'Profile',
+	'Update',
+	'ExternalStory'
 );
 
 Config::$custom_taxonomies = array(
-	'OrganizationalGroups'
+	'Experts',
+	'Groups'
 );
 
 Config::$body_classes = array('default',);

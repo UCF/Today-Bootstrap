@@ -5,7 +5,7 @@ Theme to replace the original Today WordPress theme, which relies on the Themati
 
 
 ## Installation Requirements:
-* n/a
+* Settings > Permalinks: set Category base to 'section'; set Tag base to 'topic'
 
 
 ## Deployment
@@ -40,9 +40,12 @@ UCF's fork of the Bootstrap project (http://github.com/UCF/bootstrap/) is added 
 ### Compiling
 Once the setup instructions above have been completed, you can compile modified .less files from the root bootstrap directory with `make bootstrap`. Compiled files will save to a new directory 'bootstrap' within the root directory (static/bootstrap/bootstrap/).
 
+### Importing Data
+Today tends to export HUGE XML files which don't import well-- use a WXR splitter (http://github.com/suhastech/Wordpress-WXR-Splitter/) to generate smaller chunks of data for import.
 
 
-## Notes
+
+## Other Notes
 
 n/a
 
