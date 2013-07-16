@@ -49,10 +49,10 @@
 	<body class="<?=body_classes()?> <?php if (is_home()) { print 'body-home'; } else { print 'body-subpage'; } ?>">
 		<div class="container">
 			<div class="row" id="header">
-				<div id="page-title" class="span6">
+				<div id="page-title" class="span7">
 					<h1><?=get_header_title();?></h1>
 				</div>
-				<div id="weather_bug" class="span6">
+				<div id="weather_bug" class="span5">
 					<?php $weather = get_weather_data(); ?>
 					<div id="wb_date">
 						<?=date('l, F j, Y')?>

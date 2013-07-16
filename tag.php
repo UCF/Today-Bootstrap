@@ -13,7 +13,7 @@
 	}
 ?>
 	<div class="subpage">
-		<? if($subpage != '') echo "<div id=\"$subpage\">";?>
+		<? if($subpage != '') echo '<div id="'.$subpage.'">';?>
 		<?=apply_filters('the_content', $page->post_content)?>
 		<? if($subpage != '') echo '</div>';?>
 	</div>
