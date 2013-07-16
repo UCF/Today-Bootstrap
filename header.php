@@ -49,10 +49,10 @@
 	<body class="<?=body_classes()?>">
 		<div class="container">
 			<div class="row" id="header">
-				<div id="page-title" class="span9">
+				<div id="page-title" class="span6">
 					<h1><a href="<?=bloginfo('url')?>"><?=bloginfo('name')?></a></h1>
 				</div>
-				<div id="weather_bug" class="span3">
+				<div id="weather_bug" class="span6">
 					<?php $weather = get_weather_data(); ?>
 					<div id="wb_date">
 						<?=date('l, F j, Y')?>
@@ -65,12 +65,15 @@
 						<?=$weather['condition']?>, <span><?=$weather['temp']?></span>
 					</div>
 				</div>
+				<hr class="span12" />
 			</div>
-			<?=wp_nav_menu(array(
-				'menu' => 'Top Navigation', 
-				'container' => 'false', 
-				'menu_class' => 'menu '.get_header_styles(), 
-				'menu_id' => 'header-menu', 
-				'walker' => new Bootstrap_Walker_Nav_Menu()
-				));
-			?>
+			<div id="header-menu">
+				<?=wp_nav_menu(array(
+					'menu' => 'Top Navigation', 
+					'container' => 'false', 
+					'menu_class' => 'menu '.get_header_styles(),
+					'walker' => new Bootstrap_Walker_Nav_Menu()
+					));
+				?>
+				<?=get_search_form()?>
+			</div>

@@ -187,6 +187,14 @@ function sc_post_type_search($params=array(), $content='') {
 add_shortcode('post-type-search', 'sc_post_type_search');
 
 
+function sc_search_form() {
+	ob_start();
+	get_search_form();
+	return ob_get_clean();
+}
+add_shortcode('search_form', 'sc_search_form');
+
+
 
 /** TODAY SHORTCODES **/
 
