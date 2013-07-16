@@ -45,12 +45,6 @@ ul.dropdown-menu li { width: 100%; margin-bottom: 0 !important; }
 ul.dropdown-menu li:after{ content: none !important; }
 ul.dropdown-menu li a { margin-right: 0; white-space: pre-wrap; }
 
-.menu.horizontal .dropdown-menu { margin-top: 3px; }
-.menu.horizontal .dropdown.open .dropdown-toggle { background: none; color: #0088CC; }
-
-.row-border-bottom-top {margin-left:20px; overflow: hidden;}
-.row-border-bottom-top *:first-child {margin-left:0;}
-
 .search-form #s {
 	width:100%;
 	display:block;
@@ -60,36 +54,6 @@ ul.dropdown-menu li a { margin-right: 0; white-space: pre-wrap; }
     padding:5px 10px;
 	height: 30px;
 }
-
-.navbar-inverse .brand { color: #fff; }
-.navbar .dropdown-menu, .navbar .dropdown-menu li { display: block !important; }
-
-#header{margin-bottom: .5em;margin-top:20px;}
-
-#footer-menu{ }
-#footer-widget-wrap { margin-top: 16px; }
-#footer .ucf{}
-#footer .info{position: relative; top: -10px;}
-#footer .info,
-#footer .info a{line-height: 1.5em; text-align: right; font-family: "Helvetica Neue", "Helvetica", "Arial", "sans-serif"; font-weight: normal; font-size: 14px;}
-#footer .info .copyright{margin-top: 1em;}
-
-.events,
-.events .date,
-.events .title,
-.events .title a{font-family: "Helvetica Neue", "Helvetica", "Arial", "sans-serif";}
-.events{border-spacing: 16px; border-collapse:separate; padding: 0; margin: 0; position: relative; top: -16px;}
-.events .date{text-align: center; width: 1px; padding: 8px 12px; background-color: #fef7c8; color: #666; font-weight: bold; border: 1px solid #ded7a8;
-	-moz-box-shadow: 1px 1px 6px rgba(0, 0, 0, .2);
-	-webkit-box-shadow: 1px 1px 6px rgba(0, 0, 0, .2);
-	box-shadow: 1px 1px 6px rgba(0, 0, 0, .2);
-}
-.events .month{font-size: 18px;}
-.events .day{font-size: 16px;}
-.events .title{font-size: 14px; text-align: left; padding-left:10px;}
-.events .title .wrap{display: block; max-height: 50px; overflow: hidden;}
-
-.person-picture-wrap { margin-bottom: 20px !important; }
 
 .post-type-search {margin-top:1em;}
 .post-type-search-result-highlight {background-color:yellow;border:1px solid #ddd;}

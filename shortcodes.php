@@ -602,31 +602,9 @@ add_shortcode('resources', 'sc_resources');
  **/
 function sc_events($atts = Array())
 {
-	$css = (isset($atts['css'])) ? $atts['css'] : '';
-	
-	ob_start();
-	?>
-	<div class="events <?=$css?>">
-		<h3>Events @ UCF</h3>
-		<ul class="event-list">
-			<? foreach(get_events() as $event) {
-					$event_start = strtotime($event->starts);
-			?>
-				<li class="clearfix">
-					<span class="date">
-						<?=date('M', $event_start)?>
-						<br />
-						<span class="num"><?=date('j', $event_start)?></span>
-					</span>
-					<a href="<?=EVENTS_URL.'?eventdatetime_id='.$event->id?>"><?=$event->title?></a>
-				</li>
-			<? } ?>
-		</ul>
-		<p><a href="http://events.ucf.edu?upcoming=upcoming">More Events</a></p>
-	</div>
-	<?
-	$html = ob_get_contents(); ob_end_clean();
-	return $html;
+	$css 	= (isset($atts['css'])) ? $atts['css'] : '';
+	$header = (isset($atts['header'])) ? $atts['header'] : 'h3';
+	return display_events($header, $css);
 }
 add_shortcode('events', 'sc_events');
 

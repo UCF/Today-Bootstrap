@@ -237,33 +237,41 @@ function display_flickr($header='h2'){
 }
 
 
-function display_events($header='h2'){?>
-	<?php $options = get_option(THEME_OPTIONS_NAME);?>
-	<?php $count   = $options['events_max_items']?>
-	<?php $events  = get_events(0, ($count) ? $count : 3);?>
-	<?php if(count($events)):?>
-		<<?=$header?>><a href="<?=$events[0]->get_feed()->get_link()?>"><?=$events[0]->get_feed()->get_title()?></a></<?=$header?>>
-		<table class="events">
-			<?php foreach($events as $item):?>
-			<tr class="item">
-				<td class="date">
-					<?php
-						$month = $item->get_date("M");
-						$day   = $item->get_date("j");
-					?>
-					<div class="month"><?=$month?></div>
-					<div class="day"><?=$day?></div>
-				</td>
-				<td class="title">
-					<a href="<?=$item->get_link()?>" class="wrap ignore-external"><?=$item->get_title()?></a>
-				</td>
-			</tr>
-			<?php endforeach;?>
-		</table>
+function display_events($header='h3', $css=null){
+	$options = get_option(THEME_OPTIONS_NAME);
+	$count   = $options['events_max_items'];
+	$events  = get_events(0, ($count) ? $count : 3);
+
+	if(count($events)):
+		ob_start(); ?>
+
+		<div class="events <?=$css?>">
+			<<?=$header?>>Events @ UCF</h3></<?=$header?>>
+			<ul class="event-list">
+				<?php 
+				foreach($events as $item) {
+					$month = $item->get_date("M");
+					$day   = $item->get_date("j");
+					$iso   = $item->get_date("c");
+				?>
+					<li class="vevent clearfix">
+						<div class="dtstart">
+							<span class="month"><?=$month?></span>
+							<span class="day"><?=$day?></span>
+							<span class="value-title" title="<?=$iso?>"></span>
+						</div>
+						<span class="title"><a class="url" href="<?=$item->get_link()?>"><?=$item->get_title()?></a></span>
+					</li>
+				<? } ?>
+			</ul>
+			<p class="more"><a href="http://events.ucf.edu?upcoming=upcoming">More Events</a></p>
+		</div>
+
 	<?php else:?>
 		<p>Unable to fetch events</p>
 	<?php endif;?>
 <?php
+	return ob_get_clean();
 }
 
 

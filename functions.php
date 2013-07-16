@@ -70,7 +70,7 @@ function transition_rules()
  * Pulls, parses and caches the weather.
  *
  * @return array
- * @author Chris Conover, Jo Greybill
+ * @author Chris Conover, Jo Dickson
  **/
 function get_weather_data() {
 	$cache_key = 'weather';
@@ -535,7 +535,7 @@ function get_header_title() {
 
 	global $wp_query;
 	$post = $wp_query->queried_object;
-	
+
 	if(!is_search() || !is_home() || !is_404()) {
 		if(is_category() || is_tag()) {
 			$header_title = $post->name;
