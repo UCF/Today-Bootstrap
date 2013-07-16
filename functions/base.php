@@ -1296,30 +1296,29 @@ function header_links(){
  **/
 function header_title(){
 	$site_name = get_bloginfo('name');
-	$separator = '|';
+	$separator = '-';
 
 	if ( is_single() ) {
 		$content = single_post_title('', FALSE);
 	}
 	elseif ( is_home() || is_front_page() ) { 
-		$content = get_bloginfo('description');
+		$content = get_bloginfo('name');
 	}
 	elseif ( is_page() ) { 
 		$content = single_post_title('', FALSE); 
 	}
 	elseif ( is_search() ) { 
-		$content = __('Search Results for:'); 
-		$content .= ' ' . esc_html(stripslashes(get_search_query()));
+		$content = esc_html(stripslashes(get_search_query()));
+		$content .= ' - '.__('Search Results'); 
 	}
 	elseif ( is_category() ) {
-		$content = __('Category Archives:');
-		$content .= ' ' . single_cat_title("", false);;
+		$content = single_cat_title("", false);
 	}
 	elseif ( is_404() ) { 
 		$content = __('Not Found'); 
 	}
 	else { 
-		$content = get_bloginfo('description');
+		$content = get_bloginfo('name');
 	}
 
 	if (get_query_var('paged')) {
@@ -1333,12 +1332,12 @@ function header_title(){
 		if (is_home() || is_front_page()) {
 			$elements = array(
 				'site_name' => $site_name,
-				'separator' => $separator,
-				'content' => $content,
 			);
 		} else {
 			$elements = array(
-				'content' => $content,
+				'content'   => $content,
+				'separator' => $separator,	
+				'site_name' => $site_name,			
 			);
 		}  
 	} else {
@@ -1349,10 +1348,10 @@ function header_title(){
 	
 	// But if they don't, it won't try to implode
 	if(is_array($elements)) {
-	$doctitle = implode(' ', $elements);
+		$doctitle = implode(' ', $elements);
 	}
 	else {
-	$doctitle = $elements;
+		$doctitle = $elements;
 	}
 
 	$doctitle = "<title>". $doctitle ."</title>";
