@@ -526,4 +526,36 @@ function filter_media_comment_status( $open, $post_id ) {
 }
 add_filter( 'comments_open', 'filter_media_comment_status', 10 , 2 );
 
+
+/**
+ * Determine the title of the page <h1>, depending on content returned
+ **/
+function get_header_title() {
+	$header_title = '<a href="'.get_bloginfo('url').'">'.get_bloginfo('name').'</a>';
+
+	global $wp_query;
+	$post = $wp_query->queried_object;
+	
+	if(!is_search() || !is_home() || !is_404()) {
+		if(is_category() || is_tag()) {
+			$header_title = $post->name;
+		} else if(is_single() && count($cats = wp_get_post_categories($post->ID)) > 0) {
+			$header_title = get_cat_name($cats[0]);
+		} else if(is_page() || is_single()) {
+			if($post->post_type == 'photoset') {
+				break;
+			} else if($post->post_type == 'expert') {
+				$header_title = 'Experts at UCF';
+			} else if($post->post_type == 'video') {
+				$header_title = 'Videos';
+			} else if($post->post_type == 'profile') {
+				$header_title = 'Profiles';
+			} else {
+				$header_title = $post->post_title;
+			}	
+		}
+	}
+	return $header_title;
+}
+
 ?>

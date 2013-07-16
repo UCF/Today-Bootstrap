@@ -46,11 +46,11 @@
 		</script>
 		
 	</head>
-	<body class="<?=body_classes()?>">
+	<body class="<?=body_classes()?> <?php if (is_home()) { print 'body-home'; } else { print 'body-subpage'; } ?>">
 		<div class="container">
 			<div class="row" id="header">
 				<div id="page-title" class="span6">
-					<h1><a href="<?=bloginfo('url')?>"><?=bloginfo('name')?></a></h1>
+					<h1><?=get_header_title();?></h1>
 				</div>
 				<div id="weather_bug" class="span6">
 					<?php $weather = get_weather_data(); ?>
