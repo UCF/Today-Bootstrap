@@ -70,54 +70,59 @@ function transition_rules()
  * Pulls, parses and caches the weather.
  *
  * @return array
- * @author Chris Conover
+ * @author Chris Conover, Jo Greybill
  **/
-function get_weather_data()
-{
+function get_weather_data() {
 	$cache_key = 'weather';
 	
+	// Check if cached weather data already exists
 	if(($weather = get_transient($cache_key)) !== False) {
 		return $weather;
 	} else {
-		$weather = Array('condition' => 'fair', 'temp' => 80, 'img' => '34');
+		$weather = array('condition' => 'Fair', 'temp' => '80&#186;', 'img' => '34');
 		
-		// Cookies are needed for the service to work properly
-		$opts = Array('http' => Array(	'method'=>"GET",
-										'header'=>"Accept-language: en\r\n" .
-										"Cookie: P1=01||,USFL0372|1||WESH|||||||;\r\n",
-										'timeout' => 1
-									)
-					);
-		
+		// Set a timeout
+		$opts = array('http' => array(
+								'method'  => 'GET',
+								'timeout' => WEATHER_FETCH_TIMEOUT,
+		));
 		$context = stream_context_create($opts);
 		
-		try {
-			$raw_weather = file_get_contents(WEATHER_URL, false, $context);
-			$json_weather = json_decode(str_replace("\'", "'", $raw_weather));
-
-			@$weather['condition']	= $json_weather->weather->conditions->text;
-			@$weather['temp']		= substr($json_weather->weather->conditions->temp, 0, strlen($json_weather->weather->conditions->temp) - 1);
-			@$weather['img']		= $json_weather->weather->conditions->cid;
+		// Grab the weather feed
+		$raw_weather = file_get_contents(WEATHER_URL, false, $context);
+		if ($raw_weather) {
+			$json = json_decode($raw_weather);
+			
+			$weather['condition'] 	= $json->condition;
+			$weather['temp']		= $json->temp;
+			$weather['img']			= (string)$json->imgCode;
+			
+			// The temp, condition and image code should always be set,
+			// but in case they're not, we catch them here:
 			
 			# Catch missing cid
-			if (!isset($weather['img']) or !intval($weather['img'])){
+			if (!isset($weather['img']) or !$weather['img']){
 				$weather['img'] = '34';
 			}
 			
 			# Catch missing condition
 			if (!is_string($weather['condition']) or !$weather['condition']){
-				$weather['condition'] = 'fair';
+				$weather['condition'] = 'Fair';
 			}
-		} catch (Exception $e) {
-			# pass
+			
+			# Catch missing temp
+			if (!isset($weather['temp']) or !$weather['temp']){
+				$weather['temp'] = '80&#186;';
+			}
 		}
-
+		
+		// Cache the new weather data
 		set_transient($cache_key, $weather, WEATHER_CACHE_DURATION);
 		
 		return $weather;
 	}
-	
 }
+
 
 /**
  * Internal list items of alerts ul
