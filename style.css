@@ -237,6 +237,51 @@ h3.listing + a.listing {
 #sidebar > div:first-child h3 { margin-top: -10px; }
 
 
+/** Shortcode output **/
+.thumb { width: 100%; }
+/* .cropped style helps compensate for incorrect image dimensions while still providing 
+	an actual <img> tag */
+.thumb.cropped { background-size: cover; background-position: center center; text-indent: -9999px; }
+.thumb.cropped a { width: 100%; height: 100%; display: block; }
+
+#feature h4 { font-weight: 400; font-size: 27px; line-height: 34px; margin-top: 4px; }
+#feature .thumb { height: 343px; }
+
+/* We don't set a .span value for these li's because the parent .span can be
+	modified at any time thru the Cat/Tag page content. However, there are always
+	3 list items, so they can each be 33% wide */
+#features ul.story-list li { width: 33.3%; float: left; }
+#features ul.story-list li > * { padding-left: 20px; } /* emulate bootstrap margins */
+#features ul.story-list li:first-child > * { padding-left: 0; }
+#features ul.story-list li > div { width: 167px; height: 154px; }
+#features ul.story-list li > div img { width: 100%; height: 100%; }
+#features ul.story-list li:first-child h4,
+#features ul.story-list li h4 { margin-top: 5px; }
+
+#promos ul.story-list li { margin-top: 25px; }
+#promos ul.story-list li:first-child { margin-top: 0; }
+
+#ucf_photo p {
+	font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
+	font-size: 12.5px;
+	line-height: 20px;
+}
+
+#external_stories ul li { 
+	font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
+	font-size: 15px;
+	line-height: 18px;
+	margin-bottom: 15px;
+}
+#external_stories ul li a { display: block; width: 100%; color: #000; text-decoration: underline; }
+#external_stories ul li span { color: #037F95;  }
+
+#more_headlines ul.story-list li { margin-top: 15px; }
+#more_headlines ul.story-list li:first-child { margin-top: 0; }
+
+#ucf_video h4 { font-size: 26px; font-weight: 300; margin-bottom: 5px; }
+
+
 /** Subpages **/
 .body-subpage #header-menu ul li:first-child {
 	position: relative;
@@ -252,29 +297,13 @@ h3.listing + a.listing {
 	text-indent: -9999px;
 	margin-right: 0;
 }
-.body-subpage #feature h4 { font-weight: 400; font-size: 27px; line-height: 34px; margin-top: 4px; }
-
-/* We don't set a .span value for these li's because the parent .span can be
-	modified at any time thru the Cat/Tag page content. However, there are always
-	3 list items, so they can each be 33% wide */
-#features ul.story-list li { width: 33.3%; float: left; }
-#features ul.story-list li > * { padding-left: 20px; } /* emulate bootstrap margins */
-#features ul.story-list li:first-child > * { padding-left: 0; }
-#features ul.story-list li > div { width: 167px; height: 154px; }
-#features ul.story-list li > div img { width: 100%; height: 100%; }
-#features ul.story-list li:first-child h4,
-#features ul.story-list li h4 { margin-top: 5px; }
-
 .body-subpage .page-content { margin-top: -20px; }
-
 .body-subpage #footer { margin-top: 40px; }
+
+.body-subpage #feature .thumb { width: 65%; height: 275px; margin-right: 20px; float: left; }
 
 
 /** Home Page **/
 .body-home #header { margin-top: 21px; }
 .body-home #header-menu ul li:first-child { display: none; }
-.body-home #feature h4 { font-weight: bold; font-size: 27px; line-height: 34px; margin-top: 4px; }
-
-#home #sidebar {
-
-}
+.body-home #feature h4 { font-weight: bold; }

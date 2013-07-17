@@ -1,4 +1,4 @@
-<?php disallow_direct_load('page.php');?>
+<?php disallow_direct_load('tag.php');?>
 <?php get_header();?>
 <?
 	$subpage = '';
@@ -9,7 +9,7 @@
 			$page = get_page_by_title('Home');
 		}
 	} else {
-		$subpage = $page->post_name;
+		$subpage = $page->post_name; // TODO: why does this exist?
 	}
 ?>
 	<div class="subpage">

@@ -2,7 +2,7 @@
 <?php get_header(); the_post();?>
 	
 	<div class="row page-content" id="<?=$post->post_name?>">
-		<div class="span9">
+		<div class="span7">
 			<article>
 				<? if(!is_front_page())	{ ?>
 						<h1><?php the_title();?></h1>
@@ -11,7 +11,7 @@
 			</article>
 		</div>
 		
-		<div id="sidebar" class="span3">
+		<div id="sidebar" class="span4 offset1">
 			<?=get_sidebar();?>
 		</div>
 	</div>
