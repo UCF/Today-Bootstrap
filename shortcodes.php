@@ -1061,8 +1061,8 @@ function sc_single_post($atts = Array())
 	
 	ob_start();
 	?>
-	<div class="<?=$css?>">
-		<h3><?=$title?></h3>
+	<div<?php if ($css) { ?> class="<?=$css?>" <?php } ?>>
+		<h2><?=$title?></h2>
 		<?=$subtitle?>
 		<? if($video_url != '') { ?>
 			<?=$wp_embed->run_shortcode('[embed width="550" height="500"]'.$video_url.'[/embed]')?>

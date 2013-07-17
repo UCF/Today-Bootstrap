@@ -1,19 +1,29 @@
 <?php disallow_direct_load('single.php');?>
 <?php get_header(); the_post();?>
-	
-	<div class="row page-content" id="<?=$post->post_name?>">
-		<div class="span7">
-			<article>
-				<? if(!is_front_page())	{ ?>
-						<h1><?php the_title();?></h1>
-				<? } ?>
-				<?php the_content();?>
-			</article>
+
+<?
+	if(get_post_type($post->ID) == 'expert') {
+		$page = get_page_by_title('Expert');
+	}
+	if(get_post_type($post->ID) == 'photoset') {
+		$page = get_page_by_title('Photo Set');
+	}
+	if(!is_object($page)) {
+		$page = get_page_by_title('Single');
+	}
+	if(get_post_type($post->ID) == 'video') {
+		?>
+		<div id="videos">
+			<?=sc_videos(Array('specific_video' => $post->ID))?>
 		</div>
-		
-		<div id="sidebar" class="span4 offset1">
-			<?=get_sidebar();?>
+		<?
+	} else {
+		?>
+		<div id="single">
+			<?=apply_filters('the_content', $page->post_content)?>
 		</div>
-	</div>
+		<?
+	}
+?>
 
 <?php get_footer();?>

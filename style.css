@@ -75,6 +75,9 @@ ul.event-list + .more {
 }
 ul.event-list + .more a { color: #333; }
 
+ul.term-list { overflow: auto; }
+ul.term-list li { float: left; padding-right: 4px; }
+
 h1,
 h2,
 h3,
@@ -281,6 +284,11 @@ h3.listing + a.listing {
 
 #ucf_video h4 { font-size: 26px; font-weight: 300; margin-bottom: 5px; }
 
+#meta { font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif; }
+#meta p { font-size: 11.5px; line-height: 14px; margin-bottom: 4px; }
+#meta #byline { font-weight: bold; }
+#meta #print { font-size: 13px; margin-top: 10px; }
+
 
 /** Subpages **/
 .body-subpage #header-menu ul li:first-child {
@@ -307,3 +315,70 @@ h3.listing + a.listing {
 .body-home #header { margin-top: 21px; }
 .body-home #header-menu ul li:first-child { display: none; }
 .body-home #feature h4 { font-weight: bold; }
+
+
+/** Single **/
+#single h2 {
+	font-family: Georgia, serif;
+	font-size: 26px;
+	line-height: 34px;
+	font-weight: normal;
+	margin-top: 0;
+}
+#single #story_feat_img { width: 100%; text-align: center; background: #f7f7f7; }
+#single p#caption {
+	font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
+	font-size: 12px;
+	line-height: 18px;
+	color: #666;
+	margin-top: 5px;
+}
+#single #content { margin-top: 20px; }
+#single #content a,
+#single #social a,
+#single #share a {
+	color: #990000;
+	text-decoration: underline;
+}
+#single #content a:hover,
+#single #social a:hover,
+#single #share a:hover {
+	color: #000;
+}
+#single #content p { margin-bottom: 16px; }
+#single #content > p:first-child:first-letter {
+    color: #FFC907;
+    display: block;
+    float: left;
+    font-size: 48px;
+    line-height: 16px;
+    margin-right: 7px;
+    margin-top: 6px;
+}
+#single .social { margin-top: 20px; }
+#single #share { margin-top: 40px; }
+#single #share h3,
+#single #sidebar h3 {
+	font-family: Georgia, serif;
+	text-transform: none;
+	font-size: 16px;
+	line-height: 22px;
+	font-weight: normal;
+	margin-bottom: 10px;
+}
+#single #share textarea { width: 100%; height: 120px; }
+#single #share input#submit { 
+	border: 2px solid #f1f1f1;
+	background-color: #ffc907;
+	color: #666;
+	font-family: Georgia, serif;
+	padding: 5px 10px;
+	margin-top: 20px;
+}
+
+#single #sidebar h3 { margin-top: 20px; }
+#single #sidebar .link_list ul li {
+	font-size: 14px;
+	line-height: 16px;
+	margin-bottom: 12px;
+}
