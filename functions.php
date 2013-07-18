@@ -529,6 +529,8 @@ add_filter( 'comments_open', 'filter_media_comment_status', 10 , 2 );
 
 /**
  * Determine the title of the page <h1>, depending on content returned
+ *
+ * @return string
  **/
 function get_header_title() {
 	$header_title = '<a href="'.get_bloginfo('url').'">'.get_bloginfo('name').'</a>';
@@ -543,7 +545,7 @@ function get_header_title() {
 			$header_title = get_cat_name($cats[0]);
 		} else if(is_page() || is_single()) {
 			if($post->post_type == 'photoset') {
-				break;
+				//
 			} else if($post->post_type == 'expert') {
 				$header_title = 'Experts at UCF';
 			} else if($post->post_type == 'video') {
@@ -562,8 +564,12 @@ function get_header_title() {
 /**
  * Alternative to base.php body_classes() so we can use functions
  * like is_404() and is_home() to determine the current page
+ *
+ * @return string
+ * @author Jo Dickson
  **/
 function today_body_classes() {
+	global $post;
 	$classes = '';
 	if (is_home()) {
 		$classes .= 'body-home ';
@@ -574,9 +580,33 @@ function today_body_classes() {
 	elseif (is_search()) {
 		$classes .= 'body-search ';
 	}
+	elseif ($post->post_type == 'photoset') {
+		$classes .= 'body-photoset ';
+	}
 	else {
 		$classes .= 'body-subpage ';
 	}
 	return $classes;
+}
+
+
+/**
+ * Wrapper for get_posts() that specifies a search param.
+ * Accepts a post type slug as an argument, as well as
+ * any standard get_posts() arguments.
+ *
+ * @return array
+ * @author Jo Dickson
+ **/
+function get_posts_search($query='', $post_type='post', $extra_args=array()) {
+	$args = array(
+		'post_type' => $post_type,
+		'numberposts' => -1,
+		's'			=> $query,
+	);
+	if ($extra_args) {
+		array_merge($args, $extra_args);
+	}
+	return get_posts($args);
 }
 ?>
