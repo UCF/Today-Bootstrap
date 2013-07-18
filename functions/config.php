@@ -143,8 +143,6 @@ Config::$custom_taxonomies = array(
 	'Groups'
 );
 
-Config::$body_classes = array('default',);
-
 /**
  * Configure theme settings, see abstract class Field's descendants for
  * available fields. -- functions/base.php

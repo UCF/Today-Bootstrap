@@ -8,9 +8,9 @@
 ?>
 <?php get_header(); ?>
 	<div class="row page-content" id="search-results">
-		<div class="span9">
+		<div class="span7">
 			<article>
-				<h1>Search Results</h1>
+				<h2>Search Results</h2>
 				<?php if(count($results['items'])):?>
 				<ul class="result-list">
 					<?php foreach($results['items'] as $result):?>
@@ -44,7 +44,7 @@
 			</article>
 		</div>
 		
-		<div id="sidebar" class="span3">
+		<div id="sidebar" class="span4 offset1">
 			<?=get_sidebar();?>
 		</div>
 	</div>
@@ -53,9 +53,9 @@
 <?php else:?>
 <?php get_header(); the_post();?>
 	<div class="row page-content" id="search-results">
-		<div class="span9">
+		<div class="span7">
 			<article>
-				<h1>Search Results</h1>
+				<h2>Search Results</h2>
 				<?php if(have_posts()):?>
 					<ul class="result-list">
 					<?php while(have_posts()): the_post();?>
@@ -74,7 +74,7 @@
 			</article>
 		</div>
 		
-		<div id="sidebar" class="span3">
+		<div id="sidebar" class="span4 offset1">
 			<?=get_sidebar();?>
 		</div>
 	</div>

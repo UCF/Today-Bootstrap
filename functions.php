@@ -558,4 +558,25 @@ function get_header_title() {
 	return $header_title;
 }
 
+
+/**
+ * Alternative to base.php body_classes() so we can use functions
+ * like is_404() and is_home() to determine the current page
+ **/
+function today_body_classes() {
+	$classes = '';
+	if (is_home()) {
+		$classes .= 'body-home ';
+	}
+	elseif (is_404()) {
+		$classes .= 'body-404 ';
+	}
+	elseif (is_search()) {
+		$classes .= 'body-search ';
+	}
+	else {
+		$classes .= 'body-subpage ';
+	}
+	return $classes;
+}
 ?>

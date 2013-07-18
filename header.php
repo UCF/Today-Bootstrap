@@ -46,7 +46,7 @@
 		</script>
 		
 	</head>
-	<body class="<?=body_classes()?> <?php if (is_home()) { print 'body-home'; } else { print 'body-subpage'; } ?>">
+	<body class="<?=today_body_classes()?>">
 		<div class="container">
 			<div class="row" id="header">
 				<div id="page-title" class="span7">

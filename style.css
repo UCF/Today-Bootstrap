@@ -352,8 +352,16 @@ iframe[id^="___plusone"] { width: 90px !important; }
 
 /** Home Page **/
 .body-home #header { margin-top: 21px; }
-.body-home #header #page-title h1 { display: block; }
-.body-home #header-menu ul li:first-child { display: none; }
+.body-home #header #page-title h1,
+.body-404 #header #page-title h1,
+.body-search #header #page-title h1 {
+	display: block;
+}
+.body-home #header-menu ul li:first-child,
+.body-404 #header-menu ul li:first-child a,
+.body-search #header-menu ul li:first-child a {
+	display: none;
+}
 .body-home #feature h4 { font-weight: bold; }
 
 
