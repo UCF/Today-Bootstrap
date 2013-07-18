@@ -276,7 +276,7 @@ function sc_feature($atts = Array(), $id_only = False)
 				<?=$feature_media?>
 			</div>
 			<h4><a href="<?=get_permalink($top_feature->ID)?>"><?=$top_feature->post_title?></a></h4>
-			<p class="ellipse">
+			<p class="story-blurb">
 				<?=get_excerpt($top_feature)?>
 			</p>
 			<div class="social">
@@ -388,7 +388,7 @@ function sc_more_headlines($atts = Array())
 					<? } ?>
 					<div class="content<?=($social) ? '' : ' nosocial'?>">
 						<h4><a href="<?=get_permalink($headline->ID)?>"><?=$headline->post_title?></a></h4>
-						<p class="ellipse">
+						<p class="story-blurb">
 							<?=get_excerpt($headline)?>
 						</p>
 					</div>
@@ -450,7 +450,7 @@ function sc_ucf_photo($atts = Array())
 						<?=$image_html?>
 					</a>
 					<h4 class="clear"><a href="<?=get_permalink($photoset->ID)?>"><?=$photoset->post_title?></a></h4>
-					<p class="ellipse"><?=get_excerpt($photoset)?></p>
+					<p class="story-blurb"><?=get_excerpt($photoset)?></p>
 				<ul>
 				<?
 
@@ -642,7 +642,7 @@ function sc_promos($atts = Array())
 			?>
 			<li<?=(($count + 1) == count($promos) ? ' class="last"' : '')?>>
 				<h4><a href="<?=get_permalink($promo->ID)?>"><?=$promo->post_title?></a></h4>
-				<p class="ellipse">
+				<p class="story-blurb">
 					<?=get_excerpt($promo)?>
 				</p>
 			</li>
@@ -683,7 +683,7 @@ function sc_expert_short($atts = Array())
 				<a href="<?=get_permalink($expert->ID)?>"><?=get_post_meta($expert->ID, 'expert_name', True)?></a>
 			</h4>
 			<p class="title"><?=get_post_meta($expert->ID, 'expert_title', True)?></p>
-			<p class="ellipse bio">
+			<p class="story-blurb bio">
 				<?=$expert->post_content?>
 			</p>
 		</div>
@@ -771,7 +771,7 @@ function sc_subpage_features($atts = Array(), $id_only = False)
 						</a>
 					</div>
 					<h4><a href="<?=get_permalink($feature->ID)?>"><?=$feature->post_title?></a></h4>
-					<p class="ellipse">
+					<p class="story-blurb">
 						<?=get_excerpt($feature)?>
 					</p>
 				</li>
@@ -983,7 +983,7 @@ function sc_announcements($atts = Array())
 						<? foreach($rss_items as $item) { ?>
 							<li>
 								<h4><a class="orange" href="<?=$item->get_permalink()?>"><?=$item->get_title()?></a></h4>
-								<p class="ellipse">
+								<p class="story-blurb">
 									<?=$item->get_content()?>
 								</p>
 							</li>
@@ -1076,7 +1076,7 @@ function sc_single_post($atts = Array())
 			<?=strip_tags($content, '<p><a><ol><ul><li><em><strong><img><blockquote>')?>
 		</div>
 		<div class="social">
-			<iframe 	src="http://www.facebook.com/plugins/like.php?href=<?=get_permalink($post->ID)?>&amp;send=false&amp;layout=button_count&amp;width=80&amp;show_faces=true&amp;action=recommend&amp;colorscheme=light&amp;font&amp;height=21" 
+			<iframe 	src="http://www.facebook.com/plugins/like.php?href=<?=get_permalink($post->ID)?>&amp;send=false&amp;layout=button_count&amp;width=150&amp;show_faces=true&amp;action=recommend&amp;colorscheme=light&amp;font&amp;height=21" 
 						scrolling="no" 
 						frameborder="0"
 						style="border:none; overflow:hidden; width:80px; height:21px;" 

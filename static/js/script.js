@@ -231,6 +231,40 @@ var handleAlerts = function($) {
 		});
 };
 
+var fitHeaderText = function($) {
+	// Force our header h1 to fit on one line
+	var h1 = $('#page-title h1');
+
+	if(h1.length == 1 && h1.children().length === 0) {
+		colWidth	= h1.parent().width(),
+		minSize		= 25,
+		maxSize		= parseInt(h1.css('fontSize').replace('px', ''), 10) + 1,
+		count		= 1;
+		
+		h1.css('fontSize', (minSize + 'px')); // initialize while loop
+
+		while(h1.width() < colWidth) {
+			if(parseInt(h1.css('fontSize').replace('px', ''), 10) >= maxSize) {
+				break;
+			}
+			h1.css('fontSize', ((minSize + count) + 'px'));
+			count++;
+		}
+		
+		// for good measure...
+		h1.css('fontSize', ((h1.css('fontSize').replace('px', '') - 1) + 'px'));
+	}
+};
+
+
+var addEllipses = function($) {
+	if ($('p.story-blurb').length > 0) { 
+		$('p.story-blurb').each(function() {
+			$(this).ellipsis();
+		});
+	}
+};
+
 
 if (typeof jQuery != 'undefined'){
 	jQuery(document).ready(function($) {
@@ -245,6 +279,7 @@ if (typeof jQuery != 'undefined'){
 		Generic.PostTypeSearch($);
 
 		handleAlerts($);
-		
+		fitHeaderText($);
+		addEllipses($);
 	});
 }else{console.log('jQuery dependency failed to load');}
