@@ -1744,7 +1744,7 @@ function sc_videos($atts = Array())
 	}
 	
 	$first = True;
-	$count = 1;
+	$count = 0;
 	ob_start();?><?
 	foreach($videos as $video) {
 		$video_url = get_post_meta($video->ID, 'video_url', True);
@@ -1753,33 +1753,40 @@ function sc_videos($atts = Array())
 				$first = false;
 				$embed_string = '[embed width="590" height="430"]'.$video_url.'[/embed]';
 				?>
-				<div class="feature span-15 append-1">
-					<?=$wp_embed->run_shortcode($embed_string)?>
+				<div class="row">
+					<div class="feature span8">
+						<?=$wp_embed->run_shortcode($embed_string)?>
+					</div>
+					<div class="span4">
+						<h3><?=$video->post_title?></h3>
+						<p><?=$video->post_content?></p>
+					</div>
+					<hr class="span12" />
 				</div>
-				<div class="span-8 last">
-					<h3><?=$video->post_title?></h3>
-					<p><?=$video->post_content?></p>
-				</div>
-				<ul class="video-list clear border-top">
+				<div class="row video-list thumbnails">
 			<? } else {
 				if(strpos($video_url, 'youtube.com')) {
 					preg_match('/v=(?<video_id>[^&]+)&?/', get_post_meta($video->ID, 'video_url', True), $matches);
 					if(isset($matches['video_id'])) {
 						$video_id = $matches['video_id'];
 					?>
-					<li class="<?=(($count % 3) == 0) ? 'last' : ''?>" id="<?=$count?>">
-						<a href="<?=get_permalink($video->ID)?>">
+					<?php if (($count % 3) == 0 && $count !== 0) { ?>
+				</div>
+				<div class="row video-list thumbnails">
+					<?php } ?>
+					<div class="span4" id="video-<?=$count?>">
+						<a class="thumbnail" href="<?=get_permalink($video->ID)?>">
 							<img src="http://i1.ytimg.com/vi/<?=$matches['video_id']?>/hqdefault.jpg" />
 							<h3><?=$video->post_title?></h3>
 						</a>
-					</li>
+					</div>
 				<? $count++;
 					}
 				}
 			}
 		}
 	} ?>
-	</ul><?
+	</div><?
 	return ob_get_clean();
 }
 add_shortcode('videos', 'sc_videos');
