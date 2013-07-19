@@ -1657,6 +1657,9 @@ function _show_meta_boxes($post, $meta_box){
 				<?php endif;?>
 				<input type="file" id="file_<?=$post->ID?>" name="<?=$field['id']?>"><br />
 			
+			<?php break; case 'note':?>
+				<?=$current_value?>
+
 			<?php break; case 'help':?><!-- Do nothing for help -->
 			<?php break; default:?>
 				<p class="error">Don't know how to handle field of type '<?=$field['type']?>'</p>
