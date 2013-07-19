@@ -1605,19 +1605,21 @@ function sc_photo_set($atts = Array())
 	ob_start();
 	?>
 	<div id="photoset">
-		<h3 class="span-16"><?=$post->post_title?></h3>
-		<div class="social span-8 last">
-			<iframe 	src="http://www.facebook.com/plugins/like.php?href=<?=get_permalink($post->ID)?>&amp;send=false&amp;layout=button_count&amp;width=80&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" 
-						scrolling="no" 
-						frameborder="0"
-						style="border:none; overflow:hidden; width:80px; height:21px;" 
-						allowTransparency="true">
-			</iframe>
-			<a href="http://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a>
-			<g:plusone size="medium" href="<?=get_permalink($post->ID)?>"></g:plusone>
+		<div class="row">
+			<h3 class="span8"><?=$post->post_title?></h3>
+			<div class="social span4">
+				<iframe 	src="http://www.facebook.com/plugins/like.php?href=<?=get_permalink($post->ID)?>&amp;send=false&amp;layout=button_count&amp;width=80&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" 
+							scrolling="no" 
+							frameborder="0"
+							style="border:none; overflow:hidden; width:80px; height:21px;" 
+							allowTransparency="true">
+				</iframe>
+				<a href="http://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a>
+				<g:plusone size="medium" href="<?=get_permalink($post->ID)?>"></g:plusone>
+			</div>
 		</div>
-		<p class="clear"><?=$post->post_content?> <strong>(<?=count($images)?> photos total)</strong></p>
-		<ul>
+		<p><?=$post->post_content?> <strong>(<?=count($images)?> photos total)</strong></p>
+		<ul class="photoset-list">
 			<? for($i = 1; $i <= count($images);$i++) {
 				$image_obj = $images[$i - 1];
 				$text = '';
