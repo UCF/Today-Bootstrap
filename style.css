@@ -143,6 +143,7 @@ ul.expert-list li { margin-bottom: 20px; }
 ul.expert-list li img { float: left; width: 95px; }
 ul.expert-list li h4,
 ul.expert-list li p { margin-left: 115px; }
+ul.expert-list li h4 { margin-top: 0; }
 ul.expert-list li p { line-height: 18px; margin-bottom:10px; }
 
 .search form.search-form { margin: 0; }
@@ -337,6 +338,22 @@ iframe[id^="___plusone"] { width: 90px !important; }
 #meta #source { margin-top: 20px; }
 #meta #source a { color: #990000; text-decoration: underline; }
 #meta #source a:hover { color: #000; }
+
+#expert_meta p,
+#expert_meta ul {
+	font-size: 14px;
+}
+#expert_meta p,
+#expert_meta ul li {
+	margin-bottom: 4px;
+}
+#expert_meta ul {
+	list-style-type: none;
+	margin-left: 0;
+	font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
+}
+#expert_meta a { color: #990000; text-decoration: underline; }
+#expert_meta a:hover { color: #000; }
 
 #comments ul.comment-list li .meta {
 	font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
