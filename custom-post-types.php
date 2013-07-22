@@ -324,7 +324,7 @@ class Post extends CustomPostType
 		$use_thumbnails = True,
 		$use_order = True,
 		$use_title = True,
-		$use_metabox = False,
+		$use_metabox = True,
 		$taxonomies = array('experts', 'post_tag', 'category'),
 		$built_in = True;
 		
@@ -339,14 +339,18 @@ class Post extends CustomPostType
 	 	return Array(
 				Array(
 					'name'		=> 'Type',
-					'desc'		=> 'Post will appear in top left column of home page.',
+					'desc'		=> 'Specify where this post will appear when it is published.<br/>
+									<table><tr>
+									<td>Normal:</td><td>Post will appear in top left column of home page.</td></tr><tr>
+									<td>Promotional:</td><td>Post will appear in the top left column on the front page.</td></tr><tr>
+									<td>Featured:</td><td>Post will appear at the top of the middle column on the front page.</td></tr></table>',
 					'id'		=> 'display_type',
 					'type'		=> 'radio',
-					'options'	=> Array(
-										Array('value' => '', 'name' => 'Normal'),
-										Array('value' => 'promotional', 'name' => 'Promotional/Press Release', 'desc' => 'Post will appear in the top left column on the front page.'),
-										Array('value' => 'featured', 'name' => 'Featured', 'desc' => 'Post will appear at the top of the middle column on the front page.')
-									)
+					'options'	=> array(
+										'Normal'					=> 'Normal',
+										'Promotional/Press Release' => 'promotional',
+										'Featured' 					=> 'featured',
+									),
 				),
 				Array(
 					'name'	=> 'Subtitle',
