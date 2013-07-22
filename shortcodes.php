@@ -1678,36 +1678,36 @@ function sc_photo_sets($atts = Array())
 		}
 		
 		if($first) { ?>
-			<div class="span8">
-				<a href="<?=get_permalink($photo_set->ID)?>">
-					<?=get_img_html($image_id, 'photoset_preview', Array('sent_attach' => True))?>
-				</a>
+			<div class="row">
+				<div class="span8">
+					<a href="<?=get_permalink($photo_set->ID)?>">
+						<?=get_img_html($image_id, 'photoset_preview', Array('sent_attach' => True))?>
+					</a>
+				</div>
+				<div class="span4 last">
+					<h3><a href="<?=get_permalink($photo_set->ID)?>"><?=$photo_set->post_title?></a></h3>
+					<p><?=$photo_set->post_content?></p>
+				</div>
+				<hr class="span12" />
 			</div>
-			<div class="span4 last">
-				<h3><a href="<?=get_permalink($photo_set->ID)?>"><?=$photo_set->post_title?></a></h3>
-				<p><?=$photo_set->post_content?></p>
+			<div class="row video-list">
+		<? } else {	?>
+			<?php if (($count % 4) == 0 && $count !== 0) { ?>
 			</div>
-			<ul class="span12 border-top">
-		<? } else {
-			$css_class = '';
-			if(($count + 1) % 5 == 0) {
-				$css_class = 'last';
-			} else if($count % 5 == 0) {
-				$css_class = 'clear';
-			}
-			?>
-			<li class="<?=$css_class?>">
-				<a href="<?=get_permalink($photo_set->ID)?>">
-					<?=get_img_html($image_id, 'category_story', Array('sent_attach' => True))?>
-				</a>
-				<h3><a href="<?=get_permalink($photo_set->ID)?>"><?=$photo_set->post_title?></a></h3>
-			</li>
+			<div class="row video-list">
+			<?php } ?>
+				<div class="span3 <?=$css_class?>">
+					<a href="<?=get_permalink($photo_set->ID)?>">
+						<?=get_img_html($image_id, 'category_story', Array('sent_attach' => True))?>
+					</a>
+					<h3><a href="<?=get_permalink($photo_set->ID)?>"><?=$photo_set->post_title?></a></h3>
+				</div>
 		<? $count++;
 		} 
 		$first = false;
 		?>
 	<? } ?>
-	</ul>
+		</div>
 	</div>
 	<?
 	return ob_get_clean();
