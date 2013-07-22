@@ -198,9 +198,9 @@ iframe[id^="___plusone"] { width: 90px !important; }
 
 
 /** Header **/
-#header { margin-top: 36px; margin-bottom: 0; padding-bottom: 4px; position: relative; }
+#header { margin-top: 28px; margin-bottom: 0; padding-bottom: 4px; position: relative; }
 #header #page-title h1 { 
-	display: inline-block;
+	display: block;
 	width: 540px;
 	height: 60px;
 	margin: 0 0 10px 0;
@@ -268,6 +268,7 @@ iframe[id^="___plusone"] { width: 90px !important; }
 
 #header hr { margin-top: 0; margin-bottom: 0; }
 #header-menu { overflow: hidden; background-color: #F1F1F1; margin-bottom: 30px; height: 28px; }
+#header-menu { margin-top: -14px !ie; } /* IE7 */
 #header-menu ul { float: left; height: 28px; padding-top: 4px; padding-left: 10px; }
 #header-menu ul li { margin: 0; padding-bottom: 4px; line-height: 18px; }
 #header-menu ul li:after { content: ""; margin-left: 0; }
@@ -456,18 +457,6 @@ iframe[id^="___plusone"] { width: 90px !important; }
 
 
 /** Home Page **/
-.body-home #header,
-.body-404 #header,
-.body-search #header,
-.body-photoset #header {
-	margin-top: 21px;
-}
-.body-home #header #page-title h1,
-.body-404 #header #page-title h1,
-.body-search #header #page-title h1,
-.body-photoset #header #page-title h1 {
-	display: block;
-}
 .body-home #header-menu ul li:first-child,
 .body-404 #header-menu ul li:first-child a,
 .body-search #header-menu ul li:first-child a,
