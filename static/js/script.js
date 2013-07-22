@@ -234,25 +234,11 @@ var handleAlerts = function($) {
 var fitHeaderText = function($) {
 	// Force our header h1 to fit on one line
 	var h1 = $('#page-title h1');
-
 	if(h1.length == 1 && h1.children().length === 0) {
-		colWidth	= h1.parent().width(),
-		minSize		= 25,
-		maxSize		= parseInt(h1.css('fontSize').replace('px', ''), 10) + 1,
-		count		= 1;
-		
-		h1.css('fontSize', (minSize + 'px')); // initialize while loop
-
-		while(h1.width() < colWidth) {
-			if(parseInt(h1.css('fontSize').replace('px', ''), 10) >= maxSize) {
-				break;
-			}
-			h1.css('fontSize', ((minSize + count) + 'px'));
-			count++;
-		}
-		
-		// for good measure...
-		h1.css('fontSize', ((h1.css('fontSize').replace('px', '') - 1) + 'px'));
+		h1.textFit({
+			minFontSize: 25,
+			maxFontSize: 52
+		});
 	}
 };
 
@@ -263,6 +249,48 @@ var addEllipses = function($) {
 			$(this).ellipsis();
 		});
 	}
+};
+
+
+var ieThumbCropper = function($) {
+	$('body.ie-old .thumb.cropped').each(function() {
+		var thumbWrap = $(this),
+			thumbWrapW = thumbWrap.width(),
+			thumbWrapH = thumbWrap.height(),
+			thumb = thumbWrap.find('img');
+		// clone the original thumb to get its width/height before css
+		var clone = new Image();
+			clone.src = thumb.attr('src');
+		var thumbW = clone.width,
+			thumbH = clone.height,
+			isLandscape = (thumbW >= thumbH);
+		// Landscape values; overridden for Portraits
+		var newThumbW = Math.ceil((thumbWrapH * thumbW) / thumbH),
+			newThumbH = thumbWrapH,
+			thumbTop = '0',
+			thumbLeft = Math.ceil('-' + ((newThumbW - thumbWrapW) / 2));
+
+		// First, kill the background image on the .cropped div
+		thumbWrap.attr('style', '');
+
+		// Adjust new thumb val's for portrait thumbs
+		if (isLandscape === false) {
+			newThumbW = thumbWrapW,
+			newThumbH = Math.ceil((thumbWrapW * thumbH) / thumbW),
+			thumbTop = Math.ceil('-' + ((newThumbH - thumbWrapH) / 2)),
+			thumbLeft = '0';
+		}
+
+		// Set new values
+		thumb
+			.css({
+				'height' : newThumbH + 'px',
+				'width' : newThumbW + 'px',
+				'left' : thumbLeft + 'px',
+				'top' : thumbTop + 'px',
+				'max-width' : 'none'
+			});
+	});
 };
 
 
@@ -281,5 +309,6 @@ if (typeof jQuery != 'undefined'){
 		handleAlerts($);
 		fitHeaderText($);
 		addEllipses($);
+		ieThumbCropper($);
 	});
 }else{console.log('jQuery dependency failed to load');}

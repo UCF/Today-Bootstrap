@@ -3,9 +3,9 @@
 
 <?php get_header(); the_post();?>
 	<div class="row page-content" id="page-not-found">
-		<div class="span9">
+		<div class="span12">
 			<article>
-				<h1>Page Not Found</h1>
+				<h2>Page Not Found</h2>
 				<?php 
 					$page = get_page_by_title('404');
 					if($page){
@@ -20,10 +20,6 @@
 				<p>The page you requested doesn't exist.  Sorry about that.</p>
 				<?php endif;?>
 			</article>
-		</div>
-		
-		<div id="sidebar" class="span3">
-			<?=get_sidebar();?>
 		</div>
 	</div>
 <?php get_footer();?>

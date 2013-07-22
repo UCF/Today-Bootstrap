@@ -24,12 +24,23 @@
 			
 		</script>
 		<?php endif;?>
-		
+
 		<?  $post_type = get_post_type($post->ID);
 			if(($stylesheet_id = get_post_meta($post->ID, $post_type.'_stylesheet', True)) !== False
 				&& ($stylesheet_url = wp_get_attachment_url($stylesheet_id)) !== False) { ?>
 				<link rel='stylesheet' href="<?=$stylesheet_url?>" type='text/css' media='all' />
 		<? } ?>
+
+		<script type="text/javascript">
+			$(document).ready()
+			var h1 = $('#page-title h1');
+			if(h1.length == 1 && h1.children().length === 0) {
+				h1.textFit({
+					minFontSize: 25,
+					maxFontSize: 52
+				});
+			}
+		</script>
 
 		<script type="text/javascript">
 			var PostTypeSearchDataManager = {
