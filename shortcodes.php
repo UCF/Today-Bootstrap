@@ -1660,7 +1660,7 @@ function sc_photo_sets($atts = Array())
 												'numberposts' => -1));
 	$first = True;
 	ob_start();?>
-	<div id="_photo-sets">
+	<div id="photo-sets">
 	<?
 	$count = 0;
 	foreach($photo_sets as $photo_set) {
@@ -1698,7 +1698,7 @@ function sc_photo_sets($atts = Array())
 			<?php } ?>
 				<div class="span3 <?=$css_class?>">
 					<a href="<?=get_permalink($photo_set->ID)?>">
-						<?=get_img_html($image_id, 'category_story', Array('sent_attach' => True))?>
+						<?=get_img_html($image_id, 'photoset_thumb', Array('sent_attach' => True))?>
 					</a>
 					<h3><a href="<?=get_permalink($photo_set->ID)?>"><?=$photo_set->post_title?></a></h3>
 				</div>

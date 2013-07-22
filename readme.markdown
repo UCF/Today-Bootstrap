@@ -5,8 +5,11 @@ Theme to replace the original Today WordPress theme, which relies on the Themati
 
 
 ## Installation Requirements:
-* Settings > Permalinks: set Category base to 'section'; set Tag base to 'topic'
-# Home page: replace span divs with span4, span5, and span3 respectively
+* Settings > Permalinks: set Category base to 'section'; set Tag base to 'topic' (if not already set)
+* Update pages with old Blueprint markup to use Bootstrap markup
+
+## Installation Recommendations:
+* Regenerate thumbnails (new [photo_sets] thumbnail size has been created)
 
 
 ## Deployment

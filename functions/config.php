@@ -19,7 +19,8 @@ function __init__(){
 	add_image_size('update', 308, 204, True);
 	add_image_size('profile_img', 295, 367, True);
 	add_image_size('story_feature', 548, 396, False);
-	add_image_size('photoset_preview', 590, 443, True); // unknown
+	add_image_size('photoset_preview', 590, 443, True);
+	add_image_size('photoset_thumb', 220, 203, True);
 	add_image_size('alert', 47, 49, True);
 	add_image_size('ucf_photo', 300, 230, False);
 	add_image_size('ucf_photo_subpage', 380, 300, True);
