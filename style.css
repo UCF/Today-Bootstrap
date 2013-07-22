@@ -428,6 +428,10 @@ iframe[id^="___plusone"] { width: 90px !important; }
 /** Shortcode - [videos] **/
 #videos .feature + div h3 { font-size: 22px; line-height: 24px; text-transform: none; }
 
+/** Shortcode - [advertisement] **/
+.ad { padding: 10px 0 30px 0; }
+.ad.center { text-align: center; }
+.ad h3 { font-weight: 300; color: #666; font-size: 12px; }
 
 
 /** Subpages **/
