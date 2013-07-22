@@ -203,8 +203,6 @@ function gen_alerts_html()
 /**
  * IMG Tag HTML
  * 
- * TODO: wtf is this?
- *
  * @return string or array
  * @author Chris Conover
  **/
@@ -287,8 +285,6 @@ function get_img_html($post_id, $size = 'thumbnail', $options = Array())
  * Wrapper around get_posts to take into account main_page meta, 
  * tag and category attributes.
  * 
- * TODO: wtf is this
- *
  * @return object or False
  * @author Chris Conover
  **/
@@ -353,7 +349,7 @@ function resolve_posts($atts, $args = Array(), $filters = True, $strip_tags = Tr
  **/
 function get_excerpt($post, $hl_term = '')
 {
-	setup_postdata($post); // TODO: find this function in old theme
+	setup_postdata($post);
 	
 	if($hl_term != '') {
 		$stripped_content = strip_tags($post->post_content);

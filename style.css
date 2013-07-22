@@ -311,7 +311,7 @@ iframe[id^="___plusone"] { width: 90px !important; }
 #features ul.story-list li > div img { width: 100%; height: 100%; }
 #features ul.story-list li:first-child h4,
 #features ul.story-list li h4 { margin-top: 5px; }
-#features ul.story-list li p.story-blurb { height: 144px; }
+#features ul.story-list li p.story-blurb { height: 136px; font-size: 15px; line-height: 22px; }
 
 /** Shortcode - [promos] **/
 #promos ul.story-list li { margin-top: 25px; }
