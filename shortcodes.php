@@ -787,55 +787,6 @@ add_shortcode('subpage_features', 'sc_subpage_features');
 
 
 /**
- * Video Carousel
- *
- * @return string
- * @author Chris Conover
- **/
-function sc_video_carousel($atts = Array())
-{
-	global $wp_query, $wp_embed;
-	
-	$css = (isset($atts['css'])) ? $atts['css'] : '';
-	
-	$videos = resolve_posts(	Array(	'tag' => $wp_query->queried_object->slug), 
-								Array(	'post_type' => 'video',
-										'numberposts' => 0));
-	if(count($videos) > 0) {
-		ob_start();
-		?>
-		<div class="<?=$css?>" id="video_carousel">
-			<h3>Watch UCF Videos</h3>
-			<div class="carousel">
-				<ul class="video-list">
-				<? foreach($videos as $video) {
-						$wp_embed->post_ID = $video->ID;
-						$video_url = get_post_meta($video->ID, 'video_url', True);
-						$embed_string = '[embed width="355"]'.$video_url.'[/embed]';
-					
-						if($video_url != '') {
-							?>
-							<li class="video">
-								<div class="icon">
-									<?=$wp_embed->run_shortcode($embed_string)?>
-								</div>
-								<h4><?=$video->post_title?></h4>
-							</li>
-				<?		} 
-					} 
-				?>
-				</ul>
-			</div>
-		</div>
-		<?
-		$html = ob_get_contents(); ob_end_clean();
-		return $html;
-	}
-}
-add_shortcode('video_carousel', 'sc_video_carousel');
-
-
-/**
  * Update
  *
  * @return string
