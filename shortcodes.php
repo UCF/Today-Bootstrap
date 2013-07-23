@@ -1774,7 +1774,7 @@ function sc_profile_feature($atts = Array())
 			<div id="profile-feature" class="<?=$css?>">
 				<div class="row">
 					<div class="span12">
-						<h3>Special Feature: <?=$group->name?></h3>
+						<h3><span class="orange">Special Feature:</span> <?=$group->name?></h3>
 					</div>
 				</div>
 				<div class="row profile-list">
