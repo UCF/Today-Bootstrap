@@ -520,19 +520,6 @@ function media_upload_display_scale_option() {
 add_action( 'post-upload-ui', 'media_upload_display_scale_option' );
 
 
-/*
- * Kill comments on attachments
- */
-function filter_media_comment_status( $open, $post_id ) {
-	$post = get_post( $post_id );
-	if( $post->post_type == 'attachment' ) {
-		return false;
-	}
-	return $open;
-}
-add_filter( 'comments_open', 'filter_media_comment_status', 10 , 2 );
-
-
 /**
  * Determine the title of the page <h1>, depending on content returned
  *
@@ -615,4 +602,62 @@ function get_posts_search($query='', $post_type='post', $extra_args=array()) {
 	}
 	return get_posts($args);
 }
+
+
+/**
+ * Prevent Wordpress from trying to redirect to a "loose match" post when
+ * an invalid URL is requested. WordPress will redirect to 404.php instead.
+ *
+ * Implemented to prevent some print views from redirecting to random
+ * attachments. 
+ *
+ * See http://wordpress.stackexchange.com/questions/3326/301-redirect-instead-of-404-when-url-is-a-prefix-of-a-post-or-page-name
+ **/
+function no_redirect_on_404($redirect_url) {
+    if (is_404()) {
+        return false;
+    }
+    return $redirect_url;
+}
+add_filter('redirect_canonical', 'no_redirect_on_404');
+
+
+/**
+ * Kill attachment, author, and daily archive pages.
+ *
+ * http://betterwp.net/wordpress-tips/disable-some-wordpress-pages/
+ **/
+function kill_unused_templates() {
+	global $wp_query, $post;
+	 
+	if (is_author() || is_attachment() || is_day()) {
+		wp_redirect(home_url());
+	}
+	 
+	if (is_feed()) {
+		$author = get_query_var('author_name');
+		$attachment = get_query_var('attachment');
+		$attachment = (empty($attachment)) ? get_query_var('attachment_id') : $attachment;
+		$day = get_query_var('day');
+	 
+		if (!empty($author) || !empty($attachment) || !empty($day)) {
+			wp_redirect(home_url());
+			$wp_query->is_feed = false;
+		}
+	}
+}
+add_action('template_redirect', 'kill_unused_templates');
+
+
+/**
+ * Kill comments on attachments
+ **/
+function filter_media_comment_status( $open, $post_id ) {
+	$post = get_post( $post_id );
+	if( $post->post_type == 'attachment' ) {
+		return false;
+	}
+	return $open;
+}
+add_filter( 'comments_open', 'filter_media_comment_status', 10 , 2 );
 ?>
