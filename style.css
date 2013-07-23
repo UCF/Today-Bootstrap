@@ -343,6 +343,14 @@ iframe[id^="___plusone"] { width: 90px !important; }
 #profile-feature h4 { margin-bottom: 4px; }
 #profile-feature .profile-list > div { margin-bottom: 20px; line-height: 18px; }
 
+/** Shortcode - [profile] **/
+#profile h3 {
+	font-size: 20px;
+	line-height: 24px;
+	color: #333;
+	text-transform: none;
+	font-weight: normal;
+}
 
 /** Shortcode - [external_stories] **/
 #external_stories ul li { 
