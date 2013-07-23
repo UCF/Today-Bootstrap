@@ -146,55 +146,62 @@ function gen_alerts_html()
 				}
 			}
 		}
-		
-		foreach($alerts as $alert) {
-			
-			$text       = get_post_meta($alert->ID, 'alert_text', True);
-			$link_text  = get_post_meta($alert->ID, 'alert_link_text', True);
-			$link_url   = get_post_meta($alert->ID, 'alert_link_url', True);
-			$type       = get_post_meta($alert->ID, 'alert_type', True);
-			$bg_color   = get_post_meta($alert->ID, 'alert_bg_color', True);
-			$text_color = get_post_meta($alert->ID, 'alert_text_color', True);
-			
-			$css_clss           = Array($type);
-			$li_inline_styles   = Array();
-			$span_inline_styles = Array();
-			
-			$link_html = ($link_text && $link_url) ? "<a href=\"$link_url\">$link_text</a>" : '';
-			
-			$thumbnail_id = get_post_thumbnail_id($alert->ID);
-			if($thumbnail_id != '') {
-				$thumbnail = wp_get_attachment_image_src($thumbnail_id, 'alert');
-				array_push($li_inline_styles, 'background-image: url('.$thumbnail[0].');');
-			}
-			
-			if($bg_color != '') {
-				if(substr($bg_color, 0, 1) != '#') {
-					$bg_color = '#'.$bg_color;
+
+		if ($alerts) {
+			$alert_html = '<div class="row" id="alerts"><ul class="span12">';
+
+			foreach($alerts as $alert) {
+				
+				$text       = get_post_meta($alert->ID, 'alert_text', True);
+				$link_text  = get_post_meta($alert->ID, 'alert_link_text', True);
+				$link_url   = get_post_meta($alert->ID, 'alert_link_url', True);
+				$type       = get_post_meta($alert->ID, 'alert_type', True);
+				$bg_color   = get_post_meta($alert->ID, 'alert_bg_color', True);
+				$text_color = get_post_meta($alert->ID, 'alert_text_color', True);
+				
+				$css_clss           = Array($type);
+				$li_inline_styles   = Array();
+				$span_inline_styles = Array();
+				
+				$link_html = ($link_text && $link_url) ? "<a href=\"$link_url\">$link_text</a>" : '';
+				
+				$thumbnail_id = get_post_thumbnail_id($alert->ID);
+				if($thumbnail_id != '') {
+					$thumbnail = wp_get_attachment_image_src($thumbnail_id, 'alert');
+					array_push($li_inline_styles, 'background-image: url('.$thumbnail[0].');');
 				}
-				array_push($span_inline_styles, 'background-color: '.$bg_color.';');
-			}
-			if($text_color != '') {
-				if(substr($text_color, 0, 1) != '#') {
-					$text_color = '#'.$text_color;
+				
+				if($bg_color != '') {
+					if(substr($bg_color, 0, 1) != '#') {
+						$bg_color = '#'.$bg_color;
+					}
+					array_push($span_inline_styles, 'background-color: '.$bg_color.';');
 				}
-				array_push($span_inline_styles, 'color: '.$text_color.';');
+				if($text_color != '') {
+					if(substr($text_color, 0, 1) != '#') {
+						$text_color = '#'.$text_color;
+					}
+					array_push($span_inline_styles, 'color: '.$text_color.';');
+				}
+				
+				
+				// Even if alert is hidden, show it if it's updated
+				if(isset($hidden_alerts[$alert->ID]) && strtotime($alert->post_modified) <= $hidden_alerts[$alert->ID]) {
+					array_push($css_clss, 'hide');
+				}
+				
+			 	$alert_html .= '<li style="'.implode(' ',$li_inline_styles).'" class="'.implode(' ',$css_clss).'" id="alert-'.$alert->ID.'-'.strtotime($alert->post_modified).'">
+									<span class="msg" style="'.implode(' ', $span_inline_styles).'">
+										'.$text.'
+										'.$link_html.'
+										<a class="close">Close</a>
+									</span>
+								</li>';
 			}
-			
-			
-			// Even if alert is hidden, show it if it's updated
-			if(isset($hidden_alerts[$alert->ID]) && strtotime($alert->post_modified) <= $hidden_alerts[$alert->ID]) {
-				array_push($css_clss, 'hide');
-			}
-			
-		 	$alert_html = '<li style="'.implode(' ',$li_inline_styles).'" class="'.implode(' ',$css_clss).'" id="alert-'.$alert->ID.'-'.strtotime($alert->post_modified).'">
-								<span class="msg" style="'.implode(' ', $span_inline_styles).'">
-									'.$text.'
-									'.$link_html.'
-									<a class="close">Close</a>
-								</span>
-							</li>';
+
+			$alert_html .= '</ul></div>';
 			$alerts_html .= $alert_html."\n";
+
 		}
 		return $alerts_html;
 }

@@ -178,13 +178,13 @@ var handleAlerts = function($) {
 	}
 	function compact_post_meta(id, time) {return id + '-' + time;}
 	
-	$('#alerts > li')
+	$('#alerts ul li')
 		.each(function(index, li){
 			$(li)
 				.find('a.close')
 				.click(function(_event) {
 					_event.preventDefault();
-					var li 				= $('#alerts > li:eq(' + index + ')'),
+					var li 				= $('#alerts ul li:eq(' + index + ')'),
 						hidden_posts 	= $.cookie(ALERT_COOKIE_NAME);
 						
 					var cur_post = extract_post_meta(li.attr('id').replace('alert-', ''));
@@ -229,6 +229,7 @@ var handleAlerts = function($) {
 					li.hide();
 				});
 		});
+
 };
 
 var fitHeaderText = function($) {

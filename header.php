@@ -88,3 +88,4 @@
 				?>
 				<?=get_search_form()?>
 			</div>
+			<?=gen_alerts_html()?>
