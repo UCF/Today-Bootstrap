@@ -1763,7 +1763,7 @@ add_shortcode('videos', 'sc_videos');
  **/
 function sc_profile_feature($atts = Array())
 {
-	
+	$count = 0; 
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
 	
 	if(isset($atts['group'])) {
@@ -1771,27 +1771,34 @@ function sc_profile_feature($atts = Array())
 		if( ($group = get_term_by('name', $group_name, 'groups')) !== False) {
 			$profiles = get_posts(Array('numberposts' => 4, 'post_type' => 'profile', 'group' => $group->slug));
 			ob_start();?>
-			<div class="span-24 clear profile_feature  <?=$css?>">
-				<h3><span class="orange">Special Feature:</span> <?=$group->name?></h3>
-				<ul>
-			<?$count = 0;
-				foreach($profiles as $profile) {?>
-					<li class="span-6<?=(($count == 3) ? ' last' : '')?>">
-						<a href="<?=get_permalink($profile->ID)?>">
-							<?=get_the_post_thumbnail($profile->ID, 'profile_feature')?>
-						<p>
-								<?=$profile->post_title?>
-						</p>
-						<p>
-								<strong><?=get_post_meta($profile->ID, 'profile_jobtitle', True)?></strong>
-						</p>
-						</a>
-					</li>
-			<?$count++;
-				}?>
-				</ul>
-			</div><?
+			<div id="profile-feature" class="<?=$css?>">
+				<div class="row">
+					<div class="span12">
+						<h3>Special Feature: <?=$group->name?></h3>
+					</div>
+				</div>
+				<div class="row profile-list">
+					<?php if (($count % 4) == 0 && $count !== 0) { ?>
+				</div>
+				<div class="row profile-list">
+					<?php }
+						foreach($profiles as $profile) { ?>
+							<div class="span3">
+								<a href="<?=get_permalink($profile->ID)?>">
+									<?=get_the_post_thumbnail($profile->ID, 'profile_feature')?>
+									<h4><?=$profile->post_title?></h4>
+									<strong><?=get_post_meta($profile->ID, 'profile_jobtitle', True)?></strong>
+								</a>
+							</div>
+					<?php
+							$count++;
+						}
+					?>
+				</div>
+			</div>
+		<?
 		}
+		return ob_get_clean();
 	}
 }
 add_shortcode('profile_feature', 'sc_profile_feature');

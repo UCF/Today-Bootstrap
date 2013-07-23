@@ -78,7 +78,8 @@ ul.announcement-list,
 ul.comment-list,
 ul.term-list,
 ul.photoset-list,
-ul.expert-list { list-style-type: none; margin-left: 0; }
+ul.expert-list,
+ul.profile-list { list-style-type: none; margin-left: 0; }
 
 ul.story-list li .thumb { float: left; width: 95px; height: 91px; }
 ul.story-list li .social { float: right; width: 75px; z-index: 2; margin-left: 10px; }
@@ -329,6 +330,15 @@ iframe[id^="___plusone"] { width: 90px !important; }
 	max-height: 113px;
 	height: 113px !ie;
 }
+
+/** Shortcode - [profile_feature] **/
+#profile-feature h4,
+#profile-feature strong {
+	color: #333;
+}
+#profile-feature h4 { margin-bottom: 4px; }
+#profile-feature .profile-list > div { margin-bottom: 20px; line-height: 18px; }
+
 
 /** Shortcode - [external_stories] **/
 #external_stories ul li { 
