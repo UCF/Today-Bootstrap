@@ -951,53 +951,14 @@ add_shortcode('external_stories', 'sc_external_stories');
  * @return string
  * @author Chris Conover
  **/
-function sc_announcements($atts = Array())
+function sc_announcements($atts)
 {
-	global $wp_query;
-	
-	$css = (isset($atts['css'])) ? $atts['css'] : '';
-	
-	$cat_tag = $wp_query->queried_object->slug;
-	
-	$feed_mapping = Array('At Work' => ANNOUNCE_STAFF);
-		
-	if(isset($feed_mapping[$cat_tag])) {
-		$feed = $feed_mapping[$cat_tag];
-	} else {
-		$feed = ANNOUNCE_DEFAULT;
-	}
-	
-	if( ($html = get_transient($feed)) !== False) {
-		return $html;
-	} else {
-		$rss = fetch_feed($feed);
-		$rss_items = $rss->get_items(0, $rss->get_item_quantity(3));
-		if(!is_wp_error($rss)) {
-			if($rss_items !== False) {
+	$css 	= (isset($atts['css'])) ? $atts['css'] : '';
+	$header = (isset($atts['header'])) ? $atts['header'] : 'h3';
+	$param = ($atts['param'] == 'role' || $atts['param'] == 'keyword' || $atts['param'] == 'time') ? $atts['param'] : 'role';
+	$value = $atts['value'] !== null ? $value : 'all';
 
-				ob_start();
-				?>
-				<div class="<?=$css?>" id="announcements">
-					<h3>Announcements</h3>
-					<ul class="announcement-list">
-						<? foreach($rss_items as $item) { ?>
-							<li>
-								<h4><a class="orange" href="<?=$item->get_permalink()?>"><?=$item->get_title()?></a></h4>
-								<p class="story-blurb">
-									<?=$item->get_content()?>
-								</p>
-							</li>
-						<? } ?>
-					</ul>
-				</div>
-				<?
-				$html = ob_get_contents(); 
-				set_transient($feed, $html, ANNOUNCE_CACHE_DURATION);
-				ob_end_clean();
-				return $html;
-			}
-		}
-	}
+	return display_announcements($param, $value, $header, $css);
 }
 add_shortcode('announcements', 'sc_announcements');
 

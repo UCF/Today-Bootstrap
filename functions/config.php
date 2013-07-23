@@ -102,24 +102,24 @@ define('WEATHER_CLICK_URL', 'http://www.weather.com/weather/today/Orlando+FL+328
 define('WEATHER_CACHE_DURATION', 60 * 5); //seconds
 define('WEATHER_FETCH_TIMEOUT', 8); //seconds
 
-# Announcemets
-define('ANNOUNCE_DEFAULT', 'http://www.ucf.edu/feeds/announcement/');
-define('ANNOUNCE_STUDENT', 'http://www.ucf.edu/feeds/announcement/student.php');
-define('ANNOUNCE_STAFF', 'http://www.ucf.edu/feeds/announcement/staff.php');
-define('ANNOUNCE_ALUMNI', 'http://www.ucf.edu/feeds/announcement/alumni.php');
-define('ANNOUNCE_PUBLIC', 'http://www.ucf.edu/feeds/announcement/public.php');
-define('ANNOUNCE_CACHE_DURATION', 60 * 2); // seconds
+# Announcements
+define('ANNOUNCE_DEFAULT', 'http://www.ucf.edu/announcements/?include_ongoing=0&output=json');
+define('ANNOUNCE_CACHE_DURATION', 60 * 5); // seconds
 
+# Alerts
 define('ALERT_COOKIE_NAME', 'ucf_today_alerts');
 
 # Mainsite Tag Checker
 define('MAINSITE_TAG_SLUG', 'main-site-stories');
 $mainsite_tag_existed = False;
 
+# Events
 define('EVENTS_URL', 'http://events.ucf.edu');
 define('EVENTS_CALENDAR_ID', 1);
 define('EVENTS_CACHE_DURATION', 60 * 5); //seconds
-define('EVENTS_HTTP_TIMEOUT', 1); //seconds
+
+# JSON feed retrieval timeout
+define('FEED_FETCH_TIMEOUT', 5); //seconds
 
 
 
