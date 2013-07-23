@@ -574,18 +574,6 @@ class Update extends CustomPostType
 		$use_thumbnails = True,
 		$use_metabox    = False,
 		$use_editor		= True;
-		
-	public function fields() {
-		$prefix = $this->options('name').'_';
-		return Array(
-				Array(
-					'name'	=> 'Description',
-					'desc'	=> '',
-					'id'	=> $prefix.'description',
-					'type'	=> 'textarea'
-				)
-			);
-	}
 } 
 
 /**
@@ -604,7 +592,7 @@ class ExternalStory extends CustomPostType
 		$new_item       = 'New External Story',
 		$use_thumbnails = False,
 		$use_metabox    = True,
-		
+		$use_editor		= False,
 		$taxonomies		= Array('category', 'experts');
 		
 	public function fields() {
