@@ -37,7 +37,7 @@ function display_events($header='h3', $css=null) {
 						<span class="day"><?=$day?></span>
 						<span class="value-title" title="<?=$iso?>"></span>
 					</div>
-					<span class="title"><a class="url" href="<?=$link?>"><?=$title?></a></span>
+					<span class="summary"><a class="url" href="<?=$link?>"><?=$title?></a></span>
 				</li>
 				<?php endforeach;?>
 			</ul>

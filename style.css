@@ -108,14 +108,14 @@ ul.event-list li .dtstart {
     width: 25px;
 }
 ul.event-list li .dtstart .day { font-size: 16px; line-height: 16px; }
-ul.event-list li .title {
+ul.event-list li .summary {
 	display: block;
 	margin-left: 64px;
 	font-size: 14px;
 	line-height: 16px;
 	padding-top: 3px;
 }
-ul.event-list li .title a { color: #333; }
+ul.event-list li .summary a { color: #333; }
 ul.event-list + .more {
 	font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
 	font-size: 14px;
