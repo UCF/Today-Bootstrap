@@ -1038,7 +1038,7 @@ function sc_single_post_meta($atts = Array())
 			<?=$source?>
 			<? if(function_exists('wp_print')) {?>
 				<div id="print">
-					<a href="print" target="_blank">Print this Article</a>
+					<a href="?print=1" target="_blank">Print this Article</a>
 				</div>
 			<? } ?>
 		</div>
