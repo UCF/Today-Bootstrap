@@ -92,7 +92,7 @@ ul.story-list li .content { margin-left: 110px; }
 ul.story-list li .content h4 { margin-top: -4px; }
 ul.story-list li p.story-blurb { overflow: hidden; }
 
-ul.event-list li { margin-bottom: 15px; font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif; }
+ul.event-list li { margin-bottom: 20px; font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif; }
 ul.event-list li .dtstart {
 	float: left;
 	background-color: #FEF7C8;
