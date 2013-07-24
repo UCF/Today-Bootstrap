@@ -1506,6 +1506,7 @@ function sc_photo_set($atts = Array())
 {
 	global $post;
 	
+	$css	= (isset($atts['css'])) ? $atts['css'] : '';
 	
 	$images = resolve_posts(Array(), Array(	'post_type' => 'attachment',
 											'post_parent' => $post->ID,
@@ -1516,7 +1517,7 @@ function sc_photo_set($atts = Array())
 											
 	ob_start();
 	?>
-	<div id="photoset">
+	<div id="photoset" class="<?=$css?>">
 		<div class="row">
 			<h3 class="span8"><?=$post->post_title?></h3>
 			<div class="social span4">
@@ -1572,7 +1573,7 @@ function sc_photo_sets($atts = Array())
 												'numberposts' => -1));
 	$first = True;
 	ob_start();?>
-	<div id="photo-sets">
+	<div id="photo-sets" class="<?=$css?>">
 	<?
 	$count = 0;
 	foreach($photo_sets as $photo_set) {
@@ -1602,11 +1603,11 @@ function sc_photo_sets($atts = Array())
 				</div>
 				<hr class="span12" />
 			</div>
-			<div class="row video-list">
+			<div class="row photoset-list">
 		<? } else {	?>
 			<?php if (($count % 4) == 0 && $count !== 0) { ?>
 			</div>
-			<div class="row video-list">
+			<div class="row photoset-list">
 			<?php } ?>
 				<div class="span3 <?=$css_class?>">
 					<a href="<?=get_permalink($photo_set->ID)?>">
@@ -1659,7 +1660,9 @@ function sc_videos($atts = Array())
 	
 	$first = True;
 	$count = 0;
-	ob_start();?><?
+	ob_start();?>
+	<?php if ($css !== '') { ?><div class="<?=$css?>"><?php } ?>
+	<?
 	foreach($videos as $video) {
 		$video_url = get_post_meta($video->ID, 'video_url', True);
 		if($video_url != '') {
@@ -1700,7 +1703,9 @@ function sc_videos($atts = Array())
 			}
 		}
 	} ?>
-	</div><?
+	</div>
+	<?php if ($css !== '') { ?></div><?php } ?>
+	<?
 	return ob_get_clean();
 }
 add_shortcode('videos', 'sc_videos');
