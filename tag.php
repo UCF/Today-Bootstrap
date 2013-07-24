@@ -1,20 +1,36 @@
 <?php disallow_direct_load('tag.php');?>
 <?php get_header();?>
-<?
-	$subpage = '';
-	$page = get_page_by_title($wp_query->queried_object->name);
-	if(is_null($page)) {
-		$page = get_page_by_title('Tag');
-		if(is_null($page)) {
-			$page = get_page_by_title('Home');
-		}
-	} else {
-		$subpage = $page->post_name; // TODO: why does this exist?
+<?php
+	$use_page = false;
+	$page = get_page_by_title('Tag');
+	if ($page !== null) {
+		$use_page = $page->post_content !== '' ? true : false;
 	}
 ?>
 	<div class="subpage">
-		<? if($subpage != '') echo '<div id="'.$subpage.'">';?>
+	<? if($use_page == true) { ?>
 		<?=apply_filters('the_content', $page->post_content)?>
-		<? if($subpage != '') echo '</div>';?>
+	<?php 
+	} else { ?>
+		<div class="row">
+			<div class="span9 border-right">
+			    <?=do_shortcode('[feature css="border-bottom"]')?>
+			    <?=do_shortcode('[subpage_features]')?>
+			</div>
+			<div class="span3" id="sidebar">
+			    <?=do_shortcode('[events]')?>
+			</div>
+			<hr class="span12" /></div>
+		<div class="row">
+			<div class="span5 border-right">
+			    <?=do_shortcode('[more_headlines social="0"]')?>
+			</div>
+			<div class="span7">
+			    <?=do_shortcode('[ucf_video width="540"]')?>
+			</div>
+		</div>
+	<?php 
+	}
+	?>
 	</div>
 <?php get_footer();?>
