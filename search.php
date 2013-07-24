@@ -15,9 +15,9 @@
 				<?php if(count($results['items'])):?>
 				<ul class="result-list">
 					<?php foreach($results['items'] as $result):?>
-					<li class="item">
+					<li class="item <?=mimetype_to_application(($result['mime']) ? $result['mime'] : 'html')?>">
 						<h3>
-							<a class="<?=mimetype_to_application(($result['mime']) ? $result['mime'] : 'text/html')?>" href="<?=$result['url']?>">
+							<a href="<?=$result['url']?>">
 								<?php if($result['title']):?>
 								<?=$result['title']?>
 								<?php else:?>

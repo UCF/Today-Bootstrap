@@ -83,7 +83,8 @@ ul.comment-list,
 ul.term-list,
 ul.photoset-list,
 ul.expert-list,
-ul.profile-list { list-style-type: none; margin-left: 0; }
+ul.profile-list,
+ul.result-list { list-style-type: none; margin-left: 0; }
 
 ul.story-list li .thumb { float: left; width: 95px; height: 91px; }
 ul.story-list li .social { float: right; width: 75px; z-index: 2; margin-left: 10px; }
@@ -152,6 +153,21 @@ ul.expert-list li h4,
 ul.expert-list li p { margin-left: 115px; }
 ul.expert-list li h4 { margin-top: 0; }
 ul.expert-list li p { line-height: 18px; margin-bottom:10px; }
+
+ul.result-list li {
+	padding-left: 25px;
+	background-position: left 4px;
+	background-repeat: no-repeat;
+	margin-bottom: 20px;
+}
+ul.result-list li.document { background-image: url('static/img/document.png'); }
+ul.result-list li.html { background-image: url('static/img/document-html.png'); }
+ul.result-list li.zip { background-image: url('static/img/document-zip.png'); }
+ul.result-list li.pdf { background-image: url('static/img/document-pdf.png'); }
+ul.result-list li.word { background-image: url('static/img/document-doc.png'); }
+ul.result-list li.excel { background-image: url('static/img/document-xls.png'); }
+ul.result-list li.powerpoint { background-image: url('static/img/document-ppt.png'); }
+ul.result-list li h3 { margin-bottom: 5px; }
 
 .search form.search-form { margin: 0; }
 .search form.search-form * {
@@ -601,7 +617,8 @@ iframe[id^="___plusone"] { width: 90px !important; }
 	margin-top: 0;
 }
 #search-results h3,
-#search-results #sidebar h3 { 
+#search-results #sidebar h3,
+#search-result h3 a { 
 	font-size: 24px;
 	font-family: Georgia, serif;
 	margin-bottom: 20px;
