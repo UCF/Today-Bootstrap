@@ -4,15 +4,22 @@ Theme to replace the original Today WordPress theme, which relies on the Themati
 
 
 
-## Installation Requirements:
+## Installation
+
+### Required Plugins:
+* Ad-minister
+* Regenerate Thumbnails (recommended)
+* WP-Print
+
+### Required Installation Settings:
 * Settings > Permalinks: set Category base to 'section'; set Tag base to 'topic' (if not already set)
 * Update pages with old Blueprint markup to use Bootstrap markup
 * Settings > Discussion: Make sure Trackbacks/Pingbacks are DISABLED.
 
-## Installation Recommendations:
+### Installation Recommendations:
 * Regenerate thumbnails (new [photo_sets] thumbnail size has been created)
 * Update all post types to remove Pingback functionality. A lot of posts were originally created with the Pingback functionality turned on, and unfortunately they are still capable of receiving spam. Pingback functionality for posts/pages can be disabled through the WordPress interface in bulk; modify your default number of displayed posts in the Posts admin area, select all, then Bulk Edit the 'Pings' value to 'do not allow'. (http://wordpress.stackexchange.com/questions/84633/how-to-disable-wordpress-trackback)
-The primary issue with Pingbacks, though, is that media attachments allow them, and there isn't an option in the WordPress admin interface to disable them on existing attachments. To actually disable Pingbacks on every post type, a SQL statement will need to be run against the database directly: `UPDATE wp_posts SET ping_status="closed";`
+The primary issue with Pingbacks, though, is that media attachments allow them, and there isn't an option in the WordPress admin interface to disable them on existing attachments. To actually disable Pingbacks on every post type, a SQL statement will need to be run against the database directly: `UPDATE wp_posts SET ping_status="closed";` (note: wp_posts will be named 'wp_SITEID_posts' on multisite installs.)
 
 
 ## Deployment
