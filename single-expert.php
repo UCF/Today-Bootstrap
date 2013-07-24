@@ -9,7 +9,7 @@
 	}
 ?>
 
-	<div class="subpage">
+	<div id="single">
 	<? if($use_page == true) { ?>
 		<?=apply_filters('the_content', $page->post_content)?>
 	<?php 
