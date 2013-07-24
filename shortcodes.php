@@ -228,14 +228,14 @@ function sc_feature($atts = Array(), $id_only = False)
 			} else {
 				$feature_media = '<a href="'.get_permalink($feature->ID).'">'.get_img_html($feature->ID, 'feature').'</a>';
 				$feature_media_attachment = get_img_html($feature->ID, 'feature', array('return_id' => true));
-				$attachment_url = wp_get_attachment_url($feature_media_attachment['attachment_id']);
+				$attachment_url = wp_get_attachment_image_src($feature_media_attachment['attachment_id'], 'feature');
 			}
 			
 			ob_start();
 			?>
 			<div class="<?=$css?>" id="feature">
 				<!--<h3>Features Article</h3>-->
-				<div class="thumb <?php if ($attachment_url) { ?>cropped" style="background-image: url('<?=$attachment_url?>');<?php } ?>">
+				<div class="thumb <?php if ($attachment_url) { ?>cropped" style="background-image: url('<?=$attachment_url[0]?>');<?php } ?>">
 					<?=$feature_media?>
 				</div>
 				<h4><a href="<?=get_permalink($feature->ID)?>"><?=$feature->post_title?></a></h4>
@@ -265,14 +265,14 @@ function sc_feature($atts = Array(), $id_only = False)
 		} else {
 			$feature_media = '<a href="'.get_permalink($top_feature->ID).'">'.get_img_html($top_feature->ID, 'subpage_feature').'</a>';
 			$feature_media_attachment = get_img_html($feature->ID, 'subpage_feature', array('return_id' => true));
-			$attachment_url = wp_get_attachment_url($feature_media_attachment['attachment_id']);
+			$attachment_url = wp_get_attachment_image_src($feature_media_attachment['attachment_id'], 'subpage_feature');
 		}
 		
 		ob_start();
 		?>
 		<div class="clearfix <?=$css?>" id="feature">
 			<!-- Top Feature -->
-			<div class="thumb <?php if ($attachment_url) { ?>cropped" style="background-image: url('<?=$attachment_url?>');<?php } ?>">
+			<div class="thumb <?php if ($attachment_url) { ?>cropped" style="background-image: url('<?=$attachment_url[0]?>');<?php } ?>">
 				<?=$feature_media?>
 			</div>
 			<h4><a href="<?=get_permalink($top_feature->ID)?>"><?=$top_feature->post_title?></a></h4>
