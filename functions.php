@@ -67,6 +67,11 @@ function transition_rules()
 	
 	return $custom;
 }
+function rewrite_rules_filter($rules){
+	$custom = transition_rules();
+	return $custom + $rules;
+}
+add_filter('rewrite_rules_array', 'rewrite_rules_filter');
 
 
 /**
