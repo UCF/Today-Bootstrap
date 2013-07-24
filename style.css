@@ -207,8 +207,8 @@ ul.result-list li h3 { margin-bottom: 5px; }
 iframe[id^="___plusone"] { width: 90px !important; }
 
 .thumb { width: 100%; }
-/* .cropped style helps compensate for incorrect image dimensions while still providing 
-	an actual <img> tag */
+/* .cropped style uses background-size: cover when it can; older browsers
+	use javascript to resize/position the child img */
 .thumb.cropped {
 	background-size: cover;
 	background-position: center center;
