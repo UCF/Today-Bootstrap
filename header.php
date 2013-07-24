@@ -78,14 +78,15 @@
 				</div>
 				<hr class="span12" />
 			</div>
-			<div id="header-menu">
+			<nav id="header-menu">
 				<?=wp_nav_menu(array(
 					'menu' => 'Top Navigation', 
 					'container' => 'false', 
 					'menu_class' => 'menu '.get_header_styles(),
+					'menu_id' => 'navigation',
 					'walker' => new Bootstrap_Walker_Nav_Menu()
 					));
 				?>
 				<?=get_search_form()?>
-			</div>
+			</nav>
 			<?=gen_alerts_html()?>
