@@ -23,6 +23,7 @@ abstract class CustomPostType{
 		                         # (see also objectsToHTML and toHTML methods)
 		$taxonomies     = array('post_tag'),
 		$built_in       = False,
+		$rewrite 		= True,
 
 		# Optional default ordering for generic shortcode if not specified by user.
 		$default_orderby = null,
@@ -174,7 +175,8 @@ abstract class CustomPostType{
 			'supports'   => $this->supports(),
 			'public'     => $this->options('public'),
 			'taxonomies' => $this->options('taxonomies'),
-			'_builtin'   => $this->options('built_in')
+			'_builtin'   => $this->options('built_in'),
+			'rewrite'	 => $this->options('rewrite'),
 		);
 		
 		if ($this->options('use_order')){
