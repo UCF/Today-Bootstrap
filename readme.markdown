@@ -65,8 +65,9 @@ Today tends to export HUGE XML files which don't import well-- use a WXR splitte
 * Photoset
 * Video
 * Profile
-* Update
 * External Story
+
+Note: the Update post type was not carried over from the original theme.
 
 
 ## Custom Taxonomies
@@ -129,9 +130,6 @@ Other attributes are listed below the given shortcode's name, if available.
 
 ### Profiles
 * profile
-
-### Updates
-* update
 
 ### Other
 * myucf_signon

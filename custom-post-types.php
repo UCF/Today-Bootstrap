@@ -560,25 +560,6 @@ class Profile extends CustomPostType
 }
 
 /**
- * Update img and text
- *
- * @author Chris Conover
- **/
-class Update extends CustomPostType
-{
-	public 
-		$name           = 'update',
-		$plural_name    = 'Updates',
-		$singular_name  = 'Update',
-		$add_new_item   = 'Add New Update',
-		$edit_item      = 'Edit Update',
-		$new_item       = 'New Update',
-		$use_thumbnails = True,
-		$use_metabox    = False,
-		$use_editor		= True;
-} 
-
-/**
  * External story
  *
  * @author Chris Conover

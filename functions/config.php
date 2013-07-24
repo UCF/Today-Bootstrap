@@ -135,7 +135,6 @@ Config::$custom_post_types = array(
 	'PhotoSet',
 	'Video',
 	'Profile',
-	'Update',
 	'ExternalStory'
 );
 
