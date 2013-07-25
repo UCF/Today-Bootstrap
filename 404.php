@@ -4,7 +4,7 @@
 <?php get_header(); the_post();?>
 	<div class="row page-content" id="page-not-found">
 		<div class="span12">
-			<article>
+			<article role="main">
 				<h2>Page Not Found</h2>
 				<?php 
 					$page = get_page_by_title('404');

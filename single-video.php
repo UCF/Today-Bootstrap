@@ -10,14 +10,16 @@
 ?>
 
 	<div id="videos">
-	<? if($use_page == true) { ?>
-		<?=apply_filters('the_content', $page->post_content)?>
-	<?php 
-	} else { ?>
-		<?=do_shortcode('[videos]')?>
-	<?php 
-	}
-	?>
+		<article role="main">
+			<? if($use_page == true) { ?>
+				<?=apply_filters('the_content', $page->post_content)?>
+			<?php 
+			} else { ?>
+				<?=do_shortcode('[videos]')?>
+			<?php 
+			}
+			?>
+		</article>
 	</div>
 
 <?php get_footer();?>

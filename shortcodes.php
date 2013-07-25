@@ -234,7 +234,7 @@ function sc_feature($atts = Array(), $id_only = False)
 			ob_start();
 			?>
 			<div class="<?=$css?>" id="feature">
-				<!--<h3>Features Article</h3>-->
+				<h3>Featured Article</h3>
 				<div class="thumb <?php if ($attachment_url) { ?>cropped" style="background-image: url('<?=$attachment_url[0]?>');<?php } ?>">
 					<?=$feature_media?>
 				</div>
@@ -271,7 +271,7 @@ function sc_feature($atts = Array(), $id_only = False)
 		ob_start();
 		?>
 		<div class="clearfix <?=$css?>" id="feature">
-			<!-- Top Feature -->
+			<h3>Featured Article</h3>
 			<div class="thumb <?php if ($attachment_url) { ?>cropped" style="background-image: url('<?=$attachment_url[0]?>');<?php } ?>">
 				<?=$feature_media?>
 			</div>
@@ -279,11 +279,7 @@ function sc_feature($atts = Array(), $id_only = False)
 			<p class="story-blurb">
 				<?=get_excerpt($top_feature)?>
 			</p>
-			<div class="social">
-				<fb:like href="<?=get_permalink($top_feature->ID)?>" send="false" layout="button_count" width="105" show_faces="false" font=""></fb:like>
-				<a href="http://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a>
-				<g:plusone size="medium" href="<?=get_permalink($top_feature->ID)?>"></g:plusone>
-			</div>
+			<?=display_social(get_permalink($top_feature->ID), $top_feature->post_title)?>
 		</div>
 		<?
 		return ob_get_clean();
@@ -377,11 +373,7 @@ function sc_more_headlines($atts = Array())
 							</a>
 						</div>
 						<? if($social) { ?>
-						<div class="social">
-							<fb:like href="<?=get_permalink($headline->ID)?>" send="false" layout="button_count" width="85" show_faces="false" font=""></fb:like>
-							<a href="http://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a>
-							<g:plusone size="medium" href="<?=get_permalink($headline->ID)?>"></g:plusone>
-						</div>
+							<?=display_social(get_permalink($headline->ID), $headline->post_title)?>
 						<? } ?>
 					</div>
 					<div class="content">
@@ -428,7 +420,12 @@ function sc_ucf_photo($atts = Array())
 		?>
 		
 			<div class="<?=$css?>" id="ucf_photo">
-				<h3 class="listing"><?=$link_page_name?></h3><a href="<?=get_page_link(get_page_by_title($link_page_name)->ID)?>" class="listing">More &raquo;</a>
+				<h3 class="listing">
+					<?=$link_page_name?>
+				</h3>
+				<a href="<?=get_page_link(get_page_by_title($link_page_name)->ID)?>" class="listing" title="View more photo sets" alt="View more photo sets">
+					More &raquo;
+				</a>
 		<?
 		foreach($photosets as $photoset) {
 			if($first) {
@@ -630,7 +627,7 @@ function sc_promos($atts = Array())
 		ob_start();
 		?>
 			<div class="<?=$css?>" id="promos">
-				<!-- <h3>Promos</h3> -->
+				<h3>Promos</h3>
 				<ul class="story-list">
 		<?
 		$count = 0;
@@ -942,7 +939,7 @@ function sc_single_post($atts = Array())
 	$comment_form_args = Array(	'fields' => Array(	'<label for="share_name">Name</label><input type="text" id="share_name" name="author" />', 
 													'<label for="share_email">Email</label>
 													<input type="text" id="share_email" name="email" />'),
-								'comment_field' => '<textarea name="comment"></textarea>',
+								'comment_field' => '<label for="share_comment">Your Comment</label><textarea id="share_comment" name="comment"></textarea>',
 								'comment_notes_after' => '',
 								'comment_notes_before' => '',
 								'title_reply' => 'Share Your Thoughts',
@@ -970,27 +967,25 @@ function sc_single_post($atts = Array())
 	ob_start();
 	?>
 	<div<?php if ($css) { ?> class="<?=$css?>" <?php } ?>>
-		<h2><?=$title?></h2>
-		<?=$subtitle?>
-		<? if($video_url != '') { ?>
-			<?=$wp_embed->run_shortcode('[embed width="550" height="500"]'.$video_url.'[/embed]')?>
-		<? } else { ?>
-		<div id="story_feat_img">
-			<?=$img_attach['html']?>
-		</div>
-		<? } ?>
-		<p id="caption"><?=(isset($attachment)) ? $attachment->post_excerpt: ''?></p>
-		<div id="content">
-			<?=strip_tags($content, '<p><a><ol><ul><li><em><strong><img><blockquote>')?>
-		</div>
-		<div class="social">
-			<fb:like href="<?=get_permalink($post->ID)?>" send="false" layout="button_count" width="105" show_faces="false" font=""></fb:like>
-			<a href="http://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a>
-			<g:plusone size="medium" href="<?=get_permalink($post->ID)?>"></g:plusone>
-		</div>
-		<div id="share">
-			<?=comment_form($comment_form_args, $post->ID)?>
-		</div>
+		<article role="main">
+			<h2><?=$title?></h2>
+			<?=$subtitle?>
+			<? if($video_url != '') { ?>
+				<?=$wp_embed->run_shortcode('[embed width="550" height="500"]'.$video_url.'[/embed]')?>
+			<? } else { ?>
+			<div id="story_feat_img">
+				<?=$img_attach['html']?>
+			</div>
+			<? } ?>
+			<p id="caption"><?=(isset($attachment)) ? $attachment->post_excerpt: ''?></p>
+			<div id="content">
+				<?=strip_tags($content, '<p><a><ol><ul><li><em><strong><img><blockquote>')?>
+			</div>
+			<?=display_social(get_permalink($post->ID), $post->post_title)?>
+			<div id="share" role="form">
+				<?=comment_form($comment_form_args, $post->ID)?>
+			</div>
+		</article>
 	</div>
 	<?
 	$html = ob_get_contents(); ob_end_clean();
@@ -1033,11 +1028,7 @@ function sc_single_post_meta($atts = Array())
 				</div>
 			<? } ?>
 		</div>
-		<div class="social">
-			<fb:like href="<?=get_permalink($post->ID)?>" send="false" layout="button_count" width="105" show_faces="false" font=""></fb:like>
-			<a href="http://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a>
-			<g:plusone size="medium" href="<?=get_permalink($post->ID)?>"></g:plusone>
-		</div>
+		<?=display_social(get_permalink($post->ID), $post->post_title)?>
 	</div>
 	<?
 	$html = ob_get_contents(); ob_end_clean();
@@ -1505,11 +1496,9 @@ function sc_photo_set($atts = Array())
 	?>
 	<div id="photoset" class="<?=$css?>">
 		<div class="row">
-			<h3 class="span8"><?=$post->post_title?></h3>
-			<div class="social span4">
-				<fb:like href="<?=get_permalink($post->ID)?>" send="false" layout="button_count" width="105" show_faces="false" font=""></fb:like>
-				<a href="http://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a>
-				<g:plusone size="medium" href="<?=get_permalink($post->ID)?>"></g:plusone>
+			<h3 class="span9"><?=$post->post_title?></h3>
+			<div class="span3">
+				<?=display_social(get_permalink($post->ID), $post->post_title)?>
 			</div>
 		</div>
 		<p><?=$post->post_content?> <strong>(<?=count($images)?> photos total)</strong></p>
@@ -1674,7 +1663,7 @@ function sc_videos($atts = Array())
 					<?php } ?>
 					<div class="span4" id="video-<?=$count?>">
 						<a class="thumbnail" href="<?=get_permalink($video->ID)?>">
-							<img src="http://i1.ytimg.com/vi/<?=$matches['video_id']?>/hqdefault.jpg" />
+							<img src="http://i1.ytimg.com/vi/<?=$matches['video_id']?>/hqdefault.jpg" alt="Video: <?=$video->post_title?>" />
 							<h3><?=$video->post_title?></h3>
 						</a>
 					</div>

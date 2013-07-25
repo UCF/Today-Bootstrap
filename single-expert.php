@@ -16,7 +16,7 @@
 	} else { ?>
 		<div class="row">
 			<?=do_shortcode('[single_post css="span7"]')?>
-			<div class="span4 offset1" id="sidebar">
+			<div class="span4 offset1" id="sidebar" role="complementary">
 				<?=do_shortcode('[expert_meta css="border-bottom"]')?>
 				<?=do_shortcode('[expert_tagged css="border-bottom"]')?>
 				<?=do_shortcode('[expert_videos css="border-bottom"]')?>

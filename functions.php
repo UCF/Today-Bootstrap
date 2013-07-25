@@ -232,6 +232,7 @@ function get_img_html($post_id, $size = 'thumbnail', $options = Array())
 	$sent_attach	= (isset($options['sent_attach'])) ? $options['sent_attach'] : False;
 	
 	$org_size = $size;
+	$img_alttext = get_the_title($post_id);
 	
 	if($sent_attach) {
 		$attach_id = $post_id;
@@ -283,9 +284,9 @@ function get_img_html($post_id, $size = 'thumbnail', $options = Array())
 			$dims['height'] = $org_dims['height'];
 		}
 		
-	 	$html = (isset($thumb[0])) ? '<img src="'.$thumb[0].'" '.$element_id.'width="'.$dims['width'].'" height="'.$dims['height'].'" />' : '';
+	 	$html = (isset($thumb[0])) ? '<img src="'.$thumb[0].'" '.$element_id.'width="'.$dims['width'].'" height="'.$dims['height'].'" alt="'.$img_alttext.'" />' : '';
 	} else if($org_size != 'story_feature') {
-		$html = '<img src="'.get_bloginfo('stylesheet_directory').'/static/img/no-photo.png" '.$element_id.'width="95" height="91" />';
+		$html = '<img src="'.get_bloginfo('stylesheet_directory').'/static/img/no-photo.png" '.$element_id.'width="95" height="91" alt="'.$img_alttext.'" />';
 	}
 	
 	if($return_id) {
@@ -619,7 +620,7 @@ function get_posts_search($query='', $post_type='post', $extra_args=array()) {
 function display_social($url, $title) {
 	$tweet_title = urlencode('UCF Today: '.$title);
 	ob_start(); ?>
-	<div class="social">
+	<div class="social clearfix">
 		<a class="share-facebook" target="_blank" href="http://www.facebook.com/sharer.php?u=<?=$url?>" title="Like this story on Facebook">
 			Like "<?=$title?>" on Facebook
 		</a>

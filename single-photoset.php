@@ -10,14 +10,16 @@
 ?>
 
 	<div class="subpage">
-	<? if($use_page == true) { ?>
-		<?=apply_filters('the_content', $page->post_content)?>
-	<?php 
-	} else { ?>
-		<?=do_shortcode('[photo_set]')?>
-	<?php 
-	}
-	?>
+		<article role="main">
+			<? if($use_page == true) { ?>
+				<?=apply_filters('the_content', $page->post_content)?>
+			<?php 
+			} else { ?>
+				<?=do_shortcode('[photo_set]')?>
+			<?php 
+			}
+			?>
+		</article>
 	</div>
 
 <?php get_footer();?>

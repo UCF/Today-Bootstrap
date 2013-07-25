@@ -59,7 +59,7 @@
 	</head>
 	<body class="<?=today_body_classes()?>">
 		<div class="container">
-			<div class="row" id="header">
+			<div class="row" id="header" role="banner">
 				<div id="page-title" class="span7">
 					<h1><?=get_header_title();?></h1>
 				</div>
@@ -78,7 +78,7 @@
 				</div>
 				<hr class="span12" />
 			</div>
-			<nav id="header-menu">
+			<nav id="header-menu" role="navigation">
 				<?=wp_nav_menu(array(
 					'menu' => 'Top Navigation', 
 					'container' => 'false', 
