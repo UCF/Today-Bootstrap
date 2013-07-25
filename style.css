@@ -55,7 +55,9 @@ h4 span.orange { font-weight: 300; }
 .border-left:before,
 .border-right:after,
 .border-both:before,
-.border-both:after {
+.border-both:after,
+.ie-old .ie-border-left,
+.ie-old .ie-border-right {
 	display: block;
 	width: 1px;
 	height: 100%;
@@ -65,13 +67,16 @@ h4 span.orange { font-weight: 300; }
 	background-color: #eee;
 }
 .border-left:before,
-.border-both:before {
+.border-both:before,
+.ie-old .ie-border-left {
 	left: -11px;
 }
 .border-right:after,
-.border-both:after {
+.border-both:after,
+.ie-old .ie-border-right {
 	right: -11px;
 }
+
 .border-bottom { padding-bottom: 15px; margin-bottom: 15px; border-bottom: 1px solid #eee; }
 .border-top { margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee; }
 
@@ -126,7 +131,8 @@ ul.event-list + .more a { color: #333; }
 
 ul.video-list li,
 div.video-list > div,
-ul.photoset-list li {
+ul.photoset-list li,
+div.photoset-list > div {
 	margin-bottom: 20px;
 }
 ul.video-list li h4,
@@ -435,11 +441,11 @@ iframe[id^="___plusone"] { width: 90px !important; }
 	line-height: 26px;
 	margin-top: -4px;
 }
-#photo-sets .video-list > div img {
+#photo-sets .photoset-list > div img {
 	width: 220px;
 	height: 203px;
 }
-#photo-sets .video-list > div h3 { font-size: 16px; line-height: 16px; margin-top: 10px; }
+#photo-sets .photoset-list > div h3 { font-size: 16px; line-height: 16px; margin-top: 10px; }
 
 /** Shortcode - [ucf_video] **/
 #ucf_video h4 { font-size: 26px; font-weight: 300; margin-bottom: 5px; }

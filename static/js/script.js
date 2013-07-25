@@ -304,7 +304,13 @@ var fixIETermLists = function($) {
 
 
 var ieVerticalBorders = function($) {
-	// IE is still dumb
+	// More :after (and :before) compensation for old IE...
+	$('body.ie-old .border-left, body.ie-old .border-both').each(function() {
+		$(this).append('<div class="ie-border-left"></div>');
+	})
+	$('body.ie-old .border-right, body.ie-old .border-both').each(function() {
+		$(this).append('<div class="ie-border-right"></div>');
+	})
 
 };
 
