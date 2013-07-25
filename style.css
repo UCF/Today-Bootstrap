@@ -152,7 +152,7 @@ ul.announcement-list li h4 { margin-bottom: 4px; }
 
 .link_list ul li { font-size: 14px;	line-height: 16px; margin-bottom: 12px; }
 
-ul.term-list { overflow: visible; }
+ul.term-list { overflow: auto; }
 ul.term-list li {
 	display: inline-block;
 	float: left;
@@ -216,9 +216,25 @@ ul.result-list li h3 { margin-bottom: 5px; }
 	float: left;
 }
 
-.social .fb_iframe_widget { width: 105px !important; }
-.twitter-share-button,
-iframe[id^="___plusone"] { width: 90px !important; }
+.social { overflow: auto; }
+.social .share-twitter,
+.social .share-facebook,
+.social .share-googleplus {
+	background-image: url('static/img/social-share.png');
+	background-repeat: no-repeat;
+	display: block;
+	float: left;
+	text-indent: -9999px;
+	height: 20px;
+	margin-bottom: 5px;
+	margin-right: 10px;
+}
+.social .share-twitter { width: 54px; background-position: 0 0; }
+.social .share-twitter:hover { background-position: 0 -20px; }
+.social .share-facebook { width: 51px; background-position: 0 -40px; }
+.social .share-facebook:hover { background-position: 0 -60px; }
+.social .share-googleplus { width: 32px; background-position: 0 -80px; }
+.social .share-googleplus:hover { background-position: 0 -100px; }
 
 .thumb { width: 100%; }
 /* .cropped style uses background-size: cover when it can; older browsers
@@ -358,7 +374,8 @@ iframe[id^="___plusone"] { width: 90px !important; }
 /** Shortcode - [more_headlines] **/
 #more_headlines ul.story-list li { margin-top: 15px; }
 #more_headlines ul.story-list li:first-child { margin-top: 0; }
-#more_headlines ul.story-list li .social .fb_iframe_widget { width: 95px !important; }
+#more_headlines ul.story-list li .social .share-facebook { margin-right: 5px; }
+#more_headlines ul.story-list li .social .share-googleplus { margin-right: 0; }
 #more_headlines ul.story-list li p.story-blurb {
 	font-size: 15px;
 	line-height: 22px;
@@ -451,6 +468,7 @@ iframe[id^="___plusone"] { width: 90px !important; }
 #ucf_video h4 { font-size: 26px; font-weight: 300; margin-bottom: 5px; }
 
 /** Shortcode - [videos] **/
+#videos article { margin-top: 0; }
 #videos .feature + div h3 { font-size: 22px; line-height: 24px; text-transform: none; }
 
 /** Shortcode - [announcements] **/

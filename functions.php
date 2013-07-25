@@ -610,6 +610,32 @@ function get_posts_search($query='', $post_type='post', $extra_args=array()) {
 
 
 /**
+ * Displays social buttons (Facebook, Twitter, G+) for a post.
+ * Accepts a post URL and title as arguments.
+ *
+ * @return string
+ * @author Jo Dickson
+ **/
+function display_social($url, $title) {
+	$tweet_title = urlencode('UCF Today: '.$title);
+	ob_start(); ?>
+	<div class="social">
+		<a class="share-facebook" target="_blank" href="http://www.facebook.com/sharer.php?u=<?=$url?>" title="Like this story on Facebook">
+			Like "<?=$title?>" on Facebook
+		</a>
+		<a class="share-googleplus" target="_blank" href="https://plusone.google.com/_/+1/confirm?hl=en&url=<?=$url?>" title="Recommend this story on Google+">
+			Recommend "<?=$title?>" on Google+
+		</a>
+		<a class="share-twitter" target="_blank" href="https://twitter.com/intent/tweet?text=<?=$tweet_title?>&url=<?=$url?>" title="Tweet this story">
+			Tweet "<?=$title?>" on Twitter
+		</a>
+	</div>
+	<?php
+	return ob_get_clean();
+}
+
+
+/**
  * Prevent Wordpress from trying to redirect to a "loose match" post when
  * an invalid URL is requested. WordPress will redirect to 404.php instead.
  *
