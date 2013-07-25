@@ -280,12 +280,7 @@ function sc_feature($atts = Array(), $id_only = False)
 				<?=get_excerpt($top_feature)?>
 			</p>
 			<div class="social">
-				<iframe 	src="http://www.facebook.com/plugins/like.php?href=<?=get_permalink($top_feature->ID)?>&amp;send=false&amp;layout=button_count&amp;width=80&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" 
-							scrolling="no" 
-							frameborder="0"
-							style="border:none; overflow:hidden; width:80px; height:21px;" 
-							allowTransparency="true">
-				</iframe>
+				<fb:like href="<?=get_permalink($top_feature->ID)?>" send="false" layout="button_count" width="105" show_faces="false" font=""></fb:like>
 				<a href="http://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a>
 				<g:plusone size="medium" href="<?=get_permalink($top_feature->ID)?>"></g:plusone>
 			</div>
@@ -374,26 +369,27 @@ function sc_more_headlines($atts = Array())
 		$thumb_html = get_img_html($headline->ID, 'story');
 		?>
 				<li class="clearfix<?=(($count + 1) == count($headlines) ? ' last' : '')?>">
-					<div class="thumb">
-						<a href="<?=get_permalink($headline->ID)?>">
-							<?=$thumb_html?>
-						</a>
+
+					<div class="story-media">
+						<div class="thumb">
+							<a href="<?=get_permalink($headline->ID)?>">
+								<?=$thumb_html?>
+							</a>
+						</div>
+						<? if($social) { ?>
+						<div class="social">
+							<fb:like href="<?=get_permalink($headline->ID)?>" send="false" layout="button_count" width="85" show_faces="false" font=""></fb:like>
+							<a href="http://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a>
+							<g:plusone size="medium" href="<?=get_permalink($headline->ID)?>"></g:plusone>
+						</div>
+						<? } ?>
 					</div>
-					<? if($social) { ?>
-					<div class="social">
-						<fb:like href="<?=get_permalink($headline->ID)?>" send="false" layout="button_count" width="450" show_faces="false" font=""></fb:like>
-						<a href="http://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a>
-						<g:plusone size="medium" href="<?=get_permalink($headline->ID)?>"></g:plusone>
-					</div>
-					<? } ?>
-					<div class="content<?=($social) ? '' : ' nosocial'?>">
+					<div class="content">
 						<h4><a href="<?=get_permalink($headline->ID)?>"><?=$headline->post_title?></a></h4>
 						<p class="story-blurb">
 							<?=get_excerpt($headline)?>
 						</p>
 					</div>
-					
-					
 				</li>
 		<?
 		$count++;
@@ -988,12 +984,7 @@ function sc_single_post($atts = Array())
 			<?=strip_tags($content, '<p><a><ol><ul><li><em><strong><img><blockquote>')?>
 		</div>
 		<div class="social">
-			<iframe 	src="http://www.facebook.com/plugins/like.php?href=<?=get_permalink($post->ID)?>&amp;send=false&amp;layout=button_count&amp;width=150&amp;show_faces=true&amp;action=recommend&amp;colorscheme=light&amp;font&amp;height=21" 
-						scrolling="no" 
-						frameborder="0"
-						style="border:none; overflow:hidden; width:80px; height:21px;" 
-						allowTransparency="true">
-			</iframe>
+			<fb:like href="<?=get_permalink($post->ID)?>" send="false" layout="button_count" width="105" show_faces="false" font=""></fb:like>
 			<a href="http://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a>
 			<g:plusone size="medium" href="<?=get_permalink($post->ID)?>"></g:plusone>
 		</div>
@@ -1043,12 +1034,7 @@ function sc_single_post_meta($atts = Array())
 			<? } ?>
 		</div>
 		<div class="social">
-			<iframe 	src="http://www.facebook.com/plugins/like.php?href=<?=get_permalink($post->ID)?>&amp;send=false&amp;layout=button_count&amp;width=80&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" 
-						scrolling="no" 
-						frameborder="0"
-						style="border:none; overflow:hidden; width:80px; height:21px;" 
-						allowTransparency="true">
-			</iframe>
+			<fb:like href="<?=get_permalink($post->ID)?>" send="false" layout="button_count" width="105" show_faces="false" font=""></fb:like>
 			<a href="http://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a>
 			<g:plusone size="medium" href="<?=get_permalink($post->ID)?>"></g:plusone>
 		</div>
@@ -1521,12 +1507,7 @@ function sc_photo_set($atts = Array())
 		<div class="row">
 			<h3 class="span8"><?=$post->post_title?></h3>
 			<div class="social span4">
-				<iframe 	src="http://www.facebook.com/plugins/like.php?href=<?=get_permalink($post->ID)?>&amp;send=false&amp;layout=button_count&amp;width=80&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" 
-							scrolling="no" 
-							frameborder="0"
-							style="border:none; overflow:hidden; width:80px; height:21px;" 
-							allowTransparency="true">
-				</iframe>
+				<fb:like href="<?=get_permalink($post->ID)?>" send="false" layout="button_count" width="105" show_faces="false" font=""></fb:like>
 				<a href="http://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a>
 				<g:plusone size="medium" href="<?=get_permalink($post->ID)?>"></g:plusone>
 			</div>

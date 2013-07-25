@@ -295,6 +295,20 @@ var ieThumbCropper = function($) {
 };
 
 
+var fixIETermLists = function($) {
+	// IE is dumb and doesn't support the :after selector
+	$('body.ie-old ul.term-list li:not(:last-child) a').each(function() {
+		$(this).append(',');
+	});
+};
+
+
+var ieVerticalBorders = function($) {
+	// IE is still dumb
+
+};
+
+
 if (typeof jQuery != 'undefined'){
 	jQuery(document).ready(function($) {
 		Webcom.slideshow($);
@@ -311,5 +325,7 @@ if (typeof jQuery != 'undefined'){
 		fitHeaderText($);
 		addEllipses($);
 		ieThumbCropper($);
+		fixIETermLists($);
+		ieVerticalBorders($);
 	});
 }else{console.log('jQuery dependency failed to load');}

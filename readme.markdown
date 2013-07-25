@@ -150,7 +150,7 @@ Note that the `checkered` CSS class has been removed in favor of Bootstrap's `ta
 * .border-top
 * .border-bottom
 * .orange: Adds orange color to text.
-* .cropped: Should be added to a `.thumb` element to proportionally stretch a thumbnail to a confined space. Elements with this class should have a background image specified, an explicit `height` value (in pixels), as well as a child image (with the same URL) contained within an `<a>` tag.
+* .cropped: Should be added to a `.thumb` element to proportionally stretch a thumbnail to a confined space. Elements with this class should have a background image specified, an explicit `height` value (in pixels), as well as a child image (with the same URL) contained within an `<a>` tag. Thumbnails with the .cropped style will adjust to best fit the designated space, despite the actual thumbnail's dimensions.
 
 
 ## Other Notes

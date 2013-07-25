@@ -202,7 +202,7 @@ function gen_alerts_html()
 									<span class="msg" style="'.implode(' ', $span_inline_styles).'">
 										'.$text.'
 										'.$link_html.'
-										<a class="close">Close</a>
+										<a class="close" alt="Close Alert" title="Close Alert" href="#">&times;</a>
 									</span>
 								</li>';
 			}
