@@ -1636,6 +1636,7 @@ function sc_videos($atts = Array())
 	foreach($videos as $video) {
 		$video_url = get_post_meta($video->ID, 'video_url', True);
 		if($video_url != '') {
+			$video_url = preg_replace('/^http(s)?:/', '', $video_url);
 			if($first) {
 				$first = false;
 				$embed_string = '[embed width="590" height="430"]'.$video_url.'[/embed]';
