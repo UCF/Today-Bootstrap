@@ -121,6 +121,10 @@ define('EVENTS_CACHE_DURATION', 60 * 5); //seconds
 # JSON feed retrieval timeout
 define('FEED_FETCH_TIMEOUT', 5); //seconds
 
+# Protocol-agnostic URL schemes aren't supported before WP 3.5,
+# so we have to determine the protocol before registering
+# any non-relative resources.
+define('CURRENT_PROTOCOL', is_ssl() ? 'https://' : 'http://');
 
 
 /**
@@ -271,7 +275,7 @@ Config::$links = array(
 
 Config::$styles = array(
 	array('admin' => True, 'src' => THEME_CSS_URL.'/admin.css',),
-	'http://universityheader.ucf.edu/bar/css/bar.css',
+	CURRENT_PROTOCOL.'universityheader.ucf.edu/bar/css/bar.css',
 	THEME_STATIC_URL.'/bootstrap/bootstrap/css/bootstrap.css',
 );
 
@@ -283,7 +287,7 @@ array_push(Config::$styles,
 
 Config::$scripts = array(
 	array('admin' => True, 'src' => THEME_JS_URL.'/admin.js',),
-	'http://universityheader.ucf.edu/bar/js/university-header.js',
+	CURRENT_PROTOCOL.'universityheader.ucf.edu/bar/js/university-header.js',
 	THEME_STATIC_URL.'/bootstrap/bootstrap/js/bootstrap.js',
 	array('name' => 'base-script',  'src' => THEME_JS_URL.'/webcom-base.js',),
 	array('name' => 'autoellipsis',  'src' => THEME_JS_URL.'/jquery.autoellipsis-1.0.10.min.js',),
@@ -305,7 +309,7 @@ if ($theme_options['gw_verify']){
 
 function jquery_in_header() {
     wp_deregister_script( 'jquery' );
-    wp_register_script( 'jquery', 'http://code.jquery.com/jquery-1.7.1.min.js');
+    wp_register_script( 'jquery', CURRENT_PROTOCOL.'ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js');
     wp_enqueue_script( 'jquery' );
     wp_register_script( 'jquery-textFit', THEME_JS_URL.'/jquery.textFit.min.js' );
     wp_enqueue_script( 'jquery-textFit' );

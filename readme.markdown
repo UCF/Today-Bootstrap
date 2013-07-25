@@ -13,8 +13,9 @@ Theme to replace the original Today WordPress theme, which relies on the Themati
 
 ### Required Installation Settings:
 * Settings > Permalinks: set Category base to 'section'; set Tag base to 'topic' (if not already set)
-* Update pages with old Blueprint markup to use Bootstrap markup
+* Update pages with old Blueprint markup to use Bootstrap markup, or remove those pages entirely
 * Settings > Discussion: Make sure Trackbacks/Pingbacks are DISABLED.
+* Replace all image references in Ad-minister ad content with protocol-relative URLs
 
 ### Installation Recommendations:
 * Regenerate thumbnails (new [photo_sets] thumbnail size has been created)

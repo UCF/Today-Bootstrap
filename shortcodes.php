@@ -1663,7 +1663,7 @@ function sc_videos($atts = Array())
 					<?php } ?>
 					<div class="span4" id="video-<?=$count?>">
 						<a class="thumbnail" href="<?=get_permalink($video->ID)?>">
-							<img src="http://i1.ytimg.com/vi/<?=$matches['video_id']?>/hqdefault.jpg" alt="Video: <?=$video->post_title?>" />
+							<img src="//i1.ytimg.com/vi/<?=$matches['video_id']?>/hqdefault.jpg" alt="Video: <?=$video->post_title?>" />
 							<h3><?=$video->post_title?></h3>
 						</a>
 					</div>
