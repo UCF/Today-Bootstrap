@@ -555,6 +555,15 @@ add_action( 'post-upload-ui', 'media_upload_display_scale_option' );
 
 
 /**
+ * Returns a theme option value or NULL if it doesn't exist
+ **/
+function get_theme_option($key) {
+	global $theme_options;
+	return isset($theme_options[$key]) ? $theme_options[$key] : NULL;
+}
+
+
+/**
  * Determine the title of the page <h1>, depending on content returned
  *
  * @return string
