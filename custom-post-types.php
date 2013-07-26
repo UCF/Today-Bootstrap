@@ -324,7 +324,7 @@ class Post extends CustomPostType
 		$public = True,
 		$use_editor = True,
 		$use_thumbnails = True,
-		$use_order = True,
+		$use_order = False,
 		$use_title = True,
 		$use_metabox = True,
 		$taxonomies = array('experts', 'post_tag', 'category'),
