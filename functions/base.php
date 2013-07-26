@@ -392,39 +392,6 @@ function dump(){
 
 
 /**
- * Will add a debug comment to the output when the debug constant is set true.
- * Any value, including null, is enough to trigger it.
- * 
- * @return void
- * @author Jared Lang
- **/
-if (DEBUG){ 
-	function debug($string){ /*
-		print "<!-- DEBUG: {$string} -->\n"; */
-	} 
-}else{
-	function debug($string){return;}
-}
-
-
-/**
- * Will execute the function $func with the arguments passed via $args if the
- * debug constant is set true.  Returns whatever value the called function
- * returns, or void if debug is not set active.
- *
- * @return mixed
- * @author Jared Lang
- **/
-if (DEBUG){
-	function debug_callfunc($func, $args){
-		return call_user_func_array($func, $args);
-	}
-}else{
-	function debug_callfunc($func, $args){return;}
-}
-
-
-/**
  * Indent contents of $html passed by $n indentations.
  *
  * @return string
