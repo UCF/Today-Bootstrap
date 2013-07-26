@@ -11,6 +11,7 @@ Theme to replace the original Today WordPress theme, which relies on the Themati
 * Social
 * Regenerate Thumbnails (recommended)
 * Twitter Tools (requires Social)
+* Varnish Dependency Purger
 * WP-Print
 
 ### Required Installation Settings:

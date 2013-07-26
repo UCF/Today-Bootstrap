@@ -133,6 +133,34 @@ function get_weather_data() {
 
 
 /**
+ * Display weather data.
+ *
+ * @return string
+ * @author Jo Dickson
+ **/
+function output_weather_data() {
+	$weather = get_weather_data();
+	ob_start();
+	?>
+	<div id="weather_bug" class="span5">
+		<div id="wb_date">
+			<?=date('l, F j, Y')?>
+		</div>
+		<a id="wb_more" href="<?=WEATHER_CLICK_URL?>">more weather</a>
+		<div id="wb_status_img">
+			<img src="<?php bloginfo('stylesheet_directory'); ?>/static/img/weather/WC<?=$weather['img']?>.png" alt="<?=$weather['condition']?>" />
+		</div>
+		<div id="wb_status_txt">
+			<?=$weather['condition']?>, <span><?=$weather['temp']?></span>
+		</div>
+	</div>
+	<?php
+	return ob_get_clean();
+}
+
+
+
+/**
  * Internal list items of alerts ul
  *
  * @return string
@@ -692,4 +720,48 @@ function filter_media_comment_status( $open, $post_id ) {
 	return $open;
 }
 add_filter( 'comments_open', 'filter_media_comment_status', 10 , 2 );
+
+
+/**
+ * Wrap a statement in a ESI include tag with a specified duration if the
+ * enable_esi theme option is enabled.
+ **/
+function esi_include($statementname, $argset=null) {	
+	if (!$statementname) { return null; }
+
+	// Get the statement key
+	$statementkey = null;
+	foreach (Config::$esi_whitelist as $key=>$function) {
+		if ($function['name'] == $statementname) { $statementkey = $key;}
+	}
+	if (!$statementkey) { return null; }
+
+	// Never include ESI over HTTPS
+	$enable_esi = get_theme_option('enable_esi');
+	if(!is_null($enable_esi) && $enable_esi === '1' && is_ssl() == false) {
+		$argset = ($argset !== null) ? $argset = '&args='.urlencode(base64_encode($argset)) : '';
+		?>
+		<esi:include src="<?php echo ESI_INCLUDE_URL?>?statement=<?=$statementkey?><?=$argset?>" />
+		<?php
+	} elseif (array_key_exists($statementkey, Config::$esi_whitelist)) {
+		$statementname = Config::$esi_whitelist[$statementkey]['name'];
+		$statementargs = Config::$esi_whitelist[$statementkey]['safe_args'];
+		// If no safe arguments are defined in the whitelist for this statement,
+		// run call_user_func(); otherwise check arguments and run call_user_func_array()
+		if (!is_array($statementargs) || $argset == null) {
+			return call_user_func($statementname);
+		}
+		else {
+			// Convert argset arrays to strings for easy comparison with our whitelist
+			$argset = is_array($argset) ? serialize($argset) : $argset;
+			if ($argset !== null && in_array($argset, $statementargs)) {
+				$argset = (unserialize($argset) !== false) ? unserialize($argset) : array($argset);
+				return call_user_func_array($statementname, $argset);
+			}
+		}
+	}
+	else {
+		return NULL;
+	}
+}
 ?>

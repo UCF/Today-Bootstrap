@@ -1,5 +1,4 @@
 <?php
-
 function display_events($header='h3', $css=null) { 
 	$options = get_option(THEME_OPTIONS_NAME);
 	$qstring = (bool)strpos($options['events_url'], '?');

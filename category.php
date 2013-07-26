@@ -18,7 +18,7 @@
 			    <?=do_shortcode('[subpage_features]')?>
 			</div>
 			<div class="span3" id="sidebar">
-			    <?=do_shortcode('[events]')?>
+			    <?=esi_include('do_shortcode', '[events]')?>
 			    <?=do_shortcode('[advertisement css="border-top" location="Category Right Vertical"]')?>
 			</div>
 			<hr class="span12" /></div>

@@ -126,6 +126,9 @@ define('FEED_FETCH_TIMEOUT', 5); //seconds
 # any non-relative resources.
 define('CURRENT_PROTOCOL', is_ssl() ? 'https://' : 'http://');
 
+# ESI processing
+define('ESI_INCLUDE_URL', THEME_STATIC_URL.'/esi.php');
+
 
 /**
  * Set config values including meta tags, registered custom post types, styles,
@@ -145,6 +148,32 @@ Config::$custom_post_types = array(
 Config::$custom_taxonomies = array(
 	'Experts',
 	'Groups'
+);
+
+/**
+ * Edge Side Includes (ESI) are directives that tell Varnish to include some other
+ * content in the page. The primary use for use to assign another cache duration
+ * to the "other content".
+ * To add an ESI, first add some function and any safe-to-use arguments to the ESI
+ * whitelist below, then call that function by referencing its key in the whitelist
+ * and any arguments using esi_include($key, $args).
+ * Functions that accept/require multiple arguments should be listed here with
+ * serialized set(s) of arguments (so that they can be compared as a single string).
+ * Example:
+ * $key => array(
+ * 		'name' => $functionname,
+ * 		'safe_args' => array('somearg', 'anotherarg', serialize($arrayofargs),
+ * )
+ **/
+Config::$esi_whitelist = array(
+	1 => array(
+		'name' => 'output_weather_data',
+		'safe_args' => array(),
+	),
+	2 => array(
+		'name' => 'do_shortcode',
+		'safe_args' => array('[events]'),
+	),
 );
 
 /**
@@ -263,6 +292,19 @@ Config::$theme_settings = array(
 			'id'          => THEME_OPTIONS_NAME.'[twitter_url]',
 			'description' => 'URL to the twitter user account you would like to direct visitors to.  Example: <em>http://twitter.com/csbrisketbus</em>',
 			'value'       => $theme_options['twitter_url'],
+		)),
+	),
+	'Site' => array(
+		new RadioField(array(
+			'name' 		  => 'Enable Edge Side Includes (ESI)',
+			'id' 		  => THEME_OPTIONS_NAME.'[enable_esi]',
+			'description' => 'Replace specified content with Edge Side Includes (ESI) to be processed by Varnish.',
+			'default' 	  => 0,
+			'choices' 	  => array(
+				'On' 	  => 1,
+				'Off' 	  => 0,
+			),
+			'value' => $theme_options['enable_esi'],
 		)),
 	),
 );

@@ -61,21 +61,9 @@
 		<div class="container">
 			<div class="row" id="header" role="banner">
 				<div id="page-title" class="span7">
-					<h1><?=get_header_title();?></h1>
+					<h1><?=get_header_title()?></h1>
 				</div>
-				<div id="weather_bug" class="span5">
-					<?php $weather = get_weather_data(); ?>
-					<div id="wb_date">
-						<?=date('l, F j, Y')?>
-					</div>
-					<a id="wb_more" href="<?=WEATHER_CLICK_URL?>">more weather</a>
-					<div id="wb_status_img">
-						<img src="<?php bloginfo('stylesheet_directory'); ?>/static/img/weather/WC<?=$weather['img']?>.png" alt="<?=$weather['condition']?>" />
-					</div>
-					<div id="wb_status_txt">
-						<?=$weather['condition']?>, <span><?=$weather['temp']?></span>
-					</div>
-				</div>
+				<?=esi_include('output_weather_data')?>
 				<hr class="span12" />
 			</div>
 			<nav id="header-menu" role="navigation">
