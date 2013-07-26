@@ -607,9 +607,10 @@ ul.result-list li h3 { margin-bottom: 5px; }
     float: left;
     font-size: 48px;
     font-weight: normal;
-    line-height: 16px;
+    line-height: 48px;
+    height: 48px;
     margin-right: 7px;
-    margin-top: 6px;
+    margin-top: 0;
 }
 #single .social { margin-top: 20px; }
 #single #share { margin-top: 40px; }
