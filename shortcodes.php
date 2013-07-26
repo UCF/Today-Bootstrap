@@ -946,7 +946,7 @@ function sc_single_post($atts = Array())
 						);
 						
 
-	$content = get_the_content();
+	$content = $post->post_content;
 	$content = apply_filters('the_content', $content);
 	$content = str_replace(']]>', ']]&gt;', $content);
 	
