@@ -19,7 +19,8 @@ class Config{
 		$styles            = array(), # Stylesheets to register
 		$scripts           = array(), # Scripts to register
 		$links             = array(), # <link>s to include in <head>
-		$metas             = array(); # <meta>s to include in <head>
+		$metas             = array(), # <meta>s to include in <head>
+		$esi_whitelist 	   = array(); # List of PHP statements (strings) that are valid ESI outputs.
 	
 	
 	/**
