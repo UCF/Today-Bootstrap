@@ -349,7 +349,7 @@ class Post extends CustomPostType
 					'id'		=> 'display_type',
 					'type'		=> 'radio',
 					'options'	=> array(
-										'Normal'					=> 'Normal',
+										'Normal'					=> 'normal',
 										'Promotional/Press Release' => 'promotional',
 										'Featured' 					=> 'featured',
 									),

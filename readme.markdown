@@ -8,7 +8,9 @@ Theme to replace the original Today WordPress theme, which relies on the Themati
 
 ### Required Plugins:
 * Ad-minister
+* Social
 * Regenerate Thumbnails (recommended)
+* Twitter Tools (requires Social)
 * WP-Print
 
 ### Required Installation Settings:
