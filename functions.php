@@ -140,7 +140,6 @@ function get_weather_data() {
  **/
 function output_weather_data() {
 	$weather = get_weather_data();
-	ob_start();
 	?>
 	<div id="weather_bug" class="span5">
 		<div id="wb_date">
@@ -155,7 +154,6 @@ function output_weather_data() {
 		</div>
 	</div>
 	<?php
-	return ob_get_clean();
 }
 
 
