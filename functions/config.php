@@ -172,7 +172,7 @@ Config::$esi_whitelist = array(
 	),
 	2 => array(
 		'name' => 'do_shortcode',
-		'safe_args' => array('[events]'),
+		'safe_args' => array('[events], [events css="border-bottom"]'),
 	),
 );
 
