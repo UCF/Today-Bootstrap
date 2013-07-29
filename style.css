@@ -292,11 +292,11 @@ ul.result-list li h3 { margin-bottom: 5px; }
 #weather_bug #wb_status_txt {
     font-size: 13px;
     line-height: 20px;
-    margin-top: 22px;
     text-align: right;
     width: 180px;
     z-index: 3;
     left: 30px;
+    bottom: 5px;
 }
 #weather_bug #wb_status_txt > span { font-size: 23px; font-weight: bold; }
 #weather_bug #wb_status_img {
