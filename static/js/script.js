@@ -280,7 +280,7 @@ var ieThumbCropper = function($) {
 			clone.src = thumb.attr('src');
 		var thumbW = clone.width,
 			thumbH = clone.height,
-			isLandscape = (thumbW >= thumbH);
+			isLandscape = (thumbW > thumbH);
 		// Landscape values; overridden for Portraits
 		var newThumbW = Math.ceil((thumbWrapH * thumbW) / thumbH),
 			newThumbH = thumbWrapH,
