@@ -1194,7 +1194,7 @@ function sc_single_post_topics($atts = Array())
 		?>
 		<div class="link_list <?=$css?>" id="more_tags">
 			<h3>More Topics</h3>
-			<ul class="term-list">
+			<ul class="term-list clearfix">
 				<?	for($i = 0; $i < count($tags);$i++) {
 						$tag = $tags[$i];
 						if($tag->term_id != $mainsite_tag->term_id) {
