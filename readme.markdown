@@ -15,10 +15,12 @@ Theme to replace the original Today WordPress theme, which relies on the Themati
 * WP-Print
 
 ### Required Installation Settings:
-* Settings > Permalinks: set Category base to 'section'; set Tag base to 'topic' (if not already set)
+* Network > Settings > Network Settings: Make sure the 'Site upload space' checkbox is unchecked. (Set this BEFORE importing content!)
+* Settings > Permalinks: set Category base to 'section'; set Tag base to 'topic'; make sure posts use the 'post name' permalink structure.
 * Update pages with old Blueprint markup to use Bootstrap markup, or remove those pages entirely
 * Settings > Discussion: Make sure Trackbacks/Pingbacks are DISABLED.
 * Replace all image references in Ad-minister ad content with protocol-relative URLs
+* When behind Varnish, make sure to update the the Dependency Purger Varnish nodes list and turn on ESIs in Theme Options > Site.
 
 ### Installation Recommendations:
 * Regenerate thumbnails (new [photo_sets] thumbnail size has been created)
@@ -161,4 +163,4 @@ Note that the `checkered` CSS class has been removed in favor of Bootstrap's `ta
 
 * The video_carousel shortcode was removed from the previous version of the theme.
 * This theme does not use Bootstrap's responsive styling; CSS and javascript related to Bootstrap responsiveness (style-responsive.css, config options, etc.) have been removed from this theme.
-* New template functionality has been added to this theme: any post/CPT or taxonomy that previously relied on a page with markup/shortcodes for its content will now fall back to a default template if no content or page is provided. (Category, Tag, Expert, Home, Photo Set, Single, Tag, Videos)
+* New template functionality has been added to this theme: any post/CPT or taxonomy that previously relied on a page with markup/shortcodes for its content will now fall back to a default template if no content or page is provided. (Category, Tag, Expert, Home, Photo Set, Single, Tag)
