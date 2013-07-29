@@ -3,7 +3,7 @@
 
 <?php
 	$use_page = false;
-	$page = get_page_by_title('Videos');
+	$page = get_page_by_title('Video');
 	if ($page !== null) {
 		$use_page = $page->post_content !== '' ? true : false;
 	}
@@ -15,7 +15,7 @@
 				<?=apply_filters('the_content', $page->post_content)?>
 			<?php 
 			} else { ?>
-				<?=do_shortcode('[videos]')?>
+				<?=do_shortcode('[videos specific_video="'.$post->ID.'"]')?>
 			<?php 
 			}
 			?>
