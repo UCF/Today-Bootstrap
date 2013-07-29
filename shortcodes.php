@@ -229,13 +229,16 @@ function sc_feature($atts = Array(), $id_only = False)
 				$feature_media = '<a href="'.get_permalink($feature->ID).'">'.get_img_html($feature->ID, 'feature').'</a>';
 				$feature_media_attachment = get_img_html($feature->ID, 'feature', array('return_id' => true));
 				$attachment_url = wp_get_attachment_image_src($feature_media_attachment['attachment_id'], 'feature');
+				if (!$attachment_url) {
+					$attachment_url = array(0 => THEME_IMG_URL.'/no-photo.png');
+				}
 			}
 			
 			ob_start();
 			?>
 			<div class="<?=$css?>" id="feature">
 				<h3>Featured Article</h3>
-				<div class="thumb <?php if ($attachment_url) { ?>cropped" style="background-image: url('<?=$attachment_url[0]?>');<?php } ?>">
+				<div class="thumb cropped" style="background-image: url('<?=$attachment_url[0]?>');">
 					<?=$feature_media?>
 				</div>
 				<h4><a href="<?=get_permalink($feature->ID)?>"><?=$feature->post_title?></a></h4>
@@ -264,15 +267,18 @@ function sc_feature($atts = Array(), $id_only = False)
 			$feature_media = $wp_embed->run_shortcode('[embed width="469" height="500"]'.$video_url.'[/embed]');
 		} else {
 			$feature_media = '<a href="'.get_permalink($top_feature->ID).'">'.get_img_html($top_feature->ID, 'subpage_feature').'</a>';
-			$feature_media_attachment = get_img_html($feature->ID, 'subpage_feature', array('return_id' => true));
+			$feature_media_attachment = get_img_html($top_feature->ID, 'subpage_feature', array('return_id' => true));
 			$attachment_url = wp_get_attachment_image_src($feature_media_attachment['attachment_id'], 'subpage_feature');
+			if (!$attachment_url) {
+				$attachment_url = array(0 => THEME_IMG_URL.'/no-photo.png');
+			}
 		}
 		
 		ob_start();
 		?>
 		<div class="clearfix <?=$css?>" id="feature">
 			<h3>Featured Article</h3>
-			<div class="thumb <?php if ($attachment_url) { ?>cropped" style="background-image: url('<?=$attachment_url[0]?>');<?php } ?>">
+			<div class="thumb cropped" style="background-image: url('<?=$attachment_url[0]?>');">
 				<?=$feature_media?>
 			</div>
 			<h4><a href="<?=get_permalink($top_feature->ID)?>"><?=$top_feature->post_title?></a></h4>

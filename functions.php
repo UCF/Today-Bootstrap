@@ -311,7 +311,7 @@ function get_img_html($post_id, $size = 'thumbnail', $options = Array())
 		}
 		
 	 	$html = (isset($thumb[0])) ? '<img src="'.$thumb[0].'" '.$element_id.'width="'.$dims['width'].'" height="'.$dims['height'].'" alt="'.$img_alttext.'" />' : '';
-	} else {
+	} else if($org_size != 'story_feature') {
 		$html = '<img src="'.get_bloginfo('stylesheet_directory').'/static/img/no-photo.png" '.$element_id.' alt="'.$img_alttext.'" />';
 	}
 	
