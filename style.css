@@ -711,6 +711,7 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
 	min-height: 50px;
 	font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
 }
+#alerts li.hidden { display: none; }
 #alerts li:first-child { margin-top: 0; }
 #alerts li > .msg {
 	display: block;

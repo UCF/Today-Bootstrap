@@ -169,17 +169,6 @@ function gen_alerts_html()
 		$alerts 		= get_posts(Array('post_type' => 'alert'));
 		$hidden_alerts	= Array();
 		$alerts_html 	= '';
-		
-		// Parse hidden alerts from cookie
-		if(isset($_COOKIE[ALERT_COOKIE_NAME])) {
-			$raw_hidden_alerts = explode(',', htmlspecialchars($_COOKIE[ALERT_COOKIE_NAME]));
-			foreach($raw_hidden_alerts as $alert_data) {
-				$alert = explode('-', $alert_data);
-				if(count($alert) == 2) {
-					$hidden_alerts[$alert[0]] = $alert[1]; // post_id -> post_time
-				}
-			}
-		}
 
 		if ($alerts) {
 			$alert_html = '<div class="row" id="alerts"><ul class="span12">';
@@ -219,12 +208,7 @@ function gen_alerts_html()
 				}
 				
 				
-				// Even if alert is hidden, show it if it's updated
-				if(isset($hidden_alerts[$alert->ID]) && strtotime($alert->post_modified) <= $hidden_alerts[$alert->ID]) {
-					array_push($css_clss, 'hide');
-				}
-				
-			 	$alert_html .= '<li style="'.implode(' ',$li_inline_styles).'" class="'.implode(' ',$css_clss).'" id="alert-'.$alert->ID.'-'.strtotime($alert->post_modified).'">
+			 	$alert_html .= '<li style="'.implode(' ',$li_inline_styles).'" class="'.implode(' ',$css_clss).'" id="alert-'.$alert->ID.'" data-post-modified="'.strtotime($alert->post_modified).'">
 									<span class="msg" style="'.implode(' ', $span_inline_styles).'">
 										'.$text.'
 										'.$link_html.'
