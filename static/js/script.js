@@ -230,7 +230,7 @@ var handleAlerts = function($) {
 				alert.addClass('hidden');
 			}
 			else {
-				updateAlertCookie(alert);
+				deleteAlertCookie(alert);
 			}
 		}
 	});
