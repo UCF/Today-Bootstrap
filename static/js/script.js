@@ -269,6 +269,15 @@ var addEllipses = function($) {
 };
 
 
+/* Assign browser-specific body classes on page load */
+addBodyClasses = function($) {
+	if (/MSIE (\d+\.\d+);/.test(navigator.userAgent)) { //test for MSIE x.x;
+		var ieversion = new Number(RegExp.$1); // capture x.x portion and store as a number
+		if (ieversion < 9) { $('body').addClass('ie-old'); }
+	}
+};
+
+
 var ieThumbCropper = function($) {
 	$('body.ie-old .thumb.cropped').each(function() {
 		var thumbWrap = $(this),
@@ -281,21 +290,35 @@ var ieThumbCropper = function($) {
 		var thumbW = clone.width,
 			thumbH = clone.height,
 			isLandscape = (thumbW > thumbH);
+
 		// Landscape values; overridden for Portraits
 		var newThumbW = Math.ceil((thumbWrapH * thumbW) / thumbH),
 			newThumbH = thumbWrapH,
 			thumbTop = '0',
-			thumbLeft = Math.ceil('-' + ((newThumbW - thumbWrapW) / 2));
+			thumbLeft = '-' + Math.ceil((newThumbW - thumbWrapW) / 2);
+		// Adjust vals if image still doesn't stretch completely
+		if (newThumbW < thumbWrapW) {
+			newThumbW = thumbWrapW;
+			newThumbH = Math.ceil((thumbWrapW * thumbH) / thumbW);
+			thumbTop = '-' + Math.ceil((newThumbH - thumbWrapH) / 2);
+			thumbLeft = '0';
+		}
 
 		// First, kill the background image on the .cropped div
 		thumbWrap.attr('style', '');
-
 		// Adjust new thumb val's for portrait thumbs
 		if (isLandscape === false) {
 			newThumbW = thumbWrapW,
 			newThumbH = Math.ceil((thumbWrapW * thumbH) / thumbW),
-			thumbTop = Math.ceil('-' + ((newThumbH - thumbWrapH) / 2)),
+			thumbTop = '-' + Math.ceil((newThumbH - thumbWrapH) / 2),
 			thumbLeft = '0';
+			// Adjust vals if image still doesn't stretch completely
+			if (newThumbH < thumbWrapH) {
+				newThumbH = thumbWrapH;
+				newThumbW = Math.ceil((thumbWrapH * thumbW) / thumbH);
+				thumbTop = '0';
+				thumbLeft = '-' + Math.ceil((newThumbH - thumbWrapH) / 2);
+			}
 		}
 
 		// Set new values
@@ -338,6 +361,7 @@ if (typeof jQuery != 'undefined'){
 		handleAlerts($);
 		fitHeaderText($);
 		addEllipses($);
+		addBodyClasses($);
 		ieThumbCropper($);
 		ieVerticalBorders($);
 	});
