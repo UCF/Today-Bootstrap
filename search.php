@@ -80,21 +80,32 @@
 								$mainsite_tag = get_mainsite_tag();
 								$tags = wp_get_post_tags($post->ID);
 								$cats = wp_get_post_categories($post->ID);
+								// get the total number of taxonomy terms for adding commas
+								$alltaxs_count = count($tags) + count($cats);
+								foreach ($tags as $t) {
+									// account for the mainsite tag and remove it from the tax count
+									if($t->term_id == $mainsite_tag->term_id) {
+										$alltaxs_count = $alltaxs_count - 1;
+									}
+								}
+
 								if ($tags !== null || $cat_ids !== null) { 
 								?>
 								<li>
 									<ul class="term-list">
 										<?php
+										$count = 0;
 										if ($tags) {
 											foreach ($tags as $tag) { 
 												if($tag->term_id != $mainsite_tag->term_id) {
 										?>
 											<li>
 												<a href="<?=get_tag_link($tag->term_id)?>">
-													<?=$tag->name?>
+													<?=$tag->name?><?=(($count + 1) !== $alltaxs_count) ? ',' : ''?>
 												</a>
 											</li>
 										<?php
+												$count++;
 												}
 											}
 										}
@@ -104,10 +115,11 @@
 										?>
 											<li>
 												<a href="<?=get_category_link($cat->term_id)?>">
-													<?=$cat->name?>
+													<?=$cat->name?><?=(($count + 1) !== $alltaxs_count) ? ',' : ''?>
 												</a>
 											</li>
 										<?php
+											$count++;
 											}
 										}
 										?>
