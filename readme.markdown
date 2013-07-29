@@ -163,4 +163,5 @@ Note that the `checkered` CSS class has been removed in favor of Bootstrap's `ta
 
 * The video_carousel shortcode was removed from the previous version of the theme.
 * This theme does not use Bootstrap's responsive styling; CSS and javascript related to Bootstrap responsiveness (style-responsive.css, config options, etc.) have been removed from this theme.
-* New template functionality has been added to this theme: any post/CPT or taxonomy that previously relied on a page with markup/shortcodes for its content will now fall back to a default template if no content or page is provided. (Category, Tag, Expert, Home, Photo Set, Single, Tag)
+* New template functionality has been added to this theme: any post/CPT or taxonomy that previously relied on a page with markup/shortcodes for its content will now fall back to a default template if no content or page is provided. (Category, Tag, Expert, Home, Photo Set, Single, Tag, Video ** NOT 'Videos' **)
+* Note that comments are NOT handled by the Varnish Dependency Purge plugin-- approved comments will appear when their story's cache has expired.
