@@ -737,4 +737,3 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
 #alerts li.advisory > .msg { background-color: #f79501; }
 #alerts li.severe { background: url('static/img/alerts/severe.png') no-repeat center left; }
 #alerts li.severe > .msg { background-color: #ff0000; }
-#alerts li.severe > .msg > a { font-size: 17px; }
