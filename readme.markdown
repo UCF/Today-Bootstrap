@@ -9,7 +9,6 @@ Theme to replace the original Today WordPress theme, which relies on the Themati
 ### Required Plugins:
 * Ad-minister
 * Social
-* Regenerate Thumbnails (recommended)
 * Twitter Tools (requires Social)
 * Varnish Dependency Purger
 * WP-Print
@@ -23,7 +22,6 @@ Theme to replace the original Today WordPress theme, which relies on the Themati
 * When behind Varnish, make sure to update the the Dependency Purger Varnish nodes list and turn on ESIs in Theme Options > Site.
 
 ### Installation Recommendations:
-* Regenerate thumbnails (new [photo_sets] thumbnail size has been created)
 * Update all post types to remove Pingback functionality. A lot of posts were originally created with the Pingback functionality turned on, and unfortunately they are still capable of receiving spam. Pingback functionality for posts/pages can be disabled through the WordPress interface in bulk; modify your default number of displayed posts in the Posts admin area, select all, then Bulk Edit the 'Pings' value to 'do not allow'. (http://wordpress.stackexchange.com/questions/84633/how-to-disable-wordpress-trackback)
 The primary issue with Pingbacks, though, is that media attachments allow them, and there isn't an option in the WordPress admin interface to disable them on existing attachments. To actually disable Pingbacks on every post type, a SQL statement will need to be run against the database directly: `UPDATE wp_posts SET ping_status="closed";` (note: wp_posts will be named 'wp_SITEID_posts' on multisite installs.)
 * Disable comments on all attachments. The theme comes with this built-in, but only for future attachments. Use the SQL statement `UPDATE wp_posts SET comment_status="closed" WHERE post_type="attachment";` to remove commenting on all existing attachments (note: wp_posts will be named 'wp_SITEID_posts' on multisite installs.)
