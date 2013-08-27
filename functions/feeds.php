@@ -1,5 +1,5 @@
 <?php
-function display_events($header='h3', $css=null) { 
+function display_events($header='h2', $css=null) { 
 	$options = get_option(THEME_OPTIONS_NAME);
 	$qstring = (bool)strpos($options['events_url'], '?');
 	$url     = $options['events_url'];
@@ -21,7 +21,7 @@ function display_events($header='h3', $css=null) {
 		ob_start();
 	?>
 		<div class="events <?=$css?>">
-			<<?=$header?>>Events @ UCF</h3></<?=$header?>>
+			<<?=$header?>>Events @ UCF</<?=$header?>>
 			<ul class="event-list">
 				<?php foreach($events as $item):
 					$month 		= date('M', strtotime($item['starts']));

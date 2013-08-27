@@ -11,7 +11,7 @@
 	<div class="row page-content" id="search-results">
 		<div class="span12">
 			<article>
-				<h2>Search Results for: <?=$query_clean?></h2>
+				<h1>Search Results for: <?=$query_clean?></h1>
 				<?php if(count($results['items'])):?>
 				<ul class="result-list">
 					<?php foreach($results['items'] as $result):?>
@@ -69,7 +69,7 @@
 								</a>
 							</div>
 							<div class="content">
-								<h4><a href="<?=get_permalink($post->ID)?>"><?=$post->post_title?></a></h4>
+								<h3><a href="<?=get_permalink($post->ID)?>"><?=$post->post_title?></a></h3>
 								<p class="story-blurb">
 									<?=get_excerpt($post, $query_clean)?>
 								</p>

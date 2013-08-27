@@ -61,7 +61,11 @@
 		<div class="container">
 			<div class="row" id="header" role="banner">
 				<div id="page-title" class="span7">
-					<h1><?=get_header_title()?></h1>
+					<? if (is_home()): ?>
+						<h1><?=get_header_title()?></h1>
+					<? else: ?>
+						<h2><?=get_header_title()?></h2>
+					<? endif; ?>
 				</div>
 				<?=esi_include('output_weather_data')?>
 				<hr class="span12" />

@@ -2,7 +2,7 @@
 Theme Name: UCF Today WordPress Theme Bootstrap
 Author: UCF Web Communications
 Github Theme URI: https://github.com/UCF/Today-Bootstrap
-Version: v2.0.0
+Version: v2.0.1
 */
 
 /** Universal **/
@@ -16,8 +16,9 @@ a,
 strong,
 em { font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif; }
 h2 { font-size: 26px; }
-h4 { font-weight: normal; }
+h3 { font-weight: normal; }
 
+h2 a,
 h3 a,
 h4 a,
 h5 a,
@@ -26,16 +27,16 @@ h3 a:hover,
 h4 a:hover,
 h5 a:hover,
 h6 a:hover { color: #333; }
-ul > li:first-child > h4 { margin-top: 0; }
-h3 {
+ul > li:first-child > h3 { margin-top: 0; }
+h2 {
 	font-size: 11.5px; 
 	text-transform: uppercase; 
 	letter-spacing: 0.5px; 
 	line-height: 28px;
 	margin: 0 0 12px 0;
 }
-h3.listing { display: block; float: left; }
-h3.listing + a.listing {
+h2.listing { display: block; float: left; }
+h2.listing + a.listing {
 	float: right; 
 	clear: right; 
 	margin: 0 0 12px 0; 
@@ -96,7 +97,7 @@ ul.story-list li > .story-media .social { width: 95px; }
 ul.story-list li .thumb { width: 95px; height: 105px; }
 ul.story-list li > .thumb { float: left; }
 ul.story-list li .content { margin-left: 110px; }
-ul.story-list li .content h4 { margin-top: -4px; }
+ul.story-list li .content h3 { margin-top: -4px; font-size: 20px; line-height: 24px; }
 ul.story-list li p.story-blurb { overflow: hidden; }
 
 ul.event-list li { margin-bottom: 20px; font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif; }
@@ -255,16 +256,18 @@ ul.result-list li h3 { margin-bottom: 5px; }
 
 /** Header **/
 #header { margin-top: 28px; margin-bottom: 0; padding-bottom: 4px; position: relative; }
-#header #page-title h1 { 
+#header #page-title h1,
+#header #page-title h2 { 
 	display: block;
 	width: 540px;
 	height: 60px;
 	margin: 0 0 10px 0;
 	font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
 	font-weight: 300;
-	font-size: 52px;
+	font-size: 46px;
 	line-height: 52px;
 	color: #111;
+	text-transform: none;
 }
 #header #page-title h1 a {
 	display: block;
@@ -353,15 +356,15 @@ ul.result-list li h3 { margin-bottom: 5px; }
 
 
 /** Shortcode - [feature] **/
-#feature h3,
-#promos h3 {
+#feature h2.feature-title { font-weight: normal !important; margin: 12px 0; font-size: 20px; line-height: 24px; text-transform: none; }
+#feature h2.indent,
+#promos h2.indent {
 	width: 0;
 	height: 0;
 	margin: 0;
 	text-indent: -9999px;
 	display: block;
 }
-#feature h4 { font-weight: 400; font-size: 27px; line-height: 34px; margin-top: 4px; }
 #feature .thumb { height: 343px; }
 
 /** Shortcode - [features] **/
@@ -381,6 +384,7 @@ ul.result-list li h3 { margin-bottom: 5px; }
 #promos ul.story-list li { margin-top: 25px; }
 #promos ul.story-list li:first-child { margin-top: 0; }
 #promos ul.story-list li p.story-blurb { max-height: 122px; height: 122px !ie; } /* IE7 can't use max-height */
+#promos ul.story-list li h3 { font-size: 20px; line-height: 24px; }
 
 /** Shortcode - [more_headlines] **/
 #more_headlines ul.story-list li { margin-top: 15px; }
@@ -428,6 +432,12 @@ ul.result-list li h3 { margin-bottom: 5px; }
 	line-height: 20px;
 	max-height: 40px;
 	height: 40px !ie;
+}
+
+#ucf_photo h3 {
+	font-size: 20px;
+	font-weight: normal;
+	line-height: 24px;
 }
 
 /** Shortcode - [photo_set] **/
@@ -570,12 +580,12 @@ ul.result-list li h3 { margin-bottom: 5px; }
 .body-photoset #header-menu ul li:first-child a {
 	display: none;
 }
-.body-home #feature h4 { font-weight: bold; }
+.body-home #feature h2 { font-weight: bold; }
 
 
 
 /** Single **/
-#single h2 {
+#single h1 {
 	font-family: Georgia, serif;
 	font-size: 26px;
 	line-height: 34px;
@@ -669,10 +679,11 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
 	font-weight: 400;
 	font-size: 28px;
 	margin-top: 0;
+	text-transform: none;
 }
-#search-results h3,
+#search-results h1,
 #search-results #sidebar h3,
-#search-result h3 a { 
+#search-result h1 a { 
 	font-size: 24px;
 	font-family: Georgia, serif;
 	margin-bottom: 20px;

@@ -237,11 +237,11 @@ function sc_feature($atts = Array(), $id_only = False)
 			ob_start();
 			?>
 			<div class="<?=$css?>" id="feature">
-				<h3>Featured Article</h3>
+				<h2 class="indent">Featured Article</h2>
 				<div class="thumb cropped" style="background-image: url('<?=$attachment_url[0]?>');">
 					<?=$feature_media?>
 				</div>
-				<h4><a href="<?=get_permalink($feature->ID)?>"><?=$feature->post_title?></a></h4>
+				<h2 class="feature-title"><a href="<?=get_permalink($feature->ID)?>"><?=$feature->post_title?></a></h2>
 			</div>
 			<?
 			return ob_get_clean();
@@ -281,7 +281,7 @@ function sc_feature($atts = Array(), $id_only = False)
 			<div class="thumb cropped" style="background-image: url('<?=$attachment_url[0]?>');">
 				<?=$feature_media?>
 			</div>
-			<h4><a href="<?=get_permalink($top_feature->ID)?>"><?=$top_feature->post_title?></a></h4>
+			<h2><a href="<?=get_permalink($top_feature->ID)?>"><?=$top_feature->post_title?></a></h2>
 			<p class="story-blurb">
 				<?=get_excerpt($top_feature)?>
 			</p>
@@ -363,7 +363,7 @@ function sc_more_headlines($atts = Array())
 	ob_start();
 	?>	
 		<div class="<?=$css?>" id="more_headlines">
-			<?=($header) ? '<h3>More Headlines</h3>' : ''?>
+			<?=($header) ? '<h2>More Headlines</h2>' : ''?>
 			<ul class="story-list">
 	<?
 	$count = 0;
@@ -383,7 +383,7 @@ function sc_more_headlines($atts = Array())
 						<? } ?>
 					</div>
 					<div class="content">
-						<h4><a href="<?=get_permalink($headline->ID)?>"><?=$headline->post_title?></a></h4>
+						<h3><a href="<?=get_permalink($headline->ID)?>"><?=$headline->post_title?></a></h3>
 						<p class="story-blurb">
 							<?=get_excerpt($headline)?>
 						</p>
@@ -426,9 +426,9 @@ function sc_ucf_photo($atts = Array())
 		?>
 		
 			<div class="<?=$css?>" id="ucf_photo">
-				<h3 class="listing">
+				<h2 class="listing">
 					<?=$link_page_name?>
-				</h3>
+				</h2>
 				<a href="<?=get_page_link(get_page_by_title($link_page_name)->ID)?>" class="listing" title="View more photo sets" alt="View more photo sets">
 					More &raquo;
 				</a>
@@ -448,7 +448,7 @@ function sc_ucf_photo($atts = Array())
 					<a href="<?=get_permalink($photoset->ID)?>">
 						<?=$image_html?>
 					</a>
-					<h4 class="clear"><a href="<?=get_permalink($photoset->ID)?>"><?=$photoset->post_title?></a></h4>
+					<h3 class="clear"><a href="<?=get_permalink($photoset->ID)?>"><?=$photoset->post_title?></a></h3>
 					<p class="story-blurb"><?=get_excerpt($photoset)?></p>
 				<ul>
 				<?
@@ -496,7 +496,7 @@ function sc_ucf_video($atts = Array())
 			ob_start();
 			?>
 			<div class="<?=$css?>" id="ucf_video">
-				<h3 class="listing">Watch Video</h3><a href="<?=get_page_link(get_page_by_title('Videos')->ID)?>" class="listing">More &raquo;</a>
+				<h2 class="listing">Watch Video</h2><a href="<?=get_page_link(get_page_by_title('Videos')->ID)?>" class="listing">More &raquo;</a>
 				<?=$wp_embed->run_shortcode($embed_string)?>
 				<h4><?=$video->post_title?></h4>
 				<p><?=$video->post_content?></p>
@@ -587,7 +587,7 @@ function sc_resources($atts = Array())
 	ob_start();
 	?>
 	<div class="<?=$css?>" id="resources">
-		<h3>Resources</h3>
+		<h2>Resources</h2>
 		<?=wp_nav_menu($args)?>
 	</div>
 	<?
@@ -606,7 +606,7 @@ add_shortcode('resources', 'sc_resources');
 function sc_events($atts = Array())
 {
 	$css 	= (isset($atts['css'])) ? $atts['css'] : '';
-	$header = (isset($atts['header'])) ? $atts['header'] : 'h3';
+	$header = (isset($atts['header'])) ? $atts['header'] : 'h2';
 ?>
 	<?=display_events($header, $css);?>
 <?php
@@ -635,14 +635,14 @@ function sc_promos($atts = Array())
 		ob_start();
 		?>
 			<div class="<?=$css?>" id="promos">
-				<h3>Promos</h3>
+				<h2 class="indent">Promos</h2>
 				<ul class="story-list">
 		<?
 		$count = 0;
 		foreach($promos as $promo) {
 			?>
 			<li<?=(($count + 1) == count($promos) ? ' class="last"' : '')?>>
-				<h4><a href="<?=get_permalink($promo->ID)?>"><?=$promo->post_title?></a></h4>
+				<h3><a href="<?=get_permalink($promo->ID)?>"><?=$promo->post_title?></a></h3>
 				<p class="story-blurb">
 					<?=get_excerpt($promo)?>
 				</p>
@@ -877,7 +877,7 @@ function sc_external_stories($atts = Array())
 		ob_start();
 		?>
 		<div class="<?=$css?>" id="external_stories">
-			<h3>Stories About UCF</h3>
+			<h2>Stories About UCF</h2>
 			<ul class="story-list">
 				<? foreach($stories as $story) { ?>
 					<li>
@@ -976,7 +976,7 @@ function sc_single_post($atts = Array())
 	?>
 	<div<?php if ($css) { ?> class="<?=$css?>" <?php } ?>>
 		<article role="main">
-			<h2><?=$title?></h2>
+			<h1><?=$title?></h1>
 			<?=$subtitle?>
 			<? if($video_url != '') { ?>
 				<?=$wp_embed->run_shortcode('[embed width="550" height="500"]'.$video_url.'[/embed]')?>
