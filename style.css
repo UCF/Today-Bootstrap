@@ -357,6 +357,7 @@ ul.result-list li h3 { margin-bottom: 5px; }
 
 /** Shortcode - [feature] **/
 #feature h2.feature-title { font-weight: normal !important; margin: 12px 0; font-size: 20px; line-height: 24px; text-transform: none; }
+#feature h2.feature-cat-title {margin: 0 0 12px 0; font-size: 22px; line-height: 26px; text-transform: none; }
 #feature h2.indent,
 #promos h2.indent {
 	width: 0;
@@ -376,8 +377,8 @@ ul.result-list li h3 { margin-bottom: 5px; }
 #features ul.story-list li:first-child > * { padding-left: 0; }
 #features ul.story-list li > div { width: 167px; height: 154px; }
 #features ul.story-list li > div img { width: 100%; height: 100%; }
-#features ul.story-list li:first-child h4,
-#features ul.story-list li h4 { margin-top: 5px; }
+#features ul.story-list li:first-child h3,
+#features ul.story-list li h3 { margin-top: 5px; font-size: 18px; line-height: 22px;}
 #features ul.story-list li p.story-blurb { max-height: 136px; height: 136px !ie; font-size: 15px; line-height: 22px; }
 
 /** Shortcode - [promos] **/

@@ -277,11 +277,10 @@ function sc_feature($atts = Array(), $id_only = False)
 		ob_start();
 		?>
 		<div class="clearfix <?=$css?>" id="feature">
-			<h3>Featured Article</h3>
 			<div class="thumb cropped" style="background-image: url('<?=$attachment_url[0]?>');">
 				<?=$feature_media?>
 			</div>
-			<h2><a href="<?=get_permalink($top_feature->ID)?>"><?=$top_feature->post_title?></a></h2>
+			<h2 class="feature-cat-title"><a href="<?=get_permalink($top_feature->ID)?>"><?=$top_feature->post_title?></a></h2>
 			<p class="story-blurb">
 				<?=get_excerpt($top_feature)?>
 			</p>
@@ -771,7 +770,7 @@ function sc_subpage_features($atts = Array(), $id_only = False)
 							<?=get_img_html($feature->ID, 'category_story')?>
 						</a>
 					</div>
-					<h4><a href="<?=get_permalink($feature->ID)?>"><?=$feature->post_title?></a></h4>
+					<h3><a href="<?=get_permalink($feature->ID)?>"><?=$feature->post_title?></a></h3>
 					<p class="story-blurb">
 						<?=get_excerpt($feature)?>
 					</p>

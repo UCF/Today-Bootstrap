@@ -61,7 +61,7 @@
 		<div class="container">
 			<div class="row" id="header" role="banner">
 				<div id="page-title" class="span7">
-					<? if (is_home()): ?>
+					<? if (is_home() || !is_single()): ?>
 						<h1><?=get_header_title()?></h1>
 					<? else: ?>
 						<h2><?=get_header_title()?></h2>
