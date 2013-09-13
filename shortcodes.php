@@ -1736,4 +1736,97 @@ function sc_profile_feature($atts = Array())
 	}
 }
 add_shortcode('profile_feature', 'sc_profile_feature');
+
+
+/**
+ * Retrieve article for archive display
+ *
+ * @return string
+ * @author Brandon Groves
+ **/
+function sc_archive_articles($attrs) {
+    $css = (isset($atts['css'])) ? $atts['css'] : '';
+    $articles = array();
+    $today = getdate();
+
+    $url_path = explode( '/', $_SERVER['REQUEST_URI'] );
+    if (is_numeric($url_path[count($url_path) - 2])) {
+    	$year = intval(substr($url_path[count($url_path) - 2], 0, 4));
+    	$month = intval(substr($url_path[count($url_path) - 2], 4));
+    	unset($url_path[count($url_path) - 2]);
+    } else {
+        $month = $today["mon"];
+        $year = $today["year"];
+    }
+
+    // var_dump($year);
+    // var_dump($month);
+
+    $args = array(
+        'post_type'        => 'post',
+        'numberposts'      => -1,
+        'orderby'          => 'date',
+        'order'            => 'DESC',
+        'suppress_filters' => false,
+    );
+
+    add_filter( 'posts_where', 'filter_archive_date_range' );
+    $articles = get_posts($args);
+    remove_filter( 'posts_where', 'filter_archive_date_range' );
+
+    ob_start();
+    ?>
+    <h2 class='month_year'><?=date('F Y', strtotime($year . '-' . $month . '-1')); ?></h2>
+    <?
+    if (count($articles) > 0) {
+        ?>
+
+        <div class="<?=$css?>" id="archives">
+            <!-- Features -->
+            <ul>
+        <? 
+            for($i = 0; $i < count($articles);$i++) {
+                $article = $articles[$i];
+                $class = '';
+                if($i == 0) {$class = 'first';}
+                if(($i + 1) == count($articles)) {$class = 'last';}
+        ?>
+                <li<?=($class != '') ? ' class="'.$class.' clearfix" ':' class="clearfix"'?>>
+                    <div class="thumbnail">
+                        <a href="<?=get_permalink($article->ID)?>">
+                            <?=get_img_html($article->ID, 'story')?>
+                        </a>
+                        
+                    </div>
+                    <h3><a href="<?=get_permalink($article->ID)?>"><?=$article->post_title?></a></h3>
+                    <p class="date"><?=$article->post_date; ?></p>
+                    <p class="ellipse">
+                        <?=get_excerpt($article)?>
+                    </p>
+                </li>
+            <? } ?>
+            </ul>
+        </div>
+    <?
+    }
+
+    # no need to unset the last / in the url since it isn't a number
+    $url = implode('/', $url_path);
+    ?>
+        <div class="previous"><a href="<?=$url . date('Ym', strtotime($year . '-' . $month . '-1 -1 month')) . '/' ?>">Previous Month</a></div>
+    <?php
+
+    if ($today['mon'] == $month + 1 && $today['year'] == $year) {
+    	?>
+        <div class="next"><a href="<?=$url ?>">Next Month</a></div>
+        <?php
+    } elseif ($today['mon'] <> $month || $today['year'] <> $year) {
+        ?>
+        <div class="next"><a href="<?=$url . date('Ym', strtotime($year . '-' . $month . '-1 +1 month')) . '/' ?>">Next Month</a></div>
+        <?php
+    }
+
+    return ob_get_clean();
+}
+add_shortcode('sc-archive-articles', 'sc_archive_articles');
 ?>

@@ -755,4 +755,24 @@ function esi_include($statementname, $argset=null) {
 		return NULL;
 	}
 }
+
+/*
+ * Filter based to get all the post within the month/year
+ */
+function filter_archive_date_range( $where = '' ) {
+    $today = getdate();
+	$url_path = explode( '/', $_SERVER['REQUEST_URI'] );
+    if (is_numeric($url_path[count($url_path) - 2])) {
+    	$year = intval(substr($url_path[count($url_path) - 2], 0, 4));
+    	$month = intval(substr($url_path[count($url_path) - 2], 4));
+    	unset($url_path[count($url_path) - 2]);
+    } else {
+        $month = $today["mon"];
+        $year = $today["year"];
+    }
+
+	$where .= " AND post_date <= '" . date('Y-m-t', strtotime($year . '-' . $month . '-1')) . 
+		"' AND post_date >= '" . date('Y-m-d', strtotime($year . '-' . $month . '-1')) . "'";
+	return $where;
+}
 ?>
