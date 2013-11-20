@@ -775,4 +775,19 @@ function filter_archive_date_range( $where = '' ) {
 		"' AND post_date >= '" . date('Y-m-d', strtotime($year . '-' . $month . '-1')) . "'";
 	return $where;
 }
+
+/*
+ * Returns the 'video_url' meta value for a video post type
+ * as a protocol-agnostic URL.
+ */
+function get_video_url($video_ID){
+	$video_url = get_post_meta($video_ID, 'video_url', True);
+	if (!empty($video_url)) {
+		$video_url = preg_replace('/^http(s)?:\/\//', CURRENT_PROTOCOL, $video_url);
+	}
+	else {
+		$video_url = '';
+	}
+	return $video_url;
+}
 ?>

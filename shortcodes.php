@@ -221,7 +221,7 @@ function sc_feature($atts = Array(), $id_only = False)
 						'value' => 'featured'))));
 		
 		if($feature !== False) {
-			$video_url = get_post_meta($feature->ID, 'video_url', True);
+			$video_url = get_video_url($feature->ID);
 			
 			if($video_url != '') {
 				$feature_media = $wp_embed->run_shortcode('[embed width="417" height="343"]'.$video_url.'[/embed]');
@@ -262,7 +262,7 @@ function sc_feature($atts = Array(), $id_only = False)
 										Array('numberposts' => 1));
 		if($id_only) return $top_feature->ID;
 		
-		$video_url = get_post_meta($top_feature->ID, 'video_url', True);
+		$video_url = get_video_url($top_feature->ID);
 		if($video_url != '') {
 			$feature_media = $wp_embed->run_shortcode('[embed width="469" height="500"]'.$video_url.'[/embed]');
 		} else {
@@ -489,7 +489,7 @@ function sc_ucf_video($atts = Array())
 	}
 	
 	if($video !== False) {
-		$video_url = get_post_meta($video->ID, 'video_url', True);
+		$video_url = get_video_url($video->ID);
 		if($video_url != '') {
 			$embed_string = '[embed width="'.$width.'" '.($height != '' ? 'height="'.$height.'"' : '').']'.$video_url.'[/embed]';
 			ob_start();
@@ -969,7 +969,7 @@ function sc_single_post($atts = Array())
 		$content = preg_replace($pattern, '', $content);
 	}
 	
-	$video_url = get_post_meta($post->ID, 'video_url', True);
+	$video_url = get_video_url($post->ID);
 	
 	ob_start();
 	?>
@@ -1641,9 +1641,8 @@ function sc_videos($atts = Array())
 	<?php if ($css !== '') { ?><div class="<?=$css?>"><?php } ?>
 	<?
 	foreach($videos as $video) {
-		$video_url = get_post_meta($video->ID, 'video_url', True);
+		$video_url = get_video_url($video->ID);
 		if($video_url != '') {
-			$video_url = preg_replace('/^http(s)?:\/\//', CURRENT_PROTOCOL, $video_url);
 			if($first) {
 				$first = false;
 				$embed_string = '[embed width="590" height="430"]'.$video_url.'[/embed]';
