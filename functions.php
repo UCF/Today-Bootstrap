@@ -790,4 +790,13 @@ function get_video_url($video_ID){
 	}
 	return $video_url;
 }
+
+/*
+ * Force protocol-agnostic oembeds
+ * http://wordpress.stackexchange.com/a/113550
+ */
+function protocol_relative_oembed($html) {
+    return preg_replace('@src="https?:@', 'src="', $html);
+}
+add_filter('embed_oembed_html', 'protocol_relative_oembed');
 ?>
