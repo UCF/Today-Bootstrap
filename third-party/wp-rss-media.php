@@ -112,20 +112,33 @@ function mrss_item() {
 		}
 		
 		// thumb
-		if ( 
-			isset($_GET['thumb']) &&
-			( preg_match( '/^(\d+)$/', $_GET['thumb'], $custom_thumb) || preg_match( '/^(\d+)x(\d+)$/', $_GET['thumb'], $custom_thumb) )
-		){
-			// thumb is set and dimensions have been scrutinized, use timthumb with custom size
-			$image_width  = $custom_thumb[1];
-			$image_height = isset($custom_thumb[2]) ?  $custom_thumb[2] : $custom_thumb[1];
-			$image_src = get_bloginfo('url')
-							. '/widget/thumb/?id=' . $attachment->ID
-							. '&w=' . $image_width
-							. '&h=' . $image_height;
+		if (isset($_GET['thumb'])){
+			if (
+				preg_match( '/^(\d+)$/', $_GET['thumb'], $custom_thumb) || preg_match( '/^(\d+)x(\d+)$/', $_GET['thumb'], $custom_thumb)
+			) {
+				// thumb is set and dimensions have been scrutinized, use wp_get_attachment_image_src with width/height args
+				$image_width  = $custom_thumb[1];
+				$image_height = isset($custom_thumb[2]) ?  $custom_thumb[2] : $custom_thumb[1];
+				$thumbnail_type = array($image_width, $image_height);
+			}
+			else {
+				$thumbnail_type = preg_replace('/[^a-z0-9_]+/i', '', $_GET['thumb']);
+			}
+			// 
+			$wp_attachment_src = wp_get_attachment_image_src($attachment->ID, $thumbnail_type);
+			if ($wp_attachment_src !== false) {
+				$image_src = $wp_attachment_src[0];
+				$image_width = $wp_attachment_src[1];
+				$image_height = $wp_attachment_src[2];
+			}
+			else {
+				$image_src = get_bloginfo('stylesheet_directory').'/static/img/no-photo.png';
+				$image_width = 95;
+				$image_height = 95;
+			}
 			$item['group']['children']['thumbnail']['attr']['url']   = $image_src;
 			$item['group']['children']['thumbnail']['attr']['width'] = $image_width;
-			$item['group']['children']['thumbnail']['attr']['width'] = $image_height;
+			$item['group']['children']['thumbnail']['attr']['height'] = $image_height;
 			if (isset($attachment->post_mime_type))
 				$item['group']['children']['thumbnail']['attr']['type'] = $attachment->post_mime_type;
 		} else {

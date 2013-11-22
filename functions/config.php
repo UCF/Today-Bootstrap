@@ -26,6 +26,11 @@ function __init__(){
 	add_image_size('ucf_photo_subpage', 380, 300, True);
 	add_image_size('profile_feature', 230, 286, True);
 	add_image_size('homepage', 66, 66, True);
+	add_image_size('widget_60', 60, 60, True);
+	add_image_size('widget_95', 95, 95, True);
+	add_image_size('gmucf_top_story', 600, 308, True);
+	add_image_size('gmucf_featured_story', 95, 95, True);
+
 	// Widgets
 	register_sidebar(array(
 		'name'          => __('Primary Aside'),
