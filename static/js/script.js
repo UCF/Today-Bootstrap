@@ -249,10 +249,10 @@ var handleAlerts = function($) {
 
 
 var fitHeaderText = function($) {
-	// Force our header h1 to fit on one line
-	var h1 = $('#page-title h1');
-	if(h1.length == 1 && h1.children().length === 0) {
-		h1.textFit({
+	// Force our top header element text to fit on one line
+	var header = $('#page-title h1, #page-title h2');
+	if(header.length == 1 && header.children().length === 0) {
+		header.textFit({
 			minFontSize: 25,
 			maxFontSize: 52
 		});
