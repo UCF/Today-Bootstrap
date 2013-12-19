@@ -377,9 +377,6 @@ function sc_more_headlines($atts = Array())
 								<?=$thumb_html?>
 							</a>
 						</div>
-						<? if($social) { ?>
-							<?=display_social(get_permalink($headline->ID), $headline->post_title)?>
-						<? } ?>
 					</div>
 					<div class="content">
 						<h3><a href="<?=get_permalink($headline->ID)?>"><?=$headline->post_title?></a></h3>
@@ -1503,8 +1500,8 @@ function sc_photo_set($atts = Array())
 	?>
 	<div id="photoset" class="<?=$css?>">
 		<div class="row">
-			<h3 class="span9"><?=$post->post_title?></h3>
-			<div class="span3">
+			<h3 class="span8"><?=$post->post_title?></h3>
+			<div class="span4">
 				<?=display_social(get_permalink($post->ID), $post->post_title)?>
 			</div>
 		</div>

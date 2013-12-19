@@ -234,14 +234,16 @@ ul.result-list li h3 { margin-bottom: 5px; }
 	text-indent: -9999px;
 	height: 20px;
 	margin-bottom: 5px;
-	margin-right: 10px;
+	margin-right: 5px;
+	width: 70px;
+	height: 31px;
 }
-.social .share-twitter { width: 54px; background-position: 0 0; }
-.social .share-twitter:hover { background-position: 0 -20px; }
-.social .share-facebook { width: 51px; background-position: 0 -40px; }
-.social .share-facebook:hover { background-position: 0 -60px; }
-.social .share-googleplus { width: 32px; background-position: 0 -80px; }
-.social .share-googleplus:hover { background-position: 0 -100px; }
+.social .share-twitter { background-position: -71px 0; }
+.social .share-twitter:hover { background-position: -71px -31px; }
+.social .share-facebook { background-position: 0 0; }
+.social .share-facebook:hover { background-position: 0 -31px; }
+.social .share-googleplus { background-position: -142px 0; }
+.social .share-googleplus:hover { background-position: -142px -31px; }
 
 .thumb { width: 100%; }
 /* .cropped style uses background-size: cover when it can; older browsers
@@ -274,7 +276,8 @@ ul.result-list li h3 { margin-bottom: 5px; }
 	color: #111;
 	text-transform: none;
 }
-#header #page-title h1 a {
+#header #page-title h1 a,
+.body-photoset #header #page-title h2 a {
 	display: block;
 	height: 67px;
 	text-indent: -9999px;
@@ -396,9 +399,6 @@ ul.result-list li h3 { margin-bottom: 5px; }
 
 /** Shortcode - [more_headlines] **/
 #more_headlines ul.story-list li { margin-top: 15px; }
-#more_headlines ul.story-list li:first-child { margin-top: 0; }
-#more_headlines ul.story-list li .social .share-facebook { margin-right: 5px; }
-#more_headlines ul.story-list li .social .share-googleplus { margin-right: 0; }
 #more_headlines ul.story-list li p.story-blurb {
 	font-size: 15px;
 	line-height: 22px;
@@ -549,7 +549,7 @@ ul.result-list li h3 { margin-bottom: 5px; }
 }
 
 /** Shortcode - [advertisement] **/
-.ad { padding: 10px 0 30px 0; }
+.ad { padding: 0 0 30px 0; }
 .ad.center { text-align: center; }
 .ad h3 { font-weight: 300; color: #666; font-size: 12px; }
 
@@ -588,7 +588,7 @@ ul.result-list li h3 { margin-bottom: 5px; }
 .body-photoset #header-menu ul li:first-child a {
 	display: none;
 }
-.body-home #feature h2 { font-weight: bold; }
+.body-home #feature h2 { font-weight: bold !important; }
 
 
 
