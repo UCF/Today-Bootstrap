@@ -603,9 +603,10 @@ function sc_events($atts = Array())
 {
 	$css 	= (isset($atts['css'])) ? $atts['css'] : '';
 	$header = (isset($atts['header'])) ? $atts['header'] : 'h2';
-?>
-	<?=display_events($header, $css);?>
-<?php
+
+	ob_start();
+	print display_events($header, $css);
+	return ob_get_clean();
 }
 add_shortcode('events', 'sc_events');
 
