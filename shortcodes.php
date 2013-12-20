@@ -1,4 +1,4 @@
-<?php 
+<?php
 /** GENERIC THEME SHORTCODES **/
 
 /**
@@ -205,13 +205,13 @@ add_shortcode('search_form', 'sc_search_form');
  * @author Chris Conover
  **/
 function sc_feature($atts = Array(), $id_only = False)
-{	
+{
 	global $wp_embed;
-	
+
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
-	
+
 	if(is_front_page()) {
-		
+
 		$feature = resolve_posts(	Array(),
 			Array(
 				'numberposts' => 1,
@@ -219,10 +219,10 @@ function sc_feature($atts = Array(), $id_only = False)
 					Array(
 						'key' => 'display_type',
 						'value' => 'featured'))));
-		
+
 		if($feature !== False) {
 			$video_url = get_video_url($feature->ID);
-			
+
 			if($video_url != '') {
 				$feature_media = $wp_embed->run_shortcode('[embed width="417" height="343"]'.$video_url.'[/embed]');
 			} else {
@@ -233,7 +233,7 @@ function sc_feature($atts = Array(), $id_only = False)
 					$attachment_url = array(0 => THEME_IMG_URL.'/no-photo.png');
 				}
 			}
-			
+
 			ob_start();
 			?>
 			<div class="<?=$css?>" id="feature">
@@ -247,9 +247,9 @@ function sc_feature($atts = Array(), $id_only = False)
 			return ob_get_clean();
 		}
 	} else if(is_category() || is_tag() || is_page()) {
-		
+
 		global $wp_query;
-		
+
 		if(is_category()) {
 			$resolve_atts = Array('category' => $wp_query->queried_object->slug);
 		} else if(is_tag()) {
@@ -257,11 +257,11 @@ function sc_feature($atts = Array(), $id_only = False)
 		} else {
 			$resolve_atts = Array();
 		}
-		
-		$top_feature = resolve_posts(	$resolve_atts, 
+
+		$top_feature = resolve_posts(	$resolve_atts,
 										Array('numberposts' => 1));
 		if($id_only) return $top_feature->ID;
-		
+
 		$video_url = get_video_url($top_feature->ID);
 		if($video_url != '') {
 			$feature_media = $wp_embed->run_shortcode('[embed width="469" height="500"]'.$video_url.'[/embed]');
@@ -273,7 +273,7 @@ function sc_feature($atts = Array(), $id_only = False)
 				$attachment_url = array(0 => THEME_IMG_URL.'/no-photo.png');
 			}
 		}
-		
+
 		ob_start();
 		?>
 		<div class="clearfix <?=$css?>" id="feature">
@@ -302,13 +302,13 @@ add_shortcode('feature', 'sc_feature');
 function sc_more_headlines($atts = Array())
 {
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
-	
+
 	$social		= (isset($atts['social'])) ? $atts['social'] : True;
 	$header		= (isset($atts['header'])) ? $atts['header'] : True;
 	$num_posts	= (isset($atts['num_posts']) && is_numeric($atts['num_posts'])) ? (int)$atts['num_posts'] : 3;
-	
+
 	$resolve_params = Array();
-	
+
 	if(is_front_page()) {
 		/*
 			It's currently not possible to select posts that aren't
@@ -317,7 +317,7 @@ function sc_more_headlines($atts = Array())
 			actually set on all posts, just those specified explicitly. That
 			and there is non way to select empty values without dropping into
 			SQL.
-		
+
 			Because of that, create an excluded_posts list containing all the
 			post_ids of of the featured and promotional posts. This list should
 			be a relatively small which will keep the processing time down.
@@ -338,7 +338,7 @@ function sc_more_headlines($atts = Array())
 					'value' => 'featured',
 					'compare' => '='))));
 		foreach(array_merge($promos,$features) as $_post) {array_push($excluded_posts, $_post->ID);}
-	
+
 		$resolve_params['exclude'] = $excluded_posts;
 	} else if(is_category()) {
 		global $wp_query;
@@ -356,11 +356,11 @@ function sc_more_headlines($atts = Array())
 	if(!isset($resolve_params['exclude']) && (is_category() || is_tag())) {
 		$resolve_params['exclude'] = array_merge(Array(sc_feature(Array(), True)), sc_subpage_features(Array(), True));
 	}
-	
-	$headlines = resolve_posts($atts, array_merge(Array('numberposts' => $num_posts), $resolve_params)); 
-	
+
+	$headlines = resolve_posts($atts, array_merge(Array('numberposts' => $num_posts), $resolve_params));
+
 	ob_start();
-	?>	
+	?>
 		<div class="<?=$css?>" id="more_headlines">
 			<?=($header) ? '<h2>More Headlines</h2>' : ''?>
 			<ul class="story-list">
@@ -395,7 +395,7 @@ function sc_more_headlines($atts = Array())
 	$html = ob_get_contents();
 	ob_end_clean();
 	return $html;
-	
+
 }
 add_shortcode('more_headlines', 'sc_more_headlines');
 
@@ -410,17 +410,17 @@ function sc_ucf_photo($atts = Array())
 {
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
 	$front_page = isset($atts['front_page']) ? True : False;
-	
+
 	$link_page_name = (isset($atts['link_page_name'])) ? $atts['link_page_name'] : 'Photos';
-	
+
 	$photosets = resolve_posts($atts, Array('post_type' => 'photoset',
 											'numberposts' => 4));
-	
+
 	if(count($photosets) > 0) {
 		$first = True;
 		ob_start();
 		?>
-		
+
 			<div class="<?=$css?>" id="ucf_photo">
 				<h2 class="listing">
 					<?=$link_page_name?>
@@ -432,14 +432,14 @@ function sc_ucf_photo($atts = Array())
 		foreach($photosets as $photoset) {
 			if($first) {
 				$first = False;
-			
+
 				if($front_page) {
-				
+
 					$image_html = get_img_html($photoset->ID, 'ucf_photo');//wp_get_attachment_image_src($first_image->ID, 'ucf_photo');
 				} else {
 					$image_html = get_img_html($photoset->ID, 'ucf_photo_subpage');wp_get_attachment_image_src($first_image->ID, 'ucf_photo_subpage');
 				}
-			
+
 				?>
 					<a href="<?=get_permalink($photoset->ID)?>">
 						<?=$image_html?>
@@ -451,7 +451,7 @@ function sc_ucf_photo($atts = Array())
 
 			}
 		}
-	
+
 		?>
 			</ul>
 		</div><?
@@ -470,21 +470,21 @@ add_shortcode('ucf_photo', 'sc_ucf_photo');
 function sc_ucf_video($atts = Array())
 {
 	global $wp_query, $wp_embed;
-		
+
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
-	
+
 	$height	= (isset($atts['height'])) ? $atts['height'] : '';
 	$width	= (isset($atts['width'])) ? $atts['width'] : 400;
-	
+
 	if(is_category()) $atts['category'] = $wp_query->queried_object->slug;
 	if(is_tag()) $atts['tag'] = $wp_query->queried_object->slug;
-	
+
 	if(is_front_page()) {
 		$video =  resolve_posts($atts, Array('post_type' => 'video', 'meta_key' => 'video_main_page', 'meta_value' => 'on'));
 	} else {
 		$video =  resolve_posts($atts, Array('post_type' => 'video'));
 	}
-	
+
 	if($video !== False) {
 		$video_url = get_video_url($video->ID);
 		if($video_url != '') {
@@ -514,30 +514,30 @@ add_shortcode('ucf_video', 'sc_ucf_video');
 function sc_advertisement($atts)
 {
 	global $post, $wp_query;
-	
+
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
 	$location = (isset($atts['location'])) ? $atts['location'] : null;
 	$type = (isset($atts['type'])) ? $atts['type'] : 'vertical';
 	if($type != 'vertical' && $type != 'horizontal') {
 		$type = 'vertical';
 	}
-	
+
 	if(!is_null($location)) {
 		ob_start();?>
 		<?=do_action('ad-minister', array('position' => $location));?>
 		<?
 		$generic_content = ob_get_clean();
-		
+
 		$specific_content = '';
 		if(is_category() || is_single()) {
-			
+
 			if(is_category()) {
 				$current_category = get_category($wp_query->queried_object->term_id);
 			} else if(is_single()) {
 				$post_categories = wp_get_post_categories($post->ID);
 				$current_category = ($post_categories > 0) ? $post_categories[0] : False;
 			}
-			
+
 			if($current_category) {
 				foreach(get_categories() as $cat) {
 					ob_start();?>
@@ -552,7 +552,7 @@ function sc_advertisement($atts)
 			}
 		}
 		$content = (trim($specific_content) != '') ? $specific_content : $generic_content;
-		
+
 		if(!is_null($content) && trim($content) != '') {
 			ob_start();
 			?>
@@ -577,9 +577,9 @@ add_shortcode('advertisement', 'sc_advertisement');
 function sc_resources($atts = Array())
 {
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
-	
+
 	$args = Array('menu' => 'Resources', 'container' => '', 'menu_id'=> '');
-	
+
 	ob_start();
 	?>
 	<div class="<?=$css?>" id="resources">
@@ -618,11 +618,11 @@ add_shortcode('events', 'sc_events');
  * @author Chris Conover
  **/
 function sc_promos($atts = Array())
-{	
+{
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
-	
+
 	$promos = resolve_posts($atts,	Array(	'numberposts' => 3,
-						 					'meta_query' => Array(	
+						 					'meta_query' => Array(
 																Array(	'key' => 'display_type',
 																		'value' => 'promotional'
 																)
@@ -668,7 +668,7 @@ function sc_expert_short($atts = Array())
 {
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
 	$expert = resolve_posts($atts, Array('numberposts' => 1, 'post_type' => 'expert'));
-	
+
 	if($expert !== False) {
 		ob_start();
 		?>
@@ -700,10 +700,10 @@ add_shortcode('expert_short', 'sc_expert_short');
  * @author Chris Conover
  **/
 function sc_profile($atts = Array())
-{	
+{
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
 	$profile = resolve_posts($atts, Array('post_type' => 'profile'));
-	
+
 	if($profile !== False) {
 		ob_start();
 		?>
@@ -733,19 +733,19 @@ add_shortcode('profile', 'sc_profile');
 function sc_subpage_features($atts = Array(), $id_only = False)
 {
 	global $wp_query;
-	
+
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
-	
+
 	if(is_category()) {
 		$resolve_atts = Array('category' => $wp_query->queried_object->slug);
 	} else if(is_tag()) {
 		$resolve_atts = Array('tag' => $wp_query->queried_object->slug);
 	}
-	
-	$features = resolve_posts(	$resolve_atts, 
+
+	$features = resolve_posts(	$resolve_atts,
 								Array(	'numberposts' => 3,
 										'exclude' => Array(sc_feature(Array(), True))));
-	
+
 	if($id_only) {
 		return array_map(create_function('$p', 'return $p->ID;'), $features);
 	}
@@ -755,7 +755,7 @@ function sc_subpage_features($atts = Array(), $id_only = False)
 		<div class="<?=$css?>" id="features">
 			<!-- Features -->
 			<ul class="story-list">
-				<? 
+				<?
 				for($i = 0; $i < count($features);$i++) {
 					$feature = $features[$i];
 					$class = '';
@@ -793,10 +793,10 @@ add_shortcode('subpage_features', 'sc_subpage_features');
 function sc_update($atts = Array())
 {
 	global $wp_query;
-	
+
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
-	
-	$update = resolve_posts(	Array(	'tag' => $wp_query->queried_object->slug), 
+
+	$update = resolve_posts(	Array(	'tag' => $wp_query->queried_object->slug),
 								Array(	'post_type' => 'update',
 										'numberposts' => 1),
 								False,
@@ -829,7 +829,7 @@ add_shortcode('update', 'sc_update');
 function sc_myucf_signon($atts = Array())
 {
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
-	
+
 	ob_start();
 	?>
 	<div class="<?=$css?>" id="myucf_signon">
@@ -861,13 +861,13 @@ add_shortcode('myucf_signon', 'sc_myucf_signon');
  * @return string
  * @author Chris Conover
  **/
-function sc_external_stories($atts = Array()) 
+function sc_external_stories($atts = Array())
 {
 	global $wp_query;
-	
+
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
-	
-	$stories = resolve_posts(	Array(	'tag' => $wp_query->queried_object->slug), 
+
+	$stories = resolve_posts(	Array(	'tag' => $wp_query->queried_object->slug),
 								Array(	'post_type' => 'externalstory',
 										'numberposts' => 4));
 	if(count($stories) > 0) {
@@ -921,11 +921,11 @@ add_shortcode('announcements', 'sc_announcements');
 function sc_single_post($atts = Array())
 {
 	global $post, $wp_embed;
-	
+
 	$expert = (get_post_type($post->ID) == 'expert') ? True : False;
-	
+
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
-	
+
 	if($expert) {
 		$title = get_post_meta($post->ID, 'expert_name', True).', '.get_post_meta($post->ID, 'expert_title', True);
 		$subtitle = get_post_meta($post->ID, 'expert_association', True);
@@ -934,14 +934,14 @@ function sc_single_post($atts = Array())
 		$subtitle = get_post_meta($post->ID, 'subtitle', True);
 	}
 	$subtitle = ($subtitle == '') ? '' : '<p id="subtitle">'.$subtitle.'</p>';
-	
+
 	$img_attach = get_img_html($post->ID, 'story_feature', Array('return_id' => True));
-	
+
 	if($img_attach['attachment_id'] != '') {
 		$attachment = get_post($img_attach['attachment_id']);
 	}
-	
-	$comment_form_args = Array(	'fields' => Array(	'<label for="share_name">Name</label><input type="text" id="share_name" name="author" />', 
+
+	$comment_form_args = Array(	'fields' => Array(	'<label for="share_name">Name</label><input type="text" id="share_name" name="author" />',
 													'<label for="share_email">Email</label>
 													<input type="text" id="share_email" name="email" />'),
 								'comment_field' => '<label for="share_comment">Your Comment</label><textarea id="share_comment" name="comment"></textarea>',
@@ -949,26 +949,26 @@ function sc_single_post($atts = Array())
 								'comment_notes_before' => '',
 								'title_reply' => 'Share Your Thoughts',
 						);
-						
+
 
 	$content = $post->post_content;
 	$content = apply_filters('the_content', $content);
 	$content = str_replace(']]>', ']]&gt;', $content);
-	
+
 	# The story image might have been extacted from the content.
 	# If so remove, it and any surrounding links or captions.
 	$pattern = '/(\[caption[^\]]*\])?(<a[^>]*>)?<img[^>]*class="[^"]*wp-image-'.$attachment->ID.'[^"]*"[^>]*>(<\/a>)?(\[\/caption\])?/';
 	$content = preg_replace($pattern, '', $content);
-	
+
 	# Sometimes a image has been inserted at the start of a story
 	# that isn't the featured image. Remove those too.
 	if(preg_match('/^<p>(<caption>)?(<a>)?<img/', $content)) {
 		$pattern = '/(\[caption[^\]]*\])?(<a[^>]*>)?<img[^>]*>(<\/a>)?(\[\/caption\])?/';
 		$content = preg_replace($pattern, '', $content);
 	}
-	
+
 	$video_url = get_video_url($post->ID);
-	
+
 	ob_start();
 	?>
 	<div<?php if ($css) { ?> class="<?=$css?>" <?php } ?>>
@@ -1008,18 +1008,18 @@ add_shortcode('single_post', 'sc_single_post');
 function sc_single_post_meta($atts = Array())
 {
 	global $post;
-	
+
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
-	
+
 	$author_title = get_post_meta($post->ID, 'author_title', True);
 	$author_title = ($author_title != '') ? '<p id="author_title">'.$author_title.'</p>' : '';
-	
+
 	$source = apply_filters('the_content', get_post_meta($post->ID, 'source', True));
 	$source = ($source != '') ? '<div id="source">'.$source.'</div>' : '';
-	
+
 	$byline = get_post_meta($post->ID, 'author_byline', True);
 	$byline = ($byline != '') ? $byline : get_the_author();
-	
+
 	ob_start()?>
 	<div class="<?=$css?>" id="meta">
 		<div>
@@ -1051,11 +1051,11 @@ add_shortcode('single_post_meta', 'sc_single_post_meta');
 function sc_single_post_more_tag($atts = Array())
 {
 	global $post;
-	
+
 	$css	= (isset($atts['css'])) ? $atts['css'] : '';
-	
+
 	$primary_tag_id = get_post_meta($post->ID, 'primary_tag', True);
-	
+
 	if($primary_tag_id == '') {
 		$tags = wp_get_post_tags($post->ID);
 		if(count($tags) > 0) {
@@ -1066,7 +1066,7 @@ function sc_single_post_more_tag($atts = Array())
 	} else {
 		$primary_tag = get_tag($primary_tag_id);
 	}
-	$primary_tag_posts = resolve_posts(	Array(	'tag' => $primary_tag->slug), 
+	$primary_tag_posts = resolve_posts(	Array(	'tag' => $primary_tag->slug),
 										Array(	'numberposts' => 3,
 												'exclude' => Array($post->ID))
 									);
@@ -1100,14 +1100,14 @@ add_shortcode('single_post_more_tag', 'sc_single_post_more_tag');
 function sc_single_post_more_cat($atts = Array())
 {
 	global $post;
-	
+
 	$css	= (isset($atts['css'])) ? $atts['css'] : '';
-	
+
 	$cats = wp_get_post_categories($post->ID);
-	
+
 	if(count($cats) > 0) {
 		$cat = get_category($cats[0]);
-		$cat_posts = resolve_posts(	Array(	'category' => $cat->slug), 
+		$cat_posts = resolve_posts(	Array(	'category' => $cat->slug),
 									Array(	'numberposts' => 3,
 											'exclude' => Array($post->ID))
 								);
@@ -1141,9 +1141,9 @@ add_shortcode('single_post_more_cat', 'sc_single_post_more_cat');
 function sc_single_post_comments($atts = Array())
 {
 	global $post;
-	
+
 	$css	= (isset($atts['css'])) ? $atts['css'] : '';
-	
+
 	$comments = get_comments(Array(	'post_id' => $post->ID,
 									'status' => 'approve',
 									'number' => 3,
@@ -1184,14 +1184,14 @@ add_shortcode('single_post_comments', 'sc_single_post_comments');
 function sc_single_post_topics($atts = Array())
 {
 	global $post;
-	
+
 	$css	= (isset($atts['css'])) ? $atts['css'] : '';
-	
+
 	$tags = wp_get_post_tags($post->ID);
-	
+
 	// Never display Main Site Tag in More Topics section
 	$mainsite_tag = get_mainsite_tag();
-	
+
 	if(count($tags) > 0) {
 		ob_start();
 		?>
@@ -1207,7 +1207,7 @@ function sc_single_post_topics($atts = Array())
 						<?=$tag->name?><?=(($i + 1) != count($tags)) ? ',' : ''?>
 					</a>
 				</li>
-				<? 
+				<?
 					}
 				} ?>
 			</ul>
@@ -1230,9 +1230,9 @@ function sc_single_post_recommended($atts = Array())
 {
 	global $post;
 	if(get_post_type($post->ID) == 'expert') return '';
-	
+
 	$css	= (isset($atts['css'])) ? $atts['css'] : '';
-	
+
 	ob_start();
 	?>
 	<div class="<?=$css?>" id="recommended">
@@ -1263,15 +1263,15 @@ add_shortcode('single_post_recommended', 'sc_single_post_recommended');
 function sc_single_post_related_experts($atts = Array())
 {
 	global $post;
-	
+
 	$css	= (isset($atts['css'])) ? $atts['css'] : '';
-	
+
 	$experts = wp_get_object_terms($post->ID, 'experts');
-	
+
 	ob_start();
 	foreach($experts as $expert) {
-		$stories = resolve_posts(	Array(), 
-									Array(	'numberposts' => 5, 
+		$stories = resolve_posts(	Array(),
+									Array(	'numberposts' => 5,
 											'exclude'     => Array($post->ID),
 											'tax_query'   => Array(
 																Array(	'taxonomy' => 'experts',
@@ -1306,12 +1306,12 @@ add_shortcode('single_post_related_experts', 'sc_single_post_related_experts');
 function sc_expert_meta($atts = Array())
 {
 	global $post;
-	
+
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
-	
+
 	$email  = get_post_meta($post->ID, 'expert_email', True);
 	$phones = explode(',', get_post_meta($post->ID, 'expert_phone', True));
-	
+
 	$img_html = '';
 	$img_details = get_img_html($post->ID, 'full', Array('return_id' => True));
 	if($img_details['attachment_id'] != '') {
@@ -1320,7 +1320,7 @@ function sc_expert_meta($atts = Array())
 			$img_html = '<p><a href="'.$img_src[0].'" target="_blank">Download Profile Image</a></p>';
 		}
 	}
-	
+
 	ob_start();
 	?>
 	<div class="<?=$css?>" id="expert_meta">
@@ -1353,16 +1353,16 @@ add_shortcode('expert_meta', 'sc_expert_meta');
 function sc_expert_tagged($atts = Array())
 {
 	global $post;
-		
+
 	$css	= (isset($atts['css'])) ? $atts['css'] : '';
-	
+
 	$term = get_term_by('name', get_post_meta($post->ID, 'expert_name', True), 'experts');
 
-	$stories = resolve_posts(Array(),Array(	'numberposts' => 5, 
+	$stories = resolve_posts(Array(),Array(	'numberposts' => 5,
 											'tax_query' => Array(
 																Array(
 																		'taxonomy' => 'experts',
-																		'field' => 'slug', 
+																		'field' => 'slug',
 																		'terms' => $term->slug
 																	)
 															)
@@ -1396,24 +1396,24 @@ add_shortcode('expert_tagged', 'sc_expert_tagged');
 function sc_expert_videos($atts = Array())
 {
 	global $post;
-		
+
 	$css	= (isset($atts['css'])) ? $atts['css'] : '';
-	
+
 	$term = get_term_by('name', get_post_meta($post->ID, 'expert_name', True), 'experts');
-	
+
 	$videos = resolve_posts(Array(),Array(	'post_type' => 'video',
-											'numberposts' => 5, 
+											'numberposts' => 5,
 											'tax_query' => Array(
 																Array(
 																		'taxonomy' => 'experts',
-																		'field' => 'slug', 
+																		'field' => 'slug',
 																		'terms' => $term->slug
 																	)
 															)
 										)
 							);
 	$video_page = get_page_by_title('Videos');
-	
+
 	if(count($videos) > 0) {
 		ob_start();
 		?>
@@ -1442,23 +1442,23 @@ add_shortcode('expert_videos', 'sc_expert_videos');
 function sc_expert_photos($atts = Array())
 {
 	global $post;
-		
+
 	$css	= (isset($atts['css'])) ? $atts['css'] : '';
-	
+
 	$term = get_term_by('name', get_post_meta($post->ID, 'expert_name', True), 'experts');
-	
+
 	$photosets = resolve_posts(Array(),Array(	'post_type' => 'photoset',
-												'numberposts' => 5, 
+												'numberposts' => 5,
 												'tax_query' => Array(
 																Array(
 																		'taxonomy' => 'experts',
-																		'field' => 'slug', 
+																		'field' => 'slug',
 																		'terms' => $term->slug
 																	)
 															)
 										)
 							);
-	
+
 	if(count($photosets) > 0) {
 		ob_start();
 		?>
@@ -1487,16 +1487,16 @@ add_shortcode('expert_photos', 'sc_expert_photos');
 function sc_photo_set($atts = Array())
 {
 	global $post;
-	
+
 	$css	= (isset($atts['css'])) ? $atts['css'] : '';
-	
+
 	$images = resolve_posts(Array(), Array(	'post_type' => 'attachment',
 											'post_parent' => $post->ID,
 											'numberposts' => -1,
 											'orderby' => 'menu_order',
 											'order' => 'ASC'
 											));
-											
+
 	ob_start();
 	?>
 	<div id="photoset" class="<?=$css?>">
@@ -1541,9 +1541,9 @@ add_shortcode('photo_set', 'sc_photo_set');
  **/
 function sc_photo_sets($atts = Array())
 {
-	
+
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
-	
+
 	$photo_sets = resolve_posts(Array(), Array(	'post_type' => 'photoset',
 												'numberposts' => -1));
 	$first = True;
@@ -1552,7 +1552,7 @@ function sc_photo_sets($atts = Array())
 	<?
 	$count = 0;
 	foreach($photo_sets as $photo_set) {
-		
+
 		$image_id = 0;
 		if( ($image_id = get_post_meta($photo_set->ID, '_thumbnail_id', True)) == '') {
 			$image = resolve_posts(Array(), Array(
@@ -1564,7 +1564,7 @@ function sc_photo_sets($atts = Array())
 				$image_id = $image->ID;
 			}
 		}
-		
+
 		if($first) { ?>
 			<div class="row">
 				<div class="span8">
@@ -1591,7 +1591,7 @@ function sc_photo_sets($atts = Array())
 					<h3><a href="<?=get_permalink($photo_set->ID)?>"><?=$photo_set->post_title?></a></h3>
 				</div>
 		<? $count++;
-		} 
+		}
 		$first = false;
 		?>
 	<? } ?>
@@ -1612,27 +1612,27 @@ add_shortcode('photo_sets', 'sc_photo_sets');
 function sc_videos($atts = Array())
 {
 	global $wp_embed;
-	
+
 	$css            = (isset($atts['css'])) ? $atts['css'] : '';
 	$specific_video = (isset($atts['specific_video'])) ? $atts['specific_video'] : False;
-	
+
 	$video = null;
-	
-	
+
+
 	if($specific_video !== False) {
 		$specific_video = get_post($specific_video);
 		if($specific_video != False) {
-			$videos = resolve_posts(Array(), Array( 'post_type' => 'video', 
+			$videos = resolve_posts(Array(), Array( 'post_type' => 'video',
 													'numberposts' => -1,
 													'exclude' => Array($specific_video->ID)));
 			$videos = array_merge(Array($specific_video), $videos);
 		}
 	} else {
-		$videos = resolve_posts(Array(), Array( 'post_type' => 'video', 
+		$videos = resolve_posts(Array(), Array( 'post_type' => 'video',
 												'numberposts' => -1,
 												'exclude' => Array($specific_video->ID)));
 	}
-	
+
 	$first = True;
 	$count = 0;
 	ob_start();?>
@@ -1694,9 +1694,9 @@ add_shortcode('videos', 'sc_videos');
  **/
 function sc_profile_feature($atts = Array())
 {
-	$count = 0; 
+	$count = 0;
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
-	
+
 	if(isset($atts['group'])) {
 		$group_name = $atts['group'];
 		if( ($group = get_term_by('name', $group_name, 'groups')) !== False) {
@@ -1729,7 +1729,8 @@ function sc_profile_feature($atts = Array())
 			</div>
 		<?
 		}
-		return ob_get_clean();
+		$html = ob_get_contents(); ob_end_clean();
+		return $html;
 	}
 }
 add_shortcode('profile_feature', 'sc_profile_feature');
@@ -1781,7 +1782,7 @@ function sc_archive_articles($attrs) {
         <div class="<?=$css?>" id="archives">
             <!-- Features -->
             <ul>
-        <? 
+        <?
             for($i = 0; $i < count($articles);$i++) {
                 $article = $articles[$i];
                 $class = '';
@@ -1793,7 +1794,7 @@ function sc_archive_articles($attrs) {
                         <a href="<?=get_permalink($article->ID)?>">
                             <?=get_img_html($article->ID, 'story')?>
                         </a>
-                        
+
                     </div>
                     <h3><a href="<?=get_permalink($article->ID)?>"><?=$article->post_title?></a></h3>
                     <p class="date"><?=$article->post_date; ?></p>
