@@ -347,6 +347,33 @@ var ieVerticalBorders = function($) {
 };
 
 
+var socialButtonTracking = function($) {
+	// Track social media button clicks, using GA's integrated
+	// _trackSocial method.
+	$('div.social a').click(function() {
+		var link = $(this),
+			target = link.attr('data-button-target'),
+			network = '',
+			socialAction = '';
+
+		if (link.hasClass('share-facebook')) {
+			network = 'Facebook';
+			socialAction = 'Like';
+		}
+		else if (link.hasClass('share-twitter')) {
+			network = 'Twitter';
+			socialAction = 'Tweet';
+		}
+		else if (link.hasClass('share-googleplus')) {
+			network = 'Google+';
+			socialAction = 'Share';
+		}
+
+		_gaq.push(['_trackSocial', network, socialAction, target]);
+	});
+}
+
+
 if (typeof jQuery != 'undefined'){
 	jQuery(document).ready(function($) {
 		Webcom.slideshow($);
@@ -365,5 +392,6 @@ if (typeof jQuery != 'undefined'){
 		addBodyClasses($);
 		ieThumbCropper($);
 		ieVerticalBorders($);
+		socialButtonTracking($);
 	});
 }else{console.log('jQuery dependency failed to load');}

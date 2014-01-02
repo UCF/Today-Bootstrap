@@ -640,14 +640,14 @@ function display_social($url, $title) {
 	$tweet_title = urlencode('UCF Today: '.$title);
 	ob_start(); ?>
 	<div class="social clearfix">
-		<a class="share-facebook" target="_blank" href="http://www.facebook.com/sharer.php?u=<?=$url?>" title="Like this story on Facebook">
+		<a class="share-facebook" target="_blank" data-button-target="<?=$url?>" href="http://www.facebook.com/sharer.php?u=<?=$url?>" title="Like this story on Facebook">
 			Like "<?=$title?>" on Facebook
 		</a>
-		<a class="share-twitter" target="_blank" href="https://twitter.com/intent/tweet?text=<?=$tweet_title?>&url=<?=$url?>" title="Tweet this story">
+		<a class="share-twitter" target="_blank" data-button-target="<?=$url?>" href="https://twitter.com/intent/tweet?text=<?=$tweet_title?>&url=<?=$url?>" title="Tweet this story">
 			Tweet "<?=$title?>" on Twitter
 		</a>
-		<a class="share-googleplus" target="_blank" href="https://plus.google.com/share?url=<?=$url?>" title="Share this story on Google+">
-			Recommend "<?=$title?>" on Google+
+		<a class="share-googleplus" target="_blank" data-button-target="<?=$url?>" href="https://plus.google.com/share?url=<?=$url?>" title="Share this story on Google+">
+			Share "<?=$title?>" on Google+
 		</a>
 	</div>
 	<?php
