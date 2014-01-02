@@ -643,11 +643,11 @@ function display_social($url, $title) {
 		<a class="share-facebook" target="_blank" data-button-target="<?=$url?>" href="http://www.facebook.com/sharer.php?u=<?=$url?>" title="Like this story on Facebook">
 			Like "<?=$title?>" on Facebook
 		</a>
+		<a class="share-googleplus" target="_blank" data-button-target="<?=$url?>" href="https://plusone.google.com/_/+1/confirm?hl=en&url=<?=$url?>" title="Recommend this story on Google+">
+			Recommend "<?=$title?>" on Google+
+		</a>
 		<a class="share-twitter" target="_blank" data-button-target="<?=$url?>" href="https://twitter.com/intent/tweet?text=<?=$tweet_title?>&url=<?=$url?>" title="Tweet this story">
 			Tweet "<?=$title?>" on Twitter
-		</a>
-		<a class="share-googleplus" target="_blank" data-button-target="<?=$url?>" href="https://plus.google.com/share?url=<?=$url?>" title="Share this story on Google+">
-			Share "<?=$title?>" on Google+
 		</a>
 	</div>
 	<?php

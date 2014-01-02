@@ -366,7 +366,7 @@ var socialButtonTracking = function($) {
 		}
 		else if (link.hasClass('share-googleplus')) {
 			network = 'Google+';
-			socialAction = 'Share';
+			socialAction = '+1';
 		}
 
 		_gaq.push(['_trackSocial', network, socialAction, target]);
