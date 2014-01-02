@@ -37,17 +37,6 @@
 		<? } ?>
 
 		<script type="text/javascript">
-			$(document).ready()
-			var h1 = $('#page-title h1');
-			if(h1.length == 1 && h1.children().length === 0) {
-				h1.textFit({
-					minFontSize: 25,
-					maxFontSize: 52
-				});
-			}
-		</script>
-
-		<script type="text/javascript">
 			var PostTypeSearchDataManager = {
 				'searches' : [],
 				'register' : function(search) {
