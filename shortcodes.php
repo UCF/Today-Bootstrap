@@ -1729,8 +1729,7 @@ function sc_profile_feature($atts = Array())
 			</div>
 		<?
 		}
-		$html = ob_get_contents(); ob_end_clean();
-		return $html;
+		return ob_get_clean();
 	}
 }
 add_shortcode('profile_feature', 'sc_profile_feature');
