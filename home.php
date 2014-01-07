@@ -23,7 +23,7 @@
 		    <?=do_shortcode('[ucf_video width="380" height="270"]')?>
 		</div>
 		<div class="span3" id="sidebar">
-		    <?=esi_include('do_shortcode', '[events]', true)?>
+		    <?=esi_include('do_shortcode', '[events css="border-bottom"]', true)?>
 		    <?=do_shortcode('[advertisement css="border-bottom" location="Frontpage Right Vertical"]')?>
 		    <?=do_shortcode('[resources]')?>
 		</div>
