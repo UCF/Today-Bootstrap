@@ -742,9 +742,7 @@ function esi_include($statementname, $argset=null, $print_results=false) {
 		// run call_user_func(); otherwise check arguments and run call_user_func_array()
 		if (!is_array($statementargs) || $argset == null) {
 			if ($print_results) {
-				#ob_start();
 				print call_user_func($statementname);
-				#return ob_get_clean();
 			}
 			else {
 				return call_user_func($statementname);
@@ -757,9 +755,7 @@ function esi_include($statementname, $argset=null, $print_results=false) {
 				$argset = (unserialize($argset) !== false) ? unserialize($argset) : array($argset);
 				
 				if ($print_results) {
-					#ob_start();
 					print call_user_func_array($statementname, $argset);
-					#return ob_get_clean();
 				}
 				else {
 					return call_user_func_array($statementname, $argset); 
