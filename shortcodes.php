@@ -377,9 +377,6 @@ function sc_more_headlines($atts = Array())
 								<?=$thumb_html?>
 							</a>
 						</div>
-						<? if($social) { ?>
-							<?=display_social(get_permalink($headline->ID), $headline->post_title)?>
-						<? } ?>
 					</div>
 					<div class="content">
 						<h3><a href="<?=get_permalink($headline->ID)?>"><?=$headline->post_title?></a></h3>
@@ -607,9 +604,7 @@ function sc_events($atts = Array())
 	$css 	= (isset($atts['css'])) ? $atts['css'] : '';
 	$header = (isset($atts['header'])) ? $atts['header'] : 'h2';
 
-	ob_start();
-	print display_events($header, $css);
-	return ob_get_clean();
+	return display_events($header, $css);
 }
 add_shortcode('events', 'sc_events');
 
