@@ -5,7 +5,7 @@
                 <?=do_shortcode('[sc-archive-articles]')?>
             </div>
             <div class="span3" id="sidebar">
-                <?=esi_include('display_events')?>
+                <?=esi_include('do_shortcode', '[events]', true)?>
             </div>
         </div>
     </div>

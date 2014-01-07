@@ -18,7 +18,7 @@
 			    <?=do_shortcode('[subpage_features]')?>
 			</div>
 			<div class="span3" id="sidebar">
-			    <?=esi_include('display_events')?>
+			    <?=esi_include('do_shortcode', '[events]', true)?>
 			</div>
 			<hr class="span12" /></div>
 		<div class="row">
