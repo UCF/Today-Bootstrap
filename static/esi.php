@@ -5,15 +5,13 @@ if(isset($_GET['statement'])) {
 	$statementkey = (int)$_GET['statement']; // force int
 	if(array_key_exists($statementkey, Config::$esi_whitelist)) {
 		$argset 		= $_GET['args'] ? base64_decode($_GET['args']) : null; // args passed here are not serialized
-		$use_ob 		= $_GET['use_ob'] == '0' ? false : true;
+		$print_results 	= $_GET['print_results'] == '0' ? false : true;
 		$statementname 	= Config::$esi_whitelist[$statementkey]['name'];
 		$statementargs	= Config::$esi_whitelist[$statementkey]['safe_args'];
 
 		if (!is_array($statementargs) || $argset == null) {
-			if ($use_ob) {
-				ob_start();
+			if ($print_results) {
 				print call_user_func($statementname);
-				return ob_get_clean();
 			}
 			else {
 				return call_user_func($statementname);
@@ -26,10 +24,8 @@ if(isset($_GET['statement'])) {
 				// Unserialize if necessary
 				$argset = (unserialize($argset) !== false) ? unserialize($argset) : array($argset);
 
-				if ($use_ob) {
-					ob_start();
-					print call_user_func_array($statementname, $argset); 
-					return ob_get_clean();
+				if ($print_results) {
+					print call_user_func_array($statementname, $argset);
 				}
 				else {
 					return call_user_func_array($statementname, $argset); 
