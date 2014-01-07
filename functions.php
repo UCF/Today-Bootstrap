@@ -717,7 +717,7 @@ add_filter( 'comments_open', 'filter_media_comment_status', 10 , 2 );
  * Wrap a statement in a ESI include tag with a specified duration if the
  * enable_esi theme option is enabled.
  **/
-function esi_include($statementname, $argset=null) {	
+function esi_include($statementname, $argset=null, $use_ob=false) {	
 	if (!$statementname) { return null; }
 
 	// Get the statement key
@@ -731,8 +731,9 @@ function esi_include($statementname, $argset=null) {
 	$enable_esi = get_theme_option('enable_esi');
 	if(!is_null($enable_esi) && $enable_esi === '1' && is_ssl() == false) {
 		$argset = ($argset !== null) ? $argset = '&args='.urlencode(base64_encode($argset)) : '';
+		$use_ob = ($use_ob === false) ? $use_ob = '0' : '1'; // whether or not to use output buffering
 		?>
-		<esi:include src="<?php echo ESI_INCLUDE_URL?>?statement=<?=$statementkey?><?=$argset?>" />
+		<esi:include src="<?php echo ESI_INCLUDE_URL?>?use_ob=<?=$use_ob?>&statement=<?=$statementkey?><?=$argset?>" />
 		<?php
 	} elseif (array_key_exists($statementkey, Config::$esi_whitelist)) {
 		$statementname = Config::$esi_whitelist[$statementkey]['name'];
@@ -740,14 +741,29 @@ function esi_include($statementname, $argset=null) {
 		// If no safe arguments are defined in the whitelist for this statement,
 		// run call_user_func(); otherwise check arguments and run call_user_func_array()
 		if (!is_array($statementargs) || $argset == null) {
-			return call_user_func($statementname);
+			if ($use_ob) {
+				ob_start();
+				print call_user_func($statementname);
+				return ob_get_clean();
+			}
+			else {
+				return call_user_func($statementname);
+			}
 		}
 		else {
 			// Convert argset arrays to strings for easy comparison with our whitelist
 			$argset = is_array($argset) ? serialize($argset) : $argset;
 			if ($argset !== null && in_array($argset, $statementargs)) {
 				$argset = (unserialize($argset) !== false) ? unserialize($argset) : array($argset);
-				return call_user_func_array($statementname, $argset);
+				
+				if ($use_ob) {
+					ob_start();
+					print call_user_func_array($statementname, $argset); 
+					return ob_get_clean();
+				}
+				else {
+					return call_user_func_array($statementname, $argset); 
+				}
 			}
 		}
 	}
