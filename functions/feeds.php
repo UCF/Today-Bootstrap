@@ -16,39 +16,37 @@ function display_events($header='h2', $css=null) {
 	else {
 		$limit = 5;
 	}
-
-	$html = '';
 	$events  = get_events($start, $limit);
 	if($events !== NULL && count($events)):
-		$html .= '
-		<div class="events '.$css.'">
-			<'.$header.'>Events @ UCF</'.$header.'>
-			<ul class="event-list">';
-			foreach($events as $item):
-				$month 		= date('M', strtotime($item['starts']));
-				$day  		= date('j', strtotime($item['starts']));
-				$iso  		= date('c', strtotime($item['starts']));
-				$link 		= $url.'eventdatetime_id='.$item['id'];
-				$title		= $item['title'];				
-			$html .= '
+		ob_start();
+	?>
+		<div class="events <?=$css?>">
+			<<?=$header?>>Events @ UCF</<?=$header?>>
+			<ul class="event-list">
+				<?php foreach($events as $item):
+					$month 		= date('M', strtotime($item['starts']));
+					$day  		= date('j', strtotime($item['starts']));
+					$iso  		= date('c', strtotime($item['starts']));
+					$link 		= $url.'eventdatetime_id='.$item['id'];
+					$title		= $item['title'];				
+				?>
 				<li class="vevent clearfix">
 					<div class="dtstart">
-						<span class="month">'.$month.'</span>
-						<span class="day">'.$day.'</span>
-						<span class="value-title" title="'.$iso.'"></span>
+						<span class="month"><?=$month?></span>
+						<span class="day"><?=$day?></span>
+						<span class="value-title" title="<?=$iso?>"></span>
 					</div>
-					<span class="summary"><a class="url" href="'.$link.'">'.$title.'</a></span>
-				</li>';
-			endforeach;
-			$html .= '
+					<span class="summary"><a class="url" href="<?=$link?>"><?=$title?></a></span>
+				</li>
+				<?php endforeach;?>
 			</ul>
 			<p class="more"><a href="http://events.ucf.edu?upcoming=upcoming">More Events</a></p>
-		</div>';
-	else:
-		$html .= '<p>Events could not be retrieved at this time.  Please try again later.</p>';
-	endif;
-
-	return $html;
+		</div>
+	<?php else:?>
+		<p>Events could not be retrieved at this time.  Please try again later.</p>
+	<?php endif;?>
+<?php
+	return ob_get_clean();
 }
 
 
