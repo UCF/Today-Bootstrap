@@ -1,4 +1,4 @@
-/*   
+/*
 Theme Name: UCF Today WordPress Theme Bootstrap
 Author: UCF Web Communications
 Github Theme URI: https://github.com/UCF/Today-Bootstrap
@@ -29,18 +29,18 @@ h5 a:hover,
 h6 a:hover { color: #333; }
 ul > li:first-child > h3 { margin-top: 0; }
 h2 {
-	font-size: 11.5px; 
-	text-transform: uppercase; 
-	letter-spacing: 0.5px; 
+	font-size: 11.5px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
 	line-height: 28px;
 	margin: 0 0 12px 0;
 }
 h2.listing { display: block; float: left; }
 h2.listing + a.listing {
-	float: right; 
-	clear: right; 
-	margin: 0 0 12px 0; 
-	font-size: 12px; 
+	float: right;
+	clear: right;
+	margin: 0 0 12px 0;
+	font-size: 12px;
 	line-height: 28px;
 	font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
 	color: #333;
@@ -234,14 +234,16 @@ ul.result-list li h3 { margin-bottom: 5px; }
 	text-indent: -9999px;
 	height: 20px;
 	margin-bottom: 5px;
-	margin-right: 10px;
+	margin-right: 5px;
+	width: 70px;
+	height: 31px;
 }
-.social .share-twitter { width: 54px; background-position: 0 0; }
-.social .share-twitter:hover { background-position: 0 -20px; }
-.social .share-facebook { width: 51px; background-position: 0 -40px; }
-.social .share-facebook:hover { background-position: 0 -60px; }
-.social .share-googleplus { width: 32px; background-position: 0 -80px; }
-.social .share-googleplus:hover { background-position: 0 -100px; }
+.social .share-twitter { background-position: -71px 0; }
+.social .share-twitter:hover { background-position: -71px -31px; }
+.social .share-facebook { background-position: 0 0; }
+.social .share-facebook:hover { background-position: 0 -31px; }
+.social .share-googleplus { background-position: -142px 0; }
+.social .share-googleplus:hover { background-position: -142px -31px; }
 
 .thumb { width: 100%; }
 /* .cropped style uses background-size: cover when it can; older browsers
@@ -262,7 +264,7 @@ ul.result-list li h3 { margin-bottom: 5px; }
 /** Header **/
 #header { margin-top: 28px; margin-bottom: 0; padding-bottom: 4px; position: relative; }
 #header #page-title h1,
-#header #page-title h2 { 
+#header #page-title h2 {
 	display: block;
 	width: 540px;
 	height: 60px;
@@ -282,7 +284,7 @@ ul.result-list li h3 { margin-bottom: 5px; }
 	background: url('static/img/ucftoday4.png') left center no-repeat;
 }
 
-#weather_bug { 
+#weather_bug {
 	font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
 	position: absolute;
 	bottom: 5px;
@@ -290,15 +292,15 @@ ul.result-list li h3 { margin-bottom: 5px; }
 	right: 0;
 	min-height: 66px;
 }
-#weather_bug #wb_date { 
+#weather_bug #wb_date {
 	font-weight: bold;
 	text-align: right;
 	font-size: 14px;
 	line-height: 16px;
 	color: #000;
 }
-#weather_bug #wb_status_txt, 
-#weather_bug #wb_status_img, 
+#weather_bug #wb_status_txt,
+#weather_bug #wb_status_img,
 #weather_bug #wb_more {
     position: absolute;
 }
@@ -397,9 +399,6 @@ ul.result-list li h3 { margin-bottom: 5px; }
 
 /** Shortcode - [more_headlines] **/
 #more_headlines ul.story-list li { margin-top: 15px; }
-#more_headlines ul.story-list li:first-child { margin-top: 0; }
-#more_headlines ul.story-list li .social .share-facebook { margin-right: 5px; }
-#more_headlines ul.story-list li .social .share-googleplus { margin-right: 0; }
 #more_headlines ul.story-list li p.story-blurb {
 	font-size: 15px;
 	line-height: 22px;
@@ -425,7 +424,7 @@ ul.result-list li h3 { margin-bottom: 5px; }
 }
 
 /** Shortcode - [external_stories] **/
-#external_stories ul li { 
+#external_stories ul li {
 	font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
 	font-size: 15px;
 	line-height: 18px;
@@ -542,7 +541,7 @@ ul.result-list li h3 { margin-bottom: 5px; }
 	margin-bottom: 0;
 	font-size: 12.5px;
 }
-#comments ul.comment-list li .content { 
+#comments ul.comment-list li .content {
 	font-style: italic;
 	font-size: 14px;
 	line-height: 20px;
@@ -657,7 +656,7 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
 	text-indent: -9999px;
 }
 #single #share textarea { width: 100%; height: 120px; }
-#single #share input#submit { 
+#single #share input#submit {
 	border: 2px solid #f1f1f1;
 	background-color: #ffc907;
 	color: #666;
@@ -692,7 +691,7 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
 }
 #search-results h1,
 #search-results #sidebar h3,
-#search-result h1 a { 
+#search-result h1 a {
 	font-size: 24px;
 	font-family: Georgia, serif;
 	margin-bottom: 20px;
@@ -700,7 +699,7 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
 	font-weight: normal;
 }
 #search-results ul.story-list li { margin-bottom: 20px; }
-#search-results ul.story-list li ul.meta { 
+#search-results ul.story-list li ul.meta {
 	list-style-type: none;
 	margin-left: 110px;
 }

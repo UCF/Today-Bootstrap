@@ -2,7 +2,7 @@ var Generic = {};
 
 Generic.defaultMenuSeparators = function($) {
 	// Because IE sucks, we're removing the last stray separator
-	// on default navigation menus for browsers that don't 
+	// on default navigation menus for browsers that don't
 	// support the :last-child CSS property
 	$('.menu.horizontal li:last-child').addClass('last');
 };
@@ -37,7 +37,7 @@ Generic.PostTypeSearch = function($) {
 				typing_timer = null,
 				typing_delay = 300, // milliseconds
 
-				prev_post_id_sum = null, // Sum of result post IDs. Used to cache results 
+				prev_post_id_sum = null, // Sum of result post IDs. Used to cache results
 
 				MINIMUM_SEARCH_MATCH_LENGTH = 2;
 
@@ -135,7 +135,7 @@ Generic.PostTypeSearch = function($) {
 						if(post_id_sum != prev_post_id_sum) {
 							results.empty();
 							prev_post_id_sum = post_id_sum;
-							
+
 
 							// Slice the elements into their respective columns
 							elements_per_column = Math.ceil(elements.length / column_count);
@@ -198,7 +198,7 @@ var handleAlerts = function($) {
 		var alertID = alert.attr('id'),
 			alertTimestamp = parseInt(alert.attr('data-post-modified'), 10);
 		$.cookie(
-			alert_cookie_prefix + alertID, 
+			alert_cookie_prefix + alertID,
 			alertTimestamp,
 			{ path: '/', domain: '.ucf.edu'}
 		);
@@ -207,7 +207,7 @@ var handleAlerts = function($) {
 		var alertID = alert.attr('id');
 		if (alertCookieExists(alert) === true) {
 			$.cookie(
-				alert_cookie_prefix + alertID, 
+				alert_cookie_prefix + alertID,
 				null,
 				{ path: '/', domain: '.ucf.edu'}
 			);
@@ -261,7 +261,7 @@ var fitHeaderText = function($) {
 
 
 var addEllipses = function($) {
-	if ($('p.story-blurb').length > 0) { 
+	if ($('p.story-blurb').length > 0) {
 		$('p.story-blurb').each(function() {
 			$(this).ellipsis();
 		});
@@ -366,7 +366,7 @@ var socialButtonTracking = function($) {
 		}
 		else if (link.hasClass('share-googleplus')) {
 			network = 'Google+';
-			socialAction = '+1';
+			socialAction = 'Share';
 		}
 
 		_gaq.push(['_trackSocial', network, socialAction, target]);
@@ -380,7 +380,7 @@ if (typeof jQuery != 'undefined'){
 		Webcom.analytics($);
 		Webcom.handleExternalLinks($);
 		Webcom.loadMoreSearchResults($);
-		
+
 		/* Theme Specific Code Here */
 		Generic.defaultMenuSeparators($);
 		Generic.removeExtraGformStyles($);

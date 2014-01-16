@@ -377,9 +377,6 @@ function sc_more_headlines($atts = Array())
 								<?=$thumb_html?>
 							</a>
 						</div>
-						<? if($social) { ?>
-							<?=display_social(get_permalink($headline->ID), $headline->post_title)?>
-						<? } ?>
 					</div>
 					<div class="content">
 						<h3><a href="<?=get_permalink($headline->ID)?>"><?=$headline->post_title?></a></h3>

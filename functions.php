@@ -22,7 +22,7 @@ require_once('third-party/wp-rss-media.php');	# Add images and media tag to the 
 function transition_rules()
 {
 	global $wp_rewrite;
-	
+
 	$cats = Array(
 		'music'                           => 'music',
 		'theatre'                         => 'theatre',
@@ -42,14 +42,14 @@ function transition_rules()
 		'on-campus'                       => 'on-campus',
 		'events'                          => 'events',
 		'research'                        => 'research');
-	
+
 	$custom = Array();
-	
+
 	foreach($cats as $before=>$after) {
 		// Rewrite category pages
 		$custom['section/(?:[^/]+/)?'.$before.'/?$'] = 'index.php?tag='.$after;
 		$custom['category/(?:[^/]+/)?'.$before.'/?$'] = 'index.php?tag='.$after;
-		
+
 		// Rewrite feed pages
 		$custom['section/(?:[^/]+/)?'.$before.'/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?tag='.$after.'&feed=$matches[1]';
 		$custom['section/(?:[^/]+/)?'.$before.'/feed/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?tag='.$after.'&feed=$matches[1]';
@@ -59,12 +59,12 @@ function transition_rules()
 	// Rewrite old category and tag pages
 	$custom['category/(?:[^/]+/)?(.+?)/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?category_name=$matches[1]&feed=$matches[2]';
 	$custom['category/(?:[^/]+/)?(.+?)/feed/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?category_name=$matches[1]&feed=$matches[2]';
-	$custom['category/(?:[^/]+/)?(.+?)/?$'] = 'index.php?category_name=$matches[1]';	
-	
+	$custom['category/(?:[^/]+/)?(.+?)/?$'] = 'index.php?category_name=$matches[1]';
+
 	$custom['tag/(?:[^/]+/)?(.+?)/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?tag=$matches[1]&feed=$matches[2]';
 	$custom['tag/(?:[^/]+/)?(.+?)/feed/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?tag=$matches[1]&feed=$matches[2]';
 	$custom['tag/(?:[^/]+/)?(.+?)/?$'] = 'index.php?tag=$matches[1]';
-	
+
 	return $custom;
 }
 function rewrite_rules_filter($rules){
@@ -82,51 +82,51 @@ add_filter('rewrite_rules_array', 'rewrite_rules_filter');
  **/
 function get_weather_data() {
 	$cache_key = 'weather';
-	
+
 	// Check if cached weather data already exists
 	if(($weather = get_transient($cache_key)) !== False) {
 		return $weather;
 	} else {
 		$weather = array('condition' => 'Fair', 'temp' => '80&#186;', 'img' => '34');
-		
+
 		// Set a timeout
 		$opts = array('http' => array(
 								'method'  => 'GET',
 								'timeout' => WEATHER_FETCH_TIMEOUT,
 		));
 		$context = stream_context_create($opts);
-		
+
 		// Grab the weather feed
 		$raw_weather = file_get_contents(WEATHER_URL, false, $context);
 		if ($raw_weather) {
 			$json = json_decode($raw_weather);
-			
+
 			$weather['condition'] 	= $json->condition;
 			$weather['temp']		= $json->temp;
 			$weather['img']			= (string)$json->imgCode;
-			
+
 			// The temp, condition and image code should always be set,
 			// but in case they're not, we catch them here:
-			
+
 			# Catch missing cid
 			if (!isset($weather['img']) or !$weather['img']){
 				$weather['img'] = '34';
 			}
-			
+
 			# Catch missing condition
 			if (!is_string($weather['condition']) or !$weather['condition']){
 				$weather['condition'] = 'Fair';
 			}
-			
+
 			# Catch missing temp
 			if (!isset($weather['temp']) or !$weather['temp']){
 				$weather['temp'] = '80&#186;';
 			}
 		}
-		
+
 		// Cache the new weather data
 		set_transient($cache_key, $weather, WEATHER_CACHE_DURATION);
-		
+
 		return $weather;
 	}
 }
@@ -165,7 +165,7 @@ function output_weather_data() {
  * @author Chris Conover
  **/
 function gen_alerts_html()
-{		
+{
 		$alerts 		= get_posts(Array('post_type' => 'alert'));
 		$hidden_alerts	= Array();
 		$alerts_html 	= '';
@@ -174,26 +174,26 @@ function gen_alerts_html()
 			$alert_html = '<div class="row" id="alerts"><ul class="span12">';
 
 			foreach($alerts as $alert) {
-				
+
 				$text       = get_post_meta($alert->ID, 'alert_text', True);
 				$link_text  = get_post_meta($alert->ID, 'alert_link_text', True);
 				$link_url   = get_post_meta($alert->ID, 'alert_link_url', True);
 				$type       = get_post_meta($alert->ID, 'alert_type', True);
 				$bg_color   = get_post_meta($alert->ID, 'alert_bg_color', True);
 				$text_color = get_post_meta($alert->ID, 'alert_text_color', True);
-				
+
 				$css_clss           = Array($type);
 				$li_inline_styles   = Array();
 				$span_inline_styles = Array();
-				
+
 				$link_html = ($link_text && $link_url) ? "<a href=\"$link_url\">$link_text</a>" : '';
-				
+
 				$thumbnail_id = get_post_thumbnail_id($alert->ID);
 				if($thumbnail_id != '') {
 					$thumbnail = wp_get_attachment_image_src($thumbnail_id, 'alert');
 					array_push($li_inline_styles, 'background-image: url('.$thumbnail[0].');');
 				}
-				
+
 				if($bg_color != '') {
 					if(substr($bg_color, 0, 1) != '#') {
 						$bg_color = '#'.$bg_color;
@@ -206,8 +206,8 @@ function gen_alerts_html()
 					}
 					array_push($span_inline_styles, 'color: '.$text_color.';');
 				}
-				
-				
+
+
 			 	$alert_html .= '<li style="'.implode(' ',$li_inline_styles).'" class="'.implode(' ',$css_clss).'" id="alert-'.$alert->ID.'" data-post-modified="'.strtotime($alert->post_modified).'">
 									<span class="msg" style="'.implode(' ', $span_inline_styles).'">
 										'.$text.'
@@ -227,32 +227,32 @@ function gen_alerts_html()
 
 /**
  * IMG Tag HTML
- * 
+ *
  * @return string or array
  * @author Chris Conover
  **/
 function get_img_html($post_id, $size = 'thumbnail', $options = Array())
 {
 	global $wpdb, $_wp_additional_image_sizes;
-	
+
 	if($size == 'photoset_photo') $size = 'full';
-	
+
 	$element_id		= (isset($options['element_id'])) ? $options['element_id'] : '';
 	$return_id		= (isset($options['return_id'])) ? $options['return_id'] : False;
 	$sent_attach	= (isset($options['sent_attach'])) ? $options['sent_attach'] : False;
-	
+
 	$org_size = $size;
 	$img_alttext = get_the_title($post_id);
-	
+
 	if($sent_attach) {
 		$attach_id = $post_id;
 	} else {
-	
+
 		$attach_id 	= get_post_thumbnail_id($post_id);
-		
+
 		// Look for image attachments that aren't featured images
 		if($attach_id === '') {
-			$attachments = get_posts(Array(	'post_type' => 'attachment', 
+			$attachments = get_posts(Array(	'post_type' => 'attachment',
 											'numberposts' => -1,
 											'post_status' => null,
 											'post_parent' => $post_id));
@@ -263,42 +263,42 @@ function get_img_html($post_id, $size = 'thumbnail', $options = Array())
 				}
 			}
 		}
-	
+
 		// Look for a WordPress image link that is simply present in the story
 		// (i.e. it was copied from some other story)
 		if($attach_id === '') {
 			$post = get_post($post_id);
 			preg_match('/src="([^"]+(?:jpg|jpeg|png|gif))"/', $post->post_content, $matches);
 			if($matches !== FALSE && count($matches) > 0 && ($img_url = parse_url($matches[1])) !== FALSE && !is_null($img_url['path'])) {
-				
+
 				$attach_id = $wpdb->get_var($wpdb->prepare("SELECT * FROM $wpdb->posts WHERE guid LIKE '%%%s'", $img_url['path']));
 			}
 		}
 	}
-	
+
 	$html = '';
-	
+
 	if(in_array($size, Array('story', 'category_feature'))) $size = 'thumbnail';
-	
+
 	if($attach_id != '') {
-		
+
 		$thumb		= wp_get_attachment_image_src($attach_id, $size);
 		$element_id	= ($element_id != '') ? 'id="'.$element_id.'" ': '';
-		
+
 		$dims = Array('width' => $thumb[1], 'height' => $thumb[2]);
-	
+
 		$org_dims = $_wp_additional_image_sizes[$org_size];
-		
+
 		if(!is_null($org_dims) && ($dims['width'] > $org_dims['width'] || $dims['height'] > $org_dims['height'])) {
 			$dims['width'] = $org_dims['width'];
 			$dims['height'] = $org_dims['height'];
 		}
-		
+
 	 	$html = (isset($thumb[0])) ? '<img src="'.$thumb[0].'" '.$element_id.'width="'.$dims['width'].'" height="'.$dims['height'].'" alt="'.$img_alttext.'" />' : '';
 	} else if($org_size != 'story_feature') {
 		$html = '<img src="'.get_bloginfo('stylesheet_directory').'/static/img/no-photo.png" '.$element_id.' alt="'.$img_alttext.'" />';
 	}
-	
+
 	if($return_id) {
 		return Array('html' => $html, 'attachment_id' => $attach_id);
 	} else {
@@ -308,9 +308,9 @@ function get_img_html($post_id, $size = 'thumbnail', $options = Array())
 
 
 /**
- * Wrapper around get_posts to take into account main_page meta, 
+ * Wrapper around get_posts to take into account main_page meta,
  * tag and category attributes.
- * 
+ *
  * @return object or False
  * @author Chris Conover
  **/
@@ -319,10 +319,10 @@ function resolve_posts($atts, $args = Array(), $filters = True, $strip_tags = Tr
 	$home_page 	= (isset($atts['main_page'])) ? True : False;
 	$tag		= (isset($atts['tag'])) ? $atts['tag'] : False;
 	$category	= (isset($atts['category'])) ? $atts['category'] : False;
-	
-	$args = array_merge(Array(	'numberposts' => 1, 
+
+	$args = array_merge(Array(	'numberposts' => 1,
 								'post_type' => 'post'), $args);
-	
+
 	if($tag !== False) {
 		$posts = get_posts(array_merge($args, Array('tag' => $tag)));
 	} else if($category !== False) {
@@ -334,11 +334,11 @@ function resolve_posts($atts, $args = Array(), $filters = True, $strip_tags = Tr
 													)
 												)
 										)));
-	} 
+	}
 	if(!isset($posts) || count($posts) == 0) {
 		$posts = get_posts($args);
 	}
-	
+
 	if($filters && $strip_tags) {
 		array_walk($posts, create_function('&$p', 'return "";'));
 	} else if($filters) {
@@ -346,7 +346,7 @@ function resolve_posts($atts, $args = Array(), $filters = True, $strip_tags = Tr
 	} else if($strip_tags) {
 		array_walk($posts, create_function('$p', 'return strip_tags("the_content", $p->post_content);'));
 	}
-	
+
 	if($filters) {
 		foreach($posts as $post) {
 			$post->post_content = apply_filters('the_content', $post->post_content);
@@ -358,7 +358,7 @@ function resolve_posts($atts, $args = Array(), $filters = True, $strip_tags = Tr
 			$post->post_content = strip_tags($post->post_content);
 		}
 	}
-	
+
 	return ($args['numberposts'] == 1) ? (count($posts) > 0) ? $posts[0] : False : $posts;
 }
 
@@ -376,25 +376,25 @@ function resolve_posts($atts, $args = Array(), $filters = True, $strip_tags = Tr
 function get_excerpt($post, $hl_term = '')
 {
 	setup_postdata($post);
-	
+
 	if($hl_term != '') {
 		$stripped_content = strip_tags($post->post_content);
 		if( ($term_loc = stripos($stripped_content, $hl_term)) !== False) {
 			// Get the actual term to preserve capitalization
 			$hl_term = substr($stripped_content, $term_loc, strlen($hl_term));
-			
+
 			// Get an excerpt around the highligh term
 			preg_match('/\b(?:[^\s]+\s+){0,20}'.preg_quote($hl_term).'\s?(?:[^\s]+\s+){0,20}/', $stripped_content, $matches);
 			$excerpt = strip_tags(trim($matches[0]));
-			
+
 			// Place ellipses
 			if(substr($post->post_content, 0, strlen($excerpt)) !== $excerpt) $excerpt = '...'.$excerpt;
 			if(substr($post->post_content,strlen($excerpt) * -1) !== $excerpt) $excerpt = $excerpt.'...';
-			
+
 			return str_replace($hl_term, '<span class="highlight">'.$hl_term.'</span>', $excerpt);
 		}
 	}
-	
+
 	if($post->post_excerpt != '') {
 		return strip_tags($post->post_excerpt);
 	}
@@ -410,7 +410,7 @@ function get_excerpt($post, $hl_term = '')
  **/
 function strip_img_caption($content)
 {
-	$content = preg_replace('/\[caption[^\]]*\][^\[]+\[\/caption\]/', '', $content);	
+	$content = preg_replace('/\[caption[^\]]*\][^\[]+\[\/caption\]/', '', $content);
 	return $content;
 }
 add_filter('the_content', 'strip_img_caption');
@@ -427,10 +427,10 @@ add_filter('the_content', 'strip_img_caption');
 function mainsite_tag_exists($post_id)
 {
 	global $mainsite_tag_existed;
-	
+
 	$mainsite_tag_existed = False;
 	$tags = wp_get_post_tags($post_id);
-	
+
 	foreach($tags as $tag) {
 		if($tag->slug == MAINSITE_TAG_SLUG) {
 			$mainsite_tag_existed = True;
@@ -450,13 +450,13 @@ add_filter('pre_post_update', 'mainsite_tag_exists');
 function check_mainsite_tag($post_id)
 {
 	global $current_user, $mainsite_tag_existed;
-	
+
 	$roles = $current_user->roles;
-	
+
 	$mainsite_tag = get_mainsite_tag();
-	
+
 	if($mainsite_tag !== FALSE) {
-	
+
 		$post_tags = wp_get_post_tags($post_id);
 		$mainsite_tag_exists = False;
 		foreach($post_tags as $tag) {
@@ -465,20 +465,20 @@ function check_mainsite_tag($post_id)
 				break;
 			}
 		}
-		
+
 		if(!in_array('administrator', $roles) && !in_array('editor', $roles)) {
-			
+
 			// Maintsite tag was added
 			if($mainsite_tag_exists && !$mainsite_tag_existed) {
 				// Remove it
-				
+
 				$new_tags = Array();
 				foreach($post_tags as $tag) {
 					if($tag->term_id != $mainsite_tag->term_id) {
 						array_push($new_tags, $tag->name);
 					}
 				}
-				wp_set_post_tags($post_id, implode(',', $new_tags));	
+				wp_set_post_tags($post_id, implode(',', $new_tags));
 				wp_die('<div style="background-color:#FF0000;border:1px solid #FF0000;padding:15px;color: #FFF;">Only adminstrators or editors can add the Main Site Stories tag to a post.</div>');
 			// Mainsite tag we removed
 			} else if(!$mainsite_tag_exists && $mainsite_tag_existed) {
@@ -505,7 +505,7 @@ function get_mainsite_tag()
 
 
 /*
- * Force images to be resized on upload based on 
+ * Force images to be resized on upload based on
  * Setings > Media > Large Size Restrictions
  *
  */
@@ -572,7 +572,7 @@ function get_header_title() {
 				$header_title = 'Profiles';
 			} else {
 				$header_title = $post->post_title;
-			}	
+			}
 		}
 	}
 	return $header_title;
@@ -643,11 +643,11 @@ function display_social($url, $title) {
 		<a class="share-facebook" target="_blank" data-button-target="<?=$url?>" href="http://www.facebook.com/sharer.php?u=<?=$url?>" title="Like this story on Facebook">
 			Like "<?=$title?>" on Facebook
 		</a>
-		<a class="share-googleplus" target="_blank" data-button-target="<?=$url?>" href="https://plusone.google.com/_/+1/confirm?hl=en&url=<?=$url?>" title="Recommend this story on Google+">
-			Recommend "<?=$title?>" on Google+
-		</a>
 		<a class="share-twitter" target="_blank" data-button-target="<?=$url?>" href="https://twitter.com/intent/tweet?text=<?=$tweet_title?>&url=<?=$url?>" title="Tweet this story">
 			Tweet "<?=$title?>" on Twitter
+		</a>
+		<a class="share-googleplus" target="_blank" data-button-target="<?=$url?>" href="https://plus.google.com/share?url=<?=$url?>" title="Share this story on Google+">
+			Share "<?=$title?>" on Google+
 		</a>
 	</div>
 	<?php
@@ -660,7 +660,7 @@ function display_social($url, $title) {
  * an invalid URL is requested. WordPress will redirect to 404.php instead.
  *
  * Implemented to prevent some print views from redirecting to random
- * attachments. 
+ * attachments.
  *
  * See http://wordpress.stackexchange.com/questions/3326/301-redirect-instead-of-404-when-url-is-a-prefix-of-a-post-or-page-name
  **/
@@ -680,17 +680,17 @@ add_filter('redirect_canonical', 'no_redirect_on_404');
  **/
 function kill_unused_templates() {
 	global $wp_query, $post;
-	 
+
 	if (is_author() || is_attachment() || is_day()) {
 		wp_redirect(home_url());
 	}
-	 
+
 	if (is_feed()) {
 		$author = get_query_var('author_name');
 		$attachment = get_query_var('attachment');
 		$attachment = (empty($attachment)) ? get_query_var('attachment_id') : $attachment;
 		$day = get_query_var('day');
-	 
+
 		if (!empty($author) || !empty($attachment) || !empty($day)) {
 			wp_redirect(home_url());
 			$wp_query->is_feed = false;
@@ -717,7 +717,7 @@ add_filter( 'comments_open', 'filter_media_comment_status', 10 , 2 );
  * Wrap a statement in a ESI include tag with a specified duration if the
  * enable_esi theme option is enabled.
  **/
-function esi_include($statementname, $argset=null, $print_results=false) {	
+function esi_include($statementname, $argset=null, $print_results=false) {
 	if (!$statementname) { return null; }
 
 	// Get the statement key
@@ -753,12 +753,12 @@ function esi_include($statementname, $argset=null, $print_results=false) {
 			$argset = is_array($argset) ? serialize($argset) : $argset;
 			if ($argset !== null && in_array($argset, $statementargs)) {
 				$argset = (unserialize($argset) !== false) ? unserialize($argset) : array($argset);
-				
+
 				if ($print_results) {
 					print call_user_func_array($statementname, $argset);
 				}
 				else {
-					return call_user_func_array($statementname, $argset); 
+					return call_user_func_array($statementname, $argset);
 				}
 			}
 		}
@@ -783,7 +783,7 @@ function filter_archive_date_range( $where = '' ) {
         $year = $today["year"];
     }
 
-	$where .= " AND post_date <= '" . date('Y-m-t', strtotime($year . '-' . $month . '-1')) . 
+	$where .= " AND post_date <= '" . date('Y-m-t', strtotime($year . '-' . $month . '-1')) .
 		"' AND post_date >= '" . date('Y-m-d', strtotime($year . '-' . $month . '-1')) . "'";
 	return $where;
 }
