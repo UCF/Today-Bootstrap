@@ -1159,7 +1159,9 @@ function opengraph_setup(){
 	# Set description
 	if (is_front_page()){
 		$description = htmlentities(get_bloginfo('description'));
-	}else{
+	} elseif (single_post_title('', FALSE) == "News Archive") {
+		$description = "UCF " . _getArchiveMonthYear() . " News Stories, articles, and events happening around the University of Central Florida. Orlando, Florida news and college news";
+	} else{
 		ob_start();
 		the_excerpt();
 		$description = trim(str_replace('[...]', '', ob_get_clean()));
@@ -1258,8 +1260,11 @@ function header_title(){
 	elseif ( is_home() || is_front_page() ) {
 		$content = get_bloginfo('name');
 	}
-	elseif ( is_page() ) { 
-		$content = single_post_title('', FALSE); 
+	elseif ( is_page() ) {
+		$content = single_post_title('', FALSE);
+		if ($content == "News Archive") {
+			$content = "UCF News Archive - UCF News, Orlando FL News, " . _getArchiveMonthYear();
+		}
 	}
 	elseif ( is_search() ) {
 		$content = esc_html(stripslashes(get_search_query()));
@@ -1629,4 +1634,19 @@ function _show_meta_boxes($post, $meta_box){
 	<?php
 }
 
+
+function _getArchiveMonthYear() {
+	$today = getdate();
+	$month = $today["mon"];
+	$year = $today["year"];
+
+	$url_path = explode( '/', $_SERVER['REQUEST_URI'] );
+	if (is_numeric($url_path[count($url_path) - 2])) {
+		$year = intval(substr($url_path[count($url_path) - 2], 0, 4));
+		$month = intval(substr($url_path[count($url_path) - 2], 4));
+		unset($url_path[count($url_path) - 2]);
+	}
+
+	return date('F Y', strtotime($year . '-' . $month . '-1'));
+}
 ?>
