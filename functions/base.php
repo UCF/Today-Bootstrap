@@ -1160,7 +1160,8 @@ function opengraph_setup(){
 	if (is_front_page()){
 		$description = htmlentities(get_bloginfo('description'));
 	} elseif (single_post_title('', FALSE) == "News Archive") {
-		$description = "UCF " . _getArchiveMonthYear() . " News Stories, articles, and events happening around the University of Central Florida. Orlando, Florida news and college news";
+		$monthYear = _getArchiveMonthYear();
+		$description = "UCF " . date('F Y', strtotime($monthYear['year'] . '-' . $monthYear['mon'] . '-1')) . " News Stories, articles, and events happening around the University of Central Florida. Orlando, Florida news and college news";
 	} else{
 		ob_start();
 		the_excerpt();
@@ -1263,7 +1264,8 @@ function header_title(){
 	elseif ( is_page() ) {
 		$content = single_post_title('', FALSE);
 		if ($content == "News Archive") {
-			$content = "UCF News Archive - UCF News, Orlando FL News, " . _getArchiveMonthYear();
+			$monthYear = _getArchiveMonthYear();
+			$content = "UCF News Archive - UCF News, Orlando FL News, " . date('F Y', strtotime($monthYear['year'] . '-' . $monthYear['mon'] . '-1'));
 		}
 	}
 	elseif ( is_search() ) {
@@ -1634,7 +1636,6 @@ function _show_meta_boxes($post, $meta_box){
 	<?php
 }
 
-
 function _getArchiveMonthYear() {
 	$today = getdate();
 	$month = $today["mon"];
@@ -1647,6 +1648,11 @@ function _getArchiveMonthYear() {
 		unset($url_path[count($url_path) - 2]);
 	}
 
-	return date('F Y', strtotime($year . '-' . $month . '-1'));
+	$monthYear = array(
+		'mon'  => $month,
+		'year' => $year,
+	);
+
+	return $monthYear;
 }
 ?>

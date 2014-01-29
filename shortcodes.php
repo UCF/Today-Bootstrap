@@ -1744,20 +1744,9 @@ add_shortcode('profile_feature', 'sc_profile_feature');
 function sc_archive_articles($attrs) {
     $css = (isset($atts['css'])) ? $atts['css'] : '';
     $articles = array();
-    $today = getdate();
-
-    $url_path = explode( '/', $_SERVER['REQUEST_URI'] );
-    if (is_numeric($url_path[count($url_path) - 2])) {
-    	$year = intval(substr($url_path[count($url_path) - 2], 0, 4));
-    	$month = intval(substr($url_path[count($url_path) - 2], 4));
-    	unset($url_path[count($url_path) - 2]);
-    } else {
-        $month = $today["mon"];
-        $year = $today["year"];
-    }
-
-    // var_dump($year);
-    // var_dump($month);
+    $monthYear = _getArchiveMonthYear();
+    $month = $monthYear['mon'];
+    $year = $monthYear['year'];
 
     $args = array(
         'post_type'        => 'post',
@@ -1808,11 +1797,16 @@ function sc_archive_articles($attrs) {
     }
 
     # no need to unset the last / in the url since it isn't a number
+    $url_path = explode( '/', $_SERVER['REQUEST_URI'] );
+    if (is_numeric($url_path[count($url_path) - 2])) {
+        unset($url_path[count($url_path) - 2]);
+    }
     $url = implode('/', $url_path);
     ?>
         <div class="previous"><a href="<?=$url . date('Ym', strtotime($year . '-' . $month . '-1 -1 month')) . '/' ?>">Previous Month</a></div>
     <?php
 
+    $today = getdate();
     if ($today['mon'] == $month + 1 && $today['year'] == $year) {
     	?>
         <div class="next"><a href="<?=$url ?>">Next Month</a></div>
