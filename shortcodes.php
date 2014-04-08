@@ -557,7 +557,6 @@ function sc_advertisement($atts)
 			ob_start();
 			?>
 			<div class="<?=$css?> ad<?=($type == 'vertical') ? ' center': ''?>">
-				<h3>Advertisement</h3>
 				<?=$content?>
 			</div>
 			<?
