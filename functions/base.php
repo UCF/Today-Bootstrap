@@ -1162,7 +1162,11 @@ function opengraph_setup(){
 	} elseif (single_post_title('', FALSE) == "News Archive") {
 		$monthYear = _getArchiveMonthYear();
 		$description = "UCF " . date('F Y', strtotime($monthYear['year'] . '-' . $monthYear['mon'] . '-1')) . " News Stories, articles, and events happening around the University of Central Florida. Orlando, Florida news and college news";
-	} else{
+    } elseif (is_category()) {
+        $description = single_cat_title("Read all about ", false) . " news at UCF Today - University of Central Florida";
+	} elseif (is_tag()) {
+        $description = single_tag_title("Learn more about ", false) . " news at UCF Today - University of Central Florida";
+    } else{
 		ob_start();
 		the_excerpt();
 		$description = trim(str_replace('[...]', '', ob_get_clean()));
@@ -1273,8 +1277,11 @@ function header_title(){
 		$content .= ' - '.__('Search Results');
 	}
 	elseif ( is_category() ) {
-		$content = single_cat_title("", false);
+		$content = single_cat_title("", false) . " News at the University of Central Florida";
 	}
+    elseif ( is_tag() ) {
+        $content = single_tag_title("UCF ", false) . " News from the University of Central Florida news source";
+    }
 	elseif ( is_404() ) {
 		$content = __('Not Found');
 	}
