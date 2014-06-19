@@ -1191,6 +1191,10 @@ function opengraph_setup(){
 		array('property' => 'og:description', 'content' => $description),
 	);
 
+    if(is_tag() || is_category()) {
+        $metas[] = array('name' => 'description', 'content' => $description);
+    }
+
 	# Include image if available
 	if (!is_front_page() and has_post_thumbnail($post->ID)){
 		$image = wp_get_attachment_image_src(
