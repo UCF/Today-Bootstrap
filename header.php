@@ -31,7 +31,7 @@
 		<?php endif;?>
 
 		<?  $post_type = get_post_type($post->ID);
-			if (is_single()) { ?>
+			if (is_single() || is_search()) { ?>
 				<link rel='stylesheet' href="<?=THEME_STATIC_URL?>/bootstrap/bootstrap/css/bootstrap-responsive.min.css" type='text/css' media='all' />
 				<link rel='stylesheet' href="<?=THEME_URL?>/style-responsive.css" type='text/css' media='all' />
 		<? }

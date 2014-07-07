@@ -702,6 +702,7 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
 	text-transform: none;
 }
 #search-results h1,
+#search-results h3,
 #search-results #sidebar h3,
 #search-result h1 a {
 	font-size: 24px;
@@ -711,6 +712,10 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
 	font-weight: normal;
 }
 #search-results ul.story-list li { margin-bottom: 20px; }
+#search-results ul.story-list li .content h3 {
+	font-size: 20px;
+	margin-bottom: 10px;
+}
 #search-results ul.story-list li ul.meta {
 	list-style-type: none;
 	margin-left: 110px;
