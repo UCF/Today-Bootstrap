@@ -676,6 +676,14 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
 	margin-top: 20px;
 }
 
+/* Force facebook widget to be responsive. */
+#fb-root {
+	display: none;
+}
+.fb_iframe_widget, .fb_iframe_widget span, .fb_iframe_widget span iframe[style] {
+	width: 100% !important;
+}
+
 
 
 /** Search **/

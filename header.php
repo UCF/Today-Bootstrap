@@ -31,6 +31,10 @@
 		<?php endif;?>
 
 		<?  $post_type = get_post_type($post->ID);
+			if (is_single()) { ?>
+				<link rel='stylesheet' href="<?=THEME_STATIC_URL?>/bootstrap/bootstrap/css/bootstrap-responsive.min.css" type='text/css' media='all' />
+				<link rel='stylesheet' href="<?=THEME_URL?>/style-responsive.css" type='text/css' media='all' />
+		<? }
 			if(($stylesheet_id = get_post_meta($post->ID, $post_type.'_stylesheet', True)) !== False
 				&& ($stylesheet_url = wp_get_attachment_url($stylesheet_id)) !== False) { ?>
 				<link rel='stylesheet' href="<?=$stylesheet_url?>" type='text/css' media='all' />

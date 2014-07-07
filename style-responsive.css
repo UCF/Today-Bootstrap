@@ -1,0 +1,28 @@
+@media (max-width: 979px) {
+	#header #page-title h1, #header #page-title h2 {
+		width: 414px;
+	}
+	#weather_bug #wb_status_txt {
+		left: 0;
+		width: 140px;
+	}
+
+	#header-menu {
+		margin-bottom: 20px;		
+	}
+	#header-menu ul li a {
+		font-size: 12px;
+		font-weight: 400;
+		margin-right: 7px;
+	}
+	#header-menu .search {
+		width: 110px;
+	}
+	.search form.search-form input#s {
+		width: 75%;
+	}
+	.search form.search-form button {
+		width: 25%;
+	}
+
+}
