@@ -1,10 +1,14 @@
 @media (max-width: 979px) {
-	#header #page-title h1, #header #page-title h2 {
+	#header #page-title h1,
+	#header #page-title h2 {
 		width: 414px;
 	}
 	#weather_bug #wb_status_txt {
 		left: 0;
-		width: 140px;
+		width: 160px;
+	}
+	#weather_bug #wb_status_txt span {
+		font-size: 20px;
 	}
 
 	#header-menu {
@@ -24,5 +28,53 @@
 	.search form.search-form button {
 		width: 25%;
 	}
+}
 
+@media (max-width: 767px) {
+	body {
+		font-size: 15px;
+		line-height: 23px;
+	}
+
+	#header {
+		margin-top: 20px;
+	}
+	#header #page-title h1,
+	#header #page-title h2 {
+		width: 100%;
+		height: auto;
+		font-size: 22px;
+		line-height: 1em;
+	}
+	#weather_bug {
+		display: none;
+	}
+
+	#header-menu {
+		margin-bottom: 15px;
+	}
+	.body-subpage #header-menu ul li:not(:first-child) {
+		display: none; /* Hide all nav links except Home link */
+	}
+	#header-menu .search {
+		width: 165px;
+	}
+
+	#single h1 {
+		font-size: 24px;
+		line-height: 30px;
+	}
+	#single article .social {
+		display: none;
+	}
+
+	.fb_iframe_widget, .fb_iframe_widget span, .fb_iframe_widget span iframe[style] {
+		width: 280px !important;
+	}
+
+	#alerts li,
+	#alerts li > .msg > a {
+		font-size: 13px;
+		line-height: 1.2em;
+	}
 }

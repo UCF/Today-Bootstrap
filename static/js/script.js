@@ -250,13 +250,25 @@ var handleAlerts = function($) {
 
 var fitHeaderText = function($) {
 	// Force our top header element text to fit on one line
-	var header = $('#page-title h1, #page-title h2');
-	if(header.length == 1 && header.children().length === 0) {
-		header.textFit({
-			minFontSize: 25,
-			maxFontSize: 52
-		});
-	}
+	var fittext = function() {
+		var header = $('#page-title h1, #page-title h2');
+		if ($(window).width() > 767) {
+			if(header.length == 1 && header.children().length === 0) {
+				header
+					.textFit({
+						minFontSize: 22,
+						maxFontSize: 52
+					});
+			}
+		}
+		else {
+			header
+				.children('.textfitted')
+					.css('font-size', '1em');
+		}
+	};
+	fittext();
+	$(window).on('resize', function() { fittext(); });
 };
 
 
