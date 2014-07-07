@@ -823,4 +823,16 @@ function image_crop_dimensions($default, $orig_w, $orig_h, $new_w, $new_h, $crop
     return array( 0, 0, (int) $s_x, (int) $s_y, (int) $new_w, (int) $new_h, (int) $crop_w, (int) $crop_h );
 }
 add_filter('image_resize_dimensions', 'image_crop_dimensions', 10, 6);
+
+/**
+ * Add ID attribute to registered University Header script.
+ **/
+function add_id_to_ucfhb($url) {
+    if ( (false !== strpos($url, 'bar/js/university-header.js')) || (false !== strpos($url, 'bar/js/university-header-full.js')) ) {
+      remove_filter('clean_url', 'add_id_to_ucfhb', 10, 3);
+      return "$url' id='ucfhb-script";
+    }
+    return $url;
+}
+add_filter('clean_url', 'add_id_to_ucfhb', 10, 3);
 ?>
