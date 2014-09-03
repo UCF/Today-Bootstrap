@@ -24,11 +24,15 @@ function display_events($header='h2', $css=null) {
 			<<?=$header?>>Events @ UCF</<?=$header?>>
 			<ul class="event-list">
 				<?php foreach($events as $item):
-					$month 		= date('M', strtotime($item['starts']));
-					$day  		= date('j', strtotime($item['starts']));
-					$iso  		= date('c', strtotime($item['starts']));
-					$link 		= $url.'eventdatetime_id='.$item['id'];
-					$title		= $item['title'];				
+					$start 		= new DateTime($item['starts']);
+					$month 		= $start->format('M');
+					$day 		= $start->format('j');
+					$iso 		= $start->format('c');
+					//$month 		= date('M', strtotime($item['starts']));
+					//$day  		= date('j', strtotime($item['starts']));
+					//$iso  		= date('c', strtotime($item['starts']));
+					$link 		= $url.'eventdatetime_id='.$item['id']; // TODO: use 'url' after unify-events launches
+					$title		= $item['title'];
 				?>
 				<li class="vevent clearfix">
 					<div class="dtstart">
