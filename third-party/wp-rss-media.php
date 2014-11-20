@@ -40,16 +40,29 @@ function mrss_ns() {
 	?>xmlns:media="http://search.yahoo.com/mrss/"<?php
 }
 
+function mrss_image_size() {
+	$upload_dir = wp_upload_dir();
+	$metadata_size = image_get_intermediate_size(
+	    get_post_thumbnail_id(),
+	    'thumbnail'
+	);
+	$path_inter = $upload_dir[ 'basedir' ] . '/' . $metadata_size[ 'path' ];
+
+	return filesize(
+	    $path_inter
+	);
+}
+
 function mrss_item() {
 	global $mrss_gallery_lookup, $post;
 	$media = array();
 	
 	# Add featured image as an enclosure
 	$feat_img_id = 0;
-	if( !is_null($feat_img_id  = get_post_thumbnail_id($post->ID))) {
-		if( ($feat_src = wp_get_attachment_image_src($feat_img_id)) !== False) {
-			echo '<enclosure url="'.$feat_src[0].'" />';
-		} 
+	if( !is_null($feat_img_id  = get_post_thumbnail_id($post->ID)) 
+		&& ($feat_src = wp_get_attachment_image_src($feat_img_id)) !== False 
+		&& ($feat_type = get_post_mime_type( $feat_img_id )) !== False) {
+			echo '<enclosure url="'.$feat_src[0].'" type="'.$feat_type.'" length="'.mrss_image_size().'" />';
 	}
 	
 	$valid_mime_types = array('image/jpg','image/png', 'image/jpeg');
@@ -94,21 +107,20 @@ function mrss_item() {
 			Modified to allow for dynamic thumbnail sizing using TimThumb
 		\******************************************************************/	
 		
-		$item['group'];
-		$item['group']['children']['content']['attr']['url'] = $img['src'];
-		$item['group']['children']['content']['attr']['medium'] = 'image';
+		$item['content']['attr']['url'] = $img['src'];
+		$item['content']['attr']['medium'] = 'image';
 		if (isset($attachment->post_mime_type))
-			$item['group']['children']['content']['attr']['type'] = $attachment->post_mime_type;
+			$item['content']['attr']['type'] = $attachment->post_mime_type;
 		if ( !empty($img['title']) ) {
-			$item['group']['children']['title']['attr']['type'] = 'html';
-			$item['group']['children']['title']['children'][] = $img['title'];
+			$item['content']['children']['title']['attr']['type'] = 'html';
+			$item['content']['children']['title']['children'][] = $img['title'];
 		} elseif ( !empty($img['alt']) ) {
-			$item['group']['children']['title']['attr']['type'] = 'html';
-			$item['group']['children']['title']['children'][] = $img['alt'];
+			$item['content']['children']['title']['attr']['type'] = 'html';
+			$item['content']['children']['title']['children'][] = $img['alt'];
 		}
 		if ( !empty($img['description']) ) {
-			$item['group']['children']['description']['attr']['type'] = 'html';
-			$item['group']['children']['description']['children'][] = $img['description'];
+			$item['content']['children']['description']['attr']['type'] = 'html';
+			$item['content']['children']['description']['children'][] = $img['description'];
 		}
 		
 		// thumb
@@ -136,18 +148,18 @@ function mrss_item() {
 				$image_width = 95;
 				$image_height = 95;
 			}
-			$item['group']['children']['thumbnail']['attr']['url']   = $image_src;
-			$item['group']['children']['thumbnail']['attr']['width'] = $image_width;
-			$item['group']['children']['thumbnail']['attr']['height'] = $image_height;
+			$item['thumbnail']['attr']['url']   = $image_src;
+			$item['thumbnail']['attr']['width'] = $image_width;
+			$item['thumbnail']['attr']['height'] = $image_height;
 			if (isset($attachment->post_mime_type))
-				$item['group']['children']['thumbnail']['attr']['type'] = $attachment->post_mime_type;
+				$item['thumbnail']['attr']['type'] = $attachment->post_mime_type;
 		} else {
 			if ( !empty($img['thumbnail']) )
-				$item['group']['children']['thumbnail']['attr']['url'] = $img['thumbnail'];
+				$item['thumbnail']['attr']['url'] = $img['thumbnail'];
 		}
 		$media[] = $item;
-	}
 
+	}
 
 	$media = apply_filters('mrss_media', $media);
 
@@ -155,9 +167,19 @@ function mrss_item() {
 }
 
 function mrss_print($media) {
-	if ( !empty($media) )
-		foreach( $media as $element )
+	if ( !empty($media) ) {
+
+		if(count($media) > 1) {
+			echo '<media:group>';
+		}
+		foreach( $media as $element ) {
 			mrss_print_element($element);
+		}
+
+		if(count($media) > 1) {
+			echo '</media:group>';
+		}
+	}
 	echo "\n";
 }
 
