@@ -97,7 +97,8 @@ function get_weather_data() {
 		$context = stream_context_create($opts);
 
 		// Grab the weather feed
-		$raw_weather = file_get_contents(WEATHER_URL, false, $context);
+		// using @ to suppress errors which causes the site not to load
+		$raw_weather = @file_get_contents( WEATHER_URL, false, $context );
 		if ($raw_weather) {
 			$json = json_decode($raw_weather);
 
