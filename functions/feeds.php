@@ -41,7 +41,7 @@ function display_events($header='h2', $css=null) {
 				</li>
 				<?php endforeach;?>
 			</ul>
-			<p class="more"><a href="http://events.ucf.edu?upcoming=upcoming">More Events</a></p>
+			<p class="more"><a href="http://events.ucf.edu/upcoming/">More Events</a></p>
 		</div>
 	<?php else:?>
 		<p>Events could not be retrieved at this time.  Please try again later.</p>
