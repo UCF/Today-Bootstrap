@@ -1,5 +1,5 @@
 <?php
-function display_events($header='h2', $css=null) { 
+function display_events($header='h2', $css=null) {
 	$options = get_option(THEME_OPTIONS_NAME);
 	$qstring = (bool)strpos($options['events_url'], '?');
 	$url     = $options['events_url'];
@@ -17,8 +17,9 @@ function display_events($header='h2', $css=null) {
 		$limit = 5;
 	}
 	$events  = get_events($start, $limit);
+
+	ob_start();
 	if($events !== NULL && count($events)):
-		ob_start();
 	?>
 		<div class="events <?=$css?>">
 			<<?=$header?>>Events @ UCF</<?=$header?>>
@@ -61,17 +62,17 @@ function get_events($start, $limit){
 		$url .= '&';
 	}
 	$url    .= 'upcoming=upcoming&format=json';
-	
+
 	// Set a timeout
 	$opts = array('http' => array(
 						'method'  => 'GET',
 						'timeout' => FEED_FETCH_TIMEOUT
 	));
 	$context = stream_context_create($opts);
-	
+
 	// Grab the feed
 	$raw_events = file_get_contents($url, false, $context);
-	if ($raw_events) {	
+	if ($raw_events) {
 		$events = json_decode($raw_events, TRUE);
 		$events = array_slice($events, $start, $limit);
 		return $events;
@@ -108,7 +109,7 @@ function display_announcements($param, $value, $header='h3', $css) {
 				</ul>
 			</div>
 			<?
-			$html = ob_get_contents(); 
+			$html = ob_get_contents();
 			set_transient($feed, $html, ANNOUNCE_CACHE_DURATION);
 			ob_end_clean();
 			return $html;
@@ -139,7 +140,7 @@ function get_announcements($param, $value) {
 
 	// Grab the feed
 	$raw_announcements = file_get_contents($url, false, $context);
-	if ($raw_announcements) {	
+	if ($raw_announcements) {
 		$announcements = json_decode($raw_announcements, TRUE);
 		return $announcements;
 	}
