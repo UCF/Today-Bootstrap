@@ -1,4 +1,4 @@
-# UCF Today Bootstrap WordPress Theme
+# UCF Today WordPress theme - [News and Stories from the University of Central Florida and Orlando](http://today.ucf.edu)
 
 Theme to replace the original Today WordPress theme, which relies on the Thematic framework. Written from the UCF Generic Bootstrap theme.
 
