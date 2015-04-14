@@ -820,41 +820,6 @@ add_shortcode('update', 'sc_update');
 
 
 /**
- * MyUCF Sign On Form
- *
- * @return string
- * @author Chris Conover
- **/
-function sc_myucf_signon($atts = Array())
-{
-	$css = (isset($atts['css'])) ? $atts['css'] : '';
-
-	ob_start();
-	?>
-	<div class="<?=$css?>" id="myucf_signon">
-		<h3>MyUCF</h3>
-		<form action="https://my.ucf.edu/psp/PAPROD/EMPLOYEE/EMPL/?cmd=login" method="post" autocomplete="off">
-			<input type="hidden" name="httpPort" value="">
-			<input type="hidden" name="timezoneOffset" value="0">
-			<h4>Sign On:</h4>
-			<label for="userid">PID:</label>
-			<input type="text" name="userid" id="userid" />
-			<label for="pwd">Password:</label>
-			<input type="password" name="pwd" id="pwd" />
-			<input type="submit" value="Sign in" />
-			<a href="my.ucf.edu">Having trouble signing in?</a>
-			<a href="my.ucf.edu">What are my PID and NID?</a>
-			<a href="my.ucf.edu">Need myUCF help?</a>
-		</form>
-	</div>
-	<?
-	$html = ob_get_contents(); ob_end_clean();
-	return $html;
-}
-add_shortcode('myucf_signon', 'sc_myucf_signon');
-
-
-/**
  * External UCF stories
  *
  * @return string
