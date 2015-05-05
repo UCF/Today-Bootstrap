@@ -422,12 +422,14 @@ function sc_ucf_photo($atts = Array())
 		?>
 
 			<div class="<?=$css?>" id="ucf_photo">
-				<h2 class="listing">
-					<?=$link_page_name?>
-				</h2>
-				<a href="<?=get_page_link(get_page_by_title($link_page_name)->ID)?>" class="listing" title="View more photo sets" alt="View more photo sets">
-					More &raquo;
-				</a>
+				<div class="clearfix">
+					<h2 class="listing">
+						<?=$link_page_name?>
+					</h2>
+					<a href="<?=get_page_link(get_page_by_title($link_page_name)->ID)?>" class="listing" title="View more photo sets" alt="View more photo sets">
+						More &raquo;
+					</a>
+				</div>
 		<?
 		foreach($photosets as $photoset) {
 			if($first) {

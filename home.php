@@ -13,12 +13,13 @@
 	<?php 
 	} else { ?>
 		<div class="span4" id="side-features">
+		    <div class="visible-phone"><?=do_shortcode('[feature css="border-bottom"]')?></div>
 		    <?=do_shortcode('[promos css="border-bottom"]')?>
 		    <?=do_shortcode('[ucf_photo link_page_name="Focus" css="border-bottom" front_page="true"]')?>
 		    <?=do_shortcode('[external_stories]')?>
 		</div>
 		<div class="span5 border-both" id="center-features">
-		    <?=do_shortcode('[feature css="border-bottom"]')?>
+		    <div class="visible-desktop"><?=do_shortcode('[feature css="border-bottom"]')?></div>
 		    <?=do_shortcode('[more_headlines social="1" css="border-bottom" num_posts="4"]')?>
 		    <?=do_shortcode('[ucf_video width="380" height="270"]')?>
 		</div>
