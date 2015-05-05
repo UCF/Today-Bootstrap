@@ -92,7 +92,7 @@ ul.expert-list,
 ul.profile-list,
 ul.result-list { list-style-type: none; margin-left: 0; }
 
-ul.story-list li > .story-media { width: 95px; float: left; }
+ul.story-list li > .story-media { float: left; }
 ul.story-list li > .story-media .social { width: 95px; }
 ul.story-list li .thumb { width: 95px; height: 105px; }
 ul.story-list li > .thumb { float: left; }
@@ -381,7 +381,11 @@ ul.result-list li h3 { margin-bottom: 5px; }
 
 /** Shortcode - [feature] **/
 #feature h2.feature-title { font-weight: normal !important; margin: 12px 0; font-size: 20px; line-height: 24px; text-transform: none; }
-#feature h2.feature-cat-title {margin: 0 0 12px 0; font-size: 22px; line-height: 26px; text-transform: none; }
+#feature h2.feature-cat-title {
+	font-size: 22px; 
+	line-height: 26px; 
+	text-transform: none;
+}
 #feature h2.indent,
 #promos h2.indent {
 	width: 0;
@@ -396,14 +400,9 @@ ul.result-list li h3 { margin-bottom: 5px; }
 /* We don't set a .span value for these li's because the parent .span can be
 	modified at any time thru the Cat/Tag page content. However, there are always
 	3 list items, so they can each be 33% wide */
-#features ul.story-list li { width: 33.3%; float: left; }
-#features ul.story-list li > * { padding-left: 20px; } /* emulate bootstrap margins */
-#features ul.story-list li:first-child > * { padding-left: 0; }
-#features ul.story-list li > div { width: 167px; height: 154px; }
-#features ul.story-list li > div img { width: 100%; height: 100%; }
-#features ul.story-list li:first-child h3,
-#features ul.story-list li h3 { margin-top: 5px; font-size: 18px; line-height: 22px;}
-#features ul.story-list li p.story-blurb { max-height: 136px; height: 136px !ie; font-size: 15px; line-height: 22px; }
+#features .story-list img { width: 100%; height: 100%; }
+#features .story-list h3 { margin-top: 5px; font-size: 18px; line-height: 22px;}
+#features .story-list p.story-blurb { max-height: 136px; height: 136px !ie; font-size: 15px; line-height: 22px; }
 
 /** Shortcode - [promos] **/
 #promos ul.story-list li { margin-top: 25px; }
@@ -615,10 +614,7 @@ ul.result-list li h3 { margin-bottom: 5px; }
 .body-subpage .page-content article { margin-top: 20px; }
 .body-subpage #footer { margin-top: 40px; }
 
-.body-subpage #feature .thumb { width: 65%; height: 275px; margin-right: 20px; float: left; }
-.body-subpage #feature p.story-blurb,
-.body-subpage #feature .social { margin-left: 65%; padding-left: 20px; }
-.body-subpage #feature p.story-blurb { max-height: 144px; height: 144px !ie; padding-left: 0 !ie; } /* IE7 */
+.body-subpage #feature p.story-blurb { max-height: 144px; }
 
 
 

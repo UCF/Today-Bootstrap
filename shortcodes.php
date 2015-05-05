@@ -276,15 +276,19 @@ function sc_feature($atts = Array(), $id_only = False)
 
 		ob_start();
 		?>
-		<div class="clearfix <?=$css?>" id="feature">
-			<div class="thumb cropped" style="background-image: url('<?=$attachment_url[0]?>');">
-				<?=$feature_media?>
+		<div class="<?=$css?>" id="feature">
+			<div class="row">
+				<div class="span5" style="background-image: url('<?=$attachment_url[0]?>');">
+					<?=$feature_media?>
+				</div>
+				<div class="span4">
+					<h2 class="feature-cat-title"><a href="<?=get_permalink($top_feature->ID)?>"><?=$top_feature->post_title?></a></h2>
+					<p class="story-blurb">
+						<?=get_excerpt($top_feature)?>
+					</p>
+					<?=display_social(get_permalink($top_feature->ID), $top_feature->post_title)?>
+				</div>
 			</div>
-			<h2 class="feature-cat-title"><a href="<?=get_permalink($top_feature->ID)?>"><?=$top_feature->post_title?></a></h2>
-			<p class="story-blurb">
-				<?=get_excerpt($top_feature)?>
-			</p>
-			<?=display_social(get_permalink($top_feature->ID), $top_feature->post_title)?>
 		</div>
 		<?
 		return ob_get_clean();
@@ -755,17 +759,14 @@ function sc_subpage_features($atts = Array(), $id_only = False)
 	if(count($features) > 0) {
 		ob_start();
 		?>
-		<div class="<?=$css?>" id="features">
+		<div class="row <?=$css?>" id="features">
 			<!-- Features -->
-			<ul class="story-list">
+			<div class="story-list">
 				<?
 				for($i = 0; $i < count($features);$i++) {
 					$feature = $features[$i];
-					$class = '';
-					if($i == 0) {$class = 'first';}
-					if(($i + 1) == count($features)) {$class = 'last';}
 				?>
-				<li<?=($class != '') ? ' class="'.$class.'" ':''?>>
+				<div class="span3">
 					<div>
 						<a href="<?=get_permalink($feature->ID)?>">
 							<?=get_img_html($feature->ID, 'category_story')?>
@@ -775,9 +776,9 @@ function sc_subpage_features($atts = Array(), $id_only = False)
 					<p class="story-blurb">
 						<?=get_excerpt($feature)?>
 					</p>
-				</li>
+				</div>
 				<? } ?>
-			</ul>
+			</div>
 		</div>
 		<?
 		$html = ob_get_contents(); ob_end_clean();
