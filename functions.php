@@ -134,6 +134,17 @@ function get_weather_data() {
 
 
 /**
+ * Uses Wordpress's built-in embed shortcode to return
+ * markup for a video embed by URL.
+ * https://wordpress.org/support/topic/call-function-called-by-embed-shortcode-direct
+ **/
+function get_embed_html( $media_url ) {
+	global $wp_embed;
+	return $wp_embed->run_shortcode( '[embed]' . $media_url . '[/embed]' );
+}
+
+
+/**
  * Display weather data.
  *
  * @return string

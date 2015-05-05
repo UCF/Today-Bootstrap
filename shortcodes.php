@@ -493,7 +493,9 @@ function sc_ucf_video($atts = Array())
 			?>
 			<div class="<?=$css?>" id="ucf_video">
 				<h2 class="listing">Watch Video</h2><a href="<?=get_page_link(get_page_by_title('Videos')->ID)?>" class="listing">More &raquo;</a>
-				<?=$wp_embed->run_shortcode($embed_string)?>
+				<div class="video-container">
+					<?=$wp_embed->run_shortcode($embed_string)?>
+				</div>
 				<h4><?=$video->post_title?></h4>
 				<p><?=$video->post_content?></p>
 			</div>
@@ -1610,8 +1612,10 @@ function sc_videos($atts = Array())
 				$embed_string = '[embed width="590" height="430"]'.$video_url.'[/embed]';
 				?>
 				<div class="row">
-					<div class="feature span8">
-						<?=$wp_embed->run_shortcode($embed_string)?>
+					<div class="feature span8">						
+						<div class="video-container">
+							<?=$wp_embed->run_shortcode($embed_string)?>
+						</div>
 					</div>
 					<div class="span4">
 						<h3><?=$video->post_title?></h3>

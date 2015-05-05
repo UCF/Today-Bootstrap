@@ -77,7 +77,7 @@
 		margin-bottom: 30px;
 		overflow: visible;
 	}
-	.body-subpage #header-menu ul li:not(:first-child),
+	#header-menu ul li:not(:first-child),
 	.body-search #header-menu ul {
 		display: none; /* Hide all nav links except Home link for stories */
 	}

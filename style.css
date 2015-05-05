@@ -504,6 +504,33 @@ ul.result-list li h3 { margin-bottom: 5px; }
 #videos article { margin-top: 0; }
 #videos .feature + div h3 { font-size: 22px; line-height: 24px; text-transform: none; }
 
+/* responsive video */
+.video-container {
+	clear: both;
+	position: relative;
+	padding-bottom: 56.25%;
+	padding-top: 30px;
+	height: 0;
+	overflow: hidden;
+}
+
+.video-container iframe,  
+.video-container object,  
+.video-container embed {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.entry-content img, 
+.entry-content iframe, 
+.entry-content object, 
+.entry-content embed {
+        max-width: 100%;
+}
+
 /** Shortcode - [announcements] **/
 #announcements ul.announcement-list li p.story-blurb { max-height: 114px; height: 114px !ie; }
 
