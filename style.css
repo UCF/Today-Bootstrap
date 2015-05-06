@@ -396,6 +396,10 @@ ul.result-list li h3 { margin-bottom: 5px; }
 }
 #feature .thumb { height: 343px; }
 
+#feature img {
+	width: 100%;
+}
+
 /** Shortcode - [features] **/
 /* We don't set a .span value for these li's because the parent .span can be
 	modified at any time thru the Cat/Tag page content. However, there are always
@@ -610,7 +614,6 @@ ul.result-list li h3 { margin-bottom: 5px; }
 	text-indent: -9999px;
 	margin-right: 0;
 }
-.body-subpage .page-content { margin-top: -20px; }
 .body-subpage .page-content article { margin-top: 20px; }
 .body-subpage #footer { margin-top: 40px; }
 
