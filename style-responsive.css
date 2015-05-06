@@ -79,7 +79,7 @@
 	}
 	#header-menu ul li:not(:first-child),
 	.body-search #header-menu ul {
-		display: none; /* Hide all nav links except Home link for stories */
+		display: none; /* Hide all nav links except Home link for mobile */
 	}
 	#header-menu .search {
 		width: 165px;

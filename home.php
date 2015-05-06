@@ -13,19 +13,19 @@
 	<?php 
 	} else { ?>
 		<div class="span4" id="side-features">
-		    <div class="visible-phone"><?=do_shortcode('[feature css="border-bottom"]')?></div>
+		    <?=do_shortcode('[feature css="border-bottom visible-phone"]')?>
 		    <?=do_shortcode('[promos css="border-bottom"]')?>
 		    <?=do_shortcode('[ucf_photo link_page_name="Focus" css="border-bottom" front_page="true"]')?>
 		    <?=do_shortcode('[external_stories]')?>
 		</div>
 		<div class="span5 border-both" id="center-features">
-		    <div class="visible-desktop"><?=do_shortcode('[feature css="border-bottom"]')?></div>
+		    <?=do_shortcode('[feature css="border-bottom visible-desktop"]')?>
 		    <?=do_shortcode('[more_headlines social="1" css="border-bottom" num_posts="4"]')?>
 		    <?=do_shortcode('[ucf_video width="380" height="270"]')?>
 		</div>
 		<div class="span3" id="sidebar">
 		    <?=esi_include('do_shortcode', '[events css="border-bottom"]', true)?>
-		    <?=do_shortcode('[advertisement css="border-bottom" location="Frontpage Right Vertical"]')?>
+		    <?=do_shortcode('[advertisement css="border-bottom visible-desktop visible-tablet" location="Frontpage Right Vertical"]')?>
 		    <?=do_shortcode('[resources]')?>
 		</div>
 	<?php 

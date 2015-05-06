@@ -12,6 +12,7 @@
 						<a href="http://m.ucf.edu/" target="_blank" class="external">Mobile Website</a>
 					</div>				
 				</div>
+				
 				<div class="row" id="footer-widget-wrap">
 					<div class="span12 text-center">
 						<p id="subfooter" role="contentinfo" class="vcard">
