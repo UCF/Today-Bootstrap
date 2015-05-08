@@ -1,4 +1,9 @@
-			<div id="footer">				
+			<div id="footer">
+				<div class="row">
+					<div class="span12 text-center">
+						<?=display_social(get_permalink($top_feature->ID), $top_feature->post_title)?>
+					</div>
+				</div>				
 				<div class="row" id="footer-widget-wrap">
 					<div class="span12 text-center">
 						<p id="subfooter" role="contentinfo" class="vcard">

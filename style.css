@@ -346,12 +346,20 @@ ul.result-list li h3 { margin-bottom: 5px; }
 .ie-new #header-menu .search button { padding: 0 3px; }
 
 /** Footer **/
-#footer { border-top: 1px solid #eee; padding-top: 20px; margin: 15px 0 25px 0; }
+#footer { 
+	border-top: 1px solid #eee; 
+	padding-top: 20px; 
+	margin: 15px 0 25px 0;
+}
 
 #footer a {	
 	color: #000;
 	font-size: 12px;
 	line-height: 20px;
+}
+
+#footer .social {   
+	display: inline-block;
 }
 
 #footer-widget-wrap {

@@ -209,13 +209,18 @@
 	}
 	
 	#feature h2.feature-cat-title,
-	#features .story-list h3 {
+	#features .story-list h3,
+	#photo-sets h3 {
 		margin-top: 15px;
+	}
+	
+	#photo-sets .photoset-list > div img {
+	  width: 100%;
+	  height: auto;
 	}
 	
 	.body-subpage #feature p.story-blurb,
 	#features .story-list p.story-blurb {
-	  max-height: none;
 	  padding-bottom: 20px;
 	}	
 
