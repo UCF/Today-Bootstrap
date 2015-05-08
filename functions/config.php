@@ -340,6 +340,7 @@ Config::$scripts = array(
 	array('name' => 'autoellipsis',  'src' => THEME_JS_URL.'/jquery.autoellipsis-1.0.10.min.js',),
 	array('name' => 'jquery-cookie',  'src' => THEME_JS_URL.'/jquery-cookie.js',),
 	array('name' => 'theme-script', 'src' => THEME_JS_URL.'/script.js',),
+	array('name' => 'theme-script', 'src' => THEME_JS_URL.'/ucf-mobile-menu.js',),
 );
 
 Config::$metas = array(

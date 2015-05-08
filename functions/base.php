@@ -453,6 +453,9 @@ function bootstrap_menus() {
 				$id = strlen( $id ) ? ' id="' . esc_attr( $id ) . '"' : '';
 
 				$output .= $indent . '<li' . $id . $value . $class_names . $li_attributes . '>';
+				if(strpos($class_names, 'menu-item-type-custom')) {
+					$output .= '<i class="pull-right close-icon">X</i>';
+				}
 
 				$attributes  = ! empty( $item->attr_title ) ? ' title="'  . esc_attr( $item->attr_title ) .'"' : '';
 				$attributes .= ! empty( $item->target )     ? ' target="' . esc_attr( $item->target     ) .'"' : '';
@@ -671,7 +674,7 @@ function get_header_styles() {
 			$header_menu_class = 'nav nav-pills';
 			break;
 		default:
-			$header_menu_class = 'horizontal';
+			$header_menu_class = 'horizontal ucf-mobile-menu';
 			break;
 	}
 	return $header_menu_class;
