@@ -4,7 +4,7 @@
  * Responsible for running code that needs to be executed as wordpress is
  * initializing.  Good place to register scripts, stylesheets, theme elements,
  * etc.
- * 
+ *
  * @return void
  * @author Jared Lang
  **/
@@ -48,10 +48,10 @@ function __init__(){
 	));
 	foreach(Config::$styles as $style){Config::add_css($style);}
 	foreach(Config::$scripts as $script){Config::add_script($script);}
-	
+
 	global $timer;
 	$timer = Timer::start();
-	
+
 	wp_deregister_script('l10n');
 	set_defaults_for_options();
 }
@@ -305,21 +305,21 @@ Config::$styles = array(
 	THEME_STATIC_URL.'/bootstrap/bootstrap/css/bootstrap.css',
 );
 
-array_push(Config::$styles,	
+array_push(Config::$styles,
 	plugins_url( 'gravityforms/css/forms.css' ),
-	THEME_CSS_URL.'/webcom-base.css', 
+	THEME_CSS_URL.'/webcom-base.css',
 	get_bloginfo('stylesheet_url')
 );
 
 Config::$scripts = array(
-	array('admin' => True, 'src' => THEME_JS_URL.'/admin.js',),
+	array( 'admin' => True, 'src' => THEME_JS_URL.'/admin.js', ),
 	CURRENT_PROTOCOL.'universityheader.ucf.edu/bar/js/university-header.js?use-bootstrap-overrides=1',
 	THEME_STATIC_URL.'/bootstrap/bootstrap/js/bootstrap.js',
-	array('name' => 'base-script',  'src' => THEME_JS_URL.'/webcom-base.js',),
-	array('name' => 'autoellipsis',  'src' => THEME_JS_URL.'/jquery.autoellipsis-1.0.10.min.js',),
-	array('name' => 'jquery-cookie',  'src' => THEME_JS_URL.'/jquery-cookie.js',),
-	array('name' => 'theme-script', 'src' => THEME_JS_URL.'/script.js',),
-	array('name' => 'ucf-mobile-menu', 'src' => THEME_JS_URL.'/ucf-mobile-menu.js',),
+	array( 'name' => 'base-script',  'src' => THEME_JS_URL.'/webcom-base.js', ),
+	array( 'name' => 'autoellipsis',  'src' => THEME_JS_URL.'/jquery.autoellipsis-1.0.10.min.js', ),
+	array( 'name' => 'jquery-cookie',  'src' => THEME_JS_URL.'/jquery-cookie.js', ),
+	array( 'name' => 'theme-script', 'src' => THEME_JS_URL.'/script.js', ),
+	array( 'name' => 'ucf-mobile-menu', 'src' => THEME_JS_URL.'/ucf-mobile-menu.js', ),
 );
 
 Config::$metas = array(
@@ -340,6 +340,6 @@ function jquery_in_header() {
     wp_enqueue_script( 'jquery' );
     wp_register_script( 'jquery-textFit', THEME_JS_URL.'/jquery.textFit.min.js' );
     wp_enqueue_script( 'jquery-textFit' );
-}    
- 
+}
+
 add_action('wp_enqueue_scripts', 'jquery_in_header');

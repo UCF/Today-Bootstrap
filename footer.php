@@ -1,21 +1,21 @@
 			<div id="footer">
 				<div class="row">
 					<div class="span12 text-center">
-						<?=display_social(get_permalink($top_feature->ID), $top_feature->post_title)?>
+						<?php echo display_social( get_permalink( $top_feature->ID ), $top_feature->post_title )?>
 					</div>
-				</div>				
+				</div>
 				<div class="row" id="footer-widget-wrap">
 					<div class="span12 text-center">
 						<p id="subfooter" role="contentinfo" class="vcard">
 							<span class="adr">
 								<span class="street-address">4000 Central Florida Blvd. </span>
-								<span class="locality">Orlando</span>, 
-								<span class="region">Florida</span>, 
-								<span class="postal-code">32816</span> | 
+								<span class="locality">Orlando</span>,
+								<span class="region">Florida</span>,
+								<span class="postal-code">32816</span> |
 								<span class="tel"><a href="tel:4078232000">407.823.2000</a></span>
 							</span>
 							<br>
-							© <a href="http://www.ucf.edu" class="print-noexpand fn org url">
+							&copy; <a href="http://www.ucf.edu" class="print-noexpand fn org url">
 								<span class="organization-name">University of Central Florida</span>
 							</a>
 						</p>
@@ -24,5 +24,5 @@
 			</div>
 		</div>
 	</body>
-	<?="\n".footer_()."\n"?>
+	<?php echo "\n".footer_()."\n"?>
 </html>
