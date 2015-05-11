@@ -832,4 +832,13 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
 #header-menu .ucf-mobile-menu-trigger {
   display: none;
   cursor: pointer;
+  text-transform: uppercase;
+}
+
+#page-not-found h2 {
+	font-size: 26px;
+	text-transform: initial; 
+  	letter-spacing: normal;
+  	line-height: normal;
+	margin: 12px 0;
 }

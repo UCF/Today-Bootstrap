@@ -46,27 +46,6 @@ function __init__(){
 		'before_widget' => '<div id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</div>',
 	));
-	register_sidebar(array(
-		'name'          => __('1st Subsidary Aside'),
-		'id'            => '1st-subsidiary-aside',
-		'description'   => 'The 1st widget area in the footer.',
-		'before_widget' => '<div id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</div>',
-	));
-	register_sidebar(array(
-		'name'          => __('2nd Subsidary Aside'),
-		'id'            => '2nd-subsidiary-aside',
-		'description'   => 'The 2nd widget area in the footer.',
-		'before_widget' => '<div id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</div>',
-	));
-	register_sidebar(array(
-		'name'          => __('3rd Subsidary Aside'),
-		'id'            => '3rd-subsidiary-aside',
-		'description'   => 'The 3rd widget area in the footer.',
-		'before_widget' => '<div id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</div>',
-	));
 	foreach(Config::$styles as $style){Config::add_css($style);}
 	foreach(Config::$scripts as $script){Config::add_script($script);}
 	

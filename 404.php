@@ -5,7 +5,7 @@
 	<div class="row page-content" id="page-not-found">
 		<div class="span12">
 			<article role="main">
-				<h3>Page Not Found</h3>
+				<h2>Page Not Found</h2>
 				<?php 
 					$page = get_page_by_title('404');
 					if($page){

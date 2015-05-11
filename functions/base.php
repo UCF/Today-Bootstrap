@@ -453,8 +453,8 @@ function bootstrap_menus() {
 				$id = strlen( $id ) ? ' id="' . esc_attr( $id ) . '"' : '';
 
 				$output .= $indent . '<li' . $id . $value . $class_names . $li_attributes . '>';
-				if(strpos($class_names, 'menu-item-type-custom')) {
-					$output .= '<i class="pull-right close-icon">X</i>';
+				if(strpos($class_names, 'menu-item-type-custom') !== false) {
+					$output .= '<i class="pull-right close-icon">&times;</i>';
 				}
 
 				$attributes  = ! empty( $item->attr_title ) ? ' title="'  . esc_attr( $item->attr_title ) .'"' : '';
