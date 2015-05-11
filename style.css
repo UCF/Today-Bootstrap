@@ -408,13 +408,29 @@ ul.result-list li h3 { margin-bottom: 5px; }
 #promos ul.story-list li p.story-blurb { max-height: 122px; height: 122px !ie; } /* IE7 can't use max-height */
 #promos ul.story-list li h3 { font-size: 20px; line-height: 24px; }
 
-/** Shortcode - [more_headlines] **/
-#more_headlines ul.story-list li { margin-top: 15px; }
-#more_headlines ul.story-list li p.story-blurb {
+/** Shortcode - [ucf_news] **/
+#ucf_news ul.story-list li { 
+	margin-top: 15px;
+}
+
+#ucf_news ul.story-list li p.story-blurb {
 	font-size: 15px;
 	line-height: 22px;
 	max-height: 113px;
 	height: 113px !ie;
+}
+
+/** Shortcode - [ucf_news] **/
+#more_headlines ul.story-list li { 
+	line-height: normal;
+	margin-bottom: 15px;
+}
+
+#more_headlines ul.story-list a { 
+	color: #000;
+	font-size: 15px;
+	font-weight: normal;
+	text-decoration: underline;	
 }
 
 /** Shortcode - [profile_feature] **/
@@ -422,6 +438,7 @@ ul.result-list li h3 { margin-bottom: 5px; }
 #profile-feature strong {
 	color: #333;
 }
+
 #profile-feature h4 { margin-bottom: 4px; }
 #profile-feature .profile-list > div { margin-bottom: 20px; line-height: 18px; }
 
@@ -585,11 +602,6 @@ ul.result-list li h3 { margin-bottom: 5px; }
 	line-height: 20px;
 	color: #666;
 }
-
-/** Shortcode - [advertisement] **/
-.ad { padding: 15px 0 30px 0; }
-.ad.center { text-align: center; }
-.ad h3 { font-weight: 300; color: #666; font-size: 12px; }
 
 /** Subpages **/
 .body-subpage #header-menu ul li:first-child {

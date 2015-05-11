@@ -333,6 +333,7 @@ function resolve_posts($atts, $args = Array(), $filters = True, $strip_tags = Tr
 	$category	= (isset($atts['category'])) ? $atts['category'] : False;
 
 	$args = array_merge(Array(	'numberposts' => 1,
+								'offset' => 0,
 								'post_type' => 'post'), $args);
 
 	if($tag !== False) {

@@ -23,7 +23,7 @@
 			<hr class="span12" /></div>
 		<div class="row">
 			<div class="span5 border-right">
-			    <?=do_shortcode('[more_headlines social="0"]')?>
+			    <?=do_shortcode('[ucf_news social="0"]')?>
 			</div>
 			<div class="span7">
 			    <?=do_shortcode('[ucf_video width="540"]')?>

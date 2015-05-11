@@ -20,12 +20,12 @@
 		</div>
 		<div class="span5 border-both" id="center-features">
 		    <?=do_shortcode('[feature css="border-bottom visible-desktop"]')?>
-		    <?=do_shortcode('[more_headlines social="1" css="border-bottom" num_posts="4"]')?>
+		    <?=do_shortcode('[ucf_news social="1" css="border-bottom" num_posts="4"]')?>
 		    <?=do_shortcode('[ucf_video width="380" height="270"]')?>
 		</div>
 		<div class="span3" id="sidebar">
 		    <?=esi_include('do_shortcode', '[events css="border-bottom"]', true)?>
-		    <?=do_shortcode('[advertisement css="border-bottom visible-desktop visible-tablet" location="Frontpage Right Vertical"]')?>
+		    <?=do_shortcode('[more_headlines social="1" css="border-bottom" num_posts="4" offset="4"]')?>
 		    <?=do_shortcode('[resources]')?>
 		</div>
 	<?php 

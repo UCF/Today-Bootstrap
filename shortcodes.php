@@ -303,7 +303,7 @@ add_shortcode('feature', 'sc_feature');
  * @return string
  * @author Chris Conover
  **/
-function sc_more_headlines($atts = Array())
+function sc_ucf_news($atts = Array())
 {
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
 
@@ -365,8 +365,8 @@ function sc_more_headlines($atts = Array())
 
 	ob_start();
 	?>
-		<div class="<?=$css?>" id="more_headlines">
-			<?=($header) ? '<h2>More Headlines</h2>' : ''?>
+		<div class="<?=$css?>" id="ucf_news">
+			<?=($header) ? '<h2>UCF News</h2>' : ''?>
 			<ul class="story-list">
 	<?
 	$count = 0;
@@ -389,6 +389,103 @@ function sc_more_headlines($atts = Array())
 						</p>
 					</div>
 				</li>
+		<?
+		$count++;
+	}
+	?>
+			</ul>
+		</div>
+	<?
+	$html = ob_get_contents();
+	ob_end_clean();
+	return $html;
+
+}
+add_shortcode('ucf_news', 'sc_ucf_news');
+
+
+/**
+ * Generate more headlines html
+ *
+ * @return string
+ * @author RJ Bruneel
+ **/
+function sc_more_headlines($atts = Array())
+{
+	$css = (isset($atts['css'])) ? $atts['css'] : '';
+
+	$social		= (isset($atts['social'])) ? $atts['social'] : True;
+	$header		= (isset($atts['header'])) ? $atts['header'] : True;
+	$num_posts	= (isset($atts['num_posts']) && is_numeric($atts['num_posts'])) ? (int)$atts['num_posts'] : 3;
+	$offset	    = (isset($atts['offset']) && is_numeric($atts['offset'])) ? (int)$atts['offset'] : 3;
+
+	$resolve_params = Array();
+
+	if(is_front_page()) {
+		/*
+			It's currently not possible to select posts that aren't
+			marked as promotional or featured using meta_query. I think this
+			is because display_option is a part of the post meta and isn't
+			actually set on all posts, just those specified explicitly. That
+			and there is non way to select empty values without dropping into
+			SQL.
+
+			Because of that, create an excluded_posts list containing all the
+			post_ids of of the featured and promotional posts. This list should
+			be a relatively small which will keep the processing time down.
+		*/
+		$excluded_posts = Array();
+		$promos = get_posts(Array(
+			'numberposts' => 3,
+			'meta_query' => Array(
+				Array(
+					'key' => 'display_type',
+					'value' => 'promotional',
+					'compare' => '='))));
+		$features = get_posts(Array(
+			'numberposts' => 1,
+			'meta_query' => Array(
+				Array(
+					'key' => 'display_type',
+					'value' => 'featured',
+					'compare' => '='))));
+		foreach(array_merge($promos,$features) as $_post) {
+			array_push($excluded_posts, $_post->ID);
+		}
+
+		$resolve_params['exclude'] = $excluded_posts;
+	} else if(is_category()) {
+		global $wp_query;
+		$atts['category'] = $wp_query->queried_object->slug;
+	} else if(is_tag()) {
+		global $wp_query;
+		$atts['tag'] = $wp_query->queried_object->slug;
+	} else if(is_page()) {
+		global $wp_query;
+		$atts['tag'] = str_replace(' ', '', strtolower($wp_query->queried_object->post_title));
+	}
+
+	# Category and tag pages have a top story. Don't allow the top story
+	# to also show up in the More Headlines sections below it.
+	if(!isset($resolve_params['exclude']) && (is_category() || is_tag())) {
+		$resolve_params['exclude'] = array_merge(Array(sc_feature(Array(), True)), sc_subpage_features(Array(), True));
+	}
+
+	$headlines = resolve_posts($atts, array_merge(Array('numberposts' => $num_posts, 'offset' => $offset), $resolve_params));
+
+	ob_start();
+	?>
+		<div class="<?=$css?>" id="more_headlines">
+			<?=($header) ? '<h2>More Headlines</h2>' : ''?>
+			<ul class="story-list">
+	<?
+	$count = 0;
+	foreach($headlines as $headline) {
+		$thumb_html = get_img_html($headline->ID, 'story');
+		?>
+			<li class="clearfix<?=(($count + 1) == count($headlines) ? ' last' : '')?>">
+				<strong><a href="<?=get_permalink($headline->ID)?>"><?=$headline->post_title?></a></strong>
+			</li>
 		<?
 		$count++;
 	}
@@ -511,68 +608,6 @@ function sc_ucf_video($atts = Array())
 	}
 }
 add_shortcode('ucf_video', 'sc_ucf_video');
-
-
-/**
- * Generate advertisement section
- *
- * @return string
- * @author Chris Conover
- **/
-function sc_advertisement($atts)
-{
-	global $post, $wp_query;
-
-	$css = (isset($atts['css'])) ? $atts['css'] : '';
-	$location = (isset($atts['location'])) ? $atts['location'] : null;
-	$type = (isset($atts['type'])) ? $atts['type'] : 'vertical';
-	if($type != 'vertical' && $type != 'horizontal') {
-		$type = 'vertical';
-	}
-
-	if(!is_null($location)) {
-		ob_start();?>
-		<?=do_action('ad-minister', array('position' => $location));?>
-		<?
-		$generic_content = ob_get_clean();
-
-		$specific_content = '';
-		if(is_category() || is_single()) {
-
-			if(is_category()) {
-				$current_category = get_category($wp_query->queried_object->term_id);
-			} else if(is_single()) {
-				$post_categories = wp_get_post_categories($post->ID);
-				$current_category = ($post_categories > 0) ? $post_categories[0] : False;
-			}
-
-			if($current_category) {
-				foreach(get_categories() as $cat) {
-					ob_start();?>
-					<?=do_action('ad-minister', array('position' => $location.' - '.$cat->slug))?>
-					<?
-					if($current_category->term_id == $cat->term_id) {
-						$specific_content = ob_get_clean();
-					} else {
-						ob_end_clean();
-					}
-				}
-			}
-		}
-		$content = (trim($specific_content) != '') ? $specific_content : $generic_content;
-
-		if(!is_null($content) && trim($content) != '') {
-			ob_start();
-			?>
-			<div class="<?=$css?> ad<?=($type == 'vertical') ? ' center': ''?>">
-				<?=$content?>
-			</div>
-			<?
-			return ob_get_clean();
-		}
-	}
-}
-add_shortcode('advertisement', 'sc_advertisement');
 
 
 /**

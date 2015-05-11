@@ -18,7 +18,7 @@
 			<?=do_shortcode('[single_post css="span7"]')?>
 			<div class="span4 offset1" id="sidebar" role="complementary">
 				<?=do_shortcode('[single_post_meta css="border-bottom"]')?>
-				<?=do_shortcode('[advertisement css="border-bottom" location="Single Right Vertical"]')?>
+				<?=do_shortcode('[more_headlines social="1" css="border-bottom" num_posts="4" offset="4"]')?>
 				<?=do_shortcode('[single_post_more_tag css="border-bottom"]')?>
 				<?=do_shortcode('[single_post_more_cat css="border-bottom"]')?>
 				<?=do_shortcode('[single_post_topics css="border-bottom"]')?>
