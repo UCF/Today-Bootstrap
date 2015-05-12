@@ -376,20 +376,19 @@ function sc_ucf_news( $atts = Array() )
 		$thumb_html = get_img_html($headline->ID, 'story');
 		?>
 				<li class="clearfix<?php echo ( ( $count + 1 ) == count( $headlines ) ? ' last' : '' ) ?>">
-
-					<div class="story-media">
-						<div class="thumb">
-							<a href="<?php echo get_permalink( $headline->ID ) ?>">
+					<a href="<?php echo get_permalink( $headline->ID ) ?>">
+						<div class="story-media">
+							<div class="thumb">
 								<?php echo $thumb_html ?>
-							</a>
+							</div>
 						</div>
-					</div>
-					<div class="content">
-						<h3><a href="<?php echo get_permalink( $headline->ID )?>"><?php echo $headline->post_title ?></a></h3>
-						<p class="story-blurb">
-							<?php echo get_excerpt( $headline ) ?>
-						</p>
-					</div>
+						<div class="content">
+							<h3><?php echo $headline->post_title ?></h3>
+							<p class="story-blurb">
+								<?php echo get_excerpt( $headline ) ?>
+							</p>
+						</div>
+					</a>
 				</li>
 		<?
 		$count++;

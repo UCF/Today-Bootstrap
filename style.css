@@ -92,13 +92,44 @@ ul.expert-list,
 ul.profile-list,
 ul.result-list { list-style-type: none; margin-left: 0; }
 
-ul.story-list li > .story-media { float: left; }
-ul.story-list li > .story-media .social { width: 95px; }
-ul.story-list li .thumb { width: 95px; height: 105px; }
-ul.story-list li > .thumb { float: left; }
-ul.story-list li .content { margin-left: 110px; }
-ul.story-list li .content h3 { margin-top: -4px; font-size: 20px; line-height: 24px; }
-ul.story-list li p.story-blurb { overflow: hidden; }
+ul.story-list li .story-media { 
+	float: left;
+}
+
+ul.story-list li .story-media .social { 
+	width: 95px;
+}
+
+ul.story-list li .thumb { 
+	width: 95px; height: 105px;
+}
+
+ul.story-list li > .thumb { 
+	float: left;
+}
+
+ul.story-list li .content { 
+	margin-left: 110px;
+}
+
+#ucf_news ul.story-list li a {
+	color: #000;
+}
+
+#ucf_news ul.story-list li a:hover {
+	text-decoration: none; 
+}
+
+ul.story-list li .content h3 { 
+	margin-top: -4px; 
+	font-size: 20px; 
+	line-height: 24px;
+}
+
+ul.story-list li p.story-blurb {
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	overflow: hidden;
+}
 
 ul.event-list li { margin-bottom: 20px; font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif; }
 ul.event-list li .dtstart {
