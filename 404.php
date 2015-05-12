@@ -6,7 +6,7 @@
 		<div class="span12">
 			<article role="main">
 				<h2>Page Not Found</h2>
-				<?php 
+				<?php
 					$page = get_page_by_title('404');
 					if($page){
 						$content = $page->post_content;
@@ -14,11 +14,11 @@
 						$content = str_replace(']]>', ']]>', $content);
 					}
 				?>
-				<?php if($content):?>
-				<?=$content?>
-				<?php else:?>
-				<p>The page you requested doesn't exist.  Sorry about that.</p>
-				<?php endif;?>
+				<?php if($content): ?>
+					<?php echo $content ?>
+				<?php else: ?>
+					<p>The page you were looking for appears to have been moved, deleted or does not exist. Try using the navigation or search above or browse to the <a href="/">home page</a>.</p>
+				<?php endif; ?>
 			</article>
 		</div>
 	</div>

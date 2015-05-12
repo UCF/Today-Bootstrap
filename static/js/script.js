@@ -73,11 +73,11 @@ Generic.PostTypeSearch = function($) {
 
 			// Search form
 			form
-				.submit(function(event) {
-					// Don't allow the form to be submitted
-					event.preventDefault();
-					perform_search(field.val());
-				})
+				.submit(function (event) {
+				// Don't allow the form to be submitted
+				event.preventDefault();
+				perform_search(field.val());
+			});
 			field
 				.keyup(function() {
 					// Use a timer to determine when the user is done typing
@@ -272,7 +272,7 @@ var fitHeaderText = function($) {
 };
 
 
-var addEllipses = function($) {
+var addEllipses = function ($) {
 	if ($('p.story-blurb').length > 0) {
 		$('p.story-blurb').each(function() {
 			$(this).ellipsis();
@@ -282,7 +282,7 @@ var addEllipses = function($) {
 
 
 /* Assign browser-specific body classes on page load */
-addBodyClasses = function($) {
+var addBodyClasses = function($) {
 	if (/MSIE (\d+\.\d+);/.test(navigator.userAgent)) { //test for MSIE x.x;
 		var ieversion = new Number(RegExp.$1); // capture x.x portion and store as a number
 		if (ieversion < 9) { $('body').addClass('ie-old'); }
@@ -349,20 +349,20 @@ var ieThumbCropper = function($) {
 
 var ieVerticalBorders = function($) {
 	// More :after (and :before) compensation for old IE...
-	$('body.ie-old .border-left, body.ie-old .border-both').each(function() {
+	$('body.ie-old .border-left, body.ie-old .border-both').each(function () {
 		$(this).append('<div class="ie-border-left"></div>');
-	})
-	$('body.ie-old .border-right, body.ie-old .border-both').each(function() {
+	});
+	$('body.ie-old .border-right, body.ie-old .border-both').each(function () {
 		$(this).append('<div class="ie-border-right"></div>');
-	})
+	});
 
 };
 
 
-var socialButtonTracking = function($) {
+var socialButtonTracking = function ($) {
 	// Track social media button clicks, using GA's integrated
 	// _trackSocial method.
-	$('div.social a').click(function() {
+	$('div.social a').click(function () {
 		var link = $(this),
 			target = link.attr('data-button-target'),
 			network = '',
@@ -383,7 +383,7 @@ var socialButtonTracking = function($) {
 
 		_gaq.push(['_trackSocial', network, socialAction, target]);
 	});
-}
+};
 
 
 if (typeof jQuery != 'undefined'){

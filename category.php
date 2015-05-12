@@ -1,37 +1,36 @@
-<?php disallow_direct_load('category.php');?>
+<?php disallow_direct_load( 'category.php' );?>
 <?php get_header();?>
 <?php
 	$use_page = false;
-	$page = get_page_by_title('Category');
+	$page = get_page_by_title( 'Category' );
 	if ($page !== null) {
 		$use_page = $page->post_content !== '' ? true : false;
 	}
 ?>
 	<div class="subpage">
 	<? if($use_page == true) { ?>
-		<?=apply_filters('the_content', $page->post_content)?>
-	<?php 
+		<? echo apply_filters( 'the_content', $page->post_content ) ?>
+	<?php
 	} else { ?>
 		<div class="row">
 			<div class="span9 border-right">
-			    <?=do_shortcode('[feature css="border-bottom"]')?>
-			    <?=do_shortcode('[subpage_features]')?>
+			    <?php echo do_shortcode( '[feature css="border-bottom"]' )?>
+			    <?php echo do_shortcode( '[subpage_features]' )?>
 			</div>
 			<div class="span3" id="sidebar">
-			    <?=esi_include('do_shortcode', '[events]', true)?>
-			    <?=do_shortcode('[advertisement css="border-top" location="Category Right Vertical"]')?>
+			    <?php echo esi_include( 'do_shortcode', '[events]', true )?>
+			    <?php echo do_shortcode( '[more_headlines social="1" css="border-bottom" num_posts="4" offset="4"]' )?>
 			</div>
-			<hr class="span12" /></div>
 		<div class="row">
 			<div class="span5 border-right">
-			    <?=do_shortcode('[more_headlines social="0"]')?>
+			    <?php echo do_shortcode( '[ucf_news social="0"]' )?>
 			</div>
 			<div class="span7">
-			    <?=do_shortcode('[ucf_video width="540"]')?>
+			    <?php echo do_shortcode( '[ucf_video width="540"]' )?>
 			</div>
 		</div>
-	<?php 
+	<?php
 	}
 	?>
 	</div>
-<?php get_footer();?>
+<?php get_footer(); ?>

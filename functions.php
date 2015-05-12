@@ -134,6 +134,17 @@ function get_weather_data() {
 
 
 /**
+ * Uses Wordpress's built-in embed shortcode to return
+ * markup for a video embed by URL.
+ * https://wordpress.org/support/topic/call-function-called-by-embed-shortcode-direct
+ **/
+function get_embed_html( $media_url ) {
+	global $wp_embed;
+	return $wp_embed->run_shortcode( '[embed]' . $media_url . '[/embed]' );
+}
+
+
+/**
  * Display weather data.
  *
  * @return string
@@ -322,6 +333,7 @@ function resolve_posts($atts, $args = Array(), $filters = True, $strip_tags = Tr
 	$category	= (isset($atts['category'])) ? $atts['category'] : False;
 
 	$args = array_merge(Array(	'numberposts' => 1,
+								'offset' => 0,
 								'post_type' => 'post'), $args);
 
 	if($tag !== False) {
@@ -640,7 +652,7 @@ function get_posts_search($query='', $post_type='post', $extra_args=array()) {
 function display_social($url, $title) {
 	$tweet_title = urlencode('UCF Today: '.$title);
 	ob_start(); ?>
-	<div class="social clearfix">
+	<div class="social">
 		<a class="share-facebook" target="_blank" data-button-target="<?=$url?>" href="http://www.facebook.com/sharer.php?u=<?=$url?>" title="Like this story on Facebook">
 			Like "<?=$title?>" on Facebook
 		</a>

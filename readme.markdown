@@ -7,7 +7,6 @@ Theme to replace the original Today WordPress theme, which relies on the Themati
 ## Installation
 
 ### Required Plugins:
-* Ad-minister
 * Social
 * Twitter Tools (requires Social)
 * Varnish Dependency Purger
@@ -18,7 +17,6 @@ Theme to replace the original Today WordPress theme, which relies on the Themati
 * Settings > Permalinks: set Category base to 'section'; set Tag base to 'topic'; make sure posts use the 'post name' permalink structure.
 * Update pages with old Blueprint markup to use Bootstrap markup, or remove those pages entirely
 * Settings > Discussion: Make sure Trackbacks/Pingbacks are DISABLED.
-* Replace all image references in Ad-minister ad content with protocol-relative URLs
 * When behind Varnish, make sure to update the the Dependency Purger Varnish nodes list and turn on ESIs in Theme Options > Site.
 
 ### Installation Recommendations:
@@ -88,10 +86,15 @@ Other attributes are listed below the given shortcode's name, if available.
 
 ### Posts (lists)
 * feature
+* ucf_news
+	* social (0,1...default:1) - Display social network buttons
+	* header (0,1...default:1) - Display the More headlines header
+	* num_post (number...default:3) - How many headlines should be displayed
 * more_headlines
 	* social (0,1...default:1) - Display social network buttons
 	* header (0,1...default:1) - Display the More headlines header
 	* num_post (number...default:3) - How many headlines should be displayed
+	* offset (number...default:3) - Offset to retrieve more headlines
 * subpage_features
 * promos
 
@@ -138,9 +141,6 @@ Other attributes are listed below the given shortcode's name, if available.
 
 ### Other
 * myucf_signon
-* advertisement
-	* loc (string) - Ad-minister plugin position name
-	* type (horizontal,vertical...default:"vertical") - Orientation of the ad. Vertical will center the title and content
 
 
 ## Styling
