@@ -14,13 +14,15 @@
 		} else { ?>
 			<div class="span4" id="side-features">
 			    <?php echo do_shortcode( '[feature css="border-bottom visible-phone"]' ) ?>
-			    <?php echo do_shortcode( '[promos css="border-bottom"]' ) ?>
+				<?php echo do_shortcode( '[ucf_news social="1" css="border-bottom visible-phone" num_posts="4"]' ) ?>
+			    <?php echo do_shortcode( '[promos css="border-bottom visible-desktop visible-tablet"]' ) ?>
 			    <?php echo do_shortcode( '[ucf_photo link_page_name="Focus" css="border-bottom" front_page="true"]' ) ?>
+				<?php echo do_shortcode( '[promos num_posts="2" css="border-bottom visible-phone"]' ) ?>
 			    <?php echo do_shortcode( '[external_stories]' ) ?>
 			</div>
 			<div class="span5 border-both" id="center-features">
-			    <?php echo do_shortcode(  '[feature css="border-bottom visible-desktop"]' ) ?>
-			    <?php echo do_shortcode( '[ucf_news social="1" css="border-bottom" num_posts="4"]' ) ?>
+			    <?php echo do_shortcode( '[feature css="border-bottom visible-desktop"]' ) ?>
+			    <?php echo do_shortcode( '[ucf_news social="1" css="border-bottom visible-desktop visible-tablet" num_posts="4"]' ) ?>
 			    <?php echo do_shortcode( '[ucf_video width="380" height="270"]' ) ?>
 			</div>
 			<div class="span3" id="sidebar">

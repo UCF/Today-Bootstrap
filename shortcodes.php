@@ -982,7 +982,9 @@ function sc_single_post($atts = Array())
 			<h1><?=$title?></h1>
 			<?=$subtitle?>
 			<? if($video_url != '') { ?>
-				<?=$wp_embed->run_shortcode('[embed width="550" height="500"]'.$video_url.'[/embed]')?>
+				<div class="video-container">
+					<?=$wp_embed->run_shortcode('[embed width="550" height="500"]'.$video_url.'[/embed]')?>
+				</div>
 			<? } else { ?>
 			<div id="story_feat_img">
 				<?=$img_attach['html']?>

@@ -775,20 +775,28 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
 #search-results #sidebar > div:first-child h3 {	margin-top: 3px; }
 
 
-
 /** Alerts **/
-#alerts { margin-bottom: 0; }
-#alerts ul { margin-top: 0; margin-bottom: 0; }
+#alerts { 
+	margin-bottom: 0;
+}
+#alerts ul { 
+	margin-top: 0;
+	margin-bottom: 0;
+}
 #alerts li {
 	list-style-type: none;
 	font-size: 18px;
-	padding: 0 0 0 50px;
+	padding: 0;
 	margin: 0 0 15px 0;
 	min-height: 50px;
 	font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
 }
-#alerts li.hidden { display: none; }
-#alerts li:first-child { margin-top: 0; }
+#alerts li.hidden { 
+	display: none;
+}
+#alerts li:first-child { 
+	margin-top: 0;
+}
 #alerts li > .msg {
 	display: block;
 	position: relative;
@@ -797,7 +805,10 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
 	padding: 13px 35px 10px 20px;
 	border-radius: 10px;
 }
-#alerts li > .msg > a { color: #FFF; font-size: 16px; }
+#alerts li > .msg > a { 
+	color: #FFF;
+	font-size: 16px;
+}
 #alerts li > .msg > a.close {
 	display: block;
 	position: absolute;
@@ -809,12 +820,18 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
 	font-size: 20px;
 	text-shadow: 0 0 0 transparent;
 }
-#alerts li > .msg > a:hover { cursor: pointer; }
-#alerts li.advisory { background: url('static/img/alerts/advisory.png') no-repeat center left; }
-#alerts li.advisory > .msg { background-color: #f79501; }
-#alerts li.severe { background: url('static/img/alerts/severe.png') no-repeat center left; }
-#alerts li.severe > .msg { background-color: #ff0000; }
+#alerts li > .msg > a:hover {
+	cursor: pointer;
+}
+#alerts li.advisory > .msg { 
+	background-color: #ffcc00;
+}
+#alerts li.severe > .msg {
+	background-color: #ff0000;
+}
 
+
+/** Achives **/
 #archives ul {list-style-type: none; margin: 0;}
 #archives li {margin-bottom: 20px;}
 #archives .thumbnail {width: 95px; height: 91px; float: left; padding: 0; margin-right: 10px; border: none;}
