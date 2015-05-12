@@ -349,6 +349,7 @@ function sc_ucf_news( $atts = Array() )
 	} else if( is_category() ) {
 		global $wp_query;
 		$atts['category'] = $wp_query->queried_object->slug;
+		$atts['category_title'] = $wp_query->queried_object->cat_name;
 	} else if( is_tag() ) {
 		global $wp_query;
 		$atts['tag'] = $wp_query->queried_object->slug;
@@ -368,7 +369,7 @@ function sc_ucf_news( $atts = Array() )
 	ob_start();
 	?>
 		<div class="<?php echo $css ?>" id="ucf_news">
-			<?php echo ( $header ) ? '<h2>UCF News</h2>' : ''?>
+			<?php echo ( $header ) ? '<h2>UCF ' . $atts['category_title'] . ' News</h2>' : ''?>
 			<ul class="story-list">
 	<?
 	$count = 0;
@@ -458,6 +459,7 @@ function sc_more_headlines( $atts = Array() )
 	} else if( is_category() ) {
 		global $wp_query;
 		$atts['category'] = $wp_query->queried_object->slug;
+		$atts['category_title'] = $wp_query->queried_object->cat_name;
 	} else if( is_tag() ) {
 		global $wp_query;
 		$atts['tag'] = $wp_query->queried_object->slug;
@@ -476,8 +478,8 @@ function sc_more_headlines( $atts = Array() )
 
 	ob_start();
 	?>
-		<div class="<?php echo $css?>" id="more_headlines">
-			<?php echo ( $header ) ? '<h2>More Headlines</h2>' : ''?>
+		<div class="<?php echo $css?>" id="more_headlines">		
+			<?php echo ( $header ) ? '<h2>More  ' . $atts['category_title'] . ' Headlines</h2>' : ''?>
 			<ul class="story-list">
 	<?
 	$count = 0;

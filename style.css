@@ -81,6 +81,10 @@ h4 span.orange { font-weight: 300; }
 .border-bottom { padding-bottom: 15px; margin-bottom: 15px; border-bottom: 1px solid #eee; }
 .border-top { margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee; }
 
+#more_headlines h2 {
+	line-height: 16px;
+}
+
 ul.story-list,
 ul.event-list,
 ul.video-list,
