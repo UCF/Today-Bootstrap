@@ -1,7 +1,15 @@
 			<div id="footer">
 				<div class="row">
 					<div class="span12 text-center">
-						<?php echo display_social( get_permalink( $top_feature->ID ), $top_feature->post_title )?>
+						<?=wp_nav_menu(array(
+							'theme_location' => 'social-links', 
+							'container' => 'div',
+							'container_id' => 'social-menu-wrap', 
+							'menu_class' => 'menu screen-only', 
+							'menu_id' => 'social-menu',
+							'depth' => 1,
+							));
+						?>
 					</div>
 				</div>
 				<div class="row" id="footer-widget-wrap">

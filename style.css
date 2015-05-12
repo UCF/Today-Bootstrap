@@ -380,6 +380,7 @@ ul.result-list li h3 { margin-bottom: 5px; }
 #header-menu .search #s { width: 160px !ie; height: 14px !ie; } /* IE7 */
 .ie-new #header-menu .search button { padding: 0 3px; }
 
+
 /** Footer **/
 #footer { 
 	border-top: 1px solid #eee; 
@@ -399,6 +400,80 @@ ul.result-list li h3 { margin-bottom: 5px; }
 
 #footer-widget-wrap {
 	margin-top: 15px;	
+}
+
+
+/** Social Links **/
+#social-menu-wrap { 
+	float: right; 
+	position: relative; 
+	left: -50%; 
+	clear: right; 
+	margin: 0; 
+	padding: 10px 0 15px 0;
+}
+
+.ie7 #social-menu-wrap { 
+	width: 252px;
+}
+
+#social-menu { 
+	position: relative; 
+	left: 50%; 
+	list-style-type: none;
+}
+
+#social-menu li { 
+	float: left; 
+	margin-right: 5px;
+}
+
+#social-menu li:first-child { 
+	margin-left: -18px;
+}
+
+.ie7 #social-menu li:first-child { 
+	margin-left: 0;
+}
+
+#social-menu li a[href*="facebook"] { 
+	background: url('static/img/spritesheet.png') -1px -35px no-repeat; 
+	display: block; 
+	width: 35px; 
+	height: 32px; 
+	text-indent: -9999px; 
+}
+
+#social-menu li a[href*="twitter"] { 
+	background: url('static/img/spritesheet.png') -68px -34px no-repeat; 
+	display: block; 
+	width: 35px; 
+	height: 32px; 
+	text-indent: -9999px; 
+}
+
+#social-menu li a[href*="flickr"] { 
+	background: url('static/img/spritesheet.png') -32px -35px no-repeat; 
+	display: block; 
+	width: 35px; 
+	height: 32px; 
+	text-indent: -9999px; 
+}
+
+#social-menu li a[href*="youtube"] { 
+	background: url('static/img/spritesheet.png') -101px -35px no-repeat; 
+	display: block; 
+	width: 35px; 
+	height: 32px; 
+	text-indent: -9999px; 
+}
+
+#social-menu li a[href*="google"] { 
+	background: url('static/img/spritesheet.png') -134px -35px no-repeat; 
+	display: block; 
+	width: 35px; 
+	height: 32px; 
+	text-indent: -9999px;
 }
 
 
