@@ -30,7 +30,7 @@ function __init__(){
 	add_image_size('widget_95', 95, 95, True);
 	add_image_size('gmucf_top_story', 600, 308, True);
 	add_image_size('gmucf_featured_story', 95, 95, True);
-	register_nav_menu('social-links', __('Social Links'));
+	register_nav_menu( 'social-links', __( 'Social Links' ) );
 
 	// Widgets
 	register_sidebar(array(

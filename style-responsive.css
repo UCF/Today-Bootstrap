@@ -123,7 +123,7 @@
 		color: #fff;
 		display: inline-block;
 		font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
-		padding: 2px 5px; 
+		padding: 3px 7px; 
 	}	
 	
 	.body-search #header-menu {
@@ -267,5 +267,12 @@
 	#alerts li > .msg > a {
 		font-size: 13px;
 		line-height: 1.2em;
+	}
+	
+	.border-left:before, 
+	.border-right:after, 
+	.border-both:before, 
+	.border-both:after {
+		background-color: transparent;
 	}
 }

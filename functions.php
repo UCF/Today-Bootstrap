@@ -652,7 +652,7 @@ function get_posts_search($query='', $post_type='post', $extra_args=array()) {
 function display_social($url, $title) {
 	$tweet_title = urlencode('UCF Today: '.$title);
 	ob_start(); ?>
-	<div class="social">
+	<div class="social clearfix">
 		<a class="share-facebook" target="_blank" data-button-target="<?=$url?>" href="http://www.facebook.com/sharer.php?u=<?=$url?>" title="Like this story on Facebook">
 			Like "<?=$title?>" on Facebook
 		</a>

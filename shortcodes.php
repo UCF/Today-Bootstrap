@@ -978,26 +978,26 @@ function sc_single_post($atts = Array())
 
 	ob_start();
 	?>
-	<div<?php if ($css) { ?> class="<?=$css?>" <?php } ?>>
+	<div<?php if ( $css ) { ?> class="<?=$css?>" <?php } ?>>
 		<article role="main">
 			<h1><?=$title?></h1>
 			<?=$subtitle?>
 			<? if($video_url != '') { ?>
 				<div class="video-container">
-					<?=$wp_embed->run_shortcode('[embed width="550" height="500"]'.$video_url.'[/embed]')?>
+					<?=$wp_embed->run_shortcode( '[embed width="550" height="500"]'.$video_url.'[/embed]' )?>
 				</div>
 			<? } else { ?>
 			<div id="story_feat_img">
 				<?=$img_attach['html']?>
 			</div>
 			<? } ?>
-			<p id="caption"><?=(isset($attachment)) ? $attachment->post_excerpt: ''?></p>
+			<p id="caption"><?=( isset( $attachment ) ) ? $attachment->post_excerpt: ''?></p>
 			<div id="content">
-				<?=strip_tags($content, '<p><a><ol><ul><li><em><strong><img><blockquote>')?>
+				<?=strip_tags( $content, '<p><a><ol><ul><li><em><strong><img><blockquote>' )?>
 			</div>
-			<?=display_social(get_permalink($post->ID), $post->post_title)?>
+			<?=display_social( get_permalink( $post->ID ), $post->post_title )?>
 			<div id="share" role="form">
-				<?=comment_form($comment_form_args, $post->ID)?>
+				<?=comment_form( $comment_form_args, $post->ID )?>
 			</div>
 		</article>
 	</div>
