@@ -382,35 +382,62 @@ ul.result-list li h3 { margin-bottom: 5px; }
 
 
 /** Footer **/
-#footer, #footer a {	
-	font-family: Georgia, 'Times New Roman', Times, serif;
-	font-size: 10px;
-}
-#footer { 
-	border-top: 1px solid #eee;
-	padding-top: 20px; 
-	margin: 15px 0 25px 0;
-}
+#footer { border-top: 0; margin: 20px 0; }
 
-#footer a {	
-	color: #000;
+#footer,
+#footer a {
+	font-family: Georgia, 'Times New Roman', Times, serif;
 	line-height: 20px;
 }
 
-#footer .social {   
-	display: inline-block;
+#home-footerwrap #footer { 
+	margin: 20px 0 20px 20px;
 }
 
-#footer-widget-wrap {
-	margin-top: 15px;	
+#footer a:hover { 
+	color: #e50606;
 }
 
-#footer-widget-wrap {
+#footer-navwrap { 
+	float: right; 
+	position: relative; 
+	left: -50%;
+}
+
+.ie7 #footer-navwrap { 
+	width: 625px;
+}
+
+#footer-menu { 
+	position: relative;
+	left: 50%; 
+}
+
+#footer-menu li { 
+	margin-right: 8px;
+	letter-spacing: 0.8px;
+}
+
+#footer-menu li:after {
+	content: "|"; 
+	margin-left: 2px;
+}
+
+#footer-menu li a { 
+	font-size: 10px; 
+	color: #262626;
+}
+
+#subfooter { 
+	clear: both; 
+	font-size: 10px; 
+	text-align: center; 
+	letter-spacing: 0.8px;
 	margin: 0;
 }
 
-#subfooter {	
-  letter-spacing: 0.8px;
+#subfooter a { 
+	color: #262626;
 }
 
 
@@ -741,7 +768,6 @@ ul.result-list li h3 { margin-bottom: 5px; }
 	margin-right: 0;
 }
 .body-subpage .page-content article { margin-top: 20px; }
-.body-subpage #footer { margin-top: 40px; }
 .body-subpage #feature p.story-blurb { max-height: 144px; }
 
 /** Home Page **/

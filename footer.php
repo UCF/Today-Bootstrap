@@ -12,21 +12,11 @@
 						?>
 					</div>
 				</div>
-				<div class="row" id="footer-widget-wrap">
-					<div class="span12 text-center">
-						<p id="subfooter" role="contentinfo" class="vcard">
-							<span class="adr">
-								<span class="street-address">4000 Central Florida Blvd. </span>
-								<span class="locality">Orlando</span>,
-								<span class="region">Florida</span>,
-								<span class="postal-code">32816</span> |
-								<span class="tel"><a href="tel:4078232000">407.823.2000</a></span>
-							</span>
-							<br>
-							&copy; <a href="http://www.ucf.edu" class="print-noexpand fn org url">
-								<span class="organization-name">University of Central Florida</span>
-							</a>
-						</p>
+				<div class="row" id="footer-widget-wrap">					
+					<div class="footer-widget span12">
+						<?php if(!function_exists('dynamic_sidebar') or !dynamic_sidebar('1st Subsidary Aside')):?>
+							$nbsp;
+						<?php endif;?>
 					</div>
 				</div>
 			</div>

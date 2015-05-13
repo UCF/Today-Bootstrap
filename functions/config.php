@@ -33,20 +33,27 @@ function __init__(){
 	register_nav_menu( 'social-links', __( 'Social Links' ) );
 
 	// Widgets
-	register_sidebar(array(
-		'name'          => __('Primary Aside'),
+	register_sidebar( array(
+		'name'          => __( 'Primary Aside' ),
 		'id'            => 'primary-aside',
 		'description'   => 'The primary widget area, most often used as a sidebar.',
 		'before_widget' => '<div id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</div>',
-	));
-	register_sidebar(array(
-		'name'          => __('Secondary Aside'),
+	) );
+	register_sidebar( array(
+		'name'          => __( 'Secondary Aside' ),
 		'id'            => 'secondary-aside',
 		'description'   => 'Left column on the bottom of pages, after flickr images if enabled.',
 		'before_widget' => '<div id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</div>',
-	));
+	) );
+	register_sidebar( array(
+		'name'          => __( '1st Subsidary Aside' ),
+		'id'            => '1st-subsidiary-aside',
+		'description'   => 'The 1st widget area in the footer.',
+		'before_widget' => '<div id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</div>',
+	) );	
 	foreach(Config::$styles as $style){Config::add_css($style);}
 	foreach(Config::$scripts as $script){Config::add_script($script);}
 
