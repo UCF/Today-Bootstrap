@@ -220,7 +220,7 @@ function gen_alerts_html()
 				}
 
 
-			 	$alert_html .= '<li style="'.implode(' ',$li_inline_styles).'" class="'.implode(' ',$css_clss).'" id="alert-'.$alert->ID.'" data-post-modified="'.strtotime($alert->post_modified).'">
+			 	$alert_html .= '<li style="'.implode( ' ', $li_inline_styles ).'" class="hidden '.implode( ' ', $css_clss ).'" id="alert-'.$alert->ID.'" data-post-modified="'.strtotime( $alert->post_modified ).'">
 									<span class="msg" style="'.implode(' ', $span_inline_styles).'">
 										'.$text.'
 										'.$link_html.'

@@ -228,10 +228,12 @@ var handleAlerts = function($) {
 		if (alertCookieExists(alert)) {
 			if (isAlertUpdated(alert) === false) {
 				alert.addClass('hidden');
-			}
-			else {
+			} else {
+				alert.removeClass('hidden');
 				deleteAlertCookie(alert);
 			}
+		} else {
+			alert.removeClass('hidden');			
 		}
 	});
 	// On-click close event
@@ -240,8 +242,7 @@ var handleAlerts = function($) {
 		alert.addClass('hidden');
 		if (alertCookieExists(alert)) {
 			updateAlertCookie(alert);
-		}
-		else {
+		} else {
 			createAlertCookie(alert);
 		}
 	});
