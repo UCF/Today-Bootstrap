@@ -15,7 +15,7 @@
 				<div class="row" id="footer-widget-wrap">					
 					<div class="footer-widget span12">
 						<?php if(!function_exists('dynamic_sidebar') or !dynamic_sidebar('1st Subsidary Aside')):?>
-							$nbsp;
+							&nbsp;
 						<?php endif;?>
 					</div>
 				</div>
