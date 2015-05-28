@@ -69,7 +69,7 @@
 				<hr class="span12" />
 			</div>
 			<nav id="header-menu" role="navigation">
-				<div class="ucf-mobile-menu-trigger pull-left">menu</div>
+				<div class="ucf-mobile-menu-trigger pull-left">menu <span>&gt;</span></div>
 				<?php echo wp_nav_menu( array(
 					'menu' => 'Top Navigation',
 					'container' => 'false',
