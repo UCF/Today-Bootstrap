@@ -2628,6 +2628,17 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/static\/img\/arrow.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 29059,
+		"inputAbbreviatedPath": "\/static\/img\/arrow.png",
+		"outputAbbreviatedPath": "\/static\/img\/arrow.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/static\/img\/bullet.png": {
 		"fileType": 32768,
 		"ignore": 0,

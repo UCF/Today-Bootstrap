@@ -120,10 +120,16 @@
 	}	
 
 	#header-menu .ucf-mobile-menu-trigger {
+		background-position: 59px, 0;
+		background-image: url('static/img/arrow.png');
+		background-repeat: no-repeat;
 		color: #fff;
+		cursor: pointer;
 		display: inline-block;
 		font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
-		padding: 3px 7px; 
+  		font-size: 17px;
+		padding: 3px 23px 1px 7px;
+		text-transform: uppercase;
 	}	
 	
 	.body-search #header-menu {
