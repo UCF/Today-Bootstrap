@@ -862,11 +862,6 @@ class ucf_feed_json {
 		flush_rewrite_rules();
 	}
 
-	public function add_query_vars( $qvars ) {
-		$qvars[] = 'limit';
-		return $qvars;
-	}
-
 	public function do_json_feed() {
 		load_template( $this->template_json( dirname( __FILE__ ) . '/feed-json.php' ) );
 	}

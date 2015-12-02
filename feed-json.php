@@ -18,7 +18,7 @@ if ( have_posts() ) {
 			'permalink' => get_permalink(),
 			'content'   => get_the_content(),
 			'excerpt'   => get_the_excerpt(),
-			'date'      => get_the_date('Y-m-d H:i:s', '', '', false),
+			'date'      => get_the_date(DATE_ISO8601),
 			'author'    => get_the_author()
 		);
 
