@@ -51,18 +51,18 @@ function transition_rules()
 		$custom['category/(?:[^/]+/)?'.$before.'/?$'] = 'index.php?tag='.$after;
 
 		// Rewrite feed pages
-		$custom['section/(?:[^/]+/)?'.$before.'/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?tag='.$after.'&feed=$matches[1]';
-		$custom['section/(?:[^/]+/)?'.$before.'/feed/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?tag='.$after.'&feed=$matches[1]';
-		$custom['category/(?:[^/]+/)?'.$before.'/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?category_name='.$after.'&feed=$matches[1]';
-		$custom['category/(?:[^/]+/)?'.$before.'/feed/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?category_name='.$after.'&feed=$matches[1]';
+		$custom['section/(?:[^/]+/)?'.$before.'/(feed|rdf|rss|rss2|atom|json)/?$'] = 'index.php?tag='.$after.'&feed=$matches[1]';
+		$custom['section/(?:[^/]+/)?'.$before.'/feed/(feed|rdf|rss|rss2|atom|json)/?$'] = 'index.php?tag='.$after.'&feed=$matches[1]';
+		$custom['category/(?:[^/]+/)?'.$before.'/(feed|rdf|rss|rss2|atom|json)/?$'] = 'index.php?category_name='.$after.'&feed=$matches[1]';
+		$custom['category/(?:[^/]+/)?'.$before.'/feed/(feed|rdf|rss|rss2|atom|json)/?$'] = 'index.php?category_name='.$after.'&feed=$matches[1]';
 	}
 	// Rewrite old category and tag pages
-	$custom['category/(?:[^/]+/)?(.+?)/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?category_name=$matches[1]&feed=$matches[2]';
-	$custom['category/(?:[^/]+/)?(.+?)/feed/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?category_name=$matches[1]&feed=$matches[2]';
+	$custom['category/(?:[^/]+/)?(.+?)/(feed|rdf|rss|rss2|atom|json)/?$'] = 'index.php?category_name=$matches[1]&feed=$matches[2]';
+	$custom['category/(?:[^/]+/)?(.+?)/feed/(feed|rdf|rss|rss2|atom|json)/?$'] = 'index.php?category_name=$matches[1]&feed=$matches[2]';
 	$custom['category/(?:[^/]+/)?(.+?)/?$'] = 'index.php?category_name=$matches[1]';
 
-	$custom['tag/(?:[^/]+/)?(.+?)/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?tag=$matches[1]&feed=$matches[2]';
-	$custom['tag/(?:[^/]+/)?(.+?)/feed/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?tag=$matches[1]&feed=$matches[2]';
+	$custom['tag/(?:[^/]+/)?(.+?)/(feed|rdf|rss|rss2|atom|json)/?$'] = 'index.php?tag=$matches[1]&feed=$matches[2]';
+	$custom['tag/(?:[^/]+/)?(.+?)/feed/(feed|rdf|rss|rss2|atom|json)/?$'] = 'index.php?tag=$matches[1]&feed=$matches[2]';
 	$custom['tag/(?:[^/]+/)?(.+?)/?$'] = 'index.php?tag=$matches[1]';
 
 	return $custom;
@@ -848,4 +848,34 @@ function add_id_to_ucfhb($url) {
     return $url;
 }
 add_filter('clean_url', 'add_id_to_ucfhb', 10, 3);
+
+class ucf_feed_json {
+
+	public $feed = 'json';
+
+	public function __construct() {
+		add_action( 'init', array( $this, 'init' ) );
+	}
+
+	public function init() {
+		add_feed( $this->feed, array( $this, 'do_json_feed' ) );
+		flush_rewrite_rules();
+	}
+
+	public function add_query_vars( $qvars ) {
+		$qvars[] = 'limit';
+		return $qvars;
+	}
+
+	public function do_json_feed() {
+		load_template( $this->template_json( dirname( __FILE__ ) . '/feed-json.php' ) );
+	}
+
+	public function template_json( $template ) {
+		return apply_filters( 'feed-json-template-file', $template );
+	}
+}
+
+$ucf_feed_json = new ucf_feed_json();
+
 ?>
