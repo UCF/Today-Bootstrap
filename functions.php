@@ -849,7 +849,7 @@ function add_id_to_ucfhb($url) {
 }
 add_filter('clean_url', 'add_id_to_ucfhb', 10, 3);
 
-class ucf_feed_json {
+class UCF_Feed_JSON {
 
 	public $feed = 'json';
 
@@ -871,6 +871,6 @@ class ucf_feed_json {
 	}
 }
 
-$ucf_feed_json = new ucf_feed_json();
+$ucf_feed_json = new UCF_Feed_JSON();
 
 ?>

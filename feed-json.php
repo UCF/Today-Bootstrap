@@ -16,7 +16,7 @@ if ( have_posts() ) {
 			'id'        => $id,
 			'title'     => get_the_title(),
 			'permalink' => get_permalink(),
-			'content'   => get_the_content(),
+			'content'   => strip_shortcodes( get_the_content() ),
 			'excerpt'   => get_the_excerpt(),
 			'date'      => get_the_date(DATE_ISO8601),
 			'author'    => get_the_author()
@@ -33,10 +33,15 @@ if ( have_posts() ) {
 
 	header("Content-Type: application/json; charset={$charset}");
 	header("Access-Control-Allow-Origin: *");
+	header("Access-Control-Allow-Methods: GET");
 	echo $json;
 } else {
-	status_header( '404' );
-	wp_die( '404 Not Found' );
+	$json = json_encode( array() );
+
+	header("Content-Type: application/json; charset={$charset}");
+	header("Access-Control-Allow-Origin: *");
+	header("Access-Control-Allow-Methods: GET");
+	echo $json;
 }
 
 ?>
