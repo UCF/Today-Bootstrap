@@ -5,6 +5,25 @@
 
 $charset = get_option( 'charset' );
 
+$thumb_dimensions = 'widget_95';
+$thumb_dimensions_user = $_GET['thumb'];
+
+if ( $thumb_dimensions_user ) {
+	if ( in_array( $thumb_dimensions_user, get_intermediate_image_sizes() ) ) {
+		$thumb_dimensions = $thumb_dimensions_user;
+	}
+	else {
+		$thumb_dimensions_user = explode( 'x', $thumb_dimensions_user, 2 );
+		if ( count( $thumb_dimensions_user ) == 2 ) {
+			$thumb_x = intval( $thumb_dimensions_user[0] );
+			$thumb_y = intval( $thumb_dimensions_user[1] );
+			if ( $thumb_x !== 0 && $thumb_y !== 0 ) {
+				$thumb_dimensions = array( $thumb_x, $thumb_y );
+			}
+		}
+	}
+}
+
 if ( have_posts() ) {
 	$json = array();
 
@@ -23,7 +42,7 @@ if ( have_posts() ) {
 		);
 
 		if ( has_post_thumbnail( $id ) ) {
-			$single['thumbnail'] = get_the_post_thumbnail( $id, array( 'widget_95', ) );
+			$single['thumbnail'] = get_the_post_thumbnail( $id, $thumb_dimensions );
 		}
 
 		$json[] = $single;
