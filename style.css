@@ -2,7 +2,7 @@
 Theme Name: UCF Today WordPress Theme Bootstrap
 Author: UCF Web Communications
 Github Theme URI: https://github.com/UCF/Today-Bootstrap
-Version: v2.1.17
+Version: v2.2.1
 */
 
 /** Universal **/
@@ -96,23 +96,23 @@ ul.expert-list,
 ul.profile-list,
 ul.result-list { list-style-type: none; margin-left: 0; }
 
-ul.story-list li .story-media { 
+ul.story-list li .story-media {
 	float: left;
 }
 
-ul.story-list li .story-media .social { 
+ul.story-list li .story-media .social {
 	width: 95px;
 }
 
-ul.story-list li .thumb { 
+ul.story-list li .thumb {
 	width: 95px; height: 105px;
 }
 
-ul.story-list li > .thumb { 
+ul.story-list li > .thumb {
 	float: left;
 }
 
-ul.story-list li .content { 
+ul.story-list li .content {
 	margin-left: 110px;
 }
 
@@ -121,12 +121,12 @@ ul.story-list li .content {
 }
 
 #ucf_news ul.story-list li a:hover {
-	text-decoration: none; 
+	text-decoration: none;
 }
 
-ul.story-list li .content h3 { 
-	margin-top: -4px; 
-	font-size: 20px; 
+ul.story-list li .content h3 {
+	margin-top: -4px;
+	font-size: 20px;
 	line-height: 24px;
 }
 
@@ -390,127 +390,127 @@ ul.result-list li h3 { margin-bottom: 5px; }
 	line-height: 20px;
 }
 
-#home-footerwrap #footer { 
+#home-footerwrap #footer {
 	margin: 20px 0 20px 20px;
 }
 
-#footer a:hover { 
+#footer a:hover {
 	color: #e50606;
 }
 
-#footer-navwrap { 
-	float: right; 
-	position: relative; 
+#footer-navwrap {
+	float: right;
+	position: relative;
 	left: -50%;
 }
 
-.ie7 #footer-navwrap { 
+.ie7 #footer-navwrap {
 	width: 625px;
 }
 
-#footer-menu { 
+#footer-menu {
 	position: relative;
-	left: 50%; 
+	left: 50%;
 }
 
-#footer-menu li { 
+#footer-menu li {
 	margin-right: 8px;
 	letter-spacing: 0.8px;
 }
 
 #footer-menu li:after {
-	content: "|"; 
+	content: "|";
 	margin-left: 2px;
 }
 
-#footer-menu li a { 
-	font-size: 10px; 
+#footer-menu li a {
+	font-size: 10px;
 	color: #262626;
 }
 
-#subfooter { 
-	clear: both; 
-	font-size: 10px; 
-	text-align: center; 
+#subfooter {
+	clear: both;
+	font-size: 10px;
+	text-align: center;
 	letter-spacing: 0.8px;
 	margin: 0;
 }
 
-#subfooter a { 
+#subfooter a {
 	color: #262626;
 }
 
 
 /** Social Links **/
-#social-menu-wrap { 
-	float: right; 
-	position: relative; 
-	left: -50%; 
-	clear: right; 
-	margin: 0; 
+#social-menu-wrap {
+	float: right;
+	position: relative;
+	left: -50%;
+	clear: right;
+	margin: 0;
 	padding: 10px 0 15px 0;
 }
 
-.ie7 #social-menu-wrap { 
+.ie7 #social-menu-wrap {
 	width: 252px;
 }
 
-#social-menu { 
-	position: relative; 
-	left: 50%; 
+#social-menu {
+	position: relative;
+	left: 50%;
 	list-style-type: none;
 }
 
-#social-menu li { 
-	float: left; 
+#social-menu li {
+	float: left;
 	margin-right: 5px;
 }
 
-#social-menu li:first-child { 
+#social-menu li:first-child {
 	margin-left: -18px;
 }
 
-.ie7 #social-menu li:first-child { 
+.ie7 #social-menu li:first-child {
 	margin-left: 0;
 }
 
-#social-menu li a[href*="facebook"] { 
-	background: url('static/img/spritesheet.png') -1px -35px no-repeat; 
-	display: block; 
-	width: 35px; 
-	height: 32px; 
-	text-indent: -9999px; 
+#social-menu li a[href*="facebook"] {
+	background: url('static/img/spritesheet.png') -1px -35px no-repeat;
+	display: block;
+	width: 35px;
+	height: 32px;
+	text-indent: -9999px;
 }
 
-#social-menu li a[href*="twitter"] { 
-	background: url('static/img/spritesheet.png') -68px -34px no-repeat; 
-	display: block; 
-	width: 35px; 
-	height: 32px; 
-	text-indent: -9999px; 
+#social-menu li a[href*="twitter"] {
+	background: url('static/img/spritesheet.png') -68px -34px no-repeat;
+	display: block;
+	width: 35px;
+	height: 32px;
+	text-indent: -9999px;
 }
 
-#social-menu li a[href*="flickr"] { 
-	background: url('static/img/spritesheet.png') -32px -35px no-repeat; 
-	display: block; 
-	width: 35px; 
-	height: 32px; 
-	text-indent: -9999px; 
+#social-menu li a[href*="flickr"] {
+	background: url('static/img/spritesheet.png') -32px -35px no-repeat;
+	display: block;
+	width: 35px;
+	height: 32px;
+	text-indent: -9999px;
 }
 
-#social-menu li a[href*="youtube"] { 
-	background: url('static/img/spritesheet.png') -101px -35px no-repeat; 
-	display: block; 
-	width: 35px; 
-	height: 32px; 
-	text-indent: -9999px; 
+#social-menu li a[href*="youtube"] {
+	background: url('static/img/spritesheet.png') -101px -35px no-repeat;
+	display: block;
+	width: 35px;
+	height: 32px;
+	text-indent: -9999px;
 }
 
-#social-menu li a[href*="google"] { 
-	background: url('static/img/spritesheet.png') -134px -35px no-repeat; 
-	display: block; 
-	width: 35px; 
-	height: 32px; 
+#social-menu li a[href*="google"] {
+	background: url('static/img/spritesheet.png') -134px -35px no-repeat;
+	display: block;
+	width: 35px;
+	height: 32px;
 	text-indent: -9999px;
 }
 
@@ -524,8 +524,8 @@ ul.result-list li h3 { margin-bottom: 5px; }
 /** Shortcode - [feature] **/
 #feature h2.feature-title { font-weight: normal !important; margin: 12px 0; font-size: 20px; line-height: 24px; text-transform: none; }
 #feature h2.feature-cat-title {
-	font-size: 22px; 
-	line-height: 26px; 
+	font-size: 22px;
+	line-height: 26px;
 	text-transform: none;
 }
 #feature h2.indent,
@@ -557,7 +557,7 @@ ul.result-list li h3 { margin-bottom: 5px; }
 #promos ul.story-list li h3 { font-size: 20px; line-height: 24px; }
 
 /** Shortcode - [ucf_news] **/
-#ucf_news ul.story-list li { 
+#ucf_news ul.story-list li {
 	margin-top: 15px;
 }
 
@@ -569,16 +569,16 @@ ul.result-list li h3 { margin-bottom: 5px; }
 }
 
 /** Shortcode - [ucf_news] **/
-#more_headlines ul.story-list li { 
+#more_headlines ul.story-list li {
 	line-height: normal;
 	margin-bottom: 15px;
 }
 
-#more_headlines ul.story-list a { 
+#more_headlines ul.story-list a {
 	color: #000;
 	font-size: 15px;
 	font-weight: normal;
-	text-decoration: underline;	
+	text-decoration: underline;
 }
 
 /** Shortcode - [profile_feature] **/
@@ -686,8 +686,8 @@ ul.result-list li h3 { margin-bottom: 5px; }
 	overflow: hidden;
 }
 
-.video-container iframe,  
-.video-container object,  
+.video-container iframe,
+.video-container object,
 .video-container embed {
 	position: absolute;
 	top: 0;
@@ -696,9 +696,9 @@ ul.result-list li h3 { margin-bottom: 5px; }
 	height: 100%;
 }
 
-.entry-content img, 
-.entry-content iframe, 
-.entry-content object, 
+.entry-content img,
+.entry-content iframe,
+.entry-content object,
 .entry-content embed {
         max-width: 100%;
 }
@@ -923,10 +923,10 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
 
 
 /** Alerts **/
-#alerts { 
+#alerts {
 	margin-bottom: 0;
 }
-#alerts ul { 
+#alerts ul {
 	margin-top: 0;
 	margin-bottom: 0;
 }
@@ -938,10 +938,10 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
 	min-height: 50px;
 	font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
 }
-#alerts li.hidden { 
+#alerts li.hidden {
 	display: none;
 }
-#alerts li:first-child { 
+#alerts li:first-child {
 	margin-top: 0;
 }
 #alerts li > .msg {
@@ -952,7 +952,7 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
 	padding: 13px 35px 10px 20px;
 	border-radius: 10px;
 }
-#alerts li > .msg > a { 
+#alerts li > .msg > a {
 	color: #FFF;
 	font-size: 16px;
 }
@@ -970,7 +970,7 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
 #alerts li > .msg > a:hover {
 	cursor: pointer;
 }
-#alerts li.advisory > .msg { 
+#alerts li.advisory > .msg {
 	background-color: #ffcc00;
 }
 #alerts li.severe > .msg {
@@ -999,7 +999,7 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
 
 #page-not-found h2 {
 	font-size: 26px;
-	text-transform: initial; 
+	text-transform: initial;
   	letter-spacing: normal;
   	line-height: normal;
 	margin: 12px 0;
