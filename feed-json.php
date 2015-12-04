@@ -14,11 +14,22 @@ if ( $thumb_dimensions_user ) {
 	}
 	else {
 		$thumb_dimensions_user = explode( 'x', $thumb_dimensions_user, 2 );
-		if ( count( $thumb_dimensions_user ) == 2 ) {
-			$thumb_x = intval( $thumb_dimensions_user[0] );
-			$thumb_y = intval( $thumb_dimensions_user[1] );
-			if ( $thumb_x !== 0 && $thumb_y !== 0 ) {
-				$thumb_dimensions = array( $thumb_x, $thumb_y );
+		$thumb_x = intval( $thumb_dimensions_user[0] );
+		if ( $thumb_x !== 0 ) {
+			if ( count( $thumb_dimensions_user ) == 2 ) {
+				$thumb_y = intval( $thumb_dimensions_user[1] );
+				if ( $thumb_y !== 0 ) {
+					// Both x and y dimensions are valid
+					$thumb_dimensions = array( $thumb_x, $thumb_y );
+				}
+				else {
+					// Fall back to square dimensions
+					$thumb_dimensions = array( $thumb_x, $thumb_x );
+				}
+			}
+			else {
+				// Only a single number was passed--return a square thumbnail
+				$thumb_dimensions = array( $thumb_x, $thumb_x );
 			}
 		}
 	}
