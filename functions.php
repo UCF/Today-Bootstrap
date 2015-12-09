@@ -45,7 +45,6 @@ function transition_rules()
 
 	$custom = Array();
 
-	// TODO just redirect these?
 	foreach($cats as $before=>$after) {
 		// Rewrite category pages
 		$custom['section/(?:[^/]+/)?'.$before.'/?$'] = 'index.php?tag='.$after;
