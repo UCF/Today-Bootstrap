@@ -23,7 +23,7 @@
 		 * dimension1 = post author
 		 **/
 		global $post;
-		if ( is_singular() ):
+		if ( is_single() ):
 			$author = get_userdata( $post->post_author );
 		?>
 		  ga('set', 'post_author', '<?php echo $author->user_login; ?>');
