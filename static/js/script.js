@@ -233,7 +233,7 @@ var handleAlerts = function($) {
 				deleteAlertCookie(alert);
 			}
 		} else {
-			alert.removeClass('hidden');			
+			alert.removeClass('hidden');
 		}
 	});
 	// On-click close event
@@ -361,8 +361,7 @@ var ieVerticalBorders = function($) {
 
 
 var socialButtonTracking = function ($) {
-	// Track social media button clicks, using GA's integrated
-	// _trackSocial method.
+	// Track social media button clicks, using GA's 'social' hitType.
 	$('div.social a').click(function () {
 		var link = $(this),
 			target = link.attr('data-button-target'),
@@ -382,7 +381,7 @@ var socialButtonTracking = function ($) {
 			socialAction = 'Share';
 		}
 
-		_gaq.push(['_trackSocial', network, socialAction, target]);
+    ga('send', 'social', network, socialAction, target);
 	});
 };
 
@@ -390,7 +389,6 @@ var socialButtonTracking = function ($) {
 if (typeof jQuery != 'undefined'){
 	jQuery(document).ready(function($) {
 		Webcom.slideshow($);
-		Webcom.analytics($);
 		Webcom.handleExternalLinks($);
 		Webcom.loadMoreSearchResults($);
 

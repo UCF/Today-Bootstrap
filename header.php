@@ -8,25 +8,37 @@
 		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 
-		<?php if( GA_ACCOUNT or CB_UID ): ?>
+		<?php if ( GA_ACCOUNT ): ?>
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-		<script type="text/javascript">
-			var _sf_startpt = (new Date()).getTime();
-			<?php if( GA_ACCOUNT ): ?>
+		  ga('create', '<?php echo GA_ACCOUNT; ?>', 'auto');
 
-			var GA_ACCOUNT  = '<?=GA_ACCOUNT?>';
-			var _gaq        = _gaq || [];
-			_gaq.push(['_setAccount', GA_ACCOUNT]);
-			_gaq.push(['_setDomainName', 'none']);
-			_gaq.push(['_setAllowLinker', true]);
-			_gaq.push(['_trackPageview']);
-			<?php endif;?>
-			<?php if( CB_UID ): ?>
+		<?php
+		/**
+		 * Custom dimensions; must be set before sending pageview hit.
+		 * dimension1 = post author
+		 * dimension2 = post title
+		 **/
+		global $post;
+		if ( is_singular() ):
+			$author = get_userdata( $post->post_author );
+		?>
+		  ga('set', 'post_author', '<?php echo $author->user_login; ?>');
+		  ga('set', 'post_title', '<?php echo $post->post_title; ?>');
+		<?php endif; ?>
 
-			var CB_UID      = '<?=CB_UID?>';
-			var CB_DOMAIN   = '<?=CB_DOMAIN?>';
-			<?php endif ?>
+		  ga('send', 'pageview');
+		</script>
+		<?php endif; ?>
 
+		<?php if ( CB_UID ): ?>
+		<script>
+		  var CB_UID    = '<?php echo CB_UID; ?>';
+		  var CB_DOMAIN = '<?php echo CB_DOMAIN; ?>';
 		</script>
 		<?php endif; ?>
 
