@@ -21,14 +21,12 @@
 		/**
 		 * Custom dimensions; must be set before sending pageview hit.
 		 * dimension1 = post author
-		 * dimension2 = post title
 		 **/
 		global $post;
 		if ( is_singular() ):
 			$author = get_userdata( $post->post_author );
 		?>
 		  ga('set', 'post_author', '<?php echo $author->user_login; ?>');
-		  ga('set', 'post_title', '<?php echo $post->post_title; ?>');
 		<?php endif; ?>
 
 		  ga('send', 'pageview');
