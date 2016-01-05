@@ -26,7 +26,7 @@
 		if ( is_single() ):
 			$author = get_userdata( $post->post_author );
 		?>
-		  ga('set', 'post_author', '<?php echo $author->user_login; ?>');
+		  ga('set', 'dimension1', '<?php echo $author->user_login; ?>');
 		<?php endif; ?>
 
 		  ga('send', 'pageview');
