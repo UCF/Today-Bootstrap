@@ -478,7 +478,7 @@ function sc_more_headlines( $atts = Array() )
 
 	ob_start();
 	?>
-		<div class="<?php echo $css?>" id="more_headlines">		
+		<div class="<?php echo $css?>" id="more_headlines">
 			<?php echo ( $header ) ? '<h2>More  ' . $atts['category_title'] . ' Headlines</h2>' : ''?>
 			<ul class="story-list">
 	<?
@@ -1813,9 +1813,24 @@ function sc_archive_articles($attrs) {
         unset($url_path[count($url_path) - 2]);
     }
     $url = implode('/', $url_path);
-    ?>
+
+    $args = array(
+        'post_type'        => 'post',
+        'numberposts'      => 1,
+        'orderby'          => 'date',
+        'order'            => 'ASC',
+        'suppress_filters' => false,
+    );
+
+    $oldest_post_date = date_parse ( get_posts( $args )[0]->post_date );
+    $oldest_year_month = date( 'Ym', strtotime($year . '-' . $month . '-1') );
+    $archive_year_month = date( 'Ym', strtotime($oldest_post_date["year"] . '-' . $oldest_post_date["month"] . '-1' ) );
+
+    if($oldest_year_month > $archive_year_month) {
+        ?>
         <div class="previous"><a href="<?=$url . date('Ym', strtotime($year . '-' . $month . '-1 -1 month')) . '/' ?>">Previous Month</a></div>
-    <?php
+        <?php
+    }
 
     $today = getdate();
     if ($today['mon'] == $month + 1 && $today['year'] == $year) {
