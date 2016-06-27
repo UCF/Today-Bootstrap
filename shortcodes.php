@@ -1814,6 +1814,8 @@ function sc_archive_articles($attrs) {
     }
     $url = implode('/', $url_path);
 
+    $archive_year_month = date( 'Ym', strtotime( $year . '-' . $month . '-1') );
+
     $args = array(
         'post_type'        => 'post',
         'numberposts'      => 1,
@@ -1823,10 +1825,9 @@ function sc_archive_articles($attrs) {
     );
 
     $oldest_post_date = date_parse ( get_posts( $args )[0]->post_date );
-    $oldest_year_month = date( 'Ym', strtotime($year . '-' . $month . '-1') );
-    $archive_year_month = date( 'Ym', strtotime($oldest_post_date["year"] . '-' . $oldest_post_date["month"] . '-1' ) );
+    $oldest_year_month = date( 'Ym', strtotime( $oldest_post_date["year"] . '-' . $oldest_post_date["month"] . '-1' ) );
 
-    if($oldest_year_month > $archive_year_month) {
+    if( $oldest_year_month < $archive_year_month ) {
         ?>
         <div class="previous"><a href="<?=$url . date('Ym', strtotime($year . '-' . $month . '-1 -1 month')) . '/' ?>">Previous Month</a></div>
         <?php
