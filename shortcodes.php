@@ -1824,7 +1824,7 @@ function sc_archive_articles($attrs) {
         'suppress_filters' => false,
     );
 
-    $oldest_post_date = date_parse ( get_posts( $args )[0]->post_date );
+    $oldest_post_date = date_parse ( array_shift( get_posts( $args ) )->post_date );
     $oldest_year_month = date( 'Ym', strtotime( $oldest_post_date["year"] . '-' . $oldest_post_date["month"] . '-1' ) );
 
     if( $oldest_year_month < $archive_year_month ) {
