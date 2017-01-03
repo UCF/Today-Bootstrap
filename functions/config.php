@@ -53,7 +53,7 @@ function __init__(){
 		'description'   => 'The 1st widget area in the footer.',
 		'before_widget' => '<div id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</div>',
-	) );	
+	) );
 	foreach(Config::$styles as $style){Config::add_css($style);}
 	foreach(Config::$scripts as $script){Config::add_script($script);}
 
@@ -112,6 +112,9 @@ define('EVENTS_CACHE_DURATION', 60 * 5); //seconds
 
 # JSON feed retrieval timeout
 define('FEED_FETCH_TIMEOUT', 5); //seconds
+
+# Feed thumbnails
+define( 'FEED_THUMBNAIL_FALLBACK', get_bloginfo( 'stylesheet_directory' ) . '/static/img/no-photo.png' );
 
 # Protocol-agnostic URL schemes aren't supported before WP 3.5,
 # so we have to determine the protocol before registering

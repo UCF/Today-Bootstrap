@@ -54,9 +54,10 @@ if ( have_posts() ) {
 
 		if ( has_post_thumbnail( $id ) ) {
 			$single['thumbnail'] = get_the_post_thumbnail( $id, $thumb_dimensions );
-			// Always force https--get_the_post_thumbnail() will return img src and srcset
-			// values using http if the request for the feed is over http
-			$single['thumbnail'] = str_replace( 'http://', 'https://', $single['thumbnail'] );
+		}
+
+		if ( !$single['thumbnail'] ) {
+			$single['thumbnail'] = '<img src="'. FEED_THUMBNAIL_FALLBACK .'" alt="UCF Today news article thumbnail">';
 		}
 
 		$json[] = $single;

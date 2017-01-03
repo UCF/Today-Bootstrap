@@ -1,11 +1,11 @@
 <?php
-/*	
+/*
 	UCF Today RSS Content Widget
 	UCF Web Communcations
 	Fall 2010
-	
+
 	Modifiing MediaRSS plugin to create dynamic thumbnail sizes for widget
-	
+
 */
 
 /*
@@ -56,15 +56,18 @@ function mrss_image_size() {
 function mrss_item() {
 	global $mrss_gallery_lookup, $post;
 	$media = array();
-	
+
 	# Add featured image as an enclosure
 	$feat_img_id = 0;
-	if( !is_null($feat_img_id  = get_post_thumbnail_id($post->ID)) 
-		&& ($feat_src = wp_get_attachment_image_src($feat_img_id)) !== False 
+	if( !is_null($feat_img_id  = get_post_thumbnail_id($post->ID))
+		&& ($feat_src = wp_get_attachment_image_src($feat_img_id)) !== False
 		&& ($feat_type = get_post_mime_type( $feat_img_id )) !== False) {
 			echo '<enclosure url="'.$feat_src[0].'" type="'.$feat_type.'" length="'.mrss_image_size().'" />';
 	}
-	
+	else {
+		echo '<enclosure url="'. FEED_THUMBNAIL_FALLBACK .'" type="image/png" />';
+	}
+
 	$valid_mime_types = array('image/jpg','image/png', 'image/jpeg');
 
 	$attachments = get_posts(
@@ -79,7 +82,7 @@ function mrss_item() {
 	# it isn't tied to the post as a traditional attachment. Rather
 	# a  _thumbnail_id entry is inserted into the postmeta table noting
 	# the attachment ID of the media post.
-	if(($thumbnail_id = get_post_meta($post->ID, '_thumbnail_id', True)) !== False && 
+	if(($thumbnail_id = get_post_meta($post->ID, '_thumbnail_id', True)) !== False &&
 		$thumbnail_id != '' &&
 		!is_null($thumbnail_post = get_post($thumbnail_id)) &&
 		in_array($thumbnail_post->post_mime_type, $valid_mime_types)) {
@@ -88,7 +91,7 @@ function mrss_item() {
 	}
 
 	foreach ( $attachments as $attachment) {
-		$item = $img = array();		
+		$item = $img = array();
 
 		$src = wp_get_attachment_image_src( $attachment->ID, 'full' );
 		if ( !empty( $src[0] ) )
@@ -102,11 +105,11 @@ function mrss_item() {
 		$description = get_the_content( $id );
 		if ( !empty( $attachment->post_excerpt ) )
 			$img['description'] = trim($attachment->post_excerpt);
-		
+
 		/******************************************************************\
 			Modified to allow for dynamic thumbnail sizing using TimThumb
-		\******************************************************************/	
-		
+		\******************************************************************/
+
 		$item['content']['attr']['url'] = $img['src'];
 		$item['content']['attr']['medium'] = 'image';
 		if (isset($attachment->post_mime_type))
@@ -122,7 +125,7 @@ function mrss_item() {
 			$item['content']['children']['description']['attr']['type'] = 'html';
 			$item['content']['children']['description']['children'][] = $img['description'];
 		}
-		
+
 		// thumb
 		if (isset($_GET['thumb'])){
 			if (
@@ -136,7 +139,7 @@ function mrss_item() {
 			else {
 				$thumbnail_type = preg_replace('/[^a-z0-9_]+/i', '', $_GET['thumb']);
 			}
-			// 
+			//
 			$wp_attachment_src = wp_get_attachment_image_src($attachment->ID, $thumbnail_type);
 			if ($wp_attachment_src !== false) {
 				$image_src = $wp_attachment_src[0];
@@ -144,7 +147,7 @@ function mrss_item() {
 				$image_height = $wp_attachment_src[2];
 			}
 			else {
-				$image_src = get_bloginfo('stylesheet_directory').'/static/img/no-photo.png';
+				$image_src = FEED_THUMBNAIL_FALLBACK;
 				$image_width = 95;
 				$image_height = 95;
 			}
