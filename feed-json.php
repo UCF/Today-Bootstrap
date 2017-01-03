@@ -56,6 +56,10 @@ if ( have_posts() ) {
 			$single['thumbnail'] = get_the_post_thumbnail( $id, $thumb_dimensions );
 		}
 
+		if ( !$single['thumbnail'] ) {
+			$single['thumbnail'] = '<img src="'. FEED_THUMBNAIL_FALLBACK .'" alt="UCF Today news article thumbnail">';
+		}
+
 		$json[] = $single;
 	}
 
