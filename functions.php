@@ -881,4 +881,34 @@ class UCF_Feed_JSON {
 
 $ucf_feed_json = new UCF_Feed_JSON();
 
+function post_get_thumbnail( $object, $field_name, $request ) {
+	$image = null;
+
+	if ( $object['featured_media'] ) {
+		$image = wp_get_attachment_image_src( $object['featured_media'] );
+	} else {
+		$attachments = get_attached_media( 'image', $object['id'] );
+		if ( $attachments ) {
+			foreach( $attachments as $key=>$val ) {
+				if ( $image = wp_get_attachment_image_src( $key ) ) {
+					break;
+				}
+			}
+		}
+	}
+
+	return is_array( $image ) ? $image[0] : null;
+}
+
+function add_image_to_post_feed(  ) {
+	register_rest_field( 'post', 'thumbnail',
+		array(
+			'get_callback' => 'post_get_thumbnail',
+			'schema'       => null,
+		)
+	);
+}
+
+add_action( 'rest_api_init', 'add_image_to_post_feed' );
+
 ?>
