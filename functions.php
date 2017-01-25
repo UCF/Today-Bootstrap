@@ -897,7 +897,7 @@ function post_get_thumbnail( $object, $field_name, $request ) {
 		}
 	}
 
-	return $image[0];
+	return is_array( $image ) ? $image[0] : null;
 }
 
 function add_image_to_post_feed(  ) {
