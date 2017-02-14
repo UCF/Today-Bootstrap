@@ -20,6 +20,21 @@ $export_query = array(
   'posts_per_page' => -1,
   'post_status' => 'publish',
   'post_type' => 'any',
+  'date_query' => array(
+    array(
+      'after'    => array(
+          'year'  => 2013,
+          'month' => 12,
+          'day'   => 31
+      ),
+      'before'    => array(
+          'year'  => 2017,
+          'month' => 1,
+          'day'   => 1
+      ),
+      'inclusive' => true
+    )
+  )
 );
 
 /**
