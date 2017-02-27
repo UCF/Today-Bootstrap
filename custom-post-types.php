@@ -24,6 +24,7 @@ abstract class CustomPostType{
 		$taxonomies     = array('post_tag'),
 		$built_in       = False,
 		$rewrite 		= True,
+		$show_in_rest   = False,
 
 		# Optional default ordering for generic shortcode if not specified by user.
 		$default_orderby = null,
@@ -171,14 +172,20 @@ abstract class CustomPostType{
 	 **/
 	public function register(){
 		$registration = array(
-			'labels'     => $this->labels(),
-			'supports'   => $this->supports(),
-			'public'     => $this->options('public'),
-			'taxonomies' => $this->options('taxonomies'),
-			'_builtin'   => $this->options('built_in'),
-			'rewrite'	 => $this->options('rewrite'),
+			'labels'       => $this->labels(),
+			'supports'     => $this->supports(),
+			'public'       => $this->options('public'),
+			'taxonomies'   => $this->options('taxonomies'),
+			'_builtin'     => $this->options('built_in'),
+			'rewrite'	   => $this->options('rewrite')
 		);
-		
+
+		if ( $this->options('show_in_rest') ) {
+			$registration['show_in_rest'] = True;
+			$registration['rest_base'] = $this->name . 's';
+			$registration['rest_controller_class'] = 'WP_REST_Posts_Controller';
+		}
+
 		if ($this->options('use_order')){
 			$registration = array_merge($registration, array('hierarchical' => True,));
 		}
@@ -328,7 +335,8 @@ class Post extends CustomPostType
 		$use_title = True,
 		$use_metabox = True,
 		$taxonomies = array('experts', 'post_tag', 'category'),
-		$built_in = True;
+		$built_in = True,
+		$show_in_rest = True;
 		
 	public function fields() {
 		global $post;
