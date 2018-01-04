@@ -1002,3 +1002,6 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
   	line-height: normal;
 	margin: 12px 0;
 }
+
+/* Featured Story Styles */
+.featured-story-header { background: #F1F1F1; padding: 1em 4em; margin-bottom: 2em; }

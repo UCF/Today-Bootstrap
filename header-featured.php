@@ -66,23 +66,3 @@
 
 	</head>
 	<body class="<?php echo today_body_classes()?>">
-		<div class="container">
-			<div class="row" id="header" role="banner">
-				<div id="page-title" class="span12">
-					<h1><?php echo the_title() ?></h1>
-				</div>
-				<hr class="span12" />
-			</div>
-			<nav id="header-menu" role="navigation">
-				<div class="ucf-mobile-menu-trigger pull-left">menu</div>
-				<?php echo wp_nav_menu( array(
-					'menu' => 'Top Navigation',
-					'container' => 'false',
-					'menu_class' => 'menu '.get_header_styles(),
-					'menu_id' => 'navigation',
-					'walker' => new Bootstrap_Walker_Nav_Menu()
-					) );
-				?>
-				<?php echo get_search_form()?>
-			</nav>
-			<?php echo gen_alerts_html()?>
