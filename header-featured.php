@@ -68,7 +68,7 @@
 	<body class="<?php echo today_body_classes()?>">
 		<div class="container">
 			<div class="row" id="header" role="banner">
-				<div class="span12">
+				<div id="page-title" class="span12">
 					<h1><?php echo the_title() ?></h1>
 				</div>
 				<hr class="span12" />
