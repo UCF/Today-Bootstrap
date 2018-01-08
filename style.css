@@ -2,7 +2,7 @@
 Theme Name: UCF Today WordPress Theme Bootstrap
 Author: UCF Web Communications
 Github Theme URI: https://github.com/UCF/Today-Bootstrap
-Version: v2.2.4
+Version: v2.2.7
 */
 
 /** Universal **/
@@ -301,8 +301,6 @@ ul.result-list li h3 { margin-bottom: 5px; }
 #header #page-title h1,
 #header #page-title h2 {
 	display: block;
-	width: 540px;
-	height: 60px;
 	margin: 0 0 10px 0;
 	font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
 	font-weight: 300;
@@ -1004,3 +1002,6 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
   	line-height: normal;
 	margin: 12px 0;
 }
+
+/* Featured Story Styles */
+.featured-story-header { background: #F1F1F1; padding: 1em 4em; margin-bottom: 2em; }
