@@ -35,5 +35,11 @@ $subtitle = get_post_meta( $post->ID, 'subtitle', TRUE );
 	<?php echo gen_alerts_html()?>
 	<?php the_content(); ?>
 </div>
+<aside>
+	<div class="container">
+		<h2 class="text-center">Related Stories</h2>
+	</div>
+	<?php echo display_more_stories_featured( $post ); ?>
+</aside>
 <div class="container">
 <?php get_footer( 'featured' ); ?>
