@@ -35,4 +35,5 @@ $subtitle = get_post_meta( $post->ID, 'subtitle', TRUE );
 	<?php echo gen_alerts_html()?>
 	<?php the_content(); ?>
 </div>
+<div class="container">
 <?php get_footer( 'featured' ); ?>
