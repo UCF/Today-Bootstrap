@@ -5,6 +5,9 @@
  */
 disallow_direct_load( 'featured-single-post.php' );
 get_header( 'featured' ); the_post();
+
+$subtitle = get_post_meta( $post->ID, 'subtitle', TRUE );
+
 ?>
 <div class="featured-story-header">
 	<div class="row-fluid">
@@ -14,6 +17,9 @@ get_header( 'featured' ); the_post();
 		<div class="span7">
 			<div id="page-title" class="featured-title">
 				<h1><?php echo the_title(); ?></h1>
+				<?php if ( $subtitle ) : ?>
+				<p id="subtitle"><em><?php echo $subtitle; ?></em></p>
+				<?php endif; ?>
 			</div>
 			<hr>
 			<div id="by-line" class="featured-byline">
@@ -27,7 +33,6 @@ get_header( 'featured' ); the_post();
 </div>
 <div class="container">
 	<?php echo gen_alerts_html()?>
-<div id="featured-single">
 	<?php the_content(); ?>
 </div>
 <?php get_footer( 'featured' ); ?>

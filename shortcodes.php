@@ -1847,4 +1847,37 @@ function sc_archive_articles($attrs) {
     return ob_get_clean();
 }
 add_shortcode('sc-archive-articles', 'sc_archive_articles');
+
+function sc_callout( $atts, $content='' ) {
+	$atts = shortcode_atts(
+		array(
+			'background' => '#000',
+			'color'      => '#fff',
+			'container'  => True,
+			'class'      => null
+		),
+		$atts
+	);
+
+	$background = $atts['background'];
+	$color = $atts['color'];
+	$container = filter_var( $atts['container'], FILTER_VALIDATE_BOOLEAN );
+	$class = $atts['class'];
+
+	ob_start();
+?>
+	</div><!-- end .container -->
+	<div class="well" style="background-color: <?php echo $background; ?>; color: <?php echo $color; ?>;">
+	<?php if ( $container ) : ?><div class="container"><?php endif; ?>
+		<?php echo $content; ?>
+	<?php if ( $container ) : ?></div><!-- end .container --><?php endif; ?>
+	</div>
+	<div class="container"><!-- Reopen content .container -->
+<?php
+	return ob_get_clean();
+
+}
+
+add_shortcode( 'callout', 'sc_callout' );
+
 ?>
