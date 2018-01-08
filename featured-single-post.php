@@ -20,13 +20,13 @@ $subtitle = get_post_meta( $post->ID, 'subtitle', TRUE );
 				<?php if ( $subtitle ) : ?>
 				<p id="subtitle"><em><?php echo $subtitle; ?></em></p>
 				<?php endif; ?>
+				<div id="deck" class="featured-deck">
+					<p class="lead"><?php the_excerpt(); ?></p>
+				</div>
 			</div>
 			<hr>
 			<div id="by-line" class="featured-byline">
 				<?php echo do_shortcode( '[single_post_meta css="border-bottom clearfix"]' ) ?>
-			</div>
-			<div id="deck" class="featured-deck">
-				<p class="lead"><?php the_excerpt(); ?></p>
 			</div>
 		</div>
 	</div>
