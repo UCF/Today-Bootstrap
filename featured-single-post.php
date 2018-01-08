@@ -17,7 +17,7 @@ get_header( 'featured' ); the_post();
 			</div>
 			<hr>
 			<div id="by-line" class="featured-byline">
-				By <?php the_author(); ?>
+				<?php echo do_shortcode( '[single_post_meta css="border-bottom clearfix"]' ) ?>
 			</div>
 			<div id="deck" class="featured-deck">
 				<p class="lead"><?php the_excerpt(); ?></p>
