@@ -1007,3 +1007,5 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
 .featured-story-header { background: #F1F1F1; padding: 1em 4em; margin-bottom: 2em; }
 .related-story { display: block; padding: 0 .25em; margin-bottom: 1em; }
 .related-story-image { background-position: center center; background-size: cover; width: 212px; height: 212px; }
+.related-story-title-wrapper { display: flex; padding: 6px; -webkit-box-orient: vertical; -webkit-box-direction: normal; flex-direction: column; -webkit-box-pack: end!important; justify-content: flex-end!important; height: 200px; }
+
