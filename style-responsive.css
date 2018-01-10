@@ -63,6 +63,11 @@
 	.search form.search-form button {
 		width: 20%;
 	}
+
+	.related-story-image {
+		height: 166px;
+		width: 166px;
+	}
 }
 
 /* Small Screens */
@@ -280,5 +285,11 @@
 	.border-both:before,
 	.border-both:after {
 		background-color: transparent;
+  }
+
+  .related-story-image {
+	  height: 230px;
+	  margin: 0 auto;
+	  width: 230px;
   }
 }

@@ -1002,8 +1002,9 @@ function display_related_story( $story ) {
 ?>
 	<div class="span3">
 	<a class="related-story" href="<?php echo get_permalink( $story->ID ); ?>">
-		<img class="related-story-image img-responsive" src="<?php echo $thumbnail; ?>">
-		<p class="h2 related-story-title text-center"><?php echo $story->post_title; ?></p>
+		<div class="related-story-image" style="background-image: url( '<?php echo $thumbnail; ?>' );">
+			<p class="h2 related-story-title text-center"><?php echo $story->post_title; ?></p>
+		</div>
 	</a>
 	</div>
 <?php
