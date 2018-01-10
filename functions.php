@@ -915,7 +915,7 @@ function add_tax_query_to_posts_endpoint( $args, $request ) {
 	$params = $request->get_params();
 
 	$tax_query = array();
-	
+
 	if ( isset( $params['category_slugs'] ) ) {
 		$tax_query[] =
 			array(
@@ -942,5 +942,75 @@ function add_tax_query_to_posts_endpoint( $args, $request ) {
 }
 
 add_action( 'rest_post_query', 'add_tax_query_to_posts_endpoint', 2, 10 );
+
+/**
+ * Returns an array of post objects related to the passed in post
+ * @author Jim Barnes
+ * @param WP_Post $post The post object
+ * @return array The array of related posts
+ */
+function get_more_stories( $post ) {
+	$primary_tag = get_post_meta( $post->ID, 'primary_tag', TRUE );
+
+	if ( ! $primary_tag ) {
+		$tags = wp_get_post_tags($post->ID);
+		if ( count( $tags ) > 0 ) {
+			$primary_tag = $tags[0];
+		} else {
+			return array();
+		}
+	}
+
+	$args = array(
+		'tag_id'      => $primary_tag,
+		'numberposts' => 6,
+		'exclude'     => array( $post->ID )
+	);
+
+	$stories = get_posts( $args );
+
+	return $stories;
+}
+
+/**
+ * Displays more stories based on primary or first tag
+ * @author Jim Barnes
+ * @param WP_Post $post The post object
+ * @return string
+ */
+function display_more_stories_featured( $post ) {
+	$stories = get_more_stories( $post );
+
+	if ( ! is_array( $stories ) || count( $stories ) === 0 ) {
+		return '';
+	}
+
+	ob_start();
+?>
+	<div class="related-stories row-fluid">
+<?php foreach( $stories as $story ) : ?>
+		<?php echo display_related_story( $story ); ?>
+<?php endforeach; ?>
+	</div>
+<?php
+	return ob_get_clean();
+}
+
+function display_related_story( $story ) {
+	$thumbnail = get_the_post_thumbnail_url( $story->ID, 'post-thumbnail', array( 'class' => 'img-responsive' ) );
+	ob_start();
+?>
+	<div class="span3">
+	<a class="related-story" href="<?php echo get_permalink( $story->ID ); ?>">
+		<div class="related-story-image" style="background-image: url( '<?php echo $thumbnail; ?>' );">
+			<div class="related-story-title-wrapper">
+				<p class="h2 related-story-title text-center"><?php echo $story->post_title; ?></p>
+			</div>
+		</div>
+	</a>
+	</div>
+<?php
+	return ob_get_clean ();
+}
 
 ?>
