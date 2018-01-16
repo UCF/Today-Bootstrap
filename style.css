@@ -1009,6 +1009,7 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
 
 .well {
   border-radius: 0;
+  margin: 2em 0;
 }
 
 .related-stories .span3:nth-child(4n+1) { margin-left: 0; }
@@ -1022,7 +1023,9 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
 .related-story { display: block; padding: 0 .25em; margin-bottom: 1em; }
 .related-story-image { background-position: center center; background-size: cover; width: 212px; height: 212px; }
 .related-story-title-wrapper { display: flex; -webkit-box-orient: vertical; -webkit-box-direction: normal; flex-direction: column; -webkit-box-pack: end!important; justify-content: flex-end!important; height: 212px; }
-.related-story-title { background: rgba(0, 0, 0, .5); color: #fff; font-size: 1.25em; padding: .25em .5em; margin: 0; text-transform: uppercase; }
+.related-story-title { background: rgba(0, 0, 0, .85); color: #fff; font-size: .9em; padding: .25em .5em; margin: 0; text-transform: uppercase; transition: all .25s ease; }
+.related-story:hover { text-decoration: none; }
+.related-story:hover .related-story-title { background: rgba(0, 0, 0, 1); color: #fc0; }
 .featured-deck .lead { font-size: 18px; line-height: 1.4; }
 .featured-byline .social { margin-top: 20px; }
 a:hover .related-story-title { text-decoration: none; }
