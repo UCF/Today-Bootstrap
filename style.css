@@ -1022,8 +1022,8 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
 .featured-deck { margin: 1em 2em 1em 0; }
 .related-stories { margin-top: 2em; }
 .related-story { display: block; padding: 0 .25em; margin-bottom: 1em; }
-.related-story-image { background-position: center center; background-size: cover; width: 212px; height: 212px; }
-.related-story-title-wrapper { display: flex; -webkit-box-orient: vertical; -webkit-box-direction: normal; flex-direction: column; -webkit-box-pack: end!important; justify-content: flex-end!important; height: 212px; }
+.related-story-image { background-position: center center; background-size: cover; min-height: 212px; width: 212px; }
+.related-story-title-wrapper { display: flex; -webkit-box-orient: vertical; -webkit-box-direction: normal; flex-direction: column; -webkit-box-pack: end!important; justify-content: flex-end!important; min-height:212px; }
 .related-story-title { background: rgba(0, 0, 0, .85); color: #fff; font-size: .9em; padding: .25em .5em; margin: 0; text-transform: uppercase; transition: all .25s ease; }
 .related-story:hover { text-decoration: none; }
 .related-story:hover .related-story-title { background: rgba(0, 0, 0, 1); color: #fc0; }
