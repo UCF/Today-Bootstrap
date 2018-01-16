@@ -1016,9 +1016,21 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
 .related-stories .span3:nth-child(4n+1) { margin-left: 0; }
 
 /* Featured Story Styles */
-.featured-story-header { background: #F1F1F1; padding: 1em 20px; }
+.featured-article > .container:first-child p:first-child:first-letter {
+  font-family: Georgia, serif;
+  color: #FFC907;
+  display: block;
+  float: left;
+  font-size: 48px;
+  font-weight: normal;
+  height: 48px;
+  line-height: 48px;
+  margin-right: 7px;
+  margin-top: 0;
+}
+.featured-story-header { background: #F1F1F1; margin-bottom: 3em; }
 .featured-story-header .img-responsive { width: 100%; }
-.featured-story-header .featured-title { font-size: 28px; line-height: 1.2 }
+.featured-story-header .featured-title { font-size: 28px; line-height: 1.2; margin-top: 2.25%; }
 .featured-deck { margin: 1em 2em 1em 0; }
 .related-stories { margin-top: 2em; }
 .related-story { display: block; padding: 0 .25em; margin-bottom: 1em; }
