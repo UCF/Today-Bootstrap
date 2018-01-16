@@ -1008,6 +1008,7 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
 }
 
 .well {
+  border: 0;
   border-radius: 0;
   margin: 2em 0;
 }
