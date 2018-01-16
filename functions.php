@@ -963,7 +963,7 @@ function get_more_stories( $post ) {
 
 	$args = array(
 		'tag_id'      => $primary_tag,
-		'numberposts' => 6,
+		'numberposts' => 8,
 		'exclude'     => array( $post->ID )
 	);
 
