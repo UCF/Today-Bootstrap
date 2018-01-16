@@ -1015,6 +1015,7 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
 .featured-story-header { background: #F1F1F1; padding: 1em 20px; margin: 0 -20px 2em -20px; }
 .featured-story-header .img-responsive { width: 100%; }
 .featured-story-header .featured-title { font-size: 28px; line-height: 1.2 }
+.featured-deck { margin: 1em 2em 1em 0; }
 .related-stories { margin-top: 2em; }
 .related-story { display: block; padding: 0 .25em; margin-bottom: 1em; }
 .related-story-image { background-position: center center; background-size: cover; width: 212px; height: 212px; }
