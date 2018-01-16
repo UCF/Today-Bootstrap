@@ -287,9 +287,26 @@
 		background-color: transparent;
   }
 
+  .featured-deck {
+    margin: 1em 0;
+  }
+
+  .related-story-title-wrapper {
+    height: 230px;
+  }
+
+  .related-story-title {
+    font-size: 1em;
+  }
+
   .related-story-image {
 	  height: 230px;
 	  margin: 0 auto;
 	  width: 230px;
+  }
+
+  .well {
+    margin-left: -20px;
+    margin-right: -20px;
   }
 }
