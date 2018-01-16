@@ -1015,6 +1015,17 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
 
 .related-stories .span3:nth-child(4n+1) { margin-left: 0; }
 
+/* WordPress styles */
+img.alignleft {
+  float: left;
+  margin: 0 12px 12px 0;
+}
+
+img.alignright {
+  float: right;
+  margin: 0 0 12px 12px;
+}
+
 /* Featured Story Styles */
 .featured-article > .container:first-of-type p:first-of-type:first-letter {
   font-family: Georgia, serif;
