@@ -1011,6 +1011,8 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
   border-radius: 0;
 }
 
+.related-stories .span3:nth-child(5) { margin-right: 0; }
+
 /* Featured Story Styles */
 .featured-story-header { background: #F1F1F1; padding: 1em 20px; margin: 0 -20px 2em -20px; }
 .featured-story-header .img-responsive { width: 100%; }
