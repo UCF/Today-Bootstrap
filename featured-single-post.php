@@ -26,7 +26,7 @@ $subtitle = get_post_meta( $post->ID, 'subtitle', TRUE );
 			</div>
 			<hr>
 			<div id="by-line" class="featured-byline">
-				<?php echo do_shortcode( '[single_post_meta css="clearfix"]' ) ?>
+				<?php echo do_shortcode( '[single_post_meta css="clearfix"]' ); ?>
 			</div>
 		</div>
 	</div>
