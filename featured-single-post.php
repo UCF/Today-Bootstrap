@@ -33,7 +33,7 @@ $subtitle = get_post_meta( $post->ID, 'subtitle', TRUE );
 </div>
 <article class="featured-article">
 	<div class="container">
-		<?php echo gen_alerts_html()?>
+		<?php echo gen_alerts_html(); ?>
 		<?php the_content(); ?>
 	</div>
 </article>

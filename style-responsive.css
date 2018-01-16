@@ -294,6 +294,13 @@
 		background-color: transparent;
   }
 
+  .featured-title,
+  .featured-subtitle,
+  .featured-byline {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
   .featured-deck {
     margin: 1em 0;
   }
