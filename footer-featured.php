@@ -22,7 +22,7 @@
 						<?php endif;?>
 					</div>
 				</div>
-			</a>
+			</div>
 		</div>
 	</body>
 	<?php echo "\n".footer_()."\n"?>
