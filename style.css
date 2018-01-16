@@ -1041,5 +1041,8 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
 .related-story:hover .related-story-title { background: rgba(0, 0, 0, 1); color: #fc0; }
 .featured-deck .lead { font-size: 18px; line-height: 1.4; }
 .featured-byline .social { margin-top: 20px; }
+.featured-footer-logo { display: block; text-align: center; color: #000; font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif !important; font-size: 24px; margin: 1em 0; }
+a.featured-footer-logo:hover { text-decoration: none; color: #000 !important; }
+.featured-footer-logo .featured-footer-gold { color: #fc0; font-weight: 700; margin-right: 2px; }
 a:hover .related-story-title { text-decoration: none; }
 
