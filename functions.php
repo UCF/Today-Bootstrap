@@ -998,9 +998,10 @@ function display_more_stories_featured( $post ) {
 
 function display_related_story( $story ) {
 	$thumbnail = get_the_post_thumbnail_url( $story->ID, 'post-thumbnail', array( 'class' => 'img-responsive' ) );
+	$thumbnail = $thumbnail ?: FEED_THUMBNAIL_FALLBACK;
 	ob_start();
 ?>
-	<div class="span3">
+	<div class="span3 match-height">
 	<a class="related-story" href="<?php echo get_permalink( $story->ID ); ?>">
 		<div class="related-story-image" style="background-image: url( '<?php echo $thumbnail; ?>' );">
 			<div class="related-story-title-wrapper">

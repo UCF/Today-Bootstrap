@@ -26,18 +26,20 @@ $subtitle = get_post_meta( $post->ID, 'subtitle', TRUE );
 			</div>
 			<hr>
 			<div id="by-line" class="featured-byline">
-				<?php echo do_shortcode( '[single_post_meta css="border-bottom clearfix"]' ) ?>
+				<?php echo do_shortcode( '[single_post_meta css="clearfix"]' ); ?>
 			</div>
 		</div>
 	</div>
 </div>
+<article class="featured-article">
+	<div class="container">
+		<?php echo gen_alerts_html(); ?>
+		<?php the_content(); ?>
+	</div>
+</article>
 <div class="container">
-	<?php echo gen_alerts_html()?>
-	<?php the_content(); ?>
 	<aside class="related-stories">
 		<h2 class="text-center">Related Stories</h2>
 		<?php echo display_more_stories_featured( $post ); ?>
 	</aside>
-</div>
-<div class="container">
 <?php get_footer( 'featured' ); ?>
