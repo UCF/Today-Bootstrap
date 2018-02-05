@@ -222,25 +222,24 @@ function sc_feature($atts = Array(), $id_only = False)
 
 		if($feature !== False) {
 			$video_url = get_video_url($feature->ID);
+			$feature_media_attachment = get_img_html($feature->ID, 'feature', array('return_id' => true));
+			$attachment_url = wp_get_attachment_image_src($feature_media_attachment['attachment_id'], 'feature');
+			if (!$attachment_url) {
+				$attachment_url = array(0 => THEME_IMG_URL.'/no-photo.png');
+			}
 
 			if($video_url != '') {
-				$feature_media = $wp_embed->run_shortcode('[embed width="417" height="343"]'.$video_url.'[/embed]');
+				$feature_media = '<div class="video-container" style="background-image: url('.$attachment_url[0].');">'.$wp_embed->run_shortcode('[embed width="417" height="343"]'.$video_url.'[/embed]</div>');
 			} else {
-				$feature_media = '<a href="'.get_permalink($feature->ID).'">'.get_img_html($feature->ID, 'feature').'</a>';
-				$feature_media_attachment = get_img_html($feature->ID, 'feature', array('return_id' => true));
-				$attachment_url = wp_get_attachment_image_src($feature_media_attachment['attachment_id'], 'feature');
-				if (!$attachment_url) {
-					$attachment_url = array(0 => THEME_IMG_URL.'/no-photo.png');
-				}
+				$feature_media = '<div class="thumb cropped" style="background-image: url('.$attachment_url[0].');"><a href="'.get_permalink($feature->ID).'">'.get_img_html($feature->ID, 'feature').'</a></div>';
+
 			}
 
 			ob_start();
 			?>
 			<div class="<?=$css?>" id="feature">
 				<h2 class="indent">Featured Article</h2>
-				<div class="thumb cropped" style="background-image: url('<?=$attachment_url[0]?>');">
-					<?=$feature_media?>
-				</div>
+				<?=$feature_media?>
 				<h2 class="feature-title"><a href="<?=get_permalink($feature->ID)?>"><?=$feature->post_title?></a></h2>
 			</div>
 			<?
