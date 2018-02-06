@@ -229,9 +229,15 @@ function sc_feature($atts = Array(), $id_only = False)
 			}
 
 			if($video_url != '') {
-				$feature_media = '<div class="video-container" style="background-image: url('.$attachment_url[0].');">'.$wp_embed->run_shortcode('[embed width="417" height="343"]'.$video_url.'[/embed]</div>');
+				$feature_media = '<div class="video-container" style="background-image: url('.$attachment_url[0].');">'
+									.$wp_embed->run_shortcode('[embed width="417" height="343"]'.$video_url.'[/embed]').
+								'</div>';
 			} else {
-				$feature_media = '<div class="thumb cropped" style="background-image: url('.$attachment_url[0].');"><a href="'.get_permalink($feature->ID).'">'.get_img_html($feature->ID, 'feature').'</a></div>';
+				$feature_media = '<div class="thumb cropped" style="background-image: url('.$attachment_url[0].');">
+									<a href="'.get_permalink($feature->ID).'">
+										'.get_img_html($feature->ID, 'feature').
+									'</a>
+								</div>';
 
 			}
 
