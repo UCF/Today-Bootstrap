@@ -232,13 +232,13 @@ function sc_feature($atts = Array(), $id_only = False)
 
 			if($video_url != '') :
 			?>
-			<div class="video-container" style="background-image: url('<?=$attachment_url[0]?>');">'
+			<div class="video-container" style="background-image: url('<?=$attachment_url[0]?>');">
 				<?=$wp_embed->run_shortcode('[embed width="417" height="343"]'.$video_url.'[/embed]')?>
 			</div>
 			<? else :
 			?>
 			<div class="thumb cropped" style="background-image: url('<?=$attachment_url[0]?>');">
-				<a href="'.get_permalink($feature->ID).'">
+				<a href="<?=get_permalink($feature->ID)?>">
 					<?=get_img_html($feature->ID, 'feature')?>
 				</a>
 			</div>
@@ -274,32 +274,34 @@ function sc_feature($atts = Array(), $id_only = False)
 		if($id_only) return $top_feature->ID;
 
 		$video_url = get_video_url($top_feature->ID);
-
+		$feature_media_attachment = get_img_html($top_feature->ID, 'subpage_feature', array('return_id' => true));
+		$attachment_url = wp_get_attachment_image_src($feature_media_attachment['attachment_id'], 'subpage_feature');
+		if (!$attachment_url) {
+			$attachment_url = array(0 => THEME_IMG_URL.'/no-photo.png');
+		}
 		ob_start();
 
 		if($video_url != '') :
 		?>
-		<div class="video-container" style="background-image: url('<?=$attachment_url[0]?>');">'
-			<?=$wp_embed->run_shortcode('[embed width="417" height="343"]'.$video_url.'[/embed]')?>
+		<div class="span5">
+			<div class="video-container" style="background-image: url('<?=$attachment_url[0]?>');">
+				<?=$wp_embed->run_shortcode('[embed width="417" height="343"]'.$video_url.'[/embed]')?>
+			</div>
 		</div>
-		<?
+		<? else :
+		?>
+		<div class="span5" style="background-image: url('<?=$attachment_url[0]?>');">
+			<a href="<?=get_permalink($top_feature->ID)?>">
+				<?=get_img_html($top_feature->ID, 'subpage_feature')?>
+			</a>
+		</div>
+		<? endif;
 		$feature_media = ob_get_clean();
-		else :
-			$feature_media = '<a href="'.get_permalink($top_feature->ID).'">'.get_img_html($top_feature->ID, 'subpage_feature').'</a>';
-			$feature_media_attachment = get_img_html($top_feature->ID, 'subpage_feature', array('return_id' => true));
-			$attachment_url = wp_get_attachment_image_src($feature_media_attachment['attachment_id'], 'subpage_feature');
-			if (!$attachment_url) {
-				$attachment_url = array(0 => THEME_IMG_URL.'/no-photo.png');
-			}
-		endif;
-
 		ob_start();
 		?>
 		<div class="<?php echo $css ?>" id="feature">
 			<div class="row">
-				<div class="span5" style="background-image: url('<?php echo $attachment_url[0] ?>');">
-					<?php echo $feature_media ?>
-				</div>
+				<?php echo $feature_media ?>
 				<div class="span4">
 					<h2 class="feature-cat-title"><a href="<?php echo get_permalink( $top_feature->ID ) ?>"><?php echo $top_feature->post_title ?></a></h2>
 					<p class="story-blurb">
