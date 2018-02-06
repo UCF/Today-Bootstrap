@@ -238,7 +238,7 @@ function sc_feature($atts = Array(), $id_only = False)
 			<? else :
 			?>
 			<div class="thumb cropped" style="background-image: url('<?=$attachment_url[0]?>');">
-				<a href="'.get_permalink($feature->ID).'">
+				<a href="<?=get_permalink($feature->ID)?>">
 					<?=get_img_html($feature->ID, 'feature')?>
 				</a>
 			</div>
@@ -279,7 +279,6 @@ function sc_feature($atts = Array(), $id_only = False)
 		if (!$attachment_url) {
 			$attachment_url = array(0 => THEME_IMG_URL.'/no-photo.png');
 		}
-
 		ob_start();
 
 		if($video_url != '') :
