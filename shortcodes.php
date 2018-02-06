@@ -269,7 +269,9 @@ function sc_feature($atts = Array(), $id_only = False)
 
 		$video_url = get_video_url($top_feature->ID);
 		if($video_url != '') {
-			$feature_media = '<div class="video-container" style="background-image: url('.$attachment_url[0].');">'.$wp_embed->run_shortcode('[embed width="380" height="500"]'.$video_url.'[/embed]</div>');
+			$feature_media = '<div class="video-container" style="background-image: url('.$attachment_url[0].');">'
+								.$wp_embed->run_shortcode('[embed width="380" height="313"]'.$video_url.'[/embed]').
+							'</div>';
 		} else {
 			$feature_media = '<a href="'.get_permalink($top_feature->ID).'">'.get_img_html($top_feature->ID, 'subpage_feature').'</a>';
 			$feature_media_attachment = get_img_html($top_feature->ID, 'subpage_feature', array('return_id' => true));
