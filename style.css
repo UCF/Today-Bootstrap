@@ -681,10 +681,10 @@ ul.result-list li h3 { margin-bottom: 5px; }
 	padding-bottom: 56.25%;
 	padding-top: 30px;
 	height: 0;
-  overflow: hidden;
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
+	overflow: hidden;
+	background-size: cover;
+  	background-position: center center;
+  	background-repeat: no-repeat;
 }
 
 .video-container iframe,
