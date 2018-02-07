@@ -983,18 +983,6 @@ function sc_single_post($atts = Array())
 	$content = apply_filters('the_content', $content);
 	$content = str_replace(']]>', ']]&gt;', $content);
 
-	# The story image might have been extacted from the content.
-	# If so remove, it and any surrounding links or captions.
-	$pattern = '/(\[caption[^\]]*\])?(<a[^>]*>)?<img[^>]*class="[^"]*wp-image-'.$attachment->ID.'[^"]*"[^>]*>(<\/a>)?(\[\/caption\])?/';
-	$content = preg_replace($pattern, '', $content);
-
-	# Sometimes a image has been inserted at the start of a story
-	# that isn't the featured image. Remove those too.
-	if(preg_match('/^<p>(<caption>)?(<a>)?<img/', $content)) {
-		$pattern = '/(\[caption[^\]]*\])?(<a[^>]*>)?<img[^>]*>(<\/a>)?(\[\/caption\])?/';
-		$content = preg_replace($pattern, '', $content);
-	}
-
 	$video_url = get_video_url($post->ID);
 
 	ob_start();
@@ -1014,7 +1002,7 @@ function sc_single_post($atts = Array())
 			<? } ?>
 			<p id="caption"><?=( isset( $attachment ) ) ? $attachment->post_excerpt: ''?></p>
 			<div id="content">
-				<?=strip_tags( $content, '<p><a><ol><ul><li><em><strong><img><blockquote>' )?>
+				<?=strip_tags( $content, '<p><a><ol><ul><li><em><strong><img><blockquote><div>' )?>
 			</div>
 			<?=display_social( get_permalink( $post->ID ), $post->post_title )?>
 			<div id="share" role="form">

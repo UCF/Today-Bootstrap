@@ -792,7 +792,8 @@ ul.result-list li h3 { margin-bottom: 5px; }
 
 #single #subtitle { color: #666; font-size: 18px; }
 #single #story_feat_img { width: 100%; text-align: center; background: #f7f7f7; }
-#single p#caption {
+#single p#caption,
+#single p.wp-caption-text {
 	font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
 	font-size: 12px;
 	line-height: 18px;
@@ -1019,12 +1020,12 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
 .related-stories .span3:nth-child(4n+1) { margin-left: 0; }
 
 /* WordPress styles */
-img.alignleft {
+.alignleft {
   float: left;
   margin: 0 12px 12px 0;
 }
 
-img.alignright {
+.alignright {
   float: right;
   margin: 0 0 12px 12px;
 }

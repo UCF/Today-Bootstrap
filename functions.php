@@ -424,20 +424,6 @@ function get_excerpt($post, $hl_term = '')
 
 
 /**
- * Strip post content of <a><img></a> and [caption]???[/caption]
- *
- * @return string
- * @author Chris Conover
- **/
-function strip_img_caption($content)
-{
-	$content = preg_replace('/\[caption[^\]]*\][^\[]+\[\/caption\]/', '', $content);
-	return $content;
-}
-add_filter('the_content', 'strip_img_caption');
-
-
-/**
  * Check to see if the post has the mainsite tag associated with it
  * before it is edited. Used to check maintsite tag permissions after
  * the post is saved in check_mainsite_tag()
