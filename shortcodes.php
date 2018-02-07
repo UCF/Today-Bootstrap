@@ -981,7 +981,7 @@ function sc_single_post($atts = Array())
 			<? } ?>
 			<p id="caption"><?=( isset( $attachment ) ) ? $attachment->post_excerpt: ''?></p>
 			<div id="content">
-				<?=strip_tags( $content, '<p><a><ol><ul><li><em><strong><img><blockquote>' )?>
+				<?=strip_tags( $content, '<p><a><ol><ul><li><em><strong><img><blockquote><div>' )?>
 			</div>
 			<?=display_social( get_permalink( $post->ID ), $post->post_title )?>
 			<div id="share" role="form">
