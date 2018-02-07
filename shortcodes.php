@@ -232,14 +232,14 @@ function sc_feature($atts = Array(), $id_only = False)
 
 			if($video_url != '') :
 			?>
-			<div class="video-container" style="background-image: url('<?=$attachment_url[0]?>');">
-				<?=$wp_embed->run_shortcode('[embed width="417" height="343"]'.$video_url.'[/embed]')?>
+			<div class="video-container" style="background-image: url('<?php echo $attachment_url[0]?>');">
+				<?php echo $wp_embed->run_shortcode('[embed width="417" height="343"]'.$video_url.'[/embed]')?>
 			</div>
 			<? else :
 			?>
-			<div class="thumb cropped" style="background-image: url('<?=$attachment_url[0]?>');">
-				<a href="<?=get_permalink($feature->ID)?>">
-					<?=get_img_html($feature->ID, 'feature')?>
+			<div class="thumb cropped" style="background-image: url('<?php echo $attachment_url[0]?>');">
+				<a href="<?php echo get_permalink($feature->ID)?>">
+					<?php echo get_img_html($feature->ID, 'feature')?>
 				</a>
 			</div>
 			<?
@@ -249,10 +249,10 @@ function sc_feature($atts = Array(), $id_only = False)
 
 			ob_start();
 			?>
-			<div class="<?=$css?>" id="feature">
+			<div class="<?php echo $css?>" id="feature">
 				<h2 class="indent">Featured Article</h2>
-				<?=$feature_media?>
-				<h2 class="feature-title"><a href="<?=get_permalink($feature->ID)?>"><?=$feature->post_title?></a></h2>
+				<?php echo $feature_media?>
+				<h2 class="feature-title"><a href="<?php echo get_permalink($feature->ID)?>"><?php echo $feature->post_title?></a></h2>
 			</div>
 			<?
 			return ob_get_clean();
@@ -284,15 +284,15 @@ function sc_feature($atts = Array(), $id_only = False)
 		if($video_url != '') :
 		?>
 		<div class="span5">
-			<div class="video-container" style="background-image: url('<?=$attachment_url[0]?>');">
-				<?=$wp_embed->run_shortcode('[embed width="417" height="343"]'.$video_url.'[/embed]')?>
+			<div class="video-container" style="background-image: url('<?php echo $attachment_url[0]?>');">
+				<?php echo $wp_embed->run_shortcode('[embed width="417" height="343"]'.$video_url.'[/embed]')?>
 			</div>
 		</div>
 		<? else :
 		?>
-		<div class="span5" style="background-image: url('<?=$attachment_url[0]?>');">
-			<a href="<?=get_permalink($top_feature->ID)?>">
-				<?=get_img_html($top_feature->ID, 'subpage_feature')?>
+		<div class="span5" style="background-image: url('<?php echo $attachment_url[0]?>');">
+			<a href="<?php echo get_permalink($top_feature->ID)?>">
+				<?php echo get_img_html($top_feature->ID, 'subpage_feature')?>
 			</a>
 		</div>
 		<? endif;
