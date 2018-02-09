@@ -233,7 +233,7 @@ function sc_feature($atts = Array(), $id_only = False)
 			<div class="<?php echo $css?>" id="feature">
 				<h2 class="indent">Featured Article</h2>
 				<div class="thumb cropped" style="background-image: url('<?php echo $attachment_url[0]?>');">
-					<?php echo $feature_media?>
+					<?php echo $feature_media; ?>
 				</div>
 				<h2 class="feature-title"><a href="<?php echo get_permalink($feature->ID)?>"><?php echo $feature->post_title?></a></h2>
 			</div>
@@ -269,7 +269,7 @@ function sc_feature($atts = Array(), $id_only = False)
 		<div class="<?php echo $css ?>" id="feature">
 			<div class="row">
 				<div class="span5" style="background-image: url('<?php echo $attachment_url[0]?>');">
-					<?php echo $feature_media ?>
+					<?php echo $feature_media; ?>
 				</div>
 				<div class="span4">
 					<h2 class="feature-cat-title"><a href="<?php echo get_permalink( $top_feature->ID ) ?>"><?php echo $top_feature->post_title ?></a></h2>
