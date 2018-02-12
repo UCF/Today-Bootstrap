@@ -1,7 +1,7 @@
 <?php
 /**
  * Template Name: Featured Post
- * Template Post Type: post
+ * Template Post Type:
  */
 disallow_direct_load( 'featured-single-post.php' );
 get_header( 'featured' ); the_post();
