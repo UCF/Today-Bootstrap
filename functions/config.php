@@ -53,7 +53,7 @@ function __init__(){
 		'description'   => 'The 1st widget area in the footer.',
 		'before_widget' => '<div id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</div>',
-	) );	
+	) );
 	foreach(Config::$styles as $style){Config::add_css($style);}
 	foreach(Config::$scripts as $script){Config::add_script($script);}
 
@@ -310,7 +310,7 @@ Config::$links = array(
 Config::$styles = array(
 	array('admin' => True, 'src' => THEME_CSS_URL.'/admin.css',),
 	CURRENT_PROTOCOL.'universityheader.ucf.edu/bar/css/bar.css',
-	THEME_STATIC_URL.'/bootstrap/bootstrap/css/bootstrap.css',
+	THEME_STATIC_URL.'/bootstrap/bootstrap/css/bootstrap.min.css',
 );
 
 array_push(Config::$styles,
@@ -322,10 +322,11 @@ array_push(Config::$styles,
 Config::$scripts = array(
 	array( 'admin' => True, 'src' => THEME_JS_URL.'/admin.js', ),
 	CURRENT_PROTOCOL.'universityheader.ucf.edu/bar/js/university-header.js?use-bootstrap-overrides=1',
-	THEME_STATIC_URL.'/bootstrap/bootstrap/js/bootstrap.js',
+	THEME_STATIC_URL.'/bootstrap/bootstrap/js/bootstrap.min.js',
 	array( 'name' => 'base-script',  'src' => THEME_JS_URL.'/webcom-base.js', ),
 	array( 'name' => 'autoellipsis',  'src' => THEME_JS_URL.'/jquery.autoellipsis-1.0.10.min.js', ),
 	array( 'name' => 'jquery-cookie',  'src' => THEME_JS_URL.'/jquery-cookie.js', ),
+	array( 'name' => 'matchheight', 'src' => 'https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight-min.js' ),
 	array( 'name' => 'theme-script', 'src' => THEME_JS_URL.'/script.js', ),
 	array( 'name' => 'ucf-mobile-menu', 'src' => THEME_JS_URL.'/ucf-mobile-menu.js', ),
 );

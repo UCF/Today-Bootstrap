@@ -385,6 +385,10 @@ var socialButtonTracking = function ($) {
 	});
 };
 
+var initMatchHeight = function ($) {
+  $('.match-height').matchHeight();
+};
+
 
 if (typeof jQuery != 'undefined'){
 	jQuery(document).ready(function($) {
@@ -403,6 +407,7 @@ if (typeof jQuery != 'undefined'){
 		addBodyClasses($);
 		ieThumbCropper($);
 		ieVerticalBorders($);
-		socialButtonTracking($);
+    socialButtonTracking($);
+    initMatchHeight($);
 	});
 }else{console.log('jQuery dependency failed to load');}

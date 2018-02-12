@@ -1,17 +1,17 @@
 /* Large Screens */
 @media (min-width: 767px) {
-	#header-menu ul { 
+	#header-menu ul {
 		float: left; height: 28px; padding-top: 4px; padding-left: 10px;
 	}
-	
-	#header-menu ul li { 
+
+	#header-menu ul li {
 		margin: 0; padding-bottom: 4px; line-height: 18px;
 	}
-	
-	#header-menu ul li:after { 
+
+	#header-menu ul li:after {
 		content: ""; margin-left: 0;
 	}
-	
+
 	#header-menu ul li a {
 		font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
 		font-size: 15px;
@@ -20,11 +20,11 @@
 		color: #000;
 		margin-right: 10px;
 	}
-	
-	#header-menu ul li a:hover { 
+
+	#header-menu ul li a:hover {
 		color: #000;
-	}	
-	
+	}
+
 	#header-menu .close-icon {
 		display: none;
 	}
@@ -37,7 +37,7 @@
 	#header #page-title h2 {
 		width: 414px;
 	}
-	
+
 	#weather_bug #wb_status_txt {
 		left: 0;
 		width: 160px;
@@ -47,7 +47,7 @@
 	}
 
 	#header-menu {
-		margin-bottom: 20px;		
+		margin-bottom: 20px;
 	}
 	#header-menu ul li a {
 		font-size: 12px;
@@ -62,6 +62,11 @@
 	}
 	.search form.search-form button {
 		width: 20%;
+	}
+
+	.related-story-image {
+		height: 166px;
+		width: 166px;
 	}
 }
 
@@ -107,7 +112,7 @@
 	#header-menu {
 		margin-bottom: 15px;
 		background-color: #000;
-	}		
+	}
 
 	#header-menu .close-icon {
 		color: white;
@@ -117,7 +122,7 @@
   		font-style: normal;
 		opacity: 0.7;
 		padding: 12px;
-	}	
+	}
 
 	#header-menu .ucf-mobile-menu-trigger {
 		background-position: 62px, 0;
@@ -130,14 +135,14 @@
   		font-size: 17px;
 		padding: 3px 23px 1px 7px;
 		text-transform: uppercase;
-	}	
-	
+	}
+
 	.body-search #header-menu {
 		background-color: #fff;
 		margin-bottom: 30px;
 		overflow: visible;
 	}
-	
+
 	#header-menu .search {
 		width: 165px;
 		margin-right: 2px;
@@ -145,14 +150,14 @@
 	.body-search #header-menu .search {
 		width: 100%;
 	}
-	
+
 	#header-menu ul {
 		background: #fff;
 		left: 0;
 		margin: 0;
  		opacity: .95;
 		overflow: hidden;
-		padding: 0;	
+		padding: 0;
 		position: absolute;
 		top: 0;
 		transition: width 0.5s;
@@ -164,7 +169,7 @@
 	#header-menu ul.slide-out {
 		width: 250px;
 	}
-	
+
 	#header-menu ul li {
   		border-bottom: solid 1px #ddd;
 		cursor: pointer;
@@ -173,14 +178,14 @@
 		font-size: 16px;
 		margin: 0;
 		width: 250px;
-	}	
-	
+	}
+
 	#header-menu ul li:first-child {
 		background-color: #666;
 		display: block;
 		height: 50px;
-	}	
-	
+	}
+
 	#header-menu ul li:first-child a {
 		color: #fff;
 		font-size: 20px;
@@ -190,45 +195,45 @@
 	.body-subpage #header-menu ul li:first-child {
 		position: static;
 	}
-	
-	.body-home #header-menu ul li:first-child, 
-	.body-404 #header-menu ul li:first-child a, 
-	.body-search #header-menu ul li:first-child a, 
+
+	.body-home #header-menu ul li:first-child,
+	.body-404 #header-menu ul li:first-child a,
+	.body-search #header-menu ul li:first-child a,
 	.body-photoset #header-menu ul li:first-child a,
 	.body-subpage #header-menu ul li:first-child a {
 		background-image: none;
 		display: block;
 		text-indent: 0;
 		width: 250px;
-	}		
-	
+	}
+
 	.menu.horizontal li:after {
 	  content: "";
 	  margin-left: 0;
 	}
-	
+
 	#header-menu ul li a {
 		color: #000;
 		display: block;
 		font-size: 18px;
 		padding: 10px 15px;
 	}
-	
+
 	#feature h2.feature-cat-title,
 	#features .story-list h3,
 	#photo-sets h3 {
 		margin-top: 15px;
 	}
-	
+
 	#photo-sets .photoset-list > div img {
 	  width: 100%;
 	  height: auto;
 	}
-	
+
 	.body-subpage #feature p.story-blurb,
 	#features .story-list p.story-blurb {
 	  padding-bottom: 20px;
-	}	
+	}
 
 	#single h1 {
 		font-size: 24px;
@@ -274,11 +279,51 @@
 		font-size: 13px;
 		line-height: 1.2em;
 	}
-	
-	.border-left:before, 
-	.border-right:after, 
-	.border-both:before, 
+
+  .alignleft,
+  .alignright {
+    margin: 0;
+    min-width: 100%;
+    float: none;
+  }
+
+	.border-left:before,
+	.border-right:after,
+	.border-both:before,
 	.border-both:after {
 		background-color: transparent;
-	}
+  }
+
+  .featured-title,
+  .featured-subtitle,
+  .featured-byline {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .featured-deck {
+    margin: 1em 0;
+  }
+
+  .featured-story-header {
+    margin: 0 -20px 2em -20px;
+  }
+
+  .related-story-title-wrapper {
+    height: 230px;
+  }
+
+  .related-story-title {
+    font-size: .95em;
+  }
+
+  .related-story-image {
+	  height: 230px;
+	  margin: 0 auto;
+	  width: 230px;
+  }
+
+  .well {
+    margin: 1em -20px;
+  }
 }

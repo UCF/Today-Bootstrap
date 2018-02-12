@@ -221,27 +221,21 @@ function sc_feature($atts = Array(), $id_only = False)
 						'value' => 'featured'))));
 
 		if($feature !== False) {
-			$video_url = get_video_url($feature->ID);
-
-			if($video_url != '') {
-				$feature_media = $wp_embed->run_shortcode('[embed width="417" height="343"]'.$video_url.'[/embed]');
-			} else {
-				$feature_media = '<a href="'.get_permalink($feature->ID).'">'.get_img_html($feature->ID, 'feature').'</a>';
-				$feature_media_attachment = get_img_html($feature->ID, 'feature', array('return_id' => true));
-				$attachment_url = wp_get_attachment_image_src($feature_media_attachment['attachment_id'], 'feature');
-				if (!$attachment_url) {
-					$attachment_url = array(0 => THEME_IMG_URL.'/no-photo.png');
-				}
+			$feature_media_attachment = get_img_html($feature->ID, 'feature', array('return_id' => true));
+			$attachment_url = wp_get_attachment_image_src($feature_media_attachment['attachment_id'], 'feature');
+			if (!$attachment_url) {
+				$attachment_url = array(0 => THEME_IMG_URL.'/no-photo.png');
 			}
+			$feature_media = '<a href="'.get_permalink($feature->ID).'">'.get_img_html($feature->ID, 'feature').'</a>';
 
 			ob_start();
 			?>
-			<div class="<?=$css?>" id="feature">
+			<div class="<?php echo $css?>" id="feature">
 				<h2 class="indent">Featured Article</h2>
-				<div class="thumb cropped" style="background-image: url('<?=$attachment_url[0]?>');">
-					<?=$feature_media?>
+				<div class="thumb cropped" style="background-image: url('<?php echo $attachment_url[0]?>');">
+					<?php echo $feature_media; ?>
 				</div>
-				<h2 class="feature-title"><a href="<?=get_permalink($feature->ID)?>"><?=$feature->post_title?></a></h2>
+				<h2 class="feature-title"><a href="<?php echo get_permalink($feature->ID)?>"><?php echo $feature->post_title?></a></h2>
 			</div>
 			<?
 			return ob_get_clean();
@@ -262,24 +256,20 @@ function sc_feature($atts = Array(), $id_only = False)
 										Array('numberposts' => 1));
 		if($id_only) return $top_feature->ID;
 
-		$video_url = get_video_url($top_feature->ID);
-		if($video_url != '') {
-			$feature_media = $wp_embed->run_shortcode('[embed width="469" height="500"]'.$video_url.'[/embed]');
-		} else {
-			$feature_media = '<a href="'.get_permalink($top_feature->ID).'">'.get_img_html($top_feature->ID, 'subpage_feature').'</a>';
-			$feature_media_attachment = get_img_html($top_feature->ID, 'subpage_feature', array('return_id' => true));
-			$attachment_url = wp_get_attachment_image_src($feature_media_attachment['attachment_id'], 'subpage_feature');
-			if (!$attachment_url) {
-				$attachment_url = array(0 => THEME_IMG_URL.'/no-photo.png');
-			}
+		$feature_media_attachment = get_img_html($top_feature->ID, 'subpage_feature', array('return_id' => true));
+		$attachment_url = wp_get_attachment_image_src($feature_media_attachment['attachment_id'], 'subpage_feature');
+		if (!$attachment_url) {
+			$attachment_url = array(0 => THEME_IMG_URL.'/no-photo.png');
 		}
+		$feature_media = '<a href="'.get_permalink($feature->ID).'">'.get_img_html($feature->ID, 'feature').'</a>';
 
 		ob_start();
+
 		?>
 		<div class="<?php echo $css ?>" id="feature">
 			<div class="row">
-				<div class="span5" style="background-image: url('<?php echo $attachment_url[0] ?>');">
-					<?php echo $feature_media ?>
+				<div class="span5" style="background-image: url('<?php echo $attachment_url[0]?>');">
+					<?php echo $feature_media; ?>
 				</div>
 				<div class="span4">
 					<h2 class="feature-cat-title"><a href="<?php echo get_permalink( $top_feature->ID ) ?>"><?php echo $top_feature->post_title ?></a></h2>
@@ -962,18 +952,6 @@ function sc_single_post($atts = Array())
 	$content = apply_filters('the_content', $content);
 	$content = str_replace(']]>', ']]&gt;', $content);
 
-	# The story image might have been extacted from the content.
-	# If so remove, it and any surrounding links or captions.
-	$pattern = '/(\[caption[^\]]*\])?(<a[^>]*>)?<img[^>]*class="[^"]*wp-image-'.$attachment->ID.'[^"]*"[^>]*>(<\/a>)?(\[\/caption\])?/';
-	$content = preg_replace($pattern, '', $content);
-
-	# Sometimes a image has been inserted at the start of a story
-	# that isn't the featured image. Remove those too.
-	if(preg_match('/^<p>(<caption>)?(<a>)?<img/', $content)) {
-		$pattern = '/(\[caption[^\]]*\])?(<a[^>]*>)?<img[^>]*>(<\/a>)?(\[\/caption\])?/';
-		$content = preg_replace($pattern, '', $content);
-	}
-
 	$video_url = get_video_url($post->ID);
 
 	ob_start();
@@ -993,7 +971,7 @@ function sc_single_post($atts = Array())
 			<? } ?>
 			<p id="caption"><?=( isset( $attachment ) ) ? $attachment->post_excerpt: ''?></p>
 			<div id="content">
-				<?=strip_tags( $content, '<p><a><ol><ul><li><em><strong><img><blockquote>' )?>
+				<?=strip_tags( $content, '<p><a><ol><ul><li><em><strong><img><blockquote><div>' )?>
 			</div>
 			<?=display_social( get_permalink( $post->ID ), $post->post_title )?>
 			<div id="share" role="form">
@@ -1847,4 +1825,37 @@ function sc_archive_articles($attrs) {
     return ob_get_clean();
 }
 add_shortcode('sc-archive-articles', 'sc_archive_articles');
+
+function sc_callout( $atts, $content='' ) {
+	$atts = shortcode_atts(
+		array(
+			'background' => '#000',
+			'color'      => '#fff',
+			'container'  => True,
+			'class'      => null
+		),
+		$atts
+	);
+
+	$background = $atts['background'];
+	$color = $atts['color'];
+	$container = filter_var( $atts['container'], FILTER_VALIDATE_BOOLEAN );
+	$class = $atts['class'];
+
+	ob_start();
+?>
+	</div><!-- end .container -->
+	<div class="well" style="background-color: <?php echo $background; ?>; color: <?php echo $color; ?>;">
+	<?php if ( $container ) : ?><div class="container"><?php endif; ?>
+		<?php echo $content; ?>
+	<?php if ( $container ) : ?></div><!-- end .container --><?php endif; ?>
+	</div>
+	<div class="container"><!-- Reopen content .container -->
+<?php
+	return ob_get_clean();
+
+}
+
+add_shortcode( 'callout', 'sc_callout' );
+
 ?>
