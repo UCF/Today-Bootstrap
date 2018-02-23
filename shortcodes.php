@@ -1466,6 +1466,34 @@ add_shortcode('expert_photos', 'sc_expert_photos');
 
 
 /**
+ * Feature post meta.
+ *
+ * @return string.
+ * @author Cadie Brown
+ **/
+function sc_feature_post_meta($atts = Array())
+{
+	global $post;
+
+	$css = (isset($atts['css'])) ? $atts['css'] : '';
+
+	$byline = get_post_meta($post->ID, 'author_byline', True);
+	$byline = ($byline != '') ? $byline : get_the_author();
+
+	ob_start()?>
+	<div class="<?php echo $css; ?>" id="meta">
+		<div>
+			<p id="byline-date">By <?php echo $byline; ?> | <?php echo date('F j, Y', strtotime($post->post_date)); ?></p>
+		</div>
+	</div>
+	<?
+	$html = ob_get_contents(); ob_end_clean();
+	return $html;
+}
+add_shortcode('feature_post_meta', 'sc_feature_post_meta');
+
+
+/**
  * Photo set
  *
  * @return string
