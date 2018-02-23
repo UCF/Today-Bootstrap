@@ -35,9 +35,17 @@ $video_url = get_video_url($post->ID);
 				<?php echo do_shortcode( '[feature_post_meta css="clearfix"]' ); ?>
 			</div>
 		</div>
-		<div class="feature-post-feature-img span6" style="background-image: url('<?php the_post_thumbnail_url(); ?>');">
-			<?php the_post_thumbnail( null, array( 'class' => 'img-responsive' ) ); ?>
-		</div>
+		<?php if($video_url != '') : ?>
+			<div class="span6">
+				<div class="feature-video-container">
+					<?php echo $wp_embed->run_shortcode( '[embed width="550" height="500"]'.$video_url.'[/embed]' ); ?>
+				</div>
+			</div>
+		<?php else : ?>
+			<div class="feature-post-feature-img span6" style="background-image: url('<?php the_post_thumbnail_url(); ?>');">
+				<?php the_post_thumbnail( null, array( 'class' => 'img-responsive' ) ); ?>
+			</div>
+		<?php endif; ?>
 	</div>
 	<div class="container">
 		<?php echo gen_alerts_html(); ?>
@@ -46,11 +54,6 @@ $video_url = get_video_url($post->ID);
 		<div class="container">
 			<div class="row">
 				<div class="span10 offset1">
-					<?php if($video_url != '') : ?>
-						<div class="video-container">
-							<?php echo $wp_embed->run_shortcode( '[embed width="550" height="500"]'.$video_url.'[/embed]' ); ?>
-						</div>
-					<?php endif ?>
 					<?php echo display_feature_social(get_permalink($post->ID), $title, $deck); ?>
 					<div id="content">
 						<?php the_content(); ?>
