@@ -65,4 +65,19 @@
 		</script>
 
 	</head>
-	<body class="<?php echo today_body_classes()?>">
+	<body class="body-feature">
+		<div class="feature-header">
+			<div class="container">
+				<nav id="feature-menu" role="navigation">
+					<a href="<?php echo get_home_url(); ?>" class="feature-today-logo">UCF Today</a>
+					<?php echo wp_nav_menu( array(
+						'menu' => 'Feature Story Navigation',
+						'container' => 'false',
+						'menu_class' => 'menu '.get_header_styles(),
+						'menu_id' => 'feature-navigation',
+						'walker' => new Bootstrap_Walker_Nav_Menu()
+						) );
+					?>
+				</nav>
+			</div>
+		</div>
