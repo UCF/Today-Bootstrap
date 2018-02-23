@@ -24,6 +24,7 @@
 				</div>
 			</div>
 		</div>
+	</div>
 	</body>
 	<?php echo "\n".footer_()."\n"?>
 </html>

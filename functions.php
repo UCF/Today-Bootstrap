@@ -191,7 +191,12 @@ function gen_alerts_html()
 		$alerts_html 	= '';
 
 		if ($alerts) {
-			$alert_html = '<div class="row" id="alerts"><ul class="span12">';
+
+			if (is_page_template('featured-single-post.php')) {
+				$alert_html = '<div class="row" id="alerts"><ul class="span10 offset1">';
+			} else {
+				$alert_html = '<div class="row" id="alerts"><ul class="span12">';
+			}
 
 			foreach($alerts as $alert) {
 
@@ -656,6 +661,37 @@ function display_social($url, $title) {
 		<a class="share-googleplus" target="_blank" data-button-target="<?=$url?>" href="https://plus.google.com/share?url=<?=$url?>" title="Share this story on Google+">
 			Share "<?=$title?>" on Google+
 		</a>
+	</div>
+	<?php
+	return ob_get_clean();
+}
+
+
+/**
+ * Displays social share and email links (Facebook, Twitter, G+, Email) for a featured post.
+ * Accepts a post URL, title, and deck as arguments.
+ *
+ * @return string
+ * @author Jo Dickson
+ **/
+function display_feature_social($url, $title, $deck) {
+	$tweet_title = urlencode('UCF Today: '.$title);
+	ob_start(); ?>
+	<div class="feature-social">
+		<hr>
+		<a class="share-facebook" target="_blank" data-button-target="<?php echo $url ?>" href="http://www.facebook.com/sharer.php?u=<?php echo $url ?>" title="Share this story on Facebook">
+			Facebook
+		</a>
+		<a class="share-twitter" target="_blank" data-button-target="<?php echo $url ?>" href="https://twitter.com/intent/tweet?text=<?php echo $tweet_title ?>&url=<?=$url ?>" title="Tweet this story">
+			Twitter
+		</a>
+		<a class="share-googleplus" target="_blank" data-button-target="<?php echo $url ?>" href="https://plus.google.com/share?url=<?php echo $url ?>" title="Share this story on Google+">
+			Google +
+		</a>
+		<a class="share-email" data-button-target="<?php echo $url ?>" href="mailto:?subject=UCF Today: <?php echo $title ?>&body=I saw this article on UCF Today and wanted to share it with you.%0D%0A%0D%0A<?php echo $deck ?>%0D%0A%0D%0A<?php echo $url ?>" title="Share this story via Email">
+			Email
+		</a>
+		<hr>
 	</div>
 	<?php
 	return ob_get_clean();

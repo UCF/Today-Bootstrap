@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Abstract class for defining custom post types.  
- * 
+ * Abstract class for defining custom post types.
+ *
  **/
 abstract class CustomPostType{
-	public 
+	public
 		$name           = 'custom_post_type',
 		$plural_name    = 'Custom Posts',
 		$singular_name  = 'Custom Post',
@@ -29,8 +29,8 @@ abstract class CustomPostType{
 		# Optional default ordering for generic shortcode if not specified by user.
 		$default_orderby = null,
 		$default_order   = null;
-	
-	
+
+
 	/**
 	 * Wrapper for get_posts function, that predefines post_type for this
 	 * custom post type.  Any options valid in get_posts can be passed as an
@@ -48,8 +48,8 @@ abstract class CustomPostType{
 		$objects = get_posts($options);
 		return $objects;
 	}
-	
-	
+
+
 	/**
 	 * Similar to get_objects, but returns array of key values mapping post
 	 * title to id if available, otherwise it defaults to id=>id.
@@ -69,8 +69,8 @@ abstract class CustomPostType{
 		}
 		return $opt;
 	}
-	
-	
+
+
 	/**
 	 * Return the instances values defined by $key.
 	 **/
@@ -78,8 +78,8 @@ abstract class CustomPostType{
 		$vars = get_object_vars($this);
 		return $vars[$key];
 	}
-	
-	
+
+
 	/**
 	 * Additional fields on a custom post type may be defined by overriding this
 	 * method on an descendant object.
@@ -87,8 +87,8 @@ abstract class CustomPostType{
 	public function fields(){
 		return array();
 	}
-	
-	
+
+
 	/**
 	 * Using instance variables defined, returns an array defining what this
 	 * custom post type supports.
@@ -113,8 +113,8 @@ abstract class CustomPostType{
 		}
 		return $supports;
 	}
-	
-	
+
+
 	/**
 	 * Creates labels array, defining names for admin panel.
 	 **/
@@ -127,8 +127,8 @@ abstract class CustomPostType{
 			'new_item'      => __($this->options('new_item')),
 		);
 	}
-	
-	
+
+
 	/**
 	 * Creates metabox array for custom post type. Override method in
 	 * descendants to add or modify metaboxes.
@@ -146,8 +146,8 @@ abstract class CustomPostType{
 		}
 		return null;
 	}
-	
-	
+
+
 	/**
 	 * Registers metaboxes defined for custom post type.
 	 **/
@@ -164,8 +164,8 @@ abstract class CustomPostType{
 			);
 		}
 	}
-	
-	
+
+
 	/**
 	 * Registers the custom post type and any other ancillary actions that are
 	 * required for the post to function properly.
@@ -189,15 +189,15 @@ abstract class CustomPostType{
 		if ($this->options('use_order')){
 			$registration = array_merge($registration, array('hierarchical' => True,));
 		}
-		
+
 		register_post_type($this->options('name'), $registration);
-		
+
 		if ($this->options('use_shortcode')){
 			add_shortcode($this->options('name').'-list', array($this, 'shortcode'));
 		}
 	}
-	
-	
+
+
 	/**
 	 * Shortcode for this custom post type.  Can be overridden for descendants.
 	 * Defaults to just outputting a list of objects outputted as defined by
@@ -214,8 +214,8 @@ abstract class CustomPostType{
 		}
 		return sc_object_list($attr);
 	}
-	
-	
+
+
 	/**
 	 * Handles output for a list of objects, can be overridden for descendants.
 	 * If you want to override how a list of objects are outputted, override
@@ -224,10 +224,10 @@ abstract class CustomPostType{
 	 **/
 	public function objectsToHTML($objects, $css_classes){
 		if (count($objects) < 1){ return '';}
-		
+
 		$class = get_custom_post_type($objects[0]->post_type);
 		$class = new $class;
-		
+
 		ob_start();
 		?>
 		<ul class="<?php if($css_classes):?><?=$css_classes?><?php else:?><?=$class->options('name')?>-list<?php endif;?>">
@@ -241,8 +241,8 @@ abstract class CustomPostType{
 		$html = ob_get_clean();
 		return $html;
 	}
-	
-	
+
+
 	/**
 	 * Outputs this item in HTML.  Can be overridden for descendants.
 	 **/
@@ -259,7 +259,7 @@ abstract class CustomPostType{
  * @author Chris Conover
  **/
 class Alert extends CustomPostType{
-	public 
+	public
 		$name           = 'alert',
 		$plural_name    = 'Alerts',
 		$singular_name  = 'Alert',
@@ -268,7 +268,7 @@ class Alert extends CustomPostType{
 		$new_item       = 'New Alert',
 		$use_thumbnails = True,
 		$use_metabox    = True;
-		
+
 	public function fields() {
 		$prefix = $this->options('name').'_';
 		return array(
@@ -337,15 +337,15 @@ class Post extends CustomPostType
 		$taxonomies = array('experts', 'post_tag', 'category'),
 		$built_in = True,
 		$show_in_rest = True;
-		
+
 	public function fields() {
 		global $post;
-		
+
 		$primary_tag_options = Array();
 		foreach(wp_get_post_tags($post->ID) as $tag) {
 			$primary_tag_options[$tag->name] = $tag->term_id;
 		}
-		
+
 	 	return Array(
 				Array(
 					'name'		=> 'Type',
@@ -364,9 +364,15 @@ class Post extends CustomPostType
 				),
 				Array(
 					'name'	=> 'Subtitle',
-					'desc'	=> 'Appears below the post title on the single story page.',
+					'desc'	=> 'Appears below the post title on the single and featured story pages.',
 					'id'	=> 'subtitle',
 					'type'	=> 'text'
+				),
+				Array(
+					'name'	=> 'Deck',
+					'desc'	=> 'Appears below the subtitle on the featured story page.',
+					'id'	=> 'deck',
+					'type'	=> 'textarea'
 				),
 				Array(
 					'name'	=> 'Author Title',
@@ -382,7 +388,7 @@ class Post extends CustomPostType
 				),
 				Array(
 					'name'	=> 'Source',
-					'desc'	=> 'Appears below the date on the single story page.',
+					'desc'	=> 'Appears below the date on the single story page and below the content on the featured story page.',
 					'id'	=> 'source',
 					'type'	=> 'textarea',
 				),
@@ -395,7 +401,7 @@ class Post extends CustomPostType
 				),
 				Array(
 					'name'	=> 'Video URL',
-					'desc'	=> 'If set, this video will replace the featured image on the home, category/tag and story pages.',
+					'desc'	=> 'If set, this video will replace the featured image on the single story page and display under the header on the featured story page.',
 					'id'	=> 'video_url',
 					'type'	=> 'text'
 				),
@@ -409,7 +415,7 @@ class Post extends CustomPostType
  **/
 class Expert extends CustomPostType
 {
-	public 
+	public
 		$name           = 'expert',
 		$plural_name    = 'Experts',
 		$singular_name  = 'Expert',
@@ -419,7 +425,7 @@ class Expert extends CustomPostType
 		$use_editor		= True,
 		$use_thumbnails = True,
 		$use_metabox    = True;
-		
+
 	public function fields() {
 		$prefix = $this->options('name').'_';
 		return Array(
@@ -464,7 +470,7 @@ class Expert extends CustomPostType
  **/
 class PhotoSet extends CustomPostType
 {
-	public 
+	public
 		$name           = 'photoset',
 		$plural_name    = 'Photo Sets',
 		$singular_name  = 'Photo Set',
@@ -474,17 +480,17 @@ class PhotoSet extends CustomPostType
 		$use_editor		= True,
 		$use_thumbnails = True,
 		$use_metabox    = True,
-		
+
 		$rewrite		= Array('slug' => 'ucf-in-photos'),
-		
+
 		$taxonomies     = Array('experts');
-		
+
 	public function fields() {
 		$prefix = $this->options('name').'_';
 		return Array(
 				Array(
 					'name'	=> 'Note',
-					'desc'	=> 'Images for the set should be uploaded to the Image Gallery 
+					'desc'	=> 'Images for the set should be uploaded to the Image Gallery
 								via the Featured Image section on the right. The image set
 								as the Featured Image will be used as the set\'s representative
 								image on the home page.',
@@ -500,9 +506,9 @@ class PhotoSet extends CustomPostType
  *
  * @author Chris Conover
  **/
-class Video extends CustomPostType 
+class Video extends CustomPostType
 {
-	public 
+	public
 		$name           = 'video',
 		$plural_name    = 'Videos',
 		$singular_name  = 'Video',
@@ -512,9 +518,9 @@ class Video extends CustomPostType
 		$use_thumbnails = False,
 		$use_metabox    = True,
 		$use_editor		= True,
-		
+
 		$taxonomies		= Array('category', 'post_tag', 'experts');
-		
+
 	public function fields() {
 		$prefix = $this->options('name').'_';
 		return Array(
@@ -541,7 +547,7 @@ class Video extends CustomPostType
  **/
 class Profile extends CustomPostType
 {
-	public 
+	public
 		$name           = 'profile',
 		$plural_name    = 'Profiles',
 		$singular_name  = 'Profile',
@@ -552,7 +558,7 @@ class Profile extends CustomPostType
 		$use_thumbnails = True,
 		$use_metabox    = True,
 		$taxonomies     = Array('groups');
-		
+
 	public function fields() {
 		$prefix = $this->options('name').'_';
 		return Array(
@@ -562,7 +568,7 @@ class Profile extends CustomPostType
 					'id'	=> $prefix.'jobtitle',
 					'type'	=> 'text'
 				),
-				
+
 			);
 	}
 }
@@ -574,7 +580,7 @@ class Profile extends CustomPostType
  **/
 class ExternalStory extends CustomPostType
 {
-	public 
+	public
 		$name           = 'externalstory',
 		$plural_name    = 'External Stories',
 		$singular_name  = 'External Story',
@@ -585,7 +591,7 @@ class ExternalStory extends CustomPostType
 		$use_metabox    = True,
 		$use_editor		= False,
 		$taxonomies		= Array('category', 'experts');
-		
+
 	public function fields() {
 		$prefix = $this->options('name').'_';
 		return Array(
