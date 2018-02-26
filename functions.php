@@ -847,6 +847,14 @@ function protocol_relative_oembed($html) {
 add_filter('embed_oembed_html', 'protocol_relative_oembed');
 
 /*
+ * Add responsive container to embeds.
+ */
+function video_embed_html( $html ) {
+    return '<div class="video-container">' . $html . '</div>';
+}
+add_filter( 'embed_oembed_html', 'video_embed_html', 10, 3 );
+
+/*
  * Force an exact crop of an image; bypassing wordpress's default
  * cropping settings which do not upscale small images.
  * http://wordpress.stackexchange.com/a/64953
