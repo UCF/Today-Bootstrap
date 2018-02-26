@@ -1129,9 +1129,6 @@ body.body-feature {
   line-height: 1.4;
   margin-bottom: 0;
 }
-#feature-story #source {
-  margin-top: 20px;
-}
 #feature-story #content blockquote {
   padding: 15px 0 15px 15px;
   margin: 15px 0 15px;
@@ -1144,6 +1141,9 @@ body.body-feature {
 	line-height: 1.4;
 	color: #666;
 	margin-top: 5px;
+}
+#feature-story article .video-container {
+  margin: 20px 0;
 }
 #feature-story #source {
   color: #848484;
