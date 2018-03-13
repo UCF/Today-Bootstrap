@@ -1000,4 +1000,24 @@ function display_related_story( $story ) {
 	return ob_get_clean ();
 }
 
+/**
+* Replaces RSS description element content with a post's promo field if available.
+* If promo field is empty, the content is truncated to 30 words
+*
+* @author Cadie Brown
+* @return string
+*/
+function update_rss_description_to_promo( $content ) {
+	global $post;
+	$promoValue = get_post_meta($post->ID, 'promo', true);
+
+	if (has_tag('Main Site Stories') && !empty($promoValue)) {
+		return $promoValue;
+	} else {
+		$parts = explode(' ', $content, 30);
+		return implode(' ', array_slice($parts, 0, count($parts) - 1)).'...';
+	}
+}
+add_action('the_excerpt_rss', 'update_rss_description_to_promo');
+
 ?>
