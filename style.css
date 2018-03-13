@@ -268,9 +268,9 @@ ul.result-list li h3 { margin-bottom: 5px; }
 .ucf-social-links-default::after {
   clear: both;
 }
-.ucf-social-links-default .btn-twitter,
-.ucf-social-links-default .btn-facebook,
-.ucf-social-links-default .btn-google {
+.ucf-social-links .btn-twitter,
+.ucf-social-links .btn-facebook,
+.ucf-social-links .btn-google {
   background-image: none;
   border: 0;
   border-radius: 0;
@@ -285,27 +285,42 @@ ul.result-list li h3 { margin-bottom: 5px; }
   transition: none;
 }
 
-.ucf-social-links-default .btn-sm {
+.ucf-social-links .btn-sm {
   font-size: 11px;
   padding: 2px 8px;
 }
 
-.ucf-social-links-default .btn-md {
+.ucf-social-links .btn-md {
   font-size: 12px;
   padding: 4px 10px;
 }
 
-.ucf-social-links-default .btn-lg {
+.ucf-social-links .btn-lg {
   font-size: 14px;
   padding: 6px 18px;
 }
 
-/* .ucf-social-links-default .btn-twitter { background-position: -71px 0; }
-.ucf-social-links-default .btn-twitter:hover { background-position: -71px -31px; }
-.ucf-social-links-default .btn-facebook { background-position: 0 0; }
-.ucf-social-links-default .btn-facebook:hover { background-position: 0 -31px; }
-.ucf-social-links-default .btn-google { background-position: -142px 0; }
-.ucf-social-links-default .btn-google:hover { background-position: -142px -31px; } */
+@media (min-width: 820px) and (max-width: 979px), (min-width: 1030px) {
+  .ucf-social-links-affixed {
+    display: flex;
+    flex-direction: column;
+    left: 0;
+    position: fixed;
+    top: calc(10vh + 200px);
+  }
+
+  .ucf-social-links-affixed .btn-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+}
+
 
 .thumb { width: 100%; }
 /* .cropped style uses background-size: cover when it can; older browsers

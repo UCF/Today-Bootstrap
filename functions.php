@@ -643,9 +643,9 @@ function get_posts_search($query='', $post_type='post', $extra_args=array()) {
  * @return string
  * @author Jo Dickson
  **/
-function display_social( $url, $title ) {
+function display_social( $url, $title, $layout='default' ) {
 	$share_text = 'UCF Today: ' . $title;
-	return do_shortcode( '[ucf-social-links permalink="'. $url .'" share_text="'. $share_text .'"]' );
+	return do_shortcode( '[ucf-social-links layout="'. $layout .'" permalink="'. $url .'" share_text="'. $share_text .'"]' );
 }
 
 
@@ -987,4 +987,23 @@ function display_related_story( $story ) {
 	return ob_get_clean ();
 }
 
-?>
+
+/**
+ * Custom layout for content displayed before social links
+ * @author Jo Dickson
+ * @since 2.3.0
+ * @param array $atts | shortcode attributes
+ * @return String
+ **/
+if ( ! function_exists( 'ucf_social_links_display_affixed_before' ) ) {
+	function ucf_social_links_display_affixed_before( $atts ) {
+		ob_start();
+	?>
+		<aside class="ucf-social-links ucf-social-links-affixed">
+	<?php
+		return ob_get_clean();
+	}
+}
+
+add_filter( 'ucf_social_links_display_affixed_before', 'ucf_social_links_display_affixed_before', 10, 1 );
+

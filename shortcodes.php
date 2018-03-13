@@ -276,7 +276,7 @@ function sc_feature($atts = Array(), $id_only = False)
 					<p class="story-blurb">
 						<?php echo get_excerpt( $top_feature )?>
 					</p>
-					<?php echo display_social( get_permalink( $top_feature->ID ), $top_feature->post_title )?>
+					<?php echo display_social( get_permalink( $top_feature->ID ), $top_feature->post_title, 'affixed' )?>
 				</div>
 			</div>
 		</div>
@@ -1020,7 +1020,7 @@ function sc_single_post_meta($atts = Array())
 				</div>
 			<? } ?>
 		</div>
-		<?php echo display_social( get_permalink( $post->ID ), $post->post_title ); ?>
+		<?php echo display_social( get_permalink( $post->ID ), $post->post_title, 'affixed' ); ?>
 	</div>
 	<?
 	$html = ob_get_contents(); ob_end_clean();
