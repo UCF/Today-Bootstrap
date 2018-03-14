@@ -276,7 +276,7 @@ function sc_feature($atts = Array(), $id_only = False)
 					<p class="story-blurb">
 						<?php echo get_excerpt( $top_feature )?>
 					</p>
-					<?php echo display_social( get_permalink( $top_feature->ID ), $top_feature->post_title, 'affixed' )?>
+					<?php echo display_social( get_permalink( $top_feature->ID ), $top_feature->post_title )?>
 				</div>
 			</div>
 		</div>
