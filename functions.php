@@ -996,7 +996,7 @@ function display_related_story( $story ) {
  * @return String
  **/
 if ( ! function_exists( 'ucf_social_links_display_affixed_before' ) ) {
-	function ucf_social_links_display_affixed_before( $atts ) {
+	function ucf_social_links_display_affixed_before( $content='', $atts ) {
 		ob_start();
 	?>
 		<aside class="ucf-social-links ucf-social-links-affixed">
@@ -1005,5 +1005,5 @@ if ( ! function_exists( 'ucf_social_links_display_affixed_before' ) ) {
 	}
 }
 
-add_filter( 'ucf_social_links_display_affixed_before', 'ucf_social_links_display_affixed_before', 10, 1 );
+add_filter( 'ucf_social_links_display_affixed_before', 'ucf_social_links_display_affixed_before', 10, 2 );
 
