@@ -655,37 +655,6 @@ function display_social( $url, $title, $layout='default' ) {
 
 
 /**
- * Displays social share and email links (Facebook, Twitter, G+, Email) for a featured post.
- * Accepts a post URL, title, and deck as arguments.
- *
- * @return string
- * @author Jo Dickson
- **/
-function display_feature_social($url, $title, $deck) {
-	$tweet_title = urlencode('UCF Today: '.$title);
-	ob_start(); ?>
-	<div class="feature-social">
-		<hr>
-		<a class="share-facebook" target="_blank" data-button-target="<?php echo $url ?>" href="http://www.facebook.com/sharer.php?u=<?php echo $url ?>" title="Share this story on Facebook">
-			Facebook
-		</a>
-		<a class="share-twitter" target="_blank" data-button-target="<?php echo $url ?>" href="https://twitter.com/intent/tweet?text=<?php echo $tweet_title ?>&url=<?=$url ?>" title="Tweet this story">
-			Twitter
-		</a>
-		<a class="share-googleplus" target="_blank" data-button-target="<?php echo $url ?>" href="https://plus.google.com/share?url=<?php echo $url ?>" title="Share this story on Google+">
-			Google +
-		</a>
-		<a class="share-email" data-button-target="<?php echo $url ?>" href="mailto:?subject=UCF Today: <?php echo $title ?>&body=I saw this article on UCF Today and wanted to share it with you.%0D%0A%0D%0A<?php echo $deck ?>%0D%0A%0D%0A<?php echo $url ?>" title="Share this story via Email">
-			Email
-		</a>
-		<hr>
-	</div>
-	<?php
-	return ob_get_clean();
-}
-
-
-/**
  * Prevent Wordpress from trying to redirect to a "loose match" post when
  * an invalid URL is requested. WordPress will redirect to 404.php instead.
  *
