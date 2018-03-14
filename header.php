@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en-US">
 	<head>
-		<?="\n".header_()."\n"?>
+		<?php echo header_(); ?>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<!--[if IE]>
-		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
-
-		<?php if ( GA_ACCOUNT ): ?>
+		<?php
+		// START google analytics
+		if ( GA_ACCOUNT ):
+		?>
 		<script>
 		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -31,24 +30,38 @@
 
 		  ga('send', 'pageview');
 		</script>
-		<?php endif; ?>
+		<?php
+		endif;
+		// END google analytics
+		?>
 
-		<?php if ( CB_UID ): ?>
+		<?php
+		// START chartbeat
+		if ( CB_UID ):
+		?>
 		<script>
 		  var CB_UID    = '<?php echo CB_UID; ?>';
 		  var CB_DOMAIN = '<?php echo CB_DOMAIN; ?>';
 		</script>
-		<?php endif; ?>
+		<?php
+		endif;
+		// END chartbeat
+		?>
 
-		<link rel='stylesheet' href="<?php echo THEME_STATIC_URL ?>/bootstrap/bootstrap/css/bootstrap-responsive.min.css" type='text/css' media='all' />
-		<link rel='stylesheet' href="<?php echo THEME_URL ?>/style-responsive.css" type='text/css' media='all' />
+		<?php
+		// START custom page stylesheet
+		$post_type = get_post_type( $post->ID );
 
-		<?  $post_type = get_post_type($post->ID);
-
-			if(($stylesheet_id = get_post_meta($post->ID, $post_type.'_stylesheet', True)) !== False
-				&& ($stylesheet_url = wp_get_attachment_url($stylesheet_id)) !== False) { ?>
-				<link rel='stylesheet' href="<?php echo $stylesheet_url ?>" type='text/css' media='all' />
-		<? } ?>
+		if (
+			( $stylesheet_id = get_post_meta( $post->ID, $post_type.'_stylesheet', True ) ) !== False
+			&& ( $stylesheet_url = wp_get_attachment_url( $stylesheet_id ) ) !== False
+		):
+		?>
+			<link rel="stylesheet" href="<?php echo $stylesheet_url; ?>" type="text/css" media="all" />
+		<?php
+		endif;
+		// END custom page stylesheet
+		?>
 
 		<script type="text/javascript">
 			var PostTypeSearchDataManager = {
@@ -65,29 +78,29 @@
 		</script>
 
 	</head>
-	<body class="<?php echo today_body_classes()?>">
-		<div class="container">
-			<div class="row" id="header" role="banner">
-				<div id="page-title" class="span7">
-					<? if ( is_home() || !is_single() ): ?>
-						<h1><?php echo get_header_title() ?></h1>
-					<? else: ?>
-						<h2><?php echo get_header_title() ?></h2>
-					<? endif; ?>
-				</div>
-				<?php echo esi_include( 'output_weather_data' )?>
-				<hr class="span12" />
+	<body class="<?php echo today_body_classes(); ?>">
+		<header class="site-header">
+			<div class="container">
+				<?php echo get_header_title(); ?>
+				<?php echo esi_include( 'output_weather_data' ); ?>
+				<button class="ucf-mobile-menu-trigger" role="button">Sections</button>
 			</div>
-			<nav id="header-menu" role="navigation">
-				<div class="ucf-mobile-menu-trigger pull-left">menu</div>
-				<?php echo wp_nav_menu( array(
+		</header>
+		<nav id="header-menu" role="navigation">
+			<div class="container">
+				<?php
+				echo wp_nav_menu( array(
 					'menu' => 'Top Navigation',
 					'container' => 'false',
-					'menu_class' => 'menu '.get_header_styles(),
-					'menu_id' => 'navigation',
+					'menu_class' => 'menu',
+					'menu_id' => 'site-navigation',
 					'walker' => new Bootstrap_Walker_Nav_Menu()
-					) );
+				) );
 				?>
-				<?php echo get_search_form()?>
-			</nav>
-			<?php echo gen_alerts_html()?>
+				<?php echo get_search_form(); ?>
+			</div>
+		</nav>
+
+		<?php echo gen_alerts_html(); ?>
+
+		<div class="container">

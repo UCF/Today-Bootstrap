@@ -311,12 +311,11 @@ Config::$styles = array(
 	array('admin' => True, 'src' => THEME_CSS_URL.'/admin.css',),
 	CURRENT_PROTOCOL.'universityheader.ucf.edu/bar/css/bar.css',
 	THEME_STATIC_URL.'/bootstrap/bootstrap/css/bootstrap.min.css',
-);
-
-array_push(Config::$styles,
 	plugins_url( 'gravityforms/css/forms.css' ),
 	THEME_CSS_URL.'/webcom-base.css',
-	get_bloginfo('stylesheet_url')
+	get_bloginfo('stylesheet_url'),
+	THEME_STATIC_URL . '/bootstrap/bootstrap/css/bootstrap-responsive.min.css',
+	THEME_URL . '/style-responsive.css'
 );
 
 Config::$scripts = array(

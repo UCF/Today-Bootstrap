@@ -160,20 +160,30 @@ function get_embed_html( $media_url ) {
  **/
 function output_weather_data() {
 	$weather = get_weather_data();
-	?>
-	<div id="weather_bug" class="span5">
-		<div id="wb_date">
-			<?=date('l, F j, Y')?>
-		</div>
-		<a id="wb_more" href="<?=WEATHER_CLICK_URL?>">more weather</a>
-		<div id="wb_status_img">
-			<img src="<?php bloginfo('stylesheet_directory'); ?>/static/img/weather/WC<?=$weather['img']?>.png" alt="<?=$weather['condition']?>" />
-		</div>
-		<div id="wb_status_txt">
-			<?=$weather['condition']?>, <span><?=$weather['temp']?></span>
-		</div>
+	ob_start();
+?>
+	<div class="weather">
+		<span class="weather-date"><?php echo date( 'l, F j, Y' ); ?></span>
+		<span class="weather-icon wi <?php echo get_weather_icon_class( $weather['condition'] ); ?>" aria-hidden="true"></span>
+		<span class="weather-condition"><?php echo $weather['condition']; ?></span>
+		<span class="weather-temp"><?php echo $weather['temp']; ?></span>
 	</div>
-	<?php
+<?php
+	return ob_get_clean();
+}
+
+
+/**
+ * TODO: Given a weather condition from weather.smca.ucf.edu, returns a weather
+ * icon class name relevant to the condition.
+ *
+ * @since 2.3.0
+ * @param string $condition | condition string from weather.smca.ucf.edu
+ * @return string
+ * @author Jo Dickson
+ **/
+function get_weather_icon_class( $condition ) {
+	return '';
 }
 
 
@@ -558,31 +568,16 @@ function get_theme_option($key) {
  * @return string
  **/
 function get_header_title() {
-	$header_title = '<a href="'.get_bloginfo('url').'">'.get_bloginfo('name').'</a>';
-
-	global $wp_query;
-	$post = $wp_query->queried_object;
-
-	if(!is_search() || !is_home() || !is_404()) {
-		if(is_category() || is_tag()) {
-			$header_title = $post->name;
-		} else if(is_single() && count($cats = wp_get_post_categories($post->ID)) > 0) {
-			$header_title = get_cat_name($cats[0]);
-		} else if(is_page() || is_single()) {
-			if($post->post_type == 'photoset') {
-				//
-			} else if($post->post_type == 'expert') {
-				$header_title = 'Experts at UCF';
-			} else if($post->post_type == 'video') {
-				$header_title = 'Videos';
-			} else if($post->post_type == 'profile') {
-				$header_title = 'Profiles';
-			} else {
-				$header_title = $post->post_title;
-			}
-		}
-	}
-	return $header_title;
+	$elem = ( is_home() || is_front_page() ) ? 'h1' : 'span';
+	ob_start();
+?>
+	<<?php echo $elem; ?> class="TODO">
+		<a href="<?php echo get_bloginfo( 'url' ); ?>">
+			<img src="<?php echo 'TODO'; ?>" alt="<?php echo get_bloginfo( 'name' ); ?>">
+		</a>
+	</<?php echo $elem; ?>>
+<?php
+	return ob_get_clean();
 }
 
 
@@ -999,5 +994,3 @@ function display_related_story( $story ) {
 <?php
 	return ob_get_clean ();
 }
-
-?>
