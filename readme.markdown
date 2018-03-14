@@ -9,6 +9,7 @@ Theme to replace the original Today WordPress theme, which relies on the Themati
 ### Required Plugins:
 * Social
 * Twitter Tools (requires Social)
+* UCF Social Plugin
 * Varnish Dependency Purger
 * WP-Print
 
