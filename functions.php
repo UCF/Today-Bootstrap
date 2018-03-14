@@ -1009,10 +1009,10 @@ function display_related_story( $story ) {
 */
 function update_rss_description_to_promo( $content ) {
 	global $post;
-	$promoValue = get_post_meta($post->ID, 'promo', true);
+	$promo_value = get_post_meta($post->ID, 'promo', true);
 
-	if (has_tag('Main Site Stories') && !empty($promoValue)) {
-		return $promoValue;
+	if (has_tag('Main Site Stories') && !empty($promo_value)) {
+		return $promo_value;
 	} else {
 		$parts = explode(' ', $content, 30);
 		return implode(' ', array_slice($parts, 0, count($parts) - 1)).'...';
