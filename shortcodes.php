@@ -1020,7 +1020,7 @@ function sc_single_post_meta($atts = Array())
 				</div>
 			<? } ?>
 		</div>
-		<?=display_social(get_permalink($post->ID), $post->post_title)?>
+		<?php echo display_social( get_permalink( $post->ID ), $post->post_title, 'affixed' ); ?>
 	</div>
 	<?
 	$html = ob_get_contents(); ob_end_clean();

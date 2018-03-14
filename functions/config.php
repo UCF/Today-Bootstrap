@@ -311,6 +311,7 @@ Config::$styles = array(
 	array('admin' => True, 'src' => THEME_CSS_URL.'/admin.css',),
 	CURRENT_PROTOCOL.'universityheader.ucf.edu/bar/css/bar.css',
 	THEME_STATIC_URL.'/bootstrap/bootstrap/css/bootstrap.min.css',
+	'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
 	plugins_url( 'gravityforms/css/forms.css' ),
 	THEME_CSS_URL.'/webcom-base.css',
 	get_bloginfo('stylesheet_url'),

@@ -638,22 +638,9 @@ function get_posts_search($query='', $post_type='post', $extra_args=array()) {
  * @return string
  * @author Jo Dickson
  **/
-function display_social($url, $title) {
-	$tweet_title = urlencode('UCF Today: '.$title);
-	ob_start(); ?>
-	<div class="social clearfix">
-		<a class="share-facebook" target="_blank" data-button-target="<?=$url?>" href="http://www.facebook.com/sharer.php?u=<?=$url?>" title="Like this story on Facebook">
-			Like "<?=$title?>" on Facebook
-		</a>
-		<a class="share-twitter" target="_blank" data-button-target="<?=$url?>" href="https://twitter.com/intent/tweet?text=<?=$tweet_title?>&url=<?=$url?>" title="Tweet this story">
-			Tweet "<?=$title?>" on Twitter
-		</a>
-		<a class="share-googleplus" target="_blank" data-button-target="<?=$url?>" href="https://plus.google.com/share?url=<?=$url?>" title="Share this story on Google+">
-			Share "<?=$title?>" on Google+
-		</a>
-	</div>
-	<?php
-	return ob_get_clean();
+function display_social( $url, $title, $layout='default' ) {
+	$share_text = 'UCF Today: ' . $title;
+	return do_shortcode( '[ucf-social-links layout="'. $layout .'" permalink="'. $url .'" share_text="'. $share_text .'"]' );
 }
 
 
@@ -994,3 +981,24 @@ function display_related_story( $story ) {
 <?php
 	return ob_get_clean ();
 }
+
+
+/**
+ * Custom layout for content displayed before social links
+ * @author Jo Dickson
+ * @since 2.3.0
+ * @param array $atts | shortcode attributes
+ * @return String
+ **/
+if ( ! function_exists( 'ucf_social_links_display_affixed_before' ) ) {
+	function ucf_social_links_display_affixed_before( $content='', $atts ) {
+		ob_start();
+	?>
+		<aside class="ucf-social-links ucf-social-links-affixed">
+	<?php
+		return ob_get_clean();
+	}
+}
+
+add_filter( 'ucf_social_links_display_affixed_before', 'ucf_social_links_display_affixed_before', 10, 2 );
+
