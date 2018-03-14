@@ -1156,6 +1156,11 @@ body.body-feature {
 #feature-story .feature-video-container iframe {
   max-width: 100%;
 }
+@media (min-width: 768px) {
+  #feature-story .feature-story {
+    margin-top: 30px;
+  }
+}
 #feature-story #content > p:first-child:first-letter  {
   font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
   color: #FFC907;
