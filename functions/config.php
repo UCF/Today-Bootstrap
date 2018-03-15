@@ -324,12 +324,10 @@ Config::$scripts = array(
 	array( 'admin' => True, 'src' => THEME_JS_URL.'/admin.min.js', ),
 	CURRENT_PROTOCOL.'universityheader.ucf.edu/bar/js/university-header.js?use-bootstrap-overrides=1',
 	THEME_STATIC_URL.'/bootstrap/bootstrap/js/bootstrap.min.js',
-	array( 'name' => 'base-script',  'src' => THEME_JS_URL.'/webcom-base.min.js', ),
 	array( 'name' => 'autoellipsis',  'src' => THEME_JS_URL.'/jquery.autoellipsis-1.0.10.min.js', ),
 	array( 'name' => 'jquery-cookie',  'src' => THEME_JS_URL.'/jquery-cookie.js', ),
 	array( 'name' => 'matchheight', 'src' => 'https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight-min.js' ),
 	array( 'name' => 'theme-script', 'src' => THEME_JS_URL.'/script.min.js', ),
-	array( 'name' => 'ucf-mobile-menu', 'src' => THEME_JS_URL.'/ucf-mobile-menu.min.js', ),
 );
 
 Config::$metas = array(

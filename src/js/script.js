@@ -1,3 +1,6 @@
+// =require ucf-mobile-menu.js
+// =require webcom-base.js
+
 const Generic = {};
 
 Generic.defaultMenuSeparators = function ($) {
