@@ -116,7 +116,7 @@ gulp.task('es-lint', function() {
     .pipe(isFixed(config.src.jsPath));
 });
 
-// Concat and uglify js files through babel
+// Uglify js script file through babel
 gulp.task('js-build', function() {
   return gulp.src(config.src.jsPath + '/script.js')
     .pipe(include({
@@ -130,9 +130,51 @@ gulp.task('js-build', function() {
     .pipe(browserSync.stream());
 });
 
+// Uglify admin js file through babel
+gulp.task('js-build-admin', function () {
+  return gulp.src(config.src.jsPath + '/admin.js')
+    .pipe(include({
+      includePaths: [config.packagesPath, config.src.jsPath]
+    }))
+    .on('error', console.log)
+    .pipe(babel())
+    .pipe(uglify())
+    .pipe(rename('admin.min.js'))
+    .pipe(gulp.dest(config.dist.jsPath))
+    .pipe(browserSync.stream());
+});
+
+// Uglify ucf-mobile-menu js file through babel
+gulp.task('js-build-menu', function () {
+  return gulp.src(config.src.jsPath + '/ucf-mobile-menu.js')
+    .pipe(include({
+      includePaths: [config.packagesPath, config.src.jsPath]
+    }))
+    .on('error', console.log)
+    .pipe(babel())
+    .pipe(uglify())
+    .pipe(rename('ucf-mobile-menu.min.js'))
+    .pipe(gulp.dest(config.dist.jsPath))
+    .pipe(browserSync.stream());
+});
+
+// Uglify webcom-base js file through babel
+gulp.task('js-build-webcom', function () {
+  return gulp.src(config.src.jsPath + '/webcom-base.js')
+    .pipe(include({
+      includePaths: [config.packagesPath, config.src.jsPath]
+    }))
+    .on('error', console.log)
+    .pipe(babel())
+    .pipe(uglify())
+    .pipe(rename('webcom-base.min.js'))
+    .pipe(gulp.dest(config.dist.jsPath))
+    .pipe(browserSync.stream());
+});
+
 // All js-related tasks
 gulp.task('js', function() {
-  runSequence('es-lint', 'js-build');
+  runSequence('es-lint', 'js-build', 'js-build-admin', 'js-build-menu', 'js-build-webcom');
 });
 
 
