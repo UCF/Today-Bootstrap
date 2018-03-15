@@ -1,0 +1,372 @@
+// Feature
+#feature h2.feature-title {
+  font-weight: normal !important;
+  margin: 12px 0;
+  font-size: 20px;
+  line-height: 24px;
+  text-transform: none;
+}
+
+#feature h2.feature-cat-title {
+  font-size: 22px;
+  line-height: 26px;
+  text-transform: none;
+}
+
+#feature h2.indent,
+#promos h2.indent {
+  width: 0;
+  height: 0;
+  margin: 0;
+  text-indent: -9999px;
+  display: block;
+}
+
+#feature .thumb {
+  height: 343px;
+}
+
+#feature img {
+  width: 100%;
+}
+
+// Features
+// We don't set a .span value for these li's because the parent .span can be
+// modified at any time thru the Cat/Tag page content. However, there are always
+// 3 list items, so they can each be 33% wide
+#features .story-list img {
+  width: 100%;
+  height: 100%;
+}
+
+#features .story-list h3 {
+  margin-top: 5px;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+#features .story-list p.story-blurb {
+  max-height: 136px;
+  font-size: 15px;
+  line-height: 22px;
+}
+
+// Promos
+#promos ul.story-list li {
+  margin-top: 25px;
+}
+
+#promos ul.story-list li:first-child {
+  margin-top: 0;
+}
+
+#promos ul.story-list li p.story-blurb {
+  max-height: 122px;
+}
+
+#promos ul.story-list li h3 {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+// News
+#ucf_news ul.story-list li {
+  margin-top: 15px;
+}
+
+#ucf_news ul.story-list li p.story-blurb {
+  font-size: 15px;
+  line-height: 22px;
+  max-height: 113px;
+}
+
+#more_headlines h2 {
+  line-height: 16px;
+}
+
+#more_headlines ul.story-list li {
+  line-height: normal;
+  margin-bottom: 15px;
+}
+
+#more_headlines ul.story-list a {
+  color: #000;
+  font-size: 15px;
+  font-weight: normal;
+  text-decoration: underline;
+}
+
+// Profile Feature
+#profile-feature h4,
+#profile-feature strong {
+  color: #333;
+}
+
+#profile-feature h4 {
+  margin-bottom: 4px;
+}
+
+#profile-feature .profile-list>div {
+  margin-bottom: 20px;
+  line-height: 18px;
+}
+
+/** Shortcode - [profile] **/
+
+#profile h3 {
+  font-size: 20px;
+  line-height: 24px;
+  color: #333;
+  text-transform: none;
+  font-weight: normal;
+}
+
+/** Shortcode - [external_stories] **/
+
+#external_stories ul li {
+  font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
+  font-size: 15px;
+  line-height: 18px;
+  margin-bottom: 15px;
+}
+
+#external_stories ul li a {
+  display: block;
+  width: 100%;
+  color: #000;
+  text-decoration: underline;
+}
+
+#external_stories ul li span {
+  color: #037F95;
+}
+
+/** Shortcode - [ucf_photo] **/
+
+#ucf_photo p.story-blurb {
+  font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
+  font-size: 12.5px;
+  line-height: 20px;
+  max-height: 40px;
+}
+
+#ucf_photo h3 {
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 24px;
+}
+
+/** Shortcode - [photo_set] **/
+
+#photoset h3 {
+  font-family: Georgia, serif;
+  font-size: 26px;
+  line-height: 34px;
+  font-weight: normal;
+  text-transform: none;
+  margin-top: 0;
+}
+
+#single #photoset .ucf-social-links-default {
+  margin-top: 5px;
+}
+
+#photoset ul.photoset-list li {
+  background-color: #f9f9f9;
+  margin-bottom: 35px;
+  width: 100%;
+}
+
+#photoset ul.photoset-list li img {
+  width: 100%;
+  height: auto;
+}
+
+#photoset ul.photoset-list li p {
+  font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
+  font-size: 14px;
+  padding: 15px 10px;
+  line-height: 20px;
+}
+
+#photoset ul.photoset-list li p span {
+  font-size: 36px;
+  color: #ffc907;
+  margin-right: 10px;
+  padding-bottom: 5px;
+  display: block;
+  float: left;
+}
+
+/** Shortcode - [photo_sets] **/
+
+#photo-sets h3 {
+  font-weight: normal;
+  text-transform: none;
+  font-size: 24px;
+  line-height: 26px;
+  margin-top: -4px;
+}
+
+#photo-sets .photoset-list>div img {
+  width: 220px;
+  height: 203px;
+}
+
+#photo-sets .photoset-list>div h3 {
+  font-size: 16px;
+  line-height: 16px;
+  margin-top: 10px;
+}
+
+/** Shortcode - [ucf_video] **/
+
+#ucf_video h4 {
+  font-size: 26px;
+  font-weight: 300;
+  margin-bottom: 5px;
+}
+
+/** Shortcode - [videos] **/
+
+#videos article {
+  margin-top: 0;
+}
+
+#videos .feature+div h3 {
+  font-size: 22px;
+  line-height: 24px;
+  text-transform: none;
+}
+
+/* responsive video */
+
+.video-container {
+  clear: both;
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.video-container iframe,
+.video-container object,
+.video-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.entry-content img,
+.entry-content iframe,
+.entry-content object,
+.entry-content embed {
+  max-width: 100%;
+}
+
+/** Shortcode - [announcements] **/
+
+#announcements ul.announcement-list li p.story-blurb {
+  max-height: 114px;
+}
+
+/** Shortcode - [resource] **/
+
+#resources ul {
+  list-style-type: none;
+  margin-left: 0;
+}
+
+#resources ul li {
+  margin-bottom: 5px;
+}
+
+#resources ul li a {
+  color: #990000;
+}
+
+#resources ul li a:hover {
+  color: #000;
+}
+
+/** Shortcode - [single_post_meta] **/
+
+#meta {
+  font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
+}
+
+#meta p {
+  font-size: 11.5px;
+  line-height: 14px;
+  margin-bottom: 4px;
+}
+
+#meta #byline {
+  font-weight: bold;
+}
+
+#meta #print {
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+#meta #source {
+  margin-top: 20px;
+}
+
+#meta #source a {
+  color: #990000;
+  text-decoration: underline;
+}
+
+#meta #source a:hover {
+  color: #000;
+}
+
+/** Shortcode - [expert_meta] **/
+
+#expert_meta p,
+#expert_meta ul {
+  font-size: 14px;
+}
+
+#expert_meta p,
+#expert_meta ul li {
+  margin-bottom: 4px;
+}
+
+#expert_meta ul {
+  list-style-type: none;
+  margin-left: 0;
+  font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
+}
+
+#expert_meta a {
+  color: #990000;
+  text-decoration: underline;
+}
+
+#expert_meta a:hover {
+  color: #000;
+}
+
+/** Shortcode - [single_post_comments] **/
+
+#comments ul.comment-list li .meta {
+  font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
+  margin-bottom: 0;
+  font-size: 12.5px;
+}
+
+#comments ul.comment-list li .content {
+  font-style: italic;
+  font-size: 14px;
+  line-height: 20px;
+  color: #666;
+}
