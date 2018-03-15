@@ -1070,8 +1070,52 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
 .body-feature .site-header {
   margin-bottom: -1px;
 }
-.featured-article > .container:first-of-type p:first-of-type:first-letter {
-  font-family: Georgia, serif;
+
+#feature-story .feature-above-fold {
+  position: relative;
+  min-height: 30vh;
+  margin-bottom: 30px;
+}
+#feature-story .feature-heading-content {
+  box-sizing: border-box;
+  margin: 10% 0 10% auto;
+  max-width: 450px;
+  padding-right: 10px;
+}
+#feature-story #subtitle {
+  font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
+  font-weight: 700;
+}
+#feature-story .feature-post-feature-img {
+  background-size: cover;
+  background-position: center center;
+  height: 100%;
+  position: absolute;
+  right: 0;
+}
+#feature-story .feature-post-feature-img img {
+  clip: rect(1px,1px,1px,1px);
+  height: 1px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 1px;
+}
+#feature-story .feature-video-container {
+  position: relative;
+  height: 100%;
+  max-width: 100%;
+  margin-top: 10%;
+  margin-right: 10%;
+}
+#feature-story .feature-video-container .video-container {
+  padding-top: 0;
+}
+#feature-story .feature-video-container iframe {
+  max-width: 100%;
+}
+#feature-story #content > p:first-child:first-letter  {
+  font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
   color: #FFC907;
   display: block;
   float: left;
@@ -1206,4 +1250,3 @@ a.featured-footer-logo:hover {
 .hidden-xs {
   display: block !important;
 }
-
