@@ -45,6 +45,7 @@
   }
 
   .site-nav .container {
+    box-sizing: border-box;
     padding: 1.5rem;
     width: 100%;
   }
@@ -54,10 +55,23 @@
   }
 
   .site-menu {
+    align-items: flex-start;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: start;
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
     text-align: left;
+  }
+
+  .site-menu .menu-item {
+    padding: 0;
+    width: 100%;
+  }
+
+  .site-menu a {
+    padding: 15px 1.5rem;
   }
 
   .disable-md-navbar-toggle .ucf-mobile-menu-trigger {

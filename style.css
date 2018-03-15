@@ -426,14 +426,30 @@ ul.result-list li h3 { margin-bottom: 5px; }
 }
 
 .site-menu {
+  align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   list-style-type: none;
-  margin: 0;
+  margin: 0 -10px;
   padding-bottom: .75rem;
   padding-top: .75rem;
   text-align: center;
+}
+
+.site-menu .menu-item {
+  line-height: 1.3;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.site-menu a {
+  color: #000;
+  display: block;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: .125em;
+  text-transform: uppercase;
 }
 
 
