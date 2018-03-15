@@ -1,5 +1,6 @@
 <?php disallow_direct_load('single-video.php');?>
 <?php get_header(); the_post();?>
+<?php echo gen_alerts_html(); ?>
 
 <?php
 	$use_page = false;
@@ -13,10 +14,10 @@
 		<article role="main">
 			<? if($use_page == true) { ?>
 				<?=apply_filters('the_content', $page->post_content)?>
-			<?php 
+			<?php
 			} else { ?>
 				<?=do_shortcode('[videos specific_video="'.$post->ID.'"]')?>
-			<?php 
+			<?php
 			}
 			?>
 		</article>

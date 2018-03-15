@@ -1,5 +1,8 @@
 <?php disallow_direct_load( 'category.php' );?>
 <?php get_header();?>
+
+<?php echo gen_alerts_html(); ?>
+
 <?php
 	$use_page = false;
 	$page = get_page_by_title( 'Category' );
