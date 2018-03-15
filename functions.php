@@ -160,20 +160,30 @@ function get_embed_html( $media_url ) {
  **/
 function output_weather_data() {
 	$weather = get_weather_data();
-	?>
-	<div id="weather_bug" class="span5">
-		<div id="wb_date">
-			<?=date('l, F j, Y')?>
-		</div>
-		<a id="wb_more" href="<?=WEATHER_CLICK_URL?>">more weather</a>
-		<div id="wb_status_img">
-			<img src="<?php bloginfo('stylesheet_directory'); ?>/static/img/weather/WC<?=$weather['img']?>.png" alt="<?=$weather['condition']?>" />
-		</div>
-		<div id="wb_status_txt">
-			<?=$weather['condition']?>, <span><?=$weather['temp']?></span>
-		</div>
+	ob_start();
+?>
+	<div class="weather">
+		<span class="weather-date"><?php echo date( 'l, F j, Y' ); ?></span>
+		<span class="weather-icon wi <?php echo get_weather_icon_class( $weather['condition'] ); ?>" aria-hidden="true"></span>
+		<span class="weather-condition"><?php echo $weather['condition']; ?></span>
+		<span class="weather-temp"><?php echo $weather['temp']; ?></span>
 	</div>
-	<?php
+<?php
+	return ob_get_clean();
+}
+
+
+/**
+ * TODO: Given a weather condition from weather.smca.ucf.edu, returns a weather
+ * icon class name relevant to the condition.
+ *
+ * @since 2.3.0
+ * @param string $condition | condition string from weather.smca.ucf.edu
+ * @return string
+ * @author Jo Dickson
+ **/
+function get_weather_icon_class( $condition ) {
+	return '';
 }
 
 
@@ -562,32 +572,33 @@ function get_theme_option($key) {
  *
  * @return string
  **/
-function get_header_title() {
-	$header_title = '<a href="'.get_bloginfo('url').'">'.get_bloginfo('name').'</a>';
-
-	global $wp_query;
-	$post = $wp_query->queried_object;
-
-	if(!is_search() || !is_home() || !is_404()) {
-		if(is_category() || is_tag()) {
-			$header_title = $post->name;
-		} else if(is_single() && count($cats = wp_get_post_categories($post->ID)) > 0) {
-			$header_title = get_cat_name($cats[0]);
-		} else if(is_page() || is_single()) {
-			if($post->post_type == 'photoset') {
-				//
-			} else if($post->post_type == 'expert') {
-				$header_title = 'Experts at UCF';
-			} else if($post->post_type == 'video') {
-				$header_title = 'Videos';
-			} else if($post->post_type == 'profile') {
-				$header_title = 'Profiles';
-			} else {
-				$header_title = $post->post_title;
-			}
-		}
+function get_header_title( $elem='' ) {
+	if ( !$elem ) {
+		$elem = ( is_home() || is_front_page() ) ? 'h1' : 'span';
 	}
-	return $header_title;
+	ob_start();
+?>
+	<<?php echo $elem; ?> class="site-title">
+		<a href="<?php echo get_bloginfo( 'url' ); ?>">
+			<img class="site-logo" src="<?php echo THEME_IMG_URL . '/ucftoday4.png'; ?>" alt="<?php echo get_bloginfo( 'name' ); ?>">
+		</a>
+	</<?php echo $elem; ?>>
+<?php
+	return ob_get_clean();
+}
+
+
+/**
+ * Determine whether the site's expandable nav toggle should be disabled
+ * at the -md breakpoint (and force the site's primary navigation to be
+ * visible) depending on the current view.
+ *
+ * @author Jo Dickson
+ * @since 2.3.0
+ * @return bool
+ */
+function disable_md_nav_toggle() {
+	return is_home() || is_front_page() || is_category() || is_tag();
 }
 
 
@@ -601,6 +612,11 @@ function get_header_title() {
 function today_body_classes() {
 	global $post;
 	$classes = '';
+
+	if ( disable_md_nav_toggle() ) {
+		$classes .= 'disable-md-navbar-toggle ';
+	}
+
 	if (is_home()) {
 		$classes .= 'body-home ';
 	}
@@ -612,6 +628,9 @@ function today_body_classes() {
 	}
 	elseif ($post->post_type == 'photoset') {
 		$classes .= 'body-photoset ';
+	}
+	elseif ( get_page_template_slug( $post ) == 'featured-single-post.php' ) {
+		$classes .= 'body-feature ';
 	}
 	else {
 		$classes .= 'body-subpage ';

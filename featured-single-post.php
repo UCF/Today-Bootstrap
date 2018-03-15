@@ -4,7 +4,7 @@
  * Template Post Type: Post
  */
 disallow_direct_load( 'featured-single-post.php' );
-get_header( 'featured' ); the_post();
+get_header(); the_post();
 
 $title = $post->post_title;
 $subtitle = get_post_meta( $post->ID, 'subtitle', TRUE );
