@@ -79,27 +79,43 @@
 
 	</head>
 	<body class="<?php echo today_body_classes(); ?>">
+		<div class="site-nav-overlay fade" id="nav-overlay"></div>
 		<header class="site-header">
-			<div class="container">
-				<?php echo get_header_title(); ?>
-				<?php echo esi_include( 'output_weather_data' ); ?>
-				<button class="ucf-mobile-menu-trigger" role="button">Sections</button>
+			<div class="container site-header-inner">
+				<div class="site-header-info">
+					<?php echo get_header_title(); ?>
+					<div class="site-header-desc"><?php echo bloginfo( 'description' ); ?></div>
+				</div>
+				<div class="site-header-actions">
+					<?php if ( disable_md_nav_toggle() ): ?>
+						<?php echo esi_include( 'output_weather_data' ); ?>
+					<?php endif; ?>
+					<button class="ucf-mobile-menu-trigger" role="button">Sections</button>
+				</div>
 			</div>
+			<nav class="site-nav" id="header-menu" role="navigation">
+				<div class="container">
+					<button class="close-icon">Close Menu</button>
+					<div class="hidden-desktop">
+						<?php echo get_header_title( 'span' ); ?>
+						<div class="site-header-desc"><?php echo bloginfo( 'description' ); ?></div>
+					</div>
+					<?php
+					echo wp_nav_menu( array(
+						'menu' => 'Top Navigation',
+						'container' => 'false',
+						'menu_class' => 'site-menu',
+						'menu_id' => 'header-navigation',
+						'walker' => new Bootstrap_Walker_Nav_Menu()
+					) );
+					?>
+					<div class="hidden-desktop">
+						<?php echo esi_include( 'output_weather_data' ); ?>
+						<?php echo get_search_form(); ?>
+					</div>
+				</div>
+			</nav>
 		</header>
-		<nav id="header-menu" role="navigation">
-			<div class="container">
-				<?php
-				echo wp_nav_menu( array(
-					'menu' => 'Top Navigation',
-					'container' => 'false',
-					'menu_class' => 'menu',
-					'menu_id' => 'site-navigation',
-					'walker' => new Bootstrap_Walker_Nav_Menu()
-				) );
-				?>
-				<?php echo get_search_form(); ?>
-			</div>
-		</nav>
 
 		<?php echo gen_alerts_html(); ?>
 

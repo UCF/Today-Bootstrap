@@ -567,17 +567,33 @@ function get_theme_option($key) {
  *
  * @return string
  **/
-function get_header_title() {
-	$elem = ( is_home() || is_front_page() ) ? 'h1' : 'span';
+function get_header_title( $elem='' ) {
+	if ( !$elem ) {
+		$elem = ( is_home() || is_front_page() ) ? 'h1' : 'span';
+	}
 	ob_start();
 ?>
-	<<?php echo $elem; ?> class="TODO">
+	<<?php echo $elem; ?> class="site-title">
 		<a href="<?php echo get_bloginfo( 'url' ); ?>">
-			<img src="<?php echo 'TODO'; ?>" alt="<?php echo get_bloginfo( 'name' ); ?>">
+			<img class="site-logo" src="<?php echo THEME_IMG_URL . '/ucftoday4.png'; ?>" alt="<?php echo get_bloginfo( 'name' ); ?>">
 		</a>
 	</<?php echo $elem; ?>>
 <?php
 	return ob_get_clean();
+}
+
+
+/**
+ * Determine whether the site's expandable nav toggle should be disabled
+ * at the -md breakpoint (and force the site's primary navigation to be
+ * visible) depending on the current view.
+ *
+ * @author Jo Dickson
+ * @since 2.3.0
+ * @return bool
+ */
+function disable_md_nav_toggle() {
+	return is_home() || is_front_page() || is_category() || is_tag();
 }
 
 
@@ -591,6 +607,11 @@ function get_header_title() {
 function today_body_classes() {
 	global $post;
 	$classes = '';
+
+	if ( disable_md_nav_toggle() ) {
+		$classes .= 'disable-md-navbar-toggle ';
+	}
+
 	if (is_home()) {
 		$classes .= 'body-home ';
 	}
@@ -602,6 +623,9 @@ function today_body_classes() {
 	}
 	elseif ($post->post_type == 'photoset') {
 		$classes .= 'body-photoset ';
+	}
+	elseif ( get_page_template_slug( $post ) == 'featured-single-post.php' ) {
+		$classes .= 'body-feature ';
 	}
 	else {
 		$classes .= 'body-subpage ';
