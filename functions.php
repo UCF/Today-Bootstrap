@@ -989,6 +989,27 @@ function display_related_story( $story ) {
 
 
 /**
+* Replaces RSS description element content with a post's promo field if available.
+* If promo field is empty, the content is truncated to 30 words
+*
+* @author Cadie Brown
+* @return string
+*/
+function update_rss_description_to_promo( $content ) {
+	global $post;
+	$promo_value = get_post_meta($post->ID, 'promo', true);
+
+	if (has_tag('Main Site Stories') && !empty($promo_value)) {
+		return $promo_value;
+	} else {
+		$parts = explode(' ', $content, 30);
+		return implode(' ', array_slice($parts, 0, count($parts) - 1)).'...';
+	}
+}
+add_action('the_excerpt_rss', 'update_rss_description_to_promo');
+
+
+/**
  * Custom layout for content displayed before social links
  * @author Jo Dickson
  * @since 2.3.0
@@ -1006,4 +1027,3 @@ if ( ! function_exists( 'ucf_social_links_display_affixed_before' ) ) {
 }
 
 add_filter( 'ucf_social_links_display_affixed_before', 'ucf_social_links_display_affixed_before', 10, 2 );
-
