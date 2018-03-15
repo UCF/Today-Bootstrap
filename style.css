@@ -1109,6 +1109,7 @@ a:hover .related-story-title { text-decoration: none; }
   -webkit-font-smoothing: antialiased;
   font-weight: 300;
   letter-spacing: .05em;
+  line-height: 1.2;
   margin-bottom: .75em;
   margin-top: .05em;
   text-transform: uppercase;
