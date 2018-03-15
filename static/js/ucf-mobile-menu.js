@@ -4,6 +4,8 @@
 
 	var menuSelector;
   var menuTriggerSelector;
+  var $menuTrigger;
+  var menuTriggerClass;
   var $menu;
   var menuSlideoutClass;
   var menuCloseSelector;
@@ -18,11 +20,13 @@
 
   function closeMenu() {
     $menu.removeClass(menuSlideoutClass);
+    $menuTrigger.removeClass(menuTriggerClass);
     $bodyOverlay.removeClass(bodyOverlayClass);
   }
 
   function toggleMenu() {
     $menu.toggleClass(menuSlideoutClass);
+    $menuTrigger.toggleClass(menuTriggerClass);
     $bodyOverlay.toggleClass(bodyOverlayClass);
   }
 
@@ -50,6 +54,8 @@
 	function init() {
     menuSelector = '.site-nav';
     menuTriggerSelector = '.ucf-mobile-menu-trigger';
+    $menuTrigger = $(menuTriggerSelector);
+    menuTriggerClass = 'active';
     $menu = $(menuSelector);
     menuSlideoutClass = 'slideout';
     menuCloseSelector = '.close-icon';

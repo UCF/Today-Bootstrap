@@ -355,24 +355,32 @@ ul.result-list li h3 { margin-bottom: 5px; }
 
 
 /** Header **/
+.site-header,
+.site-header * {
+  box-sizing: border-box;
+}
+
 .site-header {
   border-bottom: 1px solid #eee;
+  font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
   margin-bottom: 20px;
 }
 
 .site-header-inner {
   display: flex;
   flex-direction: row;
-  padding-bottom: .75rem;
-  padding-top: .75rem;
+  min-height: 50px;
+  padding-bottom: .5rem;
+  padding-top: .5rem;
 }
 
-.site-header-desc {
-  margin-top: auto;
+.site-header-inner .site-header-desc {
+  margin-top: 7px;
 }
 
 .site-header-info,
 .site-header-actions {
+  align-items: center;
   display: flex;
   flex-direction: row;
 }
@@ -397,6 +405,21 @@ ul.result-list li h3 { margin-bottom: 5px; }
   width: 140px;
 }
 
+.site-header-info .site-header-desc {
+  margin-left: 1em;
+}
+
+.site-header-desc {
+  color: #555;
+  font-size: 12px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.site-header-actions .weather-date {
+  display: none;
+}
+
 .site-nav {
   background-color: #eee;
   height: 0;
@@ -415,6 +438,37 @@ ul.result-list li h3 { margin-bottom: 5px; }
   background-color: rgba(0, 0, 0, .5);
   content: '';
   opacity: 0;
+}
+
+.ucf-mobile-menu-trigger {
+  align-items: center;
+  background-color: #fff;
+  border: 3px solid #000;
+  display: flex;
+  flex-direction: row;
+  font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 1;
+  padding: 4px 8px 4px 12px;
+  text-transform: uppercase;
+}
+
+.ucf-mobile-menu-trigger:hover,
+.ucf-mobile-menu-trigger:active,
+.ucf-mobile-menu-trigger.active,
+.ucf-mobile-menu-trigger:focus {
+  background-color: #fc0;
+  border-color: #fc0;
+}
+
+.ucf-mobile-menu-trigger::after {
+  /* TODO use better base64 encoded svg hamburger icon */
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+  content: '';
+  height: 25px;
+  margin-left: 8px;
+  width: 25px;
 }
 
 .disable-md-navbar-toggle .ucf-mobile-menu-trigger {
