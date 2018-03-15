@@ -4,6 +4,7 @@
  **/
 ?>
 <?php get_header(); the_post();?>
+<?php echo gen_alerts_html(); ?>
 	<div class="row page-content" id="<?=$post->post_name?>">
 		<div class="span12">
 			<article role="main">

@@ -1,4 +1,5 @@
 <?php get_header();?>
+<?php echo gen_alerts_html(); ?>
     <div id="archives" class="subpage">
         <div class="row">
             <div class="span9 border-right">

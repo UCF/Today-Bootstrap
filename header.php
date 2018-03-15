@@ -118,4 +118,3 @@
 		</header>
 
 		<div class="container">
-			<?php echo gen_alerts_html(); ?>
