@@ -16,6 +16,7 @@
 	} else { ?>
 		<div class="row">
 			<div class="span9 border-right">
+				<h1 class="term-heading"><?php single_tag_title(); ?></h1>
 			    <?=do_shortcode('[feature css="border-bottom"]')?>
 			    <?=do_shortcode('[subpage_features]')?>
 			</div>

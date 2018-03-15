@@ -221,4 +221,10 @@
   .well {
     margin: 1em -20px;
   }
+
+  .term-heading {
+    font-size: 28px;
+    margin-bottom: .5em;
+    margin-top: 0;
+  }
 }
