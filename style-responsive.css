@@ -75,7 +75,7 @@
   }
 
   .disable-md-navbar-toggle .ucf-mobile-menu-trigger {
-    display: block;
+    display: flex;
   }
 
 	.search form.search-form input#s {
