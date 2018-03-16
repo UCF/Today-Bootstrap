@@ -316,7 +316,7 @@ Config::$styles = array(
 
 array_push(Config::$styles,
 	plugins_url( 'gravityforms/css/forms.css' ),
-	THEME_CSS_URL.'/webcom-base.css',
+	THEME_CSS_URL.'/style.min.css',
 	get_bloginfo('stylesheet_url')
 );
 

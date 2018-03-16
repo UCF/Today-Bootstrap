@@ -41,7 +41,6 @@
 		<?php endif; ?>
 
 		<link rel='stylesheet' href="<?php echo THEME_STATIC_URL ?>/bootstrap/bootstrap/css/bootstrap-responsive.min.css" type='text/css' media='all' />
-		<link rel='stylesheet' href="<?php echo THEME_URL ?>/static/css/style.min.css" type='text/css' media='all' />
 
 		<?  $post_type = get_post_type($post->ID);
 
