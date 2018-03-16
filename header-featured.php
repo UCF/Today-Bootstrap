@@ -64,6 +64,10 @@
 			}
 		</script>
 
+		<?php if ( is_single() ):
+			echo display_news_schema( $post );
+		endif; ?>
+
 	</head>
 	<body class="body-feature">
 		<div class="feature-header">

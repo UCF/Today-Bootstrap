@@ -64,6 +64,10 @@
 			}
 		</script>
 
+		<?php if ( is_single() ):
+			echo display_news_schema( $post );
+		endif; ?>
+
 	</head>
 	<body class="<?php echo today_body_classes()?>">
 		<div class="container">

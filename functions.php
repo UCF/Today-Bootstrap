@@ -1044,4 +1044,49 @@ function display_related_story( $story ) {
 	return ob_get_clean ();
 }
 
-?>
+/**
+ * Displays 'NewsArticle' schema on post pages
+ * @author Cadie Brown
+ * @param WP_Post $post The post object
+ * @return string
+ */
+ function display_news_schema( $post ) {
+	$post_promo = get_post_meta($post->ID, 'promo', true);
+	$excerpt = get_excerpt($post);
+	$description = !empty($post_promo) ? $post_promo : $excerpt;
+	ob_start();
+ ?>
+	<script type="application/ld+json">
+	{
+	"@context": "http://schema.org",
+	"@type": "NewsArticle",
+	"mainEntityOfPage": {
+		"@type": "WebPage",
+		"@id": "<?php echo site_url(); ?>"
+	},
+	"headline": "<?php echo the_title(); ?>",
+	"image": [
+		"// TODO: ECHO POST FEATURE IMAGE",
+		"https://example.com/photos/4x3/photo.jpg",
+		"https://example.com/photos/16x9/photo.jpg"
+	],
+	"datePublished": "<?php echo get_the_date(DATE_ISO8601); ?>",
+	"dateModified": "<?php echo get_the_modified_date(DATE_ISO8601); ?>",
+	"author": {
+		"@type": "Person",
+		"name": "<?php echo get_the_author(); ?>"
+	},
+	"publisher": {
+		"@type": "Organization",
+		"name": "University of Central Florida",
+		"logo": {
+			"@type": "ImageObject",
+			"url": "// TODO: ECHO LOGO URL"
+		}
+	},
+	"description": "<?php echo $description; ?>"
+	}
+	</script>
+<?php
+	return ob_get_clean ();
+}
