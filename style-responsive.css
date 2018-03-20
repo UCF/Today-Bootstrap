@@ -104,7 +104,8 @@
     width: 100%;
   }
 
-  .site-menu .menu-item:hover {
+  .site-menu .menu-item:hover,
+  .site-menu .current-menu-item {
     background: #f1f1f1;
   }
 
