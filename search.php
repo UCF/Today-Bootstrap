@@ -32,15 +32,15 @@
 					</li>
 				<?php endforeach;?>
 				</ul>
-			
+
 				<?php if($start + $limit < $results['number']):?>
 				<a class="button more" href="./?s=<?=$query_clean?>&amp;start=<?=$start + $limit?>">More Results</a>
 				<?php endif;?>
-				
+
 				<?php else:?>
-					
+
 				<p>No results found for "<?=$query_clean?>".</p>
-				
+
 				<?php endif;?>
 			</article>
 		</div>
@@ -76,7 +76,7 @@
 							</div>
 							<ul class="meta">
 								<li class="date"><?=date('F d, Y', strtotime($post->post_date))?></li>
-								<?php 
+								<?php
 								$mainsite_tag = get_mainsite_tag();
 								$tags = wp_get_post_tags($post->ID);
 								$cats = wp_get_post_categories($post->ID);
@@ -89,14 +89,14 @@
 									}
 								}
 
-								if ($tags !== null || $cat_ids !== null) { 
+								if ($tags !== null || $cat_ids !== null) {
 								?>
 								<li>
 									<ul class="term-list">
 										<?php
 										$count = 0;
 										if ($tags) {
-											foreach ($tags as $tag) { 
+											foreach ($tags as $tag) {
 												if($tag->term_id != $mainsite_tag->term_id) {
 										?>
 											<li>
@@ -110,7 +110,7 @@
 											}
 										}
 										if ($cats) {
-											foreach ($cats as $cat) { 
+											foreach ($cats as $cat) {
 												$cat = get_category($cat);
 										?>
 											<li>
@@ -132,12 +132,12 @@
 						</li>
 					<?php endwhile;?>
 					</ul>
-				<?php else:?>		
+				<?php else:?>
 					<p>No results found for "<?=$query_clean?>".</p>
 				<?php endif;?>
 			</article>
 		</div>
-		
+
 		<div id="sidebar" class="span4 offset1">
 			<div id="expert_results" class="border-bottom">
 				<h3>Experts</h3>
@@ -147,7 +147,7 @@
 				?>
 					<ul class="expert-list">
 					<?php
-					foreach ($experts as $expert) { 
+					foreach ($experts as $expert) {
 						$title = get_post_meta($expert->ID, 'expert_title', true);
 						$association = get_post_meta($expert->ID, 'expert_association', true);
 					?>
@@ -182,7 +182,7 @@
 				?>
 					<ul class="video-list">
 					<?php
-					foreach ($videos as $video) { 
+					foreach ($videos as $video) {
 						$link = get_post_meta($video->ID, 'video_url', true);
 						$parts = parse_url($link);
 						parse_str($parts['query'], $parts);
@@ -190,7 +190,7 @@
 					?>
 						<li class="clearfix">
 							<a href="<?=$link?>">
-								<img src="http://img.youtube.com/vi/<?=$ytid?>/mqdefault.jpg" alt="<?=$video->post_title?>" title="<?=$video->post_title?>" />
+								<img src="https://img.youtube.com/vi/<?=$ytid?>/mqdefault.jpg" alt="<?=$video->post_title?>" title="<?=$video->post_title?>" />
 							</a>
 							<h4>
 								<a href="<?=$link?>">

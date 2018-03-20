@@ -363,6 +363,12 @@ class Post extends CustomPostType
 									),
 				),
 				Array(
+					'name'	=> 'Promo',
+					'desc'	=> 'Used to promote the story. Appears below the story title in the GMUCF emails. <br><em>(Recommended character count is ~30 words)</em>',
+					'id'	=> 'promo',
+					'type'	=> 'textarea'
+				),
+				Array(
 					'name'	=> 'Subtitle',
 					'desc'	=> 'Appears below the post title on the single and featured story pages.',
 					'id'	=> 'subtitle',
