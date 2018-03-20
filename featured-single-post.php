@@ -4,7 +4,7 @@
  * Template Post Type: Post
  */
 disallow_direct_load( 'featured-single-post.php' );
-get_header( 'featured' ); the_post();
+get_header(); the_post();
 
 $title = $post->post_title;
 $subtitle = get_post_meta( $post->ID, 'subtitle', TRUE );
@@ -54,18 +54,13 @@ $video_url = get_video_url($post->ID);
 		<div class="container">
 			<div class="row">
 				<div class="span10 offset1">
-					<div class="hidden-xs">
-						<?php echo display_feature_social(get_permalink($post->ID), $title, $deck); ?>
-					</div>
 					<div id="content">
 						<?php the_content(); ?>
 					</div>
 					<?php if ( $source ) : ?>
 						<p id="source"><?php echo $source; ?></p>
 					<?php endif; ?>
-					<div class="visible-xs">
-						<?php echo display_feature_social(get_permalink($post->ID), $title, $deck); ?>
-					</div>
+					<?php echo display_social( get_permalink( $post->ID ), $title, 'affixed' ); ?>
 				</div>
 			</div>
 		</div>

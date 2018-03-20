@@ -1,5 +1,6 @@
 <?php disallow_direct_load('single-expert.php');?>
 <?php get_header(); the_post();?>
+<?php echo gen_alerts_html(); ?>
 
 <?php
 	$use_page = false;
@@ -12,7 +13,7 @@
 	<div id="single">
 	<? if($use_page == true) { ?>
 		<?=apply_filters('the_content', $page->post_content)?>
-	<?php 
+	<?php
 	} else { ?>
 		<div class="row">
 			<?=do_shortcode('[single_post css="span7"]')?>
@@ -24,7 +25,7 @@
 				<?=do_shortcode('[single_post_recommended]')?>
 			</div>
 		</div>
-	<?php 
+	<?php
 	}
 	?>
 	</div>

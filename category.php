@@ -1,5 +1,8 @@
 <?php disallow_direct_load( 'category.php' );?>
 <?php get_header();?>
+
+<?php echo gen_alerts_html(); ?>
+
 <?php
 	$use_page = false;
 	$page = get_page_by_title( 'Category' );
@@ -14,6 +17,7 @@
 	} else { ?>
 		<div class="row">
 			<div class="span9 border-right">
+				<h1 class="term-heading"><?php single_cat_title(); ?></h1>
 			    <?php echo do_shortcode( '[feature css="border-bottom"]' )?>
 			    <?php echo do_shortcode( '[subpage_features]' )?>
 			</div>
