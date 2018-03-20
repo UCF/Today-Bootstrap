@@ -2,7 +2,7 @@
 Theme Name: UCF Today WordPress Theme Bootstrap
 Author: UCF Web Communications
 Github Theme URI: https://github.com/UCF/Today-Bootstrap
-Version: v2.3.0
+Version: v2.3.1
 */
 
 /** Universal **/
@@ -1113,4 +1113,3 @@ body:not(:-moz-handler-blocked) #single #content > p:first-child:first-letter {
 a.featured-footer-logo:hover { text-decoration: none; color: #000 !important; }
 .featured-footer-logo .featured-footer-gold { color: #fc0; font-weight: 700; margin-right: 2px; }
 a:hover .related-story-title { text-decoration: none; }
-
