@@ -5,6 +5,7 @@
     "babel-eslint": "^8.0.2",
     "babel-plugin-transform-es2015-modules-strip": "^0.1.1",
     "babel-preset-env": "^1.6.1",
+    "bootstrap-sass": "2.3.2",
     "browser-sync": "^2.18.13",
     "eslint": "^4.12.0",
     "font-awesome": "github:FortAwesome/Font-Awesome#v4.7.0",
