@@ -34,19 +34,6 @@ var configLocal = require('./gulp-config.json'),
 
 
 //
-// Installation of components/dependencies
-//
-
-// Copy Font Awesome files
-// gulp.task('move-components-fontawesome', function() {
-//   gulp.src(config.packagesPath + '/font-awesome/fonts/**/*')
-//    .pipe(gulp.dest(config.dist.fontPath + '/font-awesome'));
-// });
-
-// Run all component-related tasks
-// gulp.task('components', ['move-components-glyphicons', 'move-components-fontawesome']);
-
-//
 // CSS
 //
 
