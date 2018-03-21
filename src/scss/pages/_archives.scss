@@ -1,0 +1,66 @@
+/** Achives **/
+
+#archives ul {
+  list-style-type: none;
+  margin: 0;
+}
+
+#archives li {
+  margin-bottom: 20px;
+}
+
+#archives .thumbnail {
+  width: 95px;
+  height: 91px;
+  float: left;
+  padding: 0;
+  margin-right: 10px;
+  border: none;
+}
+
+#archives .month_year {
+  margin-bottom: 30px;
+  font-size: 24px;
+  line-height: 24px;
+  text-transform: none;
+  font-weight: normal
+}
+
+#archives h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 20px;
+  line-height: 20px;
+}
+
+#archives .ellipse {
+  margin-left: 105px;
+  font-size: 15px;
+  line-height: 22px;
+}
+
+#archives .date {
+  margin-bottom: 0;
+  font-family: Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: 20px;
+}
+
+#archives .next {
+  float: left;
+}
+
+#archives .previous {
+  float: right;
+}
+
+#archives .next a,
+#archives .previous a {
+  color: #990000;
+  text-decoration: underline;
+}
+
+#archives .next a:hover,
+#archives .previous a:hover {
+  color: #000;
+}

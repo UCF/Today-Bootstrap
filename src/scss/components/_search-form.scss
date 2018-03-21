@@ -1,0 +1,52 @@
+// Search Form Styles
+.search form.search-form {
+  margin: 0;
+}
+
+.search form.search-form * {
+  font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
+  font-size: 11px;
+}
+
+.search form.search-form label {
+  text-indent: -9999px;
+  width: 0;
+  height: 0;
+  display: block;
+}
+
+.search form.search-form input#s {
+  width: 85%;
+  float: left;
+  font-style: italic;
+  border-radius: 0;
+  padding: 4px;
+  height: 24px;
+  line-height: 14px;
+  border: 1px solid #BBB;
+  border-right: 0;
+  margin-bottom: 0;
+}
+
+.search form.search-form button {
+  display: block;
+  background-color: #666;
+  color: #fff;
+  text-transform: uppercase;
+  border: 0;
+  width: 15%;
+  height: 24px;
+  line-height: 14px;
+  float: left;
+}
+
+@media (max-width: 979px) {
+
+  .search form.search-form input#s {
+    width: 80%;
+  }
+  .search form.search-form button {
+    width: 20%;
+  }
+
+}

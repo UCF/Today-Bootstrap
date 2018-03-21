@@ -1,0 +1,26 @@
+/** Shortcode - [expert_meta] **/
+
+#expert_meta p,
+#expert_meta ul {
+  font-size: 14px;
+}
+
+#expert_meta p,
+#expert_meta ul li {
+  margin-bottom: 4px;
+}
+
+#expert_meta ul {
+  list-style-type: none;
+  margin-left: 0;
+  font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
+}
+
+#expert_meta a {
+  color: #990000;
+  text-decoration: underline;
+}
+
+#expert_meta a:hover {
+  color: #000;
+}

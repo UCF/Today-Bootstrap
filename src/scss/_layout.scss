@@ -78,13 +78,7 @@ ul.story-list li .content {
   margin-left: 110px;
 }
 
-#ucf_news ul.story-list li a {
-  color: #000;
-}
 
-#ucf_news ul.story-list li a:hover {
-  text-decoration: none;
-}
 
 ul.story-list li .content h3 {
   margin-top: -4px;
@@ -296,385 +290,6 @@ ul.result-list li h3 {
   position: absolute;
 }
 
-// Header
-#header {
-  margin-top: 28px;
-  margin-bottom: 0;
-  padding-bottom: 4px;
-  position: relative;
-}
-
-#header #page-title h1,
-#header #page-title h2 {
-  display: block;
-  margin: 0 0 10px 0;
-  font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
-  font-weight: 300;
-  font-size: 46px;
-  line-height: 52px;
-  color: #111;
-  text-transform: none;
-}
-
-#header #page-title h1 span,
-#header #page-title h2 span {
-  line-height: 1em;
-}
-
-#header #page-title h1 a,
-.body-photoset #header #page-title h2 a {
-  display: block;
-  height: 67px;
-  text-indent: -9999px;
-  background: url('../img/ucftoday4.png') left center no-repeat;
-}
-
-#weather_bug {
-  font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
-  position: absolute;
-  bottom: 5px;
-  right: 0;
-  min-height: 66px;
-}
-
-#weather_bug #wb_date {
-  font-weight: bold;
-  text-align: right;
-  font-size: 14px;
-  line-height: 16px;
-  color: #000;
-}
-
-#weather_bug #wb_status_txt,
-#weather_bug #wb_status_img,
-#weather_bug #wb_more {
-  position: absolute;
-}
-
-#weather_bug #wb_status_txt {
-  font-size: 13px;
-  line-height: 20px;
-  text-align: right;
-  width: 180px;
-  z-index: 3;
-  left: 30px;
-  bottom: 5px;
-}
-
-#weather_bug #wb_status_txt>span {
-  font-size: 23px;
-  font-weight: bold;
-}
-
-#weather_bug #wb_status_img {
-  right: 20px;
-  width: 180px;
-  height: 50px;
-  z-index: 2;
-}
-
-#weather_bug #wb_more {
-  color: #000;
-  display: block;
-  font-size: 11.5px;
-  font-weight: bold;
-  line-height: 11px;
-  margin-top: 20px;
-  text-decoration: none;
-  width: 45px;
-  z-index: 3;
-  right: 0;
-}
-
-#header hr {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-#header-menu {
-  overflow: hidden;
-  background-color: #F1F1F1;
-  margin-bottom: 30px;
-  height: 28px;
-}
-
-#header-menu .search {
-  width: 200px;
-  float: right;
-  position: relative;
-  top: -3px;
-}
-
-.ie-new #header-menu .search {
-  width: 180px;
-}
-
-.ie-new #header-menu .search button {
-  padding: 0 3px;
-}
-
-// Sidebar
-#sidebar>div:first-child h3 {
-  margin-top: -10px;
-}
-
-// Footer
-#footer {
-  border-top: 0;
-  margin: 20px 0;
-  font-family: $font-family-serif;
-  line-height: 20px;
-
-  a {
-    font-family: $font-family-serif;
-    line-height: 20px;
-
-    &:hover {
-      color: $red;
-    }
-  }
-}
-
-#home-footerwrap #footer {
-  margin: 20px 0 20px 20px;
-}
-
-#footer-navwrap {
-  float: right;
-  position: relative;
-  left: -50%;
-
-  .ie7 & {
-    width: 625px;
-  }
-}
-
-#footer-menu {
-  position: relative;
-  left: 50%;
-
-  li {
-    margin-right: 8px;
-    letter-spacing: 0.8px;
-
-    &:after {
-      content: "|";
-      margin-left: 2px;
-    }
-
-    a {
-      font-size: 10px;
-      color: #262626;
-    }
-  }
-}
-
-#subfooter {
-  clear: both;
-  font-size: 10px;
-  text-align: center;
-  letter-spacing: 0.8px;
-  margin: 0;
-
-  a {
-    color: #262626;
-  }
-}
-
-// Social Links
-#social-menu-wrap {
-  float: right;
-  position: relative;
-  left: -50%;
-  clear: right;
-  margin: 0;
-  padding: 10px 0 15px 0;
-
-  .ie7 & {
-    width: 252px;
-  }
-}
-
-#social-menu {
-  position: relative;
-  left: 50%;
-  list-style-type: none;
-
-  li {
-    float: left;
-    margin-right: 5px;
-
-    &:first-child {
-      margin-left: -18px;
-
-      .ie7 & {
-        margin-left: 0;
-      }
-    }
-
-    a[href*="facebook"] {
-      background: url('../img/spritesheet.png') -1px -35px no-repeat;
-      display: block;
-      width: 35px;
-      height: 32px;
-      text-indent: -9999px;
-    }
-
-    a[href*="twitter"] {
-      background: url('../img/spritesheet.png') -68px -34px no-repeat;
-      display: block;
-      width: 35px;
-      height: 32px;
-      text-indent: -9999px;
-    }
-
-    a[href*="flickr"] {
-      background: url('../img/spritesheet.png') -32px -35px no-repeat;
-      display: block;
-      width: 35px;
-      height: 32px;
-      text-indent: -9999px;
-    }
-
-    a[href*="youtube"] {
-      background: url('../img/spritesheet.png') -101px -35px no-repeat;
-      display: block;
-      width: 35px;
-      height: 32px;
-      text-indent: -9999px;
-    }
-
-    a[href*="google"] {
-      background: url('../img/spritesheet.png') -134px -35px no-repeat;
-      display: block;
-      width: 35px;
-      height: 32px;
-      text-indent: -9999px;
-    }
-  }
-}
-
-// Search Form Styles
-.search form.search-form {
-  margin: 0;
-}
-
-.search form.search-form * {
-  font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
-  font-size: 11px;
-}
-
-.search form.search-form label {
-  text-indent: -9999px;
-  width: 0;
-  height: 0;
-  display: block;
-}
-
-.search form.search-form input#s {
-  width: 85%;
-  float: left;
-  font-style: italic;
-  border-radius: 0;
-  padding: 4px;
-  height: 24px;
-  line-height: 14px;
-  border: 1px solid #BBB;
-  border-right: 0;
-  margin-bottom: 0;
-}
-
-.search form.search-form button {
-  display: block;
-  background-color: #666;
-  color: #fff;
-  text-transform: uppercase;
-  border: 0;
-  width: 15%;
-  height: 24px;
-  line-height: 14px;
-  float: left;
-}
-
-// Social Links Styles
-.ucf-social-links {
-  display: table;
-  line-height: 0;
-  content: '';
-}
-
-.ucf-social-links::before,
-.ucf-social-links::after {
-  clear: both;
-}
-
-.ucf-social-links .btn-twitter,
-.ucf-social-links .btn-facebook,
-.ucf-social-links .btn-google {
-  background-image: none;
-  border: 0;
-  border-radius: 0;
-  display: block;
-  float: left;
-  font-weight: bold;
-  letter-spacing: .1em;
-  margin-bottom: 5px;
-  margin-right: 5px;
-  text-shadow: none;
-  text-transform: uppercase;
-  transition: none;
-}
-
-.ucf-social-links .btn-sm {
-  font-size: 11px;
-  padding: 2px 8px;
-}
-
-.ucf-social-links .btn-md {
-  font-size: 12px;
-  padding: 4px 10px;
-}
-
-.ucf-social-links .btn-lg {
-  font-size: 14px;
-  padding: 6px 18px;
-}
-
-@media (min-width: 900px) and (max-width: 979px),
-(min-width: 1130px) {
-  .ucf-social-links-affixed {
-    display: flex;
-    flex-direction: column;
-    left: 0;
-    margin: 0;
-    padding: 0;
-    position: fixed;
-    top: calc(10vh + 200px);
-  }
-
-  .ucf-social-links-affixed .btn-sm {
-    padding: 8px 14px;
-  }
-
-  .ucf-social-links-affixed .fa {
-    font-size: 22px;
-    vertical-align: middle;
-  }
-
-  .ucf-social-links-affixed .btn-text {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
-  }
-}
-
-/* Force facebook widget to be responsive. */
-
 #fb-root {
   display: none;
 }
@@ -685,8 +300,6 @@ ul.result-list li h3 {
   width: 100% !important;
 }
 
-/* WordPress styles */
-
 .alignleft {
   float: left;
   margin: 0 12px 12px 0;
@@ -695,4 +308,102 @@ ul.result-list li h3 {
 .alignright {
   float: right;
   margin: 0 0 12px 12px;
+}
+
+#page-not-found h2 {
+  font-size: 26px;
+  text-transform: initial;
+  letter-spacing: normal;
+  line-height: normal;
+  margin: 12px 0;
+}
+
+.container .well {
+  border-radius: 4px;
+}
+
+.well {
+  border: 0;
+  border-radius: 0;
+  margin: 2em 0;
+}
+
+.related-stories .span3:nth-child(4n+1) {
+  margin-left: 0;
+}
+
+@media (max-width: 767px) {
+
+  body {
+    font-size: 15px;
+    line-height: 23px;
+  }
+
+  ul.story-list li .content {
+    margin-left: 80px;
+  }
+  ul.story-list li .thumb {
+    width: 65px;
+    height: 65px;
+  }
+
+  .menu.horizontal li:after {
+    content: "";
+    margin-left: 0;
+  }
+
+  .fb_iframe_widget,
+  .fb_iframe_widget span,
+  .fb_iframe_widget span iframe[style] {
+    width: 280px !important;
+  }
+
+
+
+  .alignleft,
+  .alignright {
+    margin: 0;
+    min-width: 100%;
+    float: none;
+  }
+
+  .border-left:before,
+  .border-right:after,
+  .border-both:before,
+  .border-both:after {
+    background-color: transparent;
+  }
+
+  .featured-title,
+  .featured-subtitle,
+  .featured-byline {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .featured-deck {
+    margin: 1em 0;
+  }
+
+  .featured-story-header {
+    margin: 0 -20px 2em -20px;
+  }
+
+  .related-story-title-wrapper {
+    height: 230px;
+  }
+
+  .related-story-title {
+    font-size: .95em;
+  }
+
+  .related-story-image {
+    height: 230px;
+    margin: 0 auto;
+    width: 230px;
+  }
+
+  .well {
+    margin: 1em -20px;
+  }
 }

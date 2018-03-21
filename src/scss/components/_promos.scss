@@ -1,0 +1,17 @@
+// Promos
+#promos ul.story-list li {
+  margin-top: 25px;
+}
+
+#promos ul.story-list li:first-child {
+  margin-top: 0;
+}
+
+#promos ul.story-list li p.story-blurb {
+  max-height: 122px;
+}
+
+#promos ul.story-list li h3 {
+  font-size: 20px;
+  line-height: 24px;
+}

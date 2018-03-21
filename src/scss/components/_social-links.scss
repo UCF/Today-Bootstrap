@@ -1,0 +1,75 @@
+.ucf-social-links {
+  display: table;
+  line-height: 0;
+  content: '';
+}
+
+.ucf-social-links::before,
+.ucf-social-links::after {
+  clear: both;
+}
+
+.ucf-social-links .btn-twitter,
+.ucf-social-links .btn-facebook,
+.ucf-social-links .btn-google {
+  background-image: none;
+  border: 0;
+  border-radius: 0;
+  display: block;
+  float: left;
+  font-weight: bold;
+  letter-spacing: .1em;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  text-shadow: none;
+  text-transform: uppercase;
+  transition: none;
+}
+
+.ucf-social-links .btn-sm {
+  font-size: 11px;
+  padding: 2px 8px;
+}
+
+.ucf-social-links .btn-md {
+  font-size: 12px;
+  padding: 4px 10px;
+}
+
+.ucf-social-links .btn-lg {
+  font-size: 14px;
+  padding: 6px 18px;
+}
+
+@media (min-width: 900px) and (max-width: 979px),
+(min-width: 1130px) {
+  .ucf-social-links-affixed {
+    display: flex;
+    flex-direction: column;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: calc(10vh + 200px);
+  }
+
+  .ucf-social-links-affixed .btn-sm {
+    padding: 8px 14px;
+  }
+
+  .ucf-social-links-affixed .fa {
+    font-size: 22px;
+    vertical-align: middle;
+  }
+
+  .ucf-social-links-affixed .btn-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+}

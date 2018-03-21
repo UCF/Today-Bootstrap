@@ -1,0 +1,135 @@
+// Footer
+#footer {
+  border-top: 0;
+  margin: 20px 0;
+  font-family: $font-family-serif;
+  line-height: 20px;
+
+  a {
+    font-family: $font-family-serif;
+    line-height: 20px;
+
+    &:hover {
+      color: $red;
+    }
+  }
+}
+
+#home-footerwrap #footer {
+  margin: 20px 0 20px 20px;
+}
+
+#footer-navwrap {
+  float: right;
+  position: relative;
+  left: -50%;
+
+  .ie7 & {
+    width: 625px;
+  }
+}
+
+#footer-menu {
+  position: relative;
+  left: 50%;
+
+  li {
+    margin-right: 8px;
+    letter-spacing: 0.8px;
+
+    &:after {
+      content: "|";
+      margin-left: 2px;
+    }
+
+    a {
+      font-size: 10px;
+      color: #262626;
+    }
+  }
+}
+
+#subfooter {
+  clear: both;
+  font-size: 10px;
+  text-align: center;
+  letter-spacing: 0.8px;
+  margin: 0;
+
+  a {
+    color: #262626;
+  }
+}
+
+// Social Links
+#social-menu-wrap {
+  float: right;
+  position: relative;
+  left: -50%;
+  clear: right;
+  margin: 0;
+  padding: 10px 0 15px 0;
+
+  .ie7 & {
+    width: 252px;
+  }
+}
+
+#social-menu {
+  position: relative;
+  left: 50%;
+  list-style-type: none;
+
+  li {
+    float: left;
+    margin-right: 5px;
+
+    &:first-child {
+      margin-left: -18px;
+
+      .ie7 & {
+        margin-left: 0;
+      }
+    }
+
+    a[href*="facebook"] {
+      background: url('../img/spritesheet.png') -1px -35px no-repeat;
+      display: block;
+      width: 35px;
+      height: 32px;
+      text-indent: -9999px;
+    }
+
+    a[href*="twitter"] {
+      background: url('../img/spritesheet.png') -68px -34px no-repeat;
+      display: block;
+      width: 35px;
+      height: 32px;
+      text-indent: -9999px;
+    }
+
+    a[href*="flickr"] {
+      background: url('../img/spritesheet.png') -32px -35px no-repeat;
+      display: block;
+      width: 35px;
+      height: 32px;
+      text-indent: -9999px;
+    }
+
+    a[href*="youtube"] {
+      background: url('../img/spritesheet.png') -101px -35px no-repeat;
+      display: block;
+      width: 35px;
+      height: 32px;
+      text-indent: -9999px;
+    }
+
+    a[href*="google"] {
+      background: url('../img/spritesheet.png') -134px -35px no-repeat;
+      display: block;
+      width: 35px;
+      height: 32px;
+      text-indent: -9999px;
+    }
+  }
+}

@@ -1,13 +1,7 @@
-@import 'variables';
+@import './helpers/all';
 
 // Combine vendor assets and our theme:
 @import './bootstrap-sass/lib/bootstrap';
 @import './bootstrap-sass/lib/responsive';
 
-// Theme imports
-@import 'webcom';
-@import 'typography';
-@import 'layout';
-@import 'views';
-@import 'shortcodes';
-@import 'responsive';
+@import 'base';

@@ -1,4 +1,66 @@
-/* Large Screens */
+// Header
+#header {
+  margin-top: 28px;
+  margin-bottom: 0;
+  padding-bottom: 4px;
+  position: relative;
+}
+
+#header #page-title h1,
+#header #page-title h2 {
+  display: block;
+  margin: 0 0 10px 0;
+  font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 46px;
+  line-height: 52px;
+  color: #111;
+  text-transform: none;
+}
+
+#header #page-title h1 span,
+#header #page-title h2 span {
+  line-height: 1em;
+}
+
+#header #page-title h1 a,
+.body-photoset #header #page-title h2 a {
+  display: block;
+  height: 67px;
+  text-indent: -9999px;
+  background: url('../img/ucftoday4.png') left center no-repeat;
+}
+
+#header hr {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+#header-menu {
+  overflow: hidden;
+  background-color: #F1F1F1;
+  margin-bottom: 30px;
+  height: 28px;
+}
+
+#header-menu .search {
+  width: 200px;
+  float: right;
+  position: relative;
+  top: -3px;
+}
+
+.ie-new #header-menu .search {
+  width: 180px;
+}
+
+.ie-new #header-menu .search button {
+  padding: 0 3px;
+}
+
+#header-menu .ucf-mobile-menu-trigger {
+  display: none;
+}
 
 @media (min-width: 767px) {
   #header-menu ul {
@@ -45,14 +107,6 @@
     width: 414px;
   }
 
-  #weather_bug #wb_status_txt {
-    left: 0;
-    width: 160px;
-  }
-  #weather_bug #wb_status_txt span {
-    font-size: 20px;
-  }
-
   #header-menu {
     margin-bottom: 20px;
   }
@@ -64,35 +118,9 @@
   #header-menu .search {
     width: 175px;
   }
-  .search form.search-form input#s {
-    width: 80%;
-  }
-  .search form.search-form button {
-    width: 20%;
-  }
-
-  .related-story-image {
-    height: 166px;
-    width: 166px;
-  }
 }
 
-/* Small Screens */
-
 @media (max-width: 767px) {
-  body {
-    font-size: 15px;
-    line-height: 23px;
-  }
-
-  ul.story-list li .content {
-    margin-left: 80px;
-  }
-  ul.story-list li .thumb {
-    width: 65px;
-    height: 65px;
-  }
-
   #header {
     margin-top: 20px;
   }
@@ -111,9 +139,6 @@
     height: auto;
     font-size: 22px;
     line-height: 1em;
-  }
-  #weather_bug {
-    display: none;
   }
 
   #header-menu {
@@ -215,11 +240,6 @@
     width: 250px;
   }
 
-  .menu.horizontal li:after {
-    content: "";
-    margin-left: 0;
-  }
-
   #header-menu ul li a {
     color: #000;
     display: block;
@@ -227,111 +247,4 @@
     padding: 10px 15px;
   }
 
-  #feature h2.feature-cat-title,
-  #features .story-list h3,
-  #photo-sets h3 {
-    margin-top: 15px;
-  }
-
-  #photo-sets .photoset-list>div img {
-    width: 100%;
-    height: auto;
-  }
-
-  .body-subpage #feature p.story-blurb,
-  #features .story-list p.story-blurb {
-    padding-bottom: 20px;
-  }
-
-  #single h1 {
-    font-size: 24px;
-    line-height: 30px;
-  }
-  #single article .social {
-    display: none;
-  }
-
-  .fb_iframe_widget,
-  .fb_iframe_widget span,
-  .fb_iframe_widget span iframe[style] {
-    width: 280px !important;
-  }
-
-  #search-results h2 {
-    font-size: 22px;
-  }
-  #search-results h1,
-  #search-results h3,
-  #search-results #sidebar h3,
-  #search-result h1 a {
-    line-height: 1.1em;
-  }
-  #search-results ul.story-list li .content h3 {
-    font-size: 18px;
-    margin-bottom: 6px;
-  }
-  #search-results #sidebar {
-    margin-top: 30px;
-  }
-  #search-results ul.story-list li ul.meta {
-    margin-left: 80px;
-  }
-  #search-results ul.story-list li ul.meta ul.term-list li {
-    display: block;
-    height: auto;
-    overflow: visible;
-  }
-
-  #alerts li,
-  #alerts li>.msg>a {
-    font-size: 13px;
-    line-height: 1.2em;
-  }
-
-  .alignleft,
-  .alignright {
-    margin: 0;
-    min-width: 100%;
-    float: none;
-  }
-
-  .border-left:before,
-  .border-right:after,
-  .border-both:before,
-  .border-both:after {
-    background-color: transparent;
-  }
-
-  .featured-title,
-  .featured-subtitle,
-  .featured-byline {
-    margin-left: 20px;
-    margin-right: 20px;
-  }
-
-  .featured-deck {
-    margin: 1em 0;
-  }
-
-  .featured-story-header {
-    margin: 0 -20px 2em -20px;
-  }
-
-  .related-story-title-wrapper {
-    height: 230px;
-  }
-
-  .related-story-title {
-    font-size: .95em;
-  }
-
-  .related-story-image {
-    height: 230px;
-    margin: 0 auto;
-    width: 230px;
-  }
-
-  .well {
-    margin: 1em -20px;
-  }
 }

@@ -1,0 +1,88 @@
+/** Search **/
+
+.body-search .page-content,
+.body-404 .page-content {
+  margin-top: -20px;
+}
+
+#search-results h2 {
+  font-weight: 400;
+  font-size: 28px;
+  margin-top: 0;
+  text-transform: none;
+}
+
+#search-results h1,
+#search-results h3,
+#search-results #sidebar h3,
+#search-result h1 a {
+  font-size: 24px;
+  font-family: Georgia, serif;
+  margin-bottom: 20px;
+  text-transform: none;
+  font-weight: normal;
+}
+
+#search-results ul.story-list li {
+  margin-bottom: 20px;
+}
+
+#search-results ul.story-list li .content h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+#search-results ul.story-list li ul.meta {
+  list-style-type: none;
+  margin-left: 110px;
+}
+
+#search-results ul.story-list li ul.meta * {
+  font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: 14px;
+  font-style: italic;
+  margin-bottom: 4px;
+}
+
+#search-results ul.story-list li ul.meta ul.term-list li {
+  padding: 0 4px 0 0;
+  height: 16px;
+}
+
+#search-results span.highlight {
+  border: 1px solid #F1F1F1;
+  background-color: #ffff3d;
+  font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
+}
+
+#search-results #sidebar>div:first-child h3 {
+  margin-top: 3px;
+}
+
+@media (max-width: 767px) {
+
+  #search-results h2 {
+    font-size: 22px;
+  }
+  #search-results h1,
+  #search-results h3,
+  #search-results #sidebar h3,
+  #search-result h1 a {
+    line-height: 1.1em;
+  }
+  #search-results ul.story-list li .content h3 {
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+  #search-results #sidebar {
+    margin-top: 30px;
+  }
+  #search-results ul.story-list li ul.meta {
+    margin-left: 80px;
+  }
+  #search-results ul.story-list li ul.meta ul.term-list li {
+    display: block;
+    height: auto;
+    overflow: visible;
+  }}

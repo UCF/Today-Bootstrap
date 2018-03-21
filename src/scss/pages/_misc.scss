@@ -1,0 +1,10 @@
+.body-home #header-menu ul li:first-child,
+.body-404 #header-menu ul li:first-child a,
+.body-search #header-menu ul li:first-child a,
+.body-photoset #header-menu ul li:first-child a {
+  display: none;
+}
+
+.body-home #feature h2 {
+  font-weight: bold !important;
+}
