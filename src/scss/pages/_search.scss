@@ -60,7 +60,15 @@
   margin-top: 3px;
 }
 
+
+
+
+
 @media (max-width: 767px) {
+
+  .body-search #header-menu .search {
+    width: 100%;
+  }
 
   #search-results h2 {
     font-size: 22px;

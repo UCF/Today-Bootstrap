@@ -5,6 +5,19 @@
   display: none;
 }
 
-.body-home #feature h2 {
-  font-weight: bold !important;
+@media (max-width: 767px) {
+  .body-subpage #header-menu ul li:first-child {
+    position: static;
+  }
+
+  .body-home #header-menu ul li:first-child,
+  .body-404 #header-menu ul li:first-child a,
+  .body-search #header-menu ul li:first-child a,
+  .body-photoset #header-menu ul li:first-child a,
+  .body-subpage #header-menu ul li:first-child a {
+    background-image: none;
+    display: block;
+    text-indent: 0;
+    width: 250px;
+  }
 }

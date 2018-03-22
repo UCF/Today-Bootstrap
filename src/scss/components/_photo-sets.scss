@@ -56,3 +56,13 @@
   line-height: 16px;
   margin-top: 10px;
 }
+
+@media (max-width: 767px) {
+  #photo-sets h3 {
+    margin-top: 15px;
+  }
+
+  #photo-sets .photoset-list>div img {
+    width: 100%;
+    height: auto;
+  }}
