@@ -5,8 +5,8 @@
   const $menu = $('.ucf-mobile-menu');
 
   function openMenu() {
-      	$menu.addClass('slide-out');
-      	$menu.height($(document).height());
+    $menu.addClass('slide-out');
+    $menu.height($(document).height());
   }
 
   function closeMobileMenu() {

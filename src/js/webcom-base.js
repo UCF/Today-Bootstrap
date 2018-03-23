@@ -36,7 +36,7 @@ Webcom.loadMoreSearchResults = function ($) {
   let next = null;
   let sema = null;
 
-  var load = function () {
+  const load = function () {
     if (sema) {
       setTimeout(() => {
         load();
@@ -131,7 +131,7 @@ Webcom.slideshow = function ($) {
 	 * data-cyclelen attributes on the slideshow container.
 	 **/
   $.fn.slideShow = function (args) {
-    var cycle = function (items, index) {
+    const cycle = function (items, index) {
       if (items.length < 1) {
         return;
       }

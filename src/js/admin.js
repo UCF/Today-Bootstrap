@@ -1,6 +1,7 @@
 // Adds filter method to array objects
 // https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/filter
 if (!Array.prototype.filter) {
+  /* eslint-disable */
   Array.prototype.filter = function (a) {
 
 
@@ -16,6 +17,7 @@ if (!Array.prototype.filter) {
       }
     } return d;
   };
+  /* eslint-enable */
 }
 
 const WebcomAdmin = {};
@@ -29,7 +31,7 @@ WebcomAdmin.__init__ = function ($) {
 
 
 WebcomAdmin.shortcodeTool = function ($) {
-  cls         = this;
+  const cls = this;
   cls.metabox = $('#shortcodes-metabox');
   if (cls.metabox.length < 1) {
     console.log('no meta'); return;
@@ -44,7 +46,7 @@ WebcomAdmin.shortcodeTool = function ($) {
   cls.text_url = cls.metabox.find('#shortcode-text').val();
 
   cls.shortcodes = (function () {
-    const shortcodes = new Array();
+    const shortcodes = [];
     cls.select.children('.shortcode').each(function () {
       shortcodes.push($(this).val());
     });
@@ -136,7 +138,7 @@ WebcomAdmin.shortcodeTool = function ($) {
 
 
 WebcomAdmin.themeOptions = function ($) {
-  cls          = this;
+  const cls    = this;
   cls.active   = null;
   cls.parent   = $('.i-am-a-fancy-admin');
   cls.sections = $('.i-am-a-fancy-admin .fields .section');
@@ -171,7 +173,7 @@ WebcomAdmin.themeOptions = function ($) {
       cls.buttons.filter(`[href="${window.location.hash}"]`).click();
     }
 
-    var fadeTimer = setInterval(() => {
+    const fadeTimer = setInterval(() => {
       $('.updated').fadeOut(1000);
       clearInterval(fadeTimer);
     }, 2000);
