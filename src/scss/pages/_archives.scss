@@ -1,66 +1,65 @@
-/** Achives **/
+#archives {
+  ul {
+    list-style-type: none;
+    margin: 0;
+  }
 
-#archives ul {
-  list-style-type: none;
-  margin: 0;
-}
+  li {
+    margin-bottom: 20px;
+  }
 
-#archives li {
-  margin-bottom: 20px;
-}
+  .thumbnail {
+    border: 0;
+    float: left;
+    height: 91px;
+    margin-right: 10px;
+    padding: 0;
+    width: 95px;
+  }
 
-#archives .thumbnail {
-  width: 95px;
-  height: 91px;
-  float: left;
-  padding: 0;
-  margin-right: 10px;
-  border: none;
-}
+  .month_year {
+    font-size: 24px;
+    font-weight: normal;
+    line-height: 1;
+    margin-bottom: 30px;
+    text-transform: none;
+  }
 
-#archives .month_year {
-  margin-bottom: 30px;
-  font-size: 24px;
-  line-height: 24px;
-  text-transform: none;
-  font-weight: normal
-}
+  h3 {
+    font-size: 20px;
+    line-height: 1;
+    margin-bottom: 0;
+    margin-top: 0;
+  }
 
-#archives h3 {
-  margin-top: 0;
-  margin-bottom: 0;
-  font-size: 20px;
-  line-height: 20px;
-}
+  .ellipse {
+    font-size: 15px;
+    line-height: 1.467;
+    margin-left: 105px;
+  }
 
-#archives .ellipse {
-  margin-left: 105px;
-  font-size: 15px;
-  line-height: 22px;
-}
+  .date {
+    font-family: Helvetica, sans-serif;
+    font-size: 12px;
+    line-height: 1.667;
+    margin-bottom: 0;
+  }
 
-#archives .date {
-  margin-bottom: 0;
-  font-family: Helvetica, sans-serif;
-  font-size: 12px;
-  line-height: 20px;
-}
+  .next {
+    float: left;
+  }
 
-#archives .next {
-  float: left;
-}
+  .previous {
+    float: right;
+  }
 
-#archives .previous {
-  float: right;
-}
+  .next a,
+  .previous a {
+    color: #900;
+    text-decoration: underline;
 
-#archives .next a,
-#archives .previous a {
-  color: #990000;
-  text-decoration: underline;
-}
-
-#archives .next a:hover,
-#archives .previous a:hover {
-  color: #000;
+    &:hover {
+      color: $black;
+    }
+  }
 }

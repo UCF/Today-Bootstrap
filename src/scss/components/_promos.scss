@@ -1,25 +1,26 @@
-// Promos
-#promos ul.story-list li {
-  margin-top: 25px;
-}
+#promos {
+  .indent {
+    display: block;
+    height: 0;
+    margin: 0;
+    text-indent: -9999px;
+    width: 0;
+  }
 
-#promos ul.story-list li:first-child {
-  margin-top: 0;
-}
+  .story-list li {
+    margin-top: 25px;
 
-#promos ul.story-list li p.story-blurb {
-  max-height: 122px;
-}
+    &:first-child {
+      margin-top: 0;
+    }
 
-#promos ul.story-list li h3 {
-  font-size: 20px;
-  line-height: 24px;
-}
+    .story-blurb {
+      max-height: 122px;
+    }
 
-#promos h2.indent {
-  display: block;
-  height: 0;
-  margin: 0;
-  text-indent: -9999px;
-  width: 0;
+    h3 {
+      font-size: 20px;
+      line-height: 1.2;
+    }
+  }
 }

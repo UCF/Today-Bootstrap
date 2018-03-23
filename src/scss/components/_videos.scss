@@ -10,31 +10,31 @@
 
 #videos .feature+div h3 {
   font-size: 22px;
-  line-height: 24px;
+  line-height: 1.091;
   text-transform: none;
 }
 
 
 .video-container {
-  clear: both;
-  position: relative;
-  padding-bottom: 56.25%;
-  padding-top: 30px;
-  height: 0;
-  overflow: hidden;
-  background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-}
+  background-size: cover;
+  clear: both;
+  height: 0;
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  position: relative;
 
-.video-container iframe,
-.video-container object,
-.video-container embed {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  iframe,
+  object,
+  embed {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
 }
 
 .entry-content img,

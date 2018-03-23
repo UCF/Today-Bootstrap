@@ -1,19 +1,21 @@
-.body-subpage #header-menu ul li:first-child {
-  position: relative;
-  top: -4px;
-  left: -10px;
-  padding-bottom: 0;
-}
+.body-subpage {
+  #header-menu ul li:first-child {
+    left: -10px;
+    padding-bottom: 0;
+    position: relative;
+    top: -4px;
 
-.body-subpage #header-menu ul li:first-child a {
-  display: block;
-  width: 89px;
-  height: 28px;
-  background: url('../img/today_cat.png') center center no-repeat;
-  text-indent: -9999px;
-  margin-right: 0;
-}
+    a {
+      background: url('../img/today_cat.png') center center no-repeat;
+      display: block;
+      height: 28px;
+      margin-right: 0;
+      text-indent: -9999px;
+      width: 89px;
+    }
+  }
 
-.body-subpage .page-content article {
-  margin-top: 20px;
+  .page-content article {
+    margin-top: 20px;
+  }
 }

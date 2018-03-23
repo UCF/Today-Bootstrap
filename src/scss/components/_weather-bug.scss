@@ -1,73 +1,69 @@
 #weather_bug {
-  font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
-  position: absolute;
   bottom: 5px;
-  right: 0;
+  font-family: $font-family-sans-serif;
   min-height: 66px;
-}
-
-#weather_bug #wb_date {
-  font-weight: bold;
-  text-align: right;
-  font-size: 14px;
-  line-height: 16px;
-  color: #000;
-}
-
-#weather_bug #wb_status_txt,
-#weather_bug #wb_status_img,
-#weather_bug #wb_more {
   position: absolute;
-}
-
-#weather_bug #wb_status_txt {
-  font-size: 13px;
-  line-height: 20px;
-  text-align: right;
-  width: 180px;
-  z-index: 3;
-  left: 30px;
-  bottom: 5px;
-}
-
-#weather_bug #wb_status_txt>span {
-  font-size: 23px;
-  font-weight: bold;
-}
-
-#weather_bug #wb_status_img {
-  right: 20px;
-  width: 180px;
-  height: 50px;
-  z-index: 2;
-}
-
-#weather_bug #wb_more {
-  color: #000;
-  display: block;
-  font-size: 11.5px;
-  font-weight: bold;
-  line-height: 11px;
-  margin-top: 20px;
-  text-decoration: none;
-  width: 45px;
-  z-index: 3;
   right: 0;
-}
 
-@media (max-width: 979px) {
-
-  #weather_bug #wb_status_txt {
-    left: 0;
-    width: 160px;
-  }
-  #weather_bug #wb_status_txt span {
-    font-size: 20px;
-  }
-}
-
-@media (max-width: 767px) {
-  #weather_bug {
+  @media (max-width: 767px) {
     display: none;
+  }
+
+  #wb_date {
+    color: #000;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.143;
+    text-align: right;
+  }
+
+  #wb_status_txt,
+  #wb_status_img,
+  #wb_more {
+    position: absolute;
+  }
+
+  #wb_status_txt {
+    bottom: 5px;
+    font-size: 13px;
+    left: 30px;
+    line-height: 1.538;
+    text-align: right;
+    width: 180px;
+    z-index: 3;
+
+    @media (max-width: 979px) {
+      left: 0;
+      width: 160px;
+    }
+
+    > span {
+      font-size: 23px;
+      font-weight: bold;
+
+      @media (max-width: 979px) {
+        font-size: 20px;
+      }
+    }
+  }
+
+  #wb_status_img {
+    height: 50px;
+    right: 20px;
+    width: 180px;
+    z-index: 2;
+  }
+
+  #wb_more {
+    color: #000;
+    display: block;
+    font-size: 11.5px;
+    font-weight: bold;
+    line-height: .957;
+    margin-top: 20px;
+    right: 0;
+    text-decoration: none;
+    width: 45px;
+    z-index: 3;
   }
 }

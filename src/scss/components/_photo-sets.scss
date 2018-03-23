@@ -1,68 +1,73 @@
-#photoset h3 {
-  font-family: Georgia, serif;
-  font-size: 26px;
-  line-height: 34px;
-  font-weight: normal;
-  text-transform: none;
-  margin-top: 0;
-}
-
-#single #photoset .ucf-social-links-default {
-  margin-top: 5px;
-}
-
-#photoset ul.photoset-list li {
-  background-color: #f9f9f9;
-  margin-bottom: 35px;
-  width: 100%;
-}
-
-#photoset ul.photoset-list li img {
-  width: 100%;
-  height: auto;
-}
-
-#photoset ul.photoset-list li p {
-  font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
-  font-size: 14px;
-  padding: 15px 10px;
-  line-height: 20px;
-}
-
-#photoset ul.photoset-list li p span {
-  font-size: 36px;
-  color: #ffc907;
-  margin-right: 10px;
-  padding-bottom: 5px;
-  display: block;
-  float: left;
-}
-
-#photo-sets h3 {
-  font-weight: normal;
-  text-transform: none;
-  font-size: 24px;
-  line-height: 26px;
-  margin-top: -4px;
-}
-
-#photo-sets .photoset-list>div img {
-  width: 220px;
-  height: 203px;
-}
-
-#photo-sets .photoset-list>div h3 {
-  font-size: 16px;
-  line-height: 16px;
-  margin-top: 10px;
-}
-
-@media (max-width: 767px) {
-  #photo-sets h3 {
-    margin-top: 15px;
+#photoset {
+  h3 {
+    font-family: Georgia, serif;
+    font-size: 26px;
+    font-weight: normal;
+    line-height: 1.308;
+    margin-top: 0;
+    text-transform: none;
   }
 
-  #photo-sets .photoset-list>div img {
+  #single & .ucf-social-links-default {
+    margin-top: 5px;
+  }
+
+  .photoset-list li {
+    background-color: #f9f9f9;
+    margin-bottom: 35px;
     width: 100%;
-    height: auto;
-  }}
+
+    p {
+      font-family: $font-family-sans-serif;
+      font-size: 14px;
+      line-height: 1.429;
+      padding: 15px 10px;
+
+      span {
+        color: #ffc907;
+        display: block;
+        float: left;
+        font-size: 36px;
+        margin-right: 10px;
+        padding-bottom: 5px;
+      }
+    }
+
+    img {
+      height: auto;
+      width: 100%;
+    }
+  }
+}
+
+#photo-sets {
+  h3 {
+    font-size: 24px;
+    font-weight: normal;
+    line-height: 1.083;
+    margin-top: -4px;
+    text-transform: none;
+
+    @media (max-width: 767px) {
+      margin-top: 15px;
+    }
+  }
+
+  .photoset-list>div {
+    img {
+      height: 203px;
+      width: 220px;
+
+      @media (max-width: 767px) {
+        height: auto;
+        width: 100%;
+      }
+    }
+
+    h3 {
+      font-size: 16px;
+      line-height: 1;
+      margin-top: 10px;
+    }
+  }
+}

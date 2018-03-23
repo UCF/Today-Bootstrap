@@ -1,18 +1,18 @@
 .featured-article>.container:first-of-type p:first-of-type:first-letter {
-  font-family: Georgia, serif;
-  color: #FFC907;
+  font-family: $font-family-serif;
+  color: #ffc907;
   display: block;
   float: left;
   font-size: 48px;
   font-weight: normal;
   height: 48px;
-  line-height: 48px;
+  line-height: 1;
   margin-right: 7px;
   margin-top: 0;
 }
 
 .featured-story-header {
-  background: #F1F1F1;
+  background: $off-white;
   margin-bottom: 3em;
 }
 
@@ -89,7 +89,7 @@
   display: block;
   text-align: center;
   color: #000;
-  font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif !important;
+  font-family: $font-family-sans-serif;
   font-size: 24px;
   margin: 1em 0;
 }

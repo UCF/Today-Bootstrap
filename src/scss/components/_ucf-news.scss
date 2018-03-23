@@ -1,18 +1,18 @@
 // News
-#ucf_news ul.story-list li {
+#ucf_news .story-list li {
   margin-top: 15px;
-}
 
-#ucf_news ul.story-list li p.story-blurb {
-  font-size: 15px;
-  line-height: 22px;
-  max-height: 113px;
-}
+  .story-blurb {
+    font-size: 15px;
+    line-height: 1.467;
+    max-height: 113px;
+  }
 
-#ucf_news ul.story-list li a {
-  color: #000;
-}
+  a {
+    color: $black;
 
-#ucf_news ul.story-list li a:hover {
-  text-decoration: none;
+    &:hover {
+      text-decoration: none;
+    }
+  }
 }

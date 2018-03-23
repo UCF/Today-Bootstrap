@@ -3,15 +3,14 @@
     line-height: 1.4;
   }
 
-  ul.story-list {
-
+  .story-list {
     li {
       line-height: normal;
       margin-bottom: 15px;
     }
 
     a {
-      color: #000;
+      color: $black;
       font-size: 15px;
       font-weight: normal;
       text-decoration: underline;
