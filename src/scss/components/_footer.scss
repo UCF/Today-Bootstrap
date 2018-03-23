@@ -1,4 +1,3 @@
-// Footer
 #footer {
   border-top: 0;
   font-family: $font-family-serif;
@@ -75,5 +74,17 @@
       text-indent: -9999px;
       width: 35px;
     }
+  }
+}
+
+#subfooter {
+  clear: both;
+  font-size: 10px;
+  letter-spacing: .8px;
+  margin: 0;
+  text-align: center;
+
+  a {
+    color: #262626;
   }
 }
