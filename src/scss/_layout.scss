@@ -2,6 +2,12 @@ body {
   background: none;
   overflow-x: hidden;
   position: relative;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+li {
+  line-height: 24px;
 }
 
 .border-both,

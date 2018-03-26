@@ -589,9 +589,7 @@ function sc_ucf_video($atts = Array())
 			?>
 			<div class="<?=$css?>" id="ucf_video">
 				<h2 class="listing">Watch Video</h2><a href="<?=get_page_link(get_page_by_title('Videos')->ID)?>" class="listing">More &raquo;</a>
-				<div class="video-container">
-					<?=$wp_embed->run_shortcode($embed_string)?>
-				</div>
+					<?php echo $wp_embed->run_shortcode($embed_string); ?>
 				<h4><?=$video->post_title?></h4>
 				<p><?=$video->post_content?></p>
 			</div>
@@ -961,9 +959,7 @@ function sc_single_post($atts = Array())
 			<h1><?=$title?></h1>
 			<?=$subtitle?>
 			<? if($video_url != '') { ?>
-				<div class="video-container">
-					<?=$wp_embed->run_shortcode( '[embed width="550" height="500"]'.$video_url.'[/embed]' )?>
-				</div>
+				<?php echo $wp_embed->run_shortcode( '[embed width="550" height="500"]'.$video_url.'[/embed]' ); ?>
 			<? } else { ?>
 			<div id="story_feat_img">
 				<?=$img_attach['html']?>
@@ -1661,9 +1657,7 @@ function sc_videos($atts = Array())
 				?>
 				<div class="row">
 					<div class="feature span8">
-						<div class="video-container">
-							<?=$wp_embed->run_shortcode($embed_string)?>
-						</div>
+						<?php echo $wp_embed->run_shortcode($embed_string); ?>
 					</div>
 					<div class="span4">
 						<h3><?=$video->post_title?></h3>

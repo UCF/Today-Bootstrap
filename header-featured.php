@@ -61,5 +61,34 @@
 			}
 		</script>
 
+		<?php if ( is_single() ):
+			echo display_news_schema( $post );
+		endif; ?>
+
 	</head>
-	<body class="<?php echo today_body_classes()?>">
+	<body class="body-feature">
+		<div class="container">
+			<div class="row" id="header" role="banner">
+				<div id="page-title" class="span7">
+					<? if ( is_home() || !is_single() ): ?>
+						<h1><?php echo get_header_title() ?></h1>
+					<? else: ?>
+						<h2><?php echo get_header_title() ?></h2>
+					<? endif; ?>
+				</div>
+				<?php echo esi_include( 'output_weather_data' )?>
+				<hr class="span12" />
+			</div>
+			<nav id="header-menu" role="navigation">
+				<div class="ucf-mobile-menu-trigger pull-left">menu</div>
+				<?php echo wp_nav_menu( array(
+					'menu' => 'Top Navigation',
+					'container' => 'false',
+					'menu_class' => 'menu '.get_header_styles(),
+					'menu_id' => 'navigation',
+					'walker' => new Bootstrap_Walker_Nav_Menu()
+					) );
+				?>
+				<?php echo get_search_form()?>
+			</nav>
+			<?php echo gen_alerts_html()?>

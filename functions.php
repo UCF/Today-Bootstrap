@@ -1058,3 +1058,51 @@ if ( ! function_exists( 'ucf_social_links_display_affixed_before' ) ) {
 }
 
 add_filter( 'ucf_social_links_display_affixed_before', 'ucf_social_links_display_affixed_before', 10, 2 );
+
+
+/**
+ * Displays 'NewsArticle' schema
+ * @author Cadie Brown
+ * @param WP_Post $post The post object
+ * @return string
+ */
+ function display_news_schema( $post ) {
+	$post_promo = get_post_meta($post->ID, 'promo', true);
+	$excerpt = get_excerpt($post);
+	$thumbnail = get_the_post_thumbnail_url( $post->ID, 'medium' );
+	$thumbnail = $thumbnail ?: FEED_THUMBNAIL_FALLBACK;
+	$description = !empty($post_promo) ? $post_promo : $excerpt;
+	ob_start();
+ ?>
+	<script type="application/ld+json">
+		{
+		"@context": "http://schema.org",
+		"@type": "NewsArticle",
+		"mainEntityOfPage": {
+			"@type": "WebPage",
+			"@id": "<?php echo site_url(); ?>"
+		},
+		"headline": "<?php echo the_title(); ?>",
+		"image": [
+			"<?php echo $thumbnail; ?>"
+		],
+		"datePublished": "<?php echo get_the_date(DATE_ISO8601); ?>",
+		"dateModified": "<?php echo get_the_modified_date(DATE_ISO8601); ?>",
+		"author": {
+			"@type": "Person",
+			"name": "<?php echo get_the_author(); ?>"
+		},
+		"publisher": {
+			"@type": "Organization",
+			"name": "University of Central Florida",
+			"logo": {
+				"@type": "ImageObject",
+				"url": "<?php echo site_url(); ?>/wp-content/themes/Today-Bootstrap/static/img/ucftoday4_small.png"
+			}
+		},
+		"description": "<?php echo $description; ?>"
+		}
+	</script>
+<?php
+	return ob_get_clean ();
+}
