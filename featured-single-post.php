@@ -28,13 +28,13 @@ $video_url = get_video_url($post->ID);
 					<h2><?php echo get_header_title() ?></h2>
 					<h1><?php echo the_title(); ?></h1>
 					<?php if ( $subtitle ) : ?>
-					<p id="subtitle"><?php echo $subtitle; ?></p>
+					<h3 class="subtitle"><?php echo $subtitle; ?></h3>
 					<?php endif; ?>
 					<?php echo do_shortcode( '[feature_post_meta css="clearfix"]' ); ?>
 				</div>
 				<div class="feature-story-image">
 					<?php the_post_thumbnail(); ?>
-					<p id="caption"><?php echo get_post(get_post_thumbnail_id())->post_excerpt; ?></p>
+					<p class="caption"><?php echo get_post(get_post_thumbnail_id())->post_excerpt; ?></p>
 				</div>
 				<?php if ( $deck ) : ?>
 				<p class="deck"><?php echo $deck; ?></p>
@@ -42,15 +42,10 @@ $video_url = get_video_url($post->ID);
 			</div>
 		</div>
 	</div>
-
-	<div class="container">
-		<?php echo gen_alerts_html(); ?>
-	</div>
 	<article class="feature-story">
 		<div class="container">
 			<div class="row">
 				<div class="span10 offset1">
-
 					<?php if($video_url != '') : ?>
 						<div class="video-container">
 							<?=$wp_embed->run_shortcode( '[embed width="550" height="500"]'.$video_url.'[/embed]' )?>
@@ -62,9 +57,7 @@ $video_url = get_video_url($post->ID);
 					<div id="source">
 						<p><?php echo $source; ?></p>
 					</div>
-					<div class="visible-xs">
-						<?php echo display_social(get_permalink($post->ID), $title, $deck); ?>
-					</div>
+					<?php echo display_social( get_permalink( $post->ID ), $title, 'affixed' ); ?>
 				</div>
 			</div>
 		</div>
@@ -73,5 +66,6 @@ $video_url = get_video_url($post->ID);
 		<aside class="related-stories">
 			<h2 class="text-center">Related Stories</h2>
 			<?php echo display_more_stories_featured( $post ); ?>
+			<div class="clearfix"></div>
 		</aside>
 <?php get_footer( 'featured' ); ?>
