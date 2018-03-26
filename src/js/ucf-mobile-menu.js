@@ -1,22 +1,22 @@
 /* global $ */
 (function () {
-	'use strict';
-
-	var menuSelector;
-  var menuTriggerSelector;
-  var $menuTrigger;
-  var menuTriggerClass;
-  var $menu;
-  var menuSlideoutClass;
-  var menuCloseSelector;
-  var $bodyOverlay;
-  var bodyOverlayClass;
 
 
-	// function openMenu() {
+  let menuSelector;
+  let menuTriggerSelector;
+  let $menuTrigger;
+  let menuTriggerClass;
+  let $menu;
+  let menuSlideoutClass;
+  let menuCloseSelector;
+  let $bodyOverlay;
+  let bodyOverlayClass;
+
+
+  // function openMenu() {
   //   $menu.addClass(menuSlideoutClass);
   //   $menu.height($(document).height());
-	// }
+  // }
 
   function closeMenu() {
     $menu.removeClass(menuSlideoutClass);
@@ -31,15 +31,15 @@
   }
 
   function closeMobileMenuHandler() {
-    $(document).click(function(e) {
-      var $target = $(e.target);
+    $(document).click((e) => {
+      const $target = $(e.target);
 
-        // Hide the mobile menu when anything else is clicked
-        if (!$target.closest(menuSelector).length && !$target.closest(menuTriggerSelector).length) {
-          if ($menu.width() > 200) {
-            closeMenu();
-          }
+      // Hide the mobile menu when anything else is clicked
+      if (!$target.closest(menuSelector).length && !$target.closest(menuTriggerSelector).length) {
+        if ($menu.width() > 200) {
+          closeMenu();
         }
+      }
     });
   }
 
@@ -47,11 +47,11 @@
     $menu.find(menuCloseSelector).click(closeMenu);
   }
 
-	function setupEventHandlers() {
-		$(menuTriggerSelector).click(toggleMenu);
-	}
+  function setupEventHandlers() {
+    $(menuTriggerSelector).click(toggleMenu);
+  }
 
-	function init() {
+  function init() {
     menuSelector = '.site-nav';
     menuTriggerSelector = '.ucf-mobile-menu-trigger';
     $menuTrigger = $(menuTriggerSelector);
@@ -62,10 +62,10 @@
     $bodyOverlay = $('#nav-overlay');
     bodyOverlayClass = 'in';
 
-		setupEventHandlers();
-		closeMobileMenuHandler();
-		closeMobileMenuIconHandler();
-	}
+    setupEventHandlers();
+    closeMobileMenuHandler();
+    closeMobileMenuIconHandler();
+  }
 
-	$(init);
+  $(init);
 }());

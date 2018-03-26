@@ -1,0 +1,16 @@
+#resources ul {
+  list-style-type: none;
+  margin-left: 0;
+
+  li {
+    margin-bottom: 5px;
+
+    a {
+      color: #900;
+
+      &:hover {
+        color: $black;
+      }
+    }
+  }
+}
