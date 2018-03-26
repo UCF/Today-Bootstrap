@@ -1,0 +1,23 @@
+#profile h3 {
+  color: #333;
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 1.2;
+  text-transform: none;
+}
+
+#profile-feature {
+  h4 {
+    color: #333;
+    margin-bottom: 4px;
+  }
+
+  strong {
+    color: #333;
+  }
+
+  .profile-list>div {
+    line-height: 1.4;
+    margin-bottom: 20px;
+  }
+}

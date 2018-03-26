@@ -43,14 +43,9 @@
 		  var CB_UID    = '<?php echo CB_UID; ?>';
 		  var CB_DOMAIN = '<?php echo CB_DOMAIN; ?>';
 		</script>
-		<?php
-		endif;
-		// END chartbeat
-		?>
+		<?php endif; ?>
 
-		<?php
-		// START custom page stylesheet
-		$post_type = get_post_type( $post->ID );
+		<?php $post_type = get_post_type($post->ID);
 
 		if (
 			( $stylesheet_id = get_post_meta( $post->ID, $post_type.'_stylesheet', True ) ) !== False

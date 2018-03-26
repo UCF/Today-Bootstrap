@@ -1,0 +1,75 @@
+.ucf-social-links {
+  content: '';
+  display: table;
+  line-height: 0;
+
+  &::before,
+  &::after {
+    clear: both;
+  }
+
+  .btn-twitter,
+  .btn-facebook,
+  .btn-google {
+    background-image: none;
+    border: 0;
+    border-radius: 0;
+    display: block;
+    float: left;
+    font-weight: bold;
+    letter-spacing: .1em;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    text-shadow: none;
+    text-transform: uppercase;
+    transition: none;
+  }
+
+  .btn-sm {
+    font-size: 11px;
+    padding: 2px 8px;
+  }
+
+  .btn-md {
+    font-size: 12px;
+    padding: 4px 10px;
+  }
+
+  .btn-lg {
+    font-size: 14px;
+    padding: 6px 18px;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 979px),
+(min-width: 1130px) {
+  .ucf-social-links-affixed {
+    display: flex;
+    flex-direction: column;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: calc(10vh + 200px);
+
+    .btn-sm {
+      padding: 8px 14px;
+    }
+
+    .fa {
+      font-size: 22px;
+      vertical-align: middle;
+    }
+
+    .btn-text {
+      border: 0;
+      clip: rect(0, 0, 0, 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+  }
+}
