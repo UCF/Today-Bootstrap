@@ -26,37 +26,28 @@ The primary issue with Pingbacks, though, is that media attachments allow them, 
 * Disable comments on all attachments. The theme comes with this built-in, but only for future attachments. Use the SQL statement `UPDATE wp_posts SET comment_status="closed" WHERE post_type="attachment";` to remove commenting on all existing attachments (note: wp_posts will be named 'wp_SITEID_posts' on multisite installs.)
 
 
-## Deployment
-
-This theme relies on Twitter's Bootstrap framework. UCF's fork of the Bootstrap project (http://github.com/UCF/bootstrap/) is added as submodule in static/bootstrap. Bootstrap must be initialized as a submodule with every new clone of this theme repository.
-
-#### Initializing Bootstrap with a new clone:
-1. Pull/Clone the theme repo
-2. From the theme's root directory, run `git submodule update --init static/bootstrap`
-3. From the static/bootstrap directory, run `git checkout today`.  Make sure a branch has been checked out for submodules as they will default to 'no branch' when cloned.
-
-#### Alternative method using Git v1.6.5+:
-1. Run `git clone` using the `--recursive` parameter to clone the repo with all of its submodules; e.g. `git clone --recursive https://github.com/UCF/Today-Bootstrap.git`
-2. From the static/bootstrap directory, run `git checkout today`.  Make sure a branch has been checked out for submodules as they will default to 'no branch' when cloned.
+## Configuration
+* Create a menu named 'Top Navigation' with the appropriate navigation links.
+* Create a menu for the social media buttons and assign this menu to the 'Social Links' display location.
+* Ensure that the homepage display option is set to 'Your latest posts' in Reading Settings.
 
 
 ## Development
 
-This theme relies on Twitter's Bootstrap framework. Bootstrap is a CSS framework that uses LESS to programatically develop stylesheets.
-UCF's fork of the Bootstrap project (http://github.com/UCF/bootstrap/) is added as submodule in static/bootstrap.
+Note that compiled, minified css and js files are included within the repo. Changes to these files should be tracked via git (so that users installing the theme using traditional installation methods will have a working theme out-of-the-box.)
 
-### Setup
-** Note: This theme uses a version of Bootstrap whose package requirements result in Bootstrap's CSS files compiling to empty files. Follow the steps below completely to install the packages so that the `make` command works correctly. (https://github.com/twitter/bootstrap/issues/8088) **
+### Requirements
+* node
+* gulp
 
-0. If they're not already installed on your machine, install node and npm for node-related package management.
-1. If this is a brand new clone, run `git submodule update --init static/bootstrap` from the theme's root directory.
-2. Navigate to static/bootstrap, then run `npm install` to install necessary dependencies for building Bootstrap's .less files. These packages are excluded in the submodule .gitignore.
-3. Navigate to the submodule's node_modules/recess folder, and open **package.json**. Under 'dependencies', update 'less' from '>= 1.3.0' to '1.3.3' and save. Delete node_modules/ from within the recess directory.
-4. From the recess directory, run `npm install`.
-5. Navigate back to the root bootstrap directory and remove the compiled bootstrap directory, if it exists.
-
-### Compiling
-Once the setup instructions above have been completed, you can compile modified .less files from the root bootstrap directory with `make bootstrap`. Compiled files will save to a new directory 'bootstrap' within the root directory (static/bootstrap/bootstrap/).
+### Instructions
+1. Clone the Today-Bootstrap repo into your development environment, within your WordPress installation's `themes/` directory: `git clone https://github.com/UCF/Today-Bootstrap.git`
+2. `cd` into the Today-Bootstrap directory, and run `npm install` to install required packages for development into `node_modules/` within the repo
+3. Duplicate `gulp-config.template.json`, make any desired changes, and save as `gulp-config.json`.
+3. Run `gulp default` to process front-end assets.
+4. If you haven't already done so, create a new WordPress site on your development environment, install the required plugins listed above, and set the 'UCF Today WordPress Theme Bootstrap' as the active theme.
+5. Make sure you've done all the steps listed under "Configuration" above.
+6. Run `gulp watch` to continuously watch changes to scss and js files.  If you enabled BrowserSync in `gulp-config.json`, it will also reload your browser when scss or js files change.
 
 ### Importing Data
 Today tends to export HUGE XML files which don't import well-- use a WXR splitter (http://github.com/suhastech/Wordpress-WXR-Splitter/) to generate smaller chunks of data for import.

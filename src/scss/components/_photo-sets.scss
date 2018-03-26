@@ -1,0 +1,73 @@
+#photoset {
+  h3 {
+    font-family: Georgia, serif;
+    font-size: 26px;
+    font-weight: normal;
+    line-height: 1.308;
+    margin-top: 0;
+    text-transform: none;
+  }
+
+  .ucf-social-links {
+    margin-top: 5px;
+  }
+
+  .photoset-list li {
+    background-color: #f9f9f9;
+    margin-bottom: 35px;
+    width: 100%;
+
+    p {
+      font-family: $font-family-sans-serif;
+      font-size: 14px;
+      line-height: 1.429;
+      padding: 15px 10px;
+
+      span {
+        color: #ffc907;
+        display: block;
+        float: left;
+        font-size: 36px;
+        margin-right: 10px;
+        padding-bottom: 5px;
+      }
+    }
+
+    img {
+      height: auto;
+      width: 100%;
+    }
+  }
+}
+
+#photo-sets {
+  h3 {
+    font-size: 24px;
+    font-weight: normal;
+    line-height: 1.083;
+    margin-top: -4px;
+    text-transform: none;
+
+    @media (max-width: 767px) {
+      margin-top: 15px;
+    }
+  }
+
+  .photoset-list>div {
+    img {
+      height: 203px;
+      width: 220px;
+
+      @media (max-width: 767px) {
+        height: auto;
+        width: 100%;
+      }
+    }
+
+    h3 {
+      font-size: 16px;
+      line-height: 1;
+      margin-top: 10px;
+    }
+  }
+}

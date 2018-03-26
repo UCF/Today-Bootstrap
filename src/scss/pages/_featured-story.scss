@@ -1,0 +1,12 @@
+.featured-article>.container:first-of-type p:first-of-type:first-letter {
+  color: #ffc907;
+  display: block;
+  float: left;
+  font-family: $font-family-serif;
+  font-size: 48px;
+  font-weight: normal;
+  height: 48px;
+  line-height: 1;
+  margin-right: 7px;
+  margin-top: 0;
+}

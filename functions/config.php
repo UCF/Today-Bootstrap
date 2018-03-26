@@ -308,28 +308,24 @@ Config::$links = array(
 
 
 Config::$styles = array(
-	array('admin' => True, 'src' => THEME_CSS_URL.'/admin.css',),
+	array('admin' => True, 'src' => THEME_CSS_URL.'/admin.min.css',),
 	CURRENT_PROTOCOL.'universityheader.ucf.edu/bar/css/bar.css',
-	THEME_STATIC_URL.'/bootstrap/bootstrap/css/bootstrap.min.css',
 	'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'
 );
 
 array_push(Config::$styles,
 	plugins_url( 'gravityforms/css/forms.css' ),
-	THEME_CSS_URL.'/webcom-base.css',
+	THEME_CSS_URL.'/style.min.css',
 	get_bloginfo('stylesheet_url')
 );
 
 Config::$scripts = array(
-	array( 'admin' => True, 'src' => THEME_JS_URL.'/admin.js', ),
+	array( 'admin' => True, 'src' => THEME_JS_URL.'/admin.min.js', ),
 	CURRENT_PROTOCOL.'universityheader.ucf.edu/bar/js/university-header.js?use-bootstrap-overrides=1',
-	THEME_STATIC_URL.'/bootstrap/bootstrap/js/bootstrap.min.js',
-	array( 'name' => 'base-script',  'src' => THEME_JS_URL.'/webcom-base.js', ),
 	array( 'name' => 'autoellipsis',  'src' => THEME_JS_URL.'/jquery.autoellipsis-1.0.10.min.js', ),
 	array( 'name' => 'jquery-cookie',  'src' => THEME_JS_URL.'/jquery-cookie.js', ),
 	array( 'name' => 'matchheight', 'src' => 'https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight-min.js' ),
-	array( 'name' => 'theme-script', 'src' => THEME_JS_URL.'/script.js', ),
-	array( 'name' => 'ucf-mobile-menu', 'src' => THEME_JS_URL.'/ucf-mobile-menu.js', ),
+	array( 'name' => 'theme-script', 'src' => THEME_JS_URL.'/script.min.js', ),
 );
 
 Config::$metas = array(

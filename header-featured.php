@@ -40,9 +40,6 @@
 		</script>
 		<?php endif; ?>
 
-		<link rel='stylesheet' href="<?php echo THEME_STATIC_URL ?>/bootstrap/bootstrap/css/bootstrap-responsive.min.css" type='text/css' media='all' />
-		<link rel='stylesheet' href="<?php echo THEME_URL ?>/style-responsive.css" type='text/css' media='all' />
-
 		<?  $post_type = get_post_type($post->ID);
 
 			if(($stylesheet_id = get_post_meta($post->ID, $post_type.'_stylesheet', True)) !== False
@@ -70,18 +67,28 @@
 
 	</head>
 	<body class="body-feature">
-		<div class="feature-header">
-			<div class="container">
-				<nav id="feature-menu" role="navigation">
-					<a href="<?php echo get_home_url(); ?>" class="feature-today-logo">UCF Today</a>
-					<?php echo wp_nav_menu( array(
-						'menu' => 'Feature Story Navigation',
-						'container' => 'false',
-						'menu_class' => 'menu '.get_header_styles(),
-						'menu_id' => 'feature-navigation',
-						'walker' => new Bootstrap_Walker_Nav_Menu()
-						) );
-					?>
-				</nav>
+		<div class="container">
+			<div class="row" id="header" role="banner">
+				<div id="page-title" class="span7">
+					<? if ( is_home() || !is_single() ): ?>
+						<h1><?php echo get_header_title() ?></h1>
+					<? else: ?>
+						<h2><?php echo get_header_title() ?></h2>
+					<? endif; ?>
+				</div>
+				<?php echo esi_include( 'output_weather_data' )?>
+				<hr class="span12" />
 			</div>
-		</div>
+			<nav id="header-menu" role="navigation">
+				<div class="ucf-mobile-menu-trigger pull-left">menu</div>
+				<?php echo wp_nav_menu( array(
+					'menu' => 'Top Navigation',
+					'container' => 'false',
+					'menu_class' => 'menu '.get_header_styles(),
+					'menu_id' => 'navigation',
+					'walker' => new Bootstrap_Walker_Nav_Menu()
+					) );
+				?>
+				<?php echo get_search_form()?>
+			</nav>
+			<?php echo gen_alerts_html()?>

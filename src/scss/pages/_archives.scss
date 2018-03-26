@@ -1,0 +1,65 @@
+#archives {
+  ul {
+    list-style-type: none;
+    margin: 0;
+  }
+
+  li {
+    margin-bottom: 20px;
+  }
+
+  .thumbnail {
+    border: 0;
+    float: left;
+    height: 91px;
+    margin-right: 10px;
+    padding: 0;
+    width: 95px;
+  }
+
+  .month_year {
+    font-size: 24px;
+    font-weight: normal;
+    line-height: 1;
+    margin-bottom: 30px;
+    text-transform: none;
+  }
+
+  h3 {
+    font-size: 20px;
+    line-height: 1;
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+  .ellipse {
+    font-size: 15px;
+    line-height: 1.467;
+    margin-left: 105px;
+  }
+
+  .date {
+    font-family: Helvetica, sans-serif;
+    font-size: 12px;
+    line-height: 1.667;
+    margin-bottom: 0;
+  }
+
+  .next {
+    float: left;
+  }
+
+  .previous {
+    float: right;
+  }
+
+  .next a,
+  .previous a {
+    color: #900;
+    text-decoration: underline;
+
+    &:hover {
+      color: $black;
+    }
+  }
+}
