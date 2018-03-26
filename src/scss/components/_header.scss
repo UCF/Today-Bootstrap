@@ -7,68 +7,68 @@
   border-bottom: 1px solid #eee;
   font-family: 'Helvetica Neue', 'Helvetica-Neue', Helvetica, sans-serif;
   margin-bottom: 20px;
+}
 
-  .site-header-inner {
-    display: flex;
-    flex-direction: row;
-    min-height: 50px;
-    padding-bottom: .5rem;
-    padding-top: .5rem;
-
-    .site-header-desc {
-      margin-top: 7px;
-    }
-  }
-
-  .site-header-info,
-  .site-header-actions {
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-  }
-
-  .site-header-actions {
-    margin-left: auto;
-
-    .weather-date {
-      display: none;
-    }
-  }
-
-  .site-title {
-    font-size: 1rem;
-    line-height: 1;
-    margin: 0;
-
-    a {
-      font-size: inherit;
-      line-height: inherit;
-    }
-  }
-
-  .site-logo {
-    height: auto;
-    width: 140px;
-  }
-
-  .site-header-info .site-header-desc {
-    margin-left: 1em;
-  }
+.site-header-inner {
+  display: flex;
+  flex-direction: row;
+  min-height: 50px;
+  padding-bottom: .5rem;
+  padding-top: .5rem;
 
   .site-header-desc {
-    color: #555;
-    font-size: 12px;
-    letter-spacing: .05em;
-    text-transform: uppercase;
+    margin-top: 7px;
   }
+}
 
-  .site-nav {
-    background-color: #eee;
-    height: 0;
-    opacity: 0;
-    overflow: hidden;
-    transition: opacity .3s cubic-bezier(.25, .5, .5, .9);
+.site-header-info,
+.site-header-actions {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.site-header-actions {
+  margin-left: auto;
+
+  .weather-date {
+    display: none;
   }
+}
+
+.site-title {
+  font-size: 1rem;
+  line-height: 1;
+  margin: 0;
+
+  a {
+    font-size: inherit;
+    line-height: inherit;
+  }
+}
+
+.site-logo {
+  height: auto;
+  width: 140px;
+}
+
+.site-header-info .site-header-desc {
+  margin-left: 1em;
+}
+
+.site-header-desc {
+  color: #555;
+  font-size: 12px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.site-nav {
+  background-color: #eee;
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: opacity .3s cubic-bezier(.25, .5, .5, .9);
 }
 
 .disable-md-navbar-toggle .site-nav,
