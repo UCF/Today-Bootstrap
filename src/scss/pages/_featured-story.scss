@@ -1,0 +1,118 @@
+.featured-article>.container:first-of-type p:first-of-type:first-letter {
+  font-family: $font-family-serif;
+  color: #ffc907;
+  display: block;
+  float: left;
+  font-size: 48px;
+  font-weight: normal;
+  height: 48px;
+  line-height: 1;
+  margin-right: 7px;
+  margin-top: 0;
+}
+
+.featured-story-header {
+  background: $off-white;
+  margin-bottom: 3em;
+}
+
+.featured-story-header .img-responsive {
+  width: 100%;
+}
+
+.featured-story-header .featured-title {
+  font-size: 28px;
+  line-height: 1.2;
+  margin-top: 2.25%;
+}
+
+.featured-deck {
+  margin: 1em 2em 1em 0;
+}
+
+.related-stories {
+  margin-top: 2em;
+}
+
+.related-story {
+  display: block;
+  padding: 0 .25em;
+  margin-bottom: 1em;
+}
+
+.related-story-image {
+  background-position: center center;
+  background-size: cover;
+  min-height: 212px;
+  width: 212px;
+}
+
+.related-story-title-wrapper {
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  -webkit-box-pack: end !important;
+  justify-content: flex-end !important;
+  min-height: 212px;
+}
+
+.related-story-title {
+  background: rgba(0, 0, 0, .85);
+  color: #fff;
+  font-size: .9em;
+  padding: .25em .5em;
+  margin: 0;
+  text-transform: uppercase;
+  transition: all .25s ease;
+}
+
+.related-story:hover {
+  text-decoration: none;
+}
+
+.related-story:hover .related-story-title {
+  background: rgba(0, 0, 0, 1);
+  color: #fc0;
+}
+
+.featured-deck .lead {
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+.featured-byline .ucf-social-links {
+  margin-top: 20px;
+}
+
+.featured-footer-logo {
+  display: block;
+  text-align: center;
+  color: #000;
+  font-family: $font-family-sans-serif;
+  font-size: 24px;
+  margin: 1em 0;
+}
+
+a.featured-footer-logo:hover {
+  text-decoration: none;
+  color: #000 !important;
+}
+
+.featured-footer-logo .featured-footer-gold {
+  color: #fc0;
+  font-weight: 700;
+  margin-right: 2px;
+}
+
+a:hover .related-story-title {
+  text-decoration: none;
+}
+
+@media (max-width: 979px) {
+
+  .related-story-image {
+    height: 166px;
+    width: 166px;
+  }
+}

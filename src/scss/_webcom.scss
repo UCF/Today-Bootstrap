@@ -1,0 +1,180 @@
+#UCFHBSearch_ucf fieldset #q {
+  border-radius: 0;
+  color: $black;
+  font-family: 'Lucida Grande',sans-serif;
+  font-size: 11px;
+  height: 13px;
+  line-height: 1;
+  margin-bottom: 0;
+  margin-top: 1px;
+  padding: 2px !important;
+}
+
+#UCFHBHeaderLinks {
+  border-radius: 0;
+  color: $black;
+  font-family: 'Lucida Grande', sans-serif;
+  font-size: 11px;
+  height: 18px;
+  margin-bottom: 0;
+  margin-top: 1px;
+  padding: 0;
+}
+
+body {
+  background: url('../img/gradient.png') repeat-x top left $white;
+  color: $dark-gray;
+}
+
+.menu a {
+  font-size: 16px;
+  font-weight: normal;
+  margin-right: 5px;
+  text-decoration: none;
+}
+
+.menu a:hover {
+  text-decoration: underline;
+}
+
+.menu.horizontal {
+  clear: right;
+  color: #6d6e71;
+  list-style: none;
+  margin: 0;
+  padding: 10px 0 0;
+
+  li {
+    display: inline-block;
+    float: left;
+    margin: 0 6px 16px 0;
+    padding: 0;
+
+    .ie & {
+      display: block;
+      float: left;
+      margin-right: 6px;
+    }
+
+    &::after {
+      content: '\2022';
+      margin-left: 1px;
+    }
+  }
+
+  .last::after {
+    content: none !important;
+  }
+}
+
+.menu.nav-pills,
+.menu.nav-tabs {
+  margin-left: 0;
+}
+
+.dropdown-menu li {
+  margin-bottom: 0 !important;
+  width: 100%;
+
+  &::after {
+    content: none !important;
+  }
+
+  a {
+    margin-right: 0;
+    white-space: pre-wrap;
+  }
+}
+
+.search-form #s {
+  box-sizing: border-box;
+  display: block;
+  height: 30px;
+  padding: 5px 10px;
+  width: 100%;
+}
+
+.post-type-search {
+  margin-top: 1em;
+}
+
+.post-type-search-result-highlight {
+  background-color: #ff0;
+  border: 1px solid #ddd;
+}
+
+.post-type-search-message {
+  padding: 0 10px 10px;
+}
+
+.post-type-search-form {
+  margin-bottom: 0;
+}
+
+.post-type-search-results {
+  background-color: $off-white;
+  display: none;
+  font-size: 115%;
+  margin-bottom: 10px;
+  padding-top: 10px;
+
+  li {
+    line-height: 150%;
+  }
+}
+
+.post-type-search-sorting {
+  margin-bottom: 5px;
+}
+
+.pub {
+  display: block;
+  overflow: auto;
+
+  a img {
+    float: left;
+    height: 198px;
+    margin-bottom: 10px;
+    width: 153px;
+  }
+
+  a span {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+
+  .modal {
+    height: 80%;
+    left: 2.5% !important;
+    margin: 0 auto;
+    max-height: 95%;
+    overflow: hidden;
+    top: 60px !important;
+    width: 95%;
+
+    iframe {
+      border: 0;
+      overflow: hidden !important;
+    }
+
+    .btn {
+      bottom: 20px;
+      position: absolute;
+      right: 20px;
+      text-decoration: none;
+      z-index: 9999;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.pub .pub-desc,
+.pub a span {
+  clear: both;
+  display: block;
+  float: left;
+  width: 153px;
+}

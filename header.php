@@ -40,9 +40,6 @@
 		</script>
 		<?php endif; ?>
 
-		<link rel='stylesheet' href="<?php echo THEME_STATIC_URL ?>/bootstrap/bootstrap/css/bootstrap-responsive.min.css" type='text/css' media='all' />
-		<link rel='stylesheet' href="<?php echo THEME_URL ?>/style-responsive.css" type='text/css' media='all' />
-
 		<?  $post_type = get_post_type($post->ID);
 
 			if(($stylesheet_id = get_post_meta($post->ID, $post_type.'_stylesheet', True)) !== False

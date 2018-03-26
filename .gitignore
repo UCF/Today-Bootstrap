@@ -21,3 +21,13 @@ CVS
 ._*
 .DS_Store
 Thumbs.db
+
+# Package managers
+node_modules/*
+
+# Sass stuff
+static/scss/.sass-cache/*
+dev/.sass-cache/*
+
+# Local config
+gulp-config.json

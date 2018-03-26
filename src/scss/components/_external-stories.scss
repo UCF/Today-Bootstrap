@@ -1,0 +1,17 @@
+#external_stories ul li {
+  font-family: $font-family-sans-serif;
+  font-size: 15px;
+  line-height: 1.2;
+  margin-bottom: 15px;
+
+  a {
+    color: $black;
+    display: block;
+    text-decoration: underline;
+    width: 100%;
+  }
+
+  span {
+    color: #037f95;
+  }
+}

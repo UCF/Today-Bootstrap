@@ -1,0 +1,56 @@
+// Universal
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-family-sans-serif;
+
+  a,
+  a:hover {
+    color: $dark-gray;
+  }
+}
+
+a,
+strong,
+em {
+  font-family: $font-family-sans-serif;
+}
+
+h3 {
+  font-weight: normal;
+}
+
+h2 {
+  font-size: 11.5px;
+  letter-spacing: .5px;
+  line-height: 2.435;
+  margin: 0 0 12px 0;
+  text-transform: uppercase;
+
+  &.listing {
+    display: block;
+    float: left;
+
+    + .listing {
+      clear: right;
+      color: $dark-gray;
+      float: right;
+      font-family: $font-family-sans-serif;
+      font-size: 12px;
+      line-height: 2.333;
+      margin: 0 0 12px 0;
+    }
+  }
+}
+
+.orange {
+  color: $orange;
+}
+
+h3 .orange,
+h4 .orange {
+  font-weight: 300;
+}
