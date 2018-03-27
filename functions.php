@@ -1007,13 +1007,10 @@ function display_related_story( $story ) {
 	ob_start();
 ?>
 	<div class="span3 match-height">
-	<a class="related-story" href="<?php echo get_permalink( $story->ID ); ?>">
-		<div class="related-story-image" style="background-image: url( '<?php echo $thumbnail; ?>' );">
-			<div class="related-story-title-wrapper">
-				<p class="h2 related-story-title text-center"><?php echo $story->post_title; ?></p>
-			</div>
-		</div>
-	</a>
+		<a class="related-story" href="<?php echo get_permalink( $story->ID ); ?>">
+			<div class="related-story-image" style="background-image: url( '<?php echo $thumbnail; ?>' );"></div>
+			<p class="h2 related-story-title"><?php echo $story->post_title; ?></p>
+		</a>
 	</div>
 <?php
 	return ob_get_clean ();
