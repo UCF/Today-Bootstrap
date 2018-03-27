@@ -162,6 +162,12 @@
     margin-top: 0;
   }
 
+  #content > p:first-of-type:first-child::after {
+    clear: both;
+    content: '';
+    display: block;
+  }
+
   #source p {
     font-family: $font-family-sans-serif;
     font-size: 12px;
