@@ -27,17 +27,21 @@ $video_url = get_video_url($post->ID);
 		<div class="row">
 			<div class="span10 offset1">
 				<div class="feature-headlines">
-					<h2><?php echo $category_title; ?></h2>
-					<h1><?php echo the_title(); ?></h1>
+					<h2 class="category-title"><?php echo $category_title; ?></h2>
+					<h1 class="story-title"><?php echo the_title(); ?></h1>
 					<?php if ( $subtitle ) : ?>
 					<h3 class="subtitle"><?php echo $subtitle; ?></h3>
 					<?php endif; ?>
 					<?php echo do_shortcode( '[feature_post_meta css="clearfix"]' ); ?>
 				</div>
+				<?php if($video_url != '') : ?>
+					<?=$wp_embed->run_shortcode( '[embed width="550" height="500"]'.$video_url.'[/embed]' )?>
+				<?php else : ?>
 				<div class="feature-story-image">
 					<?php the_post_thumbnail(); ?>
 					<p class="caption"><?php echo get_post(get_post_thumbnail_id())->post_excerpt; ?></p>
 				</div>
+				<?php endif; ?>
 				<?php if ( $deck ) : ?>
 				<p class="deck"><?php echo $deck; ?></p>
 				<?php endif; ?>
@@ -48,11 +52,6 @@ $video_url = get_video_url($post->ID);
 		<div class="container">
 			<div class="row">
 				<div class="span10 offset1">
-					<?php if($video_url != '') : ?>
-						<div class="video-container">
-							<?=$wp_embed->run_shortcode( '[embed width="550" height="500"]'.$video_url.'[/embed]' )?>
-						</div>
-					<?php endif ?>
 					<div id="content">
 						<?php the_content(); ?>
 					</div>
