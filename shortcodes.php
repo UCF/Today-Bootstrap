@@ -1478,7 +1478,7 @@ function sc_feature_post_meta($atts = Array())
 	ob_start()?>
 	<div class="<?php echo $css; ?>" id="meta">
 		<div>
-			<p id="byline-date">By <?php echo $byline; ?> | <?php echo date('F j, Y', strtotime($post->post_date)); ?></p>
+			<p id="byline-date">By <?php echo $byline; ?> <span class="hidden-mobile">|</span><br class="visible-mobile"> <?php echo date('F j, Y', strtotime($post->post_date)); ?></p>
 		</div>
 	</div>
 	<?
