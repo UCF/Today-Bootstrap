@@ -121,7 +121,8 @@
   .related-stories .span3.match-height {
     @media (max-width: 767px) {
       float: left;
-      width: 50%;
+      width: 48%;
+      margin: 0 1%;
     }
 
     @media (max-width: 544px) {
@@ -139,7 +140,7 @@
   .related-story-image {
     background-position: center center;
     background-size: cover;
-    min-height: 212px;
+    min-height: 150px;
 
     @media (max-width: 979px) {
       height: 166px;
@@ -147,9 +148,8 @@
     }
 
     @media (max-width: 767px) {
-      height: 230px;
-      margin: 0 auto;
-      width: 230px;
+      height: 200px;
+      width: 100%;
     }
   }
 
@@ -168,12 +168,10 @@
   }
 
   .related-story-title {
-    background: rgba(0, 0, 0, .85);
-    color: #fff;
+    color: #000;
     font-size: .9em;
-    padding: .25em .5em;
+    padding: .25em 0;
     margin: 0;
-    text-transform: uppercase;
     transition: all .25s ease;
 
     @media (max-width: 767px) {
@@ -185,9 +183,10 @@
     text-decoration: none;
   }
 
-  .related-story:hover .related-story-title {
-    background: rgba(0, 0, 0, 1);
-    color: #fc0;
+  .related-story:hover {
+    .related-story-title {
+      color: #666;
+    }
   }
 
   a:hover .related-story-title {
