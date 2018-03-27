@@ -7,6 +7,8 @@ disallow_direct_load( 'featured-single-post.php' );
 get_header( 'featured' ); the_post();
 
 $title = $post->post_title;
+$cats = wp_get_post_categories($post->ID);
+$category_title = get_cat_name($cats[0]);
 $subtitle = get_post_meta( $post->ID, 'subtitle', TRUE );
 $deck = get_post_meta( $post->ID, 'deck', TRUE );
 $source = get_post_meta( $post->ID, 'source', TRUE);
@@ -25,7 +27,7 @@ $video_url = get_video_url($post->ID);
 		<div class="row">
 			<div class="span10 offset1">
 				<div class="feature-headlines">
-					<h2><?php echo get_header_title() ?></h2>
+					<h2><?php echo $category_title; ?></h2>
 					<h1><?php echo the_title(); ?></h1>
 					<?php if ( $subtitle ) : ?>
 					<h3 class="subtitle"><?php echo $subtitle; ?></h3>
