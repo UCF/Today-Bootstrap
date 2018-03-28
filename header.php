@@ -94,7 +94,7 @@
 			</div>
 			<nav class="site-nav" id="header-menu" role="navigation">
 				<div class="container">
-					<button class="close-icon"><span class="sr-only">Close Menu</span><span aria-hidden="true">×</span></button>
+					<button class="close-icon"><span class="sr-only">Close Menu</span><span aria-hidden="true">&times;</span></button>
 					<div class="hidden-desktop">
 						<?php echo get_header_title( 'span' ); ?>
 						<div class="site-header-desc"><?php echo wptexturize( get_theme_option( 'site_subtitle' ) ); ?></div>
