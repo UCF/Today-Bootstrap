@@ -83,62 +83,41 @@ add_filter('rewrite_rules_array', 'rewrite_rules_filter');
 
 
 /**
- * Pulls, parses and caches the weather.
+ * Display weather data.
  *
- * @return array
- * @author Chris Conover, Jo Dickson
+ * @return string
+ * @author Jo Dickson
  **/
-function get_weather_data() {
-	$cache_key = 'weather';
-
-	// Check if cached weather data already exists
-	if(($weather = get_transient($cache_key)) !== False) {
-		return $weather;
-	} else {
-		$weather = array('condition' => 'Fair', 'temp' => '80&#186;', 'img' => '34');
-
-		// Set a timeout
-		$opts = array('http' => array(
-								'method'  => 'GET',
-								'timeout' => WEATHER_FETCH_TIMEOUT,
-		));
-		$context = stream_context_create($opts);
-
-		// Grab the weather feed
-		// using @ to suppress errors which causes the site not to load
-		$raw_weather = @file_get_contents( WEATHER_URL, false, $context );
-		if ($raw_weather) {
-			$json = json_decode($raw_weather);
-
-			$weather['condition'] 	= $json->condition;
-			$weather['temp']		= $json->temp;
-			$weather['img']			= (string)$json->imgCode;
-
-			// The temp, condition and image code should always be set,
-			// but in case they're not, we catch them here:
-
-			# Catch missing cid
-			if (!isset($weather['img']) or !$weather['img']){
-				$weather['img'] = '34';
-			}
-
-			# Catch missing condition
-			if (!is_string($weather['condition']) or !$weather['condition']){
-				$weather['condition'] = 'Fair';
-			}
-
-			# Catch missing temp
-			if (!isset($weather['temp']) or !$weather['temp']){
-				$weather['temp'] = '80&#186;';
-			}
-		}
-
-		// Cache the new weather data
-		set_transient($cache_key, $weather, WEATHER_CACHE_DURATION);
-
-		return $weather;
-	}
+function output_weather_data() {
+	return do_shortcode( '[ucf-weather feed="default" layout="today_nav"]' );
 }
+
+
+/**
+ * Custom layout for the UCF Weather Shortcode plugin for
+ * displaying weather data in the site header.
+ */
+function ucf_weather_default_today_nav( $data, $output ) {
+	if ( !class_exists( 'UCF_Weather_Common' ) ) { return; }
+
+	ob_start();
+	$icon = UCF_Weather_Common::get_weather_icon( $data->condition );
+?>
+	<div class="weather weather-today-nav">
+		<span class="weather-date"><?php echo date( 'l, F j, Y' ); ?></span>
+		<span class="weather-status">
+			<span class="weather-icon <?php echo $icon; ?>" aria-hidden="true"></span>
+			<span class="weather-text">
+				<span class="weather-temp"><?php echo $data->temp; ?>F</span>
+				<span class="weather-condition"><?php echo $data->condition; ?></span>
+			</span>
+		</span>
+	</div>
+<?php
+	return ob_get_clean();
+}
+
+add_filter( 'ucf_weather_default_today_nav', 'ucf_weather_default_today_nav', 10, 2 );
 
 
 /**
@@ -150,42 +129,6 @@ function get_embed_html( $media_url ) {
 	global $wp_embed;
 	return $wp_embed->run_shortcode( '[embed]' . $media_url . '[/embed]' );
 }
-
-
-/**
- * Display weather data.
- *
- * @return string
- * @author Jo Dickson
- **/
-function output_weather_data() {
-	$weather = get_weather_data();
-	ob_start();
-?>
-	<div class="weather">
-		<span class="weather-date"><?php echo date( 'l, F j, Y' ); ?></span>
-		<span class="weather-icon wi <?php echo get_weather_icon_class( $weather['condition'] ); ?>" aria-hidden="true"></span>
-		<span class="weather-condition"><?php echo $weather['condition']; ?></span>
-		<span class="weather-temp"><?php echo $weather['temp']; ?></span>
-	</div>
-<?php
-	return ob_get_clean();
-}
-
-
-/**
- * TODO: Given a weather condition from weather.smca.ucf.edu, returns a weather
- * icon class name relevant to the condition.
- *
- * @since 2.3.0
- * @param string $condition | condition string from weather.smca.ucf.edu
- * @return string
- * @author Jo Dickson
- **/
-function get_weather_icon_class( $condition ) {
-	return '';
-}
-
 
 
 /**
