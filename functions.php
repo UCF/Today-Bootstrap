@@ -101,8 +101,7 @@ function ucf_weather_default_today_nav( $data, $output ) {
 	if ( !class_exists( 'UCF_Weather_Common' ) ) { return; }
 
 	ob_start();
-	// $icon = UCF_Weather_Common::get_weather_icon( $data->condition );
-	$icon = 'wi wi-day-sunny'; // TODO
+	$icon = UCF_Weather_Common::get_weather_icon( $data->condition );
 ?>
 	<div class="weather weather-today-nav">
 		<span class="weather-date"><?php echo date( 'l, F j, Y' ); ?></span>
