@@ -83,7 +83,7 @@
 				</div>
 				<div class="site-header-actions">
 					<?php if ( disable_md_nav_toggle() ): ?>
-						<?php echo esi_include( 'output_weather_data' ); ?>
+						<?php echo output_weather_data(); ?>
 					<?php endif; ?>
 					<button class="ucf-mobile-menu-trigger" role="button">Sections</button>
 				</div>
@@ -105,7 +105,7 @@
 					) );
 					?>
 					<div class="hidden-desktop">
-						<?php echo esi_include( 'output_weather_data' ); ?>
+						<?php echo output_weather_data(); ?>
 						<?php echo get_search_form(); ?>
 					</div>
 				</div>
