@@ -1,0 +1,18 @@
+// News
+#ucf_news .story-list li {
+  margin-top: 15px;
+
+  .story-blurb {
+    font-size: 15px;
+    line-height: 1.467;
+    max-height: 113px;
+  }
+
+  a {
+    color: $black;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}

@@ -43,14 +43,9 @@
 		  var CB_UID    = '<?php echo CB_UID; ?>';
 		  var CB_DOMAIN = '<?php echo CB_DOMAIN; ?>';
 		</script>
-		<?php
-		endif;
-		// END chartbeat
-		?>
+		<?php endif; ?>
 
-		<?php
-		// START custom page stylesheet
-		$post_type = get_post_type( $post->ID );
+		<?php $post_type = get_post_type($post->ID);
 
 		if (
 			( $stylesheet_id = get_post_meta( $post->ID, $post_type.'_stylesheet', True ) ) !== False
@@ -95,7 +90,7 @@
 			</div>
 			<nav class="site-nav" id="header-menu" role="navigation">
 				<div class="container">
-					<button class="close-icon">Close Menu</button>
+					<button class="close-icon"><span class="sr-only">Close Menu</span><span aria-hidden="true">×</span></button>
 					<div class="hidden-desktop">
 						<?php echo get_header_title( 'span' ); ?>
 						<div class="site-header-desc"><?php echo bloginfo( 'description' ); ?></div>

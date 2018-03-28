@@ -1,0 +1,45 @@
+#ucf_video h4 {
+  font-size: 26px;
+  font-weight: 300;
+  margin-bottom: 5px;
+}
+
+#videos article {
+  margin-top: 0;
+}
+
+#videos .feature+div h3 {
+  font-size: 22px;
+  line-height: 1.091;
+  text-transform: none;
+}
+
+
+.video-container {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  clear: both;
+  height: 0;
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  position: relative;
+
+  iframe,
+  object,
+  embed {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+}
+
+.entry-content img,
+.entry-content iframe,
+.entry-content object,
+.entry-content embed {
+  max-width: 100%;
+}

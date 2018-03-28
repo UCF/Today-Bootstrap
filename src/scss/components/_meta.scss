@@ -1,0 +1,31 @@
+#meta {
+  font-family: $font-family-sans-serif;
+
+  p {
+    font-size: 11.5px;
+    line-height: 1.217;
+    margin-bottom: 4px;
+  }
+
+  #byline {
+    font-weight: bold;
+  }
+
+  #print {
+    font-size: 13px;
+    margin-top: 10px;
+  }
+
+  #source {
+    margin-top: 20px;
+
+    a {
+      color: #990000;
+      text-decoration: underline;
+
+      &:hover {
+        color: $black;
+      }
+    }
+  }
+}
