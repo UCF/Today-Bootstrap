@@ -83,7 +83,7 @@
 			<div class="container site-header-inner">
 				<div class="site-header-info">
 					<?php echo get_header_title(); ?>
-					<div class="site-header-desc"><?php echo bloginfo( 'description' ); ?></div>
+					<div class="site-header-desc"><?php echo wptexturize( get_theme_option( 'site_subtitle' ) ); ?></div>
 				</div>
 				<div class="site-header-actions">
 					<?php if ( disable_md_nav_toggle() ): ?>
@@ -97,7 +97,7 @@
 					<button class="close-icon"><span class="sr-only">Close Menu</span><span aria-hidden="true">×</span></button>
 					<div class="hidden-desktop">
 						<?php echo get_header_title( 'span' ); ?>
-						<div class="site-header-desc"><?php echo bloginfo( 'description' ); ?></div>
+						<div class="site-header-desc"><?php echo wptexturize( get_theme_option( 'site_subtitle' ) ); ?></div>
 					</div>
 					<?php
 					echo wp_nav_menu( array(

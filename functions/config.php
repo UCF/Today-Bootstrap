@@ -281,6 +281,13 @@ Config::$theme_settings = array(
 		)),
 	),
 	'Site' => array(
+		new TextField(array(
+			'name'        => 'Site Subtitle',
+			'id'          => THEME_OPTIONS_NAME.'[site_subtitle]',
+			'description' => 'Descriptive text to display next to the UCF Today logo in the site header.',
+			'default'     => '',
+			'value'       => $theme_options['site_subtitle'],
+		)),
 		new RadioField(array(
 			'name' 		  => 'Enable Edge Side Includes (ESI)',
 			'id' 		  => THEME_OPTIONS_NAME.'[enable_esi]',
