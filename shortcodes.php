@@ -1475,14 +1475,14 @@ function sc_feature_post_meta($atts = Array())
 	$byline = get_post_meta($post->ID, 'author_byline', True);
 	$byline = ($byline != '') ? $byline : get_the_author();
 
-	ob_start()?>
+	ob_start(); ?>
 	<div class="<?php echo $css; ?>" id="meta">
 		<div>
 			<p id="byline-date">By <?php echo $byline; ?> <span class="hidden-mobile">|</span><br class="visible-mobile"> <?php echo date('F j, Y', strtotime($post->post_date)); ?></p>
 		</div>
 	</div>
-	<?
-	$html = ob_get_contents(); ob_end_clean();
+	<?php
+	$html = ob_get_clean();
 	return $html;
 }
 add_shortcode('feature_post_meta', 'sc_feature_post_meta');

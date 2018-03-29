@@ -1075,7 +1075,7 @@ add_filter( 'ucf_social_links_display_affixed_before', 'ucf_social_links_display
 			"name": "University of Central Florida",
 			"logo": {
 				"@type": "ImageObject",
-				"url": "<?php echo site_url(); ?>/wp-content/themes/Today-Bootstrap/static/img/ucftoday4_small.png"
+				"url": "<?php echo THEME_IMG_URL; ?>/ucftoday4_small.png"
 			}
 		},
 		"description": "<?php echo $description; ?>"
