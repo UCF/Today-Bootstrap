@@ -19,9 +19,9 @@
 						<?php endif;?>
 					</div>
 				</div>
-			</div>
-		</div>
-	</div>
+			</div> <!-- #footer -->
+		</div> <!-- #feature-story (featured-single-post.php) -->
+	</div> <!-- .container (header.php) -->
 </body>
 <?php echo "\n".footer_()."\n"?>
 </html>

@@ -13,10 +13,10 @@
 		<article role="main">
 			<? if($use_page == true) { ?>
 				<?=apply_filters('the_content', $page->post_content)?>
-			<?php 
+			<?php
 			} else { ?>
 				<?=do_shortcode('[photo_set]')?>
-			<?php 
+			<?php
 			}
 			?>
 		</article>

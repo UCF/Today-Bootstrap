@@ -10,7 +10,7 @@
 				<?php the_content();?>
 			</article>
 		</div>
-		
+
 		<div id="sidebar" class="span3" role="complementary">
 			<?=get_sidebar();?>
 		</div>

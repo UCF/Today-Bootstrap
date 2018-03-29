@@ -1,10 +1,7 @@
 .search .search-form {
+  font-family: $font-family-sans-serif;
+  font-size: 11px;
   margin: 0;
-
-  * {
-    font-family: $font-family-sans-serif;
-    font-size: 11px;
-  }
 
   label {
     display: block;
@@ -18,7 +15,7 @@
     border-radius: 0;
     border-right: 0;
     float: left;
-    font-style: italic;
+    font-family: $font-family-sans-serif;
     height: 24px;
     line-height: 1.273;
     margin-bottom: 0;
@@ -44,5 +41,20 @@
     @media (max-width: 979px) {
       width: 20%;
     }
+  }
+}
+
+@media (max-width: 979px) {
+  .search form.search-form input#s {
+    font-size: 14px;
+    height: 38px;
+    width: 80%;
+  }
+
+  .search form.search-form button {
+    color: #000;
+    background-color: #fc0;
+    height: 38px;
+    width: 20%;
   }
 }

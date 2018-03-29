@@ -4,7 +4,7 @@
  * Template Post Type: Post
  */
 disallow_direct_load( 'featured-single-post.php' );
-get_header( 'featured' ); the_post();
+get_header(); the_post();
 
 $title = $post->post_title;
 $cats = wp_get_post_categories($post->ID);
@@ -59,4 +59,5 @@ $video_url = get_video_url($post->ID);
 		<?php echo display_more_stories_featured( $post ); ?>
 		<div class="clearfix"></div>
 	</aside>
-<?php get_footer( 'featured' ); ?>
+
+	<?php get_footer( 'featured' ); ?>

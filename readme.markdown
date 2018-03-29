@@ -10,6 +10,7 @@ Theme to replace the original Today WordPress theme, which relies on the Themati
 * Social
 * Twitter Tools (requires Social)
 * UCF Social Plugin
+* UCF Weather Shortcode
 * Varnish Dependency Purger
 * WP-Print
 

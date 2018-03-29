@@ -1,16 +1,27 @@
 /* global $ */
 (function () {
 
+  let menuSelector;
+  let menuTriggerSelector;
+  let $menuTrigger;
+  let menuTriggerClass;
+  let $menu;
+  let menuSlideoutClass;
+  let menuCloseSelector;
+  let $bodyOverlay;
+  let bodyOverlayClass;
 
-  const $menu = $('.ucf-mobile-menu');
 
-  function openMenu() {
-    $menu.addClass('slide-out');
-    $menu.height($(document).height());
+  function closeMenu() {
+    $menu.removeClass(menuSlideoutClass);
+    $menuTrigger.removeClass(menuTriggerClass);
+    $bodyOverlay.removeClass(bodyOverlayClass);
   }
 
-  function closeMobileMenu() {
-    $menu.removeClass('slide-out');
+  function toggleMenu() {
+    $menu.toggleClass(menuSlideoutClass);
+    $menuTrigger.toggleClass(menuTriggerClass);
+    $bodyOverlay.toggleClass(bodyOverlayClass);
   }
 
   function closeMobileMenuHandler() {
@@ -18,23 +29,33 @@
       const $target = $(e.target);
 
       // Hide the mobile menu when anything else is clicked
-      if (!$target.closest('.ucf-mobile-menu').length && !$target.closest('.ucf-mobile-menu-trigger').length) {
+      if (!$target.closest(menuSelector).length && !$target.closest(menuTriggerSelector).length) {
         if ($menu.width() > 200) {
-          closeMobileMenu();
+          closeMenu();
         }
       }
     });
   }
 
   function closeMobileMenuIconHandler() {
-    $menu.find('.close-icon').click(closeMobileMenu);
+    $menu.find(menuCloseSelector).click(closeMenu);
   }
 
   function setupEventHandlers() {
-    $('.ucf-mobile-menu-trigger').click(openMenu);
+    $(menuTriggerSelector).click(toggleMenu);
   }
 
   function init() {
+    menuSelector = '.site-nav';
+    menuTriggerSelector = '.ucf-mobile-menu-trigger';
+    $menuTrigger = $(menuTriggerSelector);
+    menuTriggerClass = 'active';
+    $menu = $(menuSelector);
+    menuSlideoutClass = 'slideout';
+    menuCloseSelector = '.close-icon';
+    $bodyOverlay = $('#nav-overlay');
+    bodyOverlayClass = 'in';
+
     setupEventHandlers();
     closeMobileMenuHandler();
     closeMobileMenuIconHandler();

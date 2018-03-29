@@ -88,12 +88,6 @@ define('GA_ACCOUNT', $theme_options['ga_account']);
 define('CB_UID', $theme_options['cb_uid']);
 define('CB_DOMAIN', $theme_options['cb_domain']);
 
-# Weather
-define('WEATHER_URL', 'http://weather.smca.ucf.edu/');
-define('WEATHER_CLICK_URL', 'http://www.weather.com/weather/today/Orlando+FL+32816');
-define('WEATHER_CACHE_DURATION', 60 * 5); //seconds
-define('WEATHER_FETCH_TIMEOUT', 8); //seconds
-
 # Announcements
 define('ANNOUNCE_DEFAULT', 'http://www.ucf.edu/announcements/?include_ongoing=0&output=json');
 define('ANNOUNCE_CACHE_DURATION', 60 * 5); // seconds
@@ -120,6 +114,9 @@ define('CURRENT_PROTOCOL', is_ssl() ? 'https://' : 'http://');
 
 # ESI processing
 define('ESI_INCLUDE_URL', THEME_STATIC_URL.'/esi.php');
+
+# Feed thumbnail default image
+define( 'FEED_THUMBNAIL_FALLBACK', get_bloginfo( 'stylesheet_directory' ) . '/static/img/no-photo.png' );
 
 
 /**
@@ -158,10 +155,6 @@ Config::$custom_taxonomies = array(
  * )
  **/
 Config::$esi_whitelist = array(
-	1 => array(
-		'name' => 'output_weather_data',
-		'safe_args' => array(),
-	),
 	2 => array(
 		'name' => 'do_shortcode',
 		'safe_args' => array('[events]', '[events css="border-bottom"]'),
@@ -287,6 +280,13 @@ Config::$theme_settings = array(
 		)),
 	),
 	'Site' => array(
+		new TextField(array(
+			'name'        => 'Site Subtitle',
+			'id'          => THEME_OPTIONS_NAME.'[site_subtitle]',
+			'description' => 'Descriptive text to display next to the UCF Today logo in the site header.',
+			'default'     => '',
+			'value'       => $theme_options['site_subtitle'],
+		)),
 		new RadioField(array(
 			'name' 		  => 'Enable Edge Side Includes (ESI)',
 			'id' 		  => THEME_OPTIONS_NAME.'[enable_esi]',
