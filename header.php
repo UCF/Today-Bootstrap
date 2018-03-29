@@ -43,9 +43,14 @@
 		  var CB_UID    = '<?php echo CB_UID; ?>';
 		  var CB_DOMAIN = '<?php echo CB_DOMAIN; ?>';
 		</script>
-		<?php endif; ?>
+		<?php
+		endif;
+		// END chartbeat
+		?>
 
-		<?php $post_type = get_post_type($post->ID);
+		<?php
+		// START custom page stylesheet
+		$post_type = get_post_type($post->ID);
 
 		if (
 			( $stylesheet_id = get_post_meta( $post->ID, $post_type.'_stylesheet', True ) ) !== False
@@ -56,6 +61,8 @@
 		<?php
 		endif;
 		// END custom page stylesheet
+
+		// START post type search script
 		?>
 
 		<script type="text/javascript">
@@ -71,6 +78,16 @@
 				this.data         = data;
 			}
 		</script>
+
+		<?php
+		// END post type search script
+
+		// START news schema json
+		if ( is_single() ):
+			echo display_news_schema( $post );
+		endif;
+		// END news schema json
+		?>
 
 	</head>
 	<body class="<?php echo today_body_classes(); ?>">

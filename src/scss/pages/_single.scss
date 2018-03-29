@@ -39,17 +39,22 @@
       margin-bottom: 16px;
     }
 
-    > p:first-child:first-letter {
+    > p:first-child::first-letter {
       color: #ffc907;
       display: block;
       float: left;
       font-family: Georgia, serif;
       font-size: 48px;
       font-weight: normal;
-      height: 48px;
-      line-height: 1;
+      line-height: .9;
       margin-right: 7px;
-      margin-top: 0;
+      margin-top: 1px;
+    }
+
+    > p:first-of-type:first-child::after {
+      clear: both;
+      content: '';
+      display: block;
     }
   }
 

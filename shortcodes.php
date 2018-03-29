@@ -589,9 +589,7 @@ function sc_ucf_video($atts = Array())
 			?>
 			<div class="<?=$css?>" id="ucf_video">
 				<h2 class="listing">Watch Video</h2><a href="<?=get_page_link(get_page_by_title('Videos')->ID)?>" class="listing">More &raquo;</a>
-				<div class="video-container">
-					<?=$wp_embed->run_shortcode($embed_string)?>
-				</div>
+					<?php echo $wp_embed->run_shortcode($embed_string); ?>
 				<h4><?=$video->post_title?></h4>
 				<p><?=$video->post_content?></p>
 			</div>
@@ -961,9 +959,7 @@ function sc_single_post($atts = Array())
 			<h1><?=$title?></h1>
 			<?=$subtitle?>
 			<? if($video_url != '') { ?>
-				<div class="video-container">
-					<?=$wp_embed->run_shortcode( '[embed width="550" height="500"]'.$video_url.'[/embed]' )?>
-				</div>
+				<?php echo $wp_embed->run_shortcode( '[embed width="550" height="500"]'.$video_url.'[/embed]' ); ?>
 			<? } else { ?>
 			<div id="story_feat_img">
 				<?=$img_attach['html']?>
@@ -1465,6 +1461,34 @@ add_shortcode('expert_photos', 'sc_expert_photos');
 
 
 /**
+ * Feature post meta.
+ *
+ * @return string.
+ * @author Cadie Brown
+ **/
+function sc_feature_post_meta($atts = Array())
+{
+	global $post;
+
+	$css = (isset($atts['css'])) ? $atts['css'] : '';
+
+	$byline = get_post_meta($post->ID, 'author_byline', True);
+	$byline = ($byline != '') ? $byline : get_the_author();
+
+	ob_start(); ?>
+	<div class="<?php echo $css; ?>" id="meta">
+		<div>
+			<p id="byline-date">By <?php echo $byline; ?> <span class="hidden-mobile">|</span><br class="visible-mobile"> <?php echo date('F j, Y', strtotime($post->post_date)); ?></p>
+		</div>
+	</div>
+	<?php
+	$html = ob_get_clean();
+	return $html;
+}
+add_shortcode('feature_post_meta', 'sc_feature_post_meta');
+
+
+/**
  * Photo set
  *
  * @return string
@@ -1633,9 +1657,7 @@ function sc_videos($atts = Array())
 				?>
 				<div class="row">
 					<div class="feature span8">
-						<div class="video-container">
-							<?=$wp_embed->run_shortcode($embed_string)?>
-						</div>
+						<?php echo $wp_embed->run_shortcode($embed_string); ?>
 					</div>
 					<div class="span4">
 						<h3><?=$video->post_title?></h3>
