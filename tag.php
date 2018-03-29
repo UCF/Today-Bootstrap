@@ -1,6 +1,5 @@
 <?php disallow_direct_load('tag.php');?>
 <?php get_header();?>
-<?php echo gen_alerts_html(); ?>
 
 <?php
 	$use_page = false;
