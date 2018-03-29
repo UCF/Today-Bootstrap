@@ -1,6 +1,5 @@
 <?php disallow_direct_load('single-video.php');?>
 <?php get_header(); the_post();?>
-<?php echo gen_alerts_html(); ?>
 
 <?php
 	$use_page = false;

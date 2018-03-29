@@ -8,7 +8,6 @@
 	$results = get_search_results($_GET['s'], $start, $limit, $domain);
 ?>
 <?php get_header(); ?>
-<?php echo gen_alerts_html(); ?>
 	<div class="row page-content" id="search-results">
 		<div class="span12">
 			<article>
