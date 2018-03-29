@@ -1060,7 +1060,7 @@ add_filter( 'ucf_social_links_display_affixed_before', 'ucf_social_links_display
 			"@type": "WebPage",
 			"@id": "<?php echo site_url(); ?>"
 		},
-		"headline": "<?php echo the_title(); ?>",
+		"headline": "<?php echo addslashes( the_title() ); ?>",
 		"image": [
 			"<?php echo $thumbnail; ?>"
 		],
@@ -1068,7 +1068,7 @@ add_filter( 'ucf_social_links_display_affixed_before', 'ucf_social_links_display
 		"dateModified": "<?php echo get_the_modified_date(DATE_ISO8601); ?>",
 		"author": {
 			"@type": "Person",
-			"name": "<?php echo get_the_author(); ?>"
+			"name": "<?php echo addslashes( get_the_author() ); ?>"
 		},
 		"publisher": {
 			"@type": "Organization",
@@ -1078,7 +1078,7 @@ add_filter( 'ucf_social_links_display_affixed_before', 'ucf_social_links_display
 				"url": "<?php echo THEME_IMG_URL; ?>/ucftoday4_small.png"
 			}
 		},
-		"description": "<?php echo $description; ?>"
+		"description": "<?php echo addslashes( $description ); ?>"
 		}
 	</script>
 <?php
