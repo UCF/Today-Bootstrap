@@ -191,7 +191,12 @@ function gen_alerts_html()
 		$alerts_html 	= '';
 
 		if ($alerts) {
-			$alert_html = '<div class="row" id="alerts"><ul class="span12">';
+
+			if (is_page_template('featured-single-post.php')) {
+				$alert_html = '<div class="row" id="alerts"><ul class="span10 offset1">';
+			} else {
+				$alert_html = '<div class="row" id="alerts"><ul class="span12">';
+			}
 
 			foreach($alerts as $alert) {
 
@@ -798,6 +803,14 @@ function protocol_relative_oembed($html) {
 add_filter('embed_oembed_html', 'protocol_relative_oembed');
 
 /*
+ * Add responsive container to embeds.
+ */
+function video_embed_html( $html ) {
+    return '<div class="video-container">' . $html . '</div>';
+}
+add_filter( 'embed_oembed_html', 'video_embed_html', 10, 3 );
+
+/*
  * Force an exact crop of an image; bypassing wordpress's default
  * cropping settings which do not upscale small images.
  * http://wordpress.stackexchange.com/a/64953
@@ -976,17 +989,13 @@ function display_related_story( $story ) {
 ?>
 	<div class="span3 match-height">
 	<a class="related-story" href="<?php echo get_permalink( $story->ID ); ?>">
-		<div class="related-story-image" style="background-image: url( '<?php echo $thumbnail; ?>' );">
-			<div class="related-story-title-wrapper">
-				<p class="h2 related-story-title text-center"><?php echo $story->post_title; ?></p>
-			</div>
-		</div>
+		<div class="related-story-image" style="background-image: url( '<?php echo $thumbnail; ?>' );"></div>
+		<p class="h2 related-story-title"><?php echo $story->post_title; ?></p>
 	</a>
 	</div>
 <?php
 	return ob_get_clean ();
 }
-
 
 /**
 * Replaces RSS description element content with a post's promo field if available.
@@ -1027,3 +1036,51 @@ if ( ! function_exists( 'ucf_social_links_display_affixed_before' ) ) {
 }
 
 add_filter( 'ucf_social_links_display_affixed_before', 'ucf_social_links_display_affixed_before', 10, 2 );
+
+
+/**
+ * Displays 'NewsArticle' schema
+ * @author Cadie Brown
+ * @param WP_Post $post The post object
+ * @return string
+ */
+ function display_news_schema( $post ) {
+	$post_promo = get_post_meta($post->ID, 'promo', true);
+	$excerpt = get_excerpt($post);
+	$thumbnail = get_the_post_thumbnail_url( $post->ID, 'medium' );
+	$thumbnail = $thumbnail ?: FEED_THUMBNAIL_FALLBACK;
+	$description = !empty($post_promo) ? $post_promo : $excerpt;
+	ob_start();
+ ?>
+	<script type="application/ld+json">
+		{
+		"@context": "http://schema.org",
+		"@type": "NewsArticle",
+		"mainEntityOfPage": {
+			"@type": "WebPage",
+			"@id": "<?php echo site_url(); ?>"
+		},
+		"headline": "<?php echo htmlspecialchars( the_title(), ENT_QUOTES ); ?>",
+		"image": [
+			"<?php echo $thumbnail; ?>"
+		],
+		"datePublished": "<?php echo get_the_date(DATE_ISO8601); ?>",
+		"dateModified": "<?php echo get_the_modified_date(DATE_ISO8601); ?>",
+		"author": {
+			"@type": "Person",
+			"name": "<?php echo htmlspecialchars( get_the_author(), ENT_QUOTES ); ?>"
+		},
+		"publisher": {
+			"@type": "Organization",
+			"name": "University of Central Florida",
+			"logo": {
+				"@type": "ImageObject",
+				"url": "<?php echo THEME_IMG_URL; ?>/ucftoday4_small.png"
+			}
+		},
+		"description": "<?php echo htmlspecialchars( $description, ENT_QUOTES ); ?>"
+		}
+	</script>
+<?php
+	return ob_get_clean ();
+}

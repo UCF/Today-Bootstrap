@@ -370,9 +370,15 @@ class Post extends CustomPostType
 				),
 				Array(
 					'name'	=> 'Subtitle',
-					'desc'	=> 'Appears below the post title on the single story page.',
+					'desc'	=> 'Appears below the post title on the single and featured story pages.',
 					'id'	=> 'subtitle',
 					'type'	=> 'text'
+				),
+				Array(
+					'name'	=> 'Deck',
+					'desc'	=> 'Appears below the subtitle on the featured story page.',
+					'id'	=> 'deck',
+					'type'	=> 'textarea'
 				),
 				Array(
 					'name'	=> 'Author Title',
@@ -388,7 +394,7 @@ class Post extends CustomPostType
 				),
 				Array(
 					'name'	=> 'Source',
-					'desc'	=> 'Appears below the date on the single story page.',
+					'desc'	=> 'Appears below the date on the single story page and below the content on the featured story page.',
 					'id'	=> 'source',
 					'type'	=> 'textarea',
 				),
@@ -401,7 +407,7 @@ class Post extends CustomPostType
 				),
 				Array(
 					'name'	=> 'Video URL',
-					'desc'	=> 'If set, this video will replace the featured image on the home, category/tag and story pages.',
+					'desc'	=> 'If set, this video will replace the featured image on the single story page and display under the header on the featured story page.',
 					'id'	=> 'video_url',
 					'type'	=> 'text'
 				),

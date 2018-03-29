@@ -1,7 +1,4 @@
 			<div id="footer">
-				<a class="featured-footer-logo" href="<?php echo home_url(); ?>">
-					<span class="featured-footer-gold">UCF</span>Today
-				</a>
 				<div class="row">
 					<div class="span12 text-center">
 						<?=wp_nav_menu( array(
@@ -24,6 +21,7 @@
 				</div>
 			</div>
 		</div>
-	</body>
-	<?php echo "\n".footer_()."\n"?>
+	</div>
+</body>
+<?php echo "\n".footer_()."\n"?>
 </html>
