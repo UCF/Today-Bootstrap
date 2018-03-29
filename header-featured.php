@@ -70,11 +70,11 @@
 		<div class="container">
 			<div class="row" id="header" role="banner">
 				<div id="page-title" class="span7">
-					<? if ( is_home() || !is_single() ): ?>
-						<h1><?php echo get_header_title() ?></h1>
-					<? else: ?>
-						<h2><?php echo get_header_title() ?></h2>
-					<? endif; ?>
+					<?php if ( is_home() || !is_single() ): ?>
+						<h1><?php echo get_header_title(); ?></h1>
+					<?php else: ?>
+						<h2><?php echo get_header_title(); ?></h2>
+					<?php endif; ?>
 				</div>
 				<?php echo esi_include( 'output_weather_data' )?>
 				<hr class="span12" />
