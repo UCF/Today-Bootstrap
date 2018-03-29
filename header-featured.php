@@ -89,6 +89,6 @@
 					'walker' => new Bootstrap_Walker_Nav_Menu()
 					) );
 				?>
-				<?php echo get_search_form()?>
+				<?php echo get_search_form(); ?>
 			</nav>
-			<?php echo gen_alerts_html()?>
+			<?php echo gen_alerts_html(); ?>
