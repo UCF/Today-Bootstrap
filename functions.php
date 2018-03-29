@@ -144,12 +144,7 @@ function gen_alerts_html()
 		$alerts_html 	= '';
 
 		if ($alerts) {
-
-			if (is_page_template('featured-single-post.php')) {
-				$alert_html = '<div class="row" id="alerts"><ul class="span10 offset1">';
-			} else {
-				$alert_html = '<div class="row" id="alerts"><ul class="span12">';
-			}
+			$alert_html = '<div class="row" id="alerts"><ul class="span12">';
 
 			foreach($alerts as $alert) {
 

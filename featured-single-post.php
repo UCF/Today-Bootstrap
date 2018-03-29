@@ -17,6 +17,8 @@ $video_url = get_video_url($post->ID);
 
 ?>
 
+<?php echo gen_alerts_html(); ?>
+
 <div id="feature-story">
 	<div class="row">
 		<div class="span12">
@@ -59,4 +61,5 @@ $video_url = get_video_url($post->ID);
 		<?php echo display_more_stories_featured( $post ); ?>
 		<div class="clearfix"></div>
 	</aside>
-<?php get_footer( 'featured' ); ?>
+
+	<?php get_footer( 'featured' ); ?>
