@@ -16,19 +16,19 @@
 		<div class="row">
 			<div class="span9 border-right">
 				<h1 class="term-heading"><?php single_tag_title(); ?></h1>
-			    <?=do_shortcode('[feature css="border-bottom"]')?>
-			    <?=do_shortcode('[subpage_features]')?>
+				<?=do_shortcode('[feature css="border-bottom"]')?>
+				<?=do_shortcode('[subpage_features]')?>
 			</div>
 			<div class="span3" id="sidebar">
-			    <?=esi_include('do_shortcode', '[events]', true)?>
+				<?=esi_include('do_shortcode', '[events]', true)?>
 			</div>
 			<hr class="span12" /></div>
 		<div class="row">
 			<div class="span5 border-right">
-			    <?=do_shortcode('[ucf_news social="0"]')?>
+				<?=do_shortcode('[ucf_news social="0"]')?>
 			</div>
 			<div class="span7">
-			    <?=do_shortcode('[ucf_video width="540"]')?>
+				<?=do_shortcode('[ucf_video width="540"]')?>
 			</div>
 		</div>
 	<?php
