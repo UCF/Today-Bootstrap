@@ -119,6 +119,9 @@ define('CURRENT_PROTOCOL', is_ssl() ? 'https://' : 'http://');
 # ESI processing
 define('ESI_INCLUDE_URL', THEME_STATIC_URL.'/esi.php');
 
+# Feed thumbnail default image
+define( 'FEED_THUMBNAIL_FALLBACK', get_bloginfo( 'stylesheet_directory' ) . '/static/img/no-photo.png' );
+
 
 /**
  * Set config values including meta tags, registered custom post types, styles,
