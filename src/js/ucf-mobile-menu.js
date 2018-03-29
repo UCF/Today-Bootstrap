@@ -1,7 +1,6 @@
 /* global $ */
 (function () {
 
-
   let menuSelector;
   let menuTriggerSelector;
   let $menuTrigger;
@@ -12,11 +11,6 @@
   let $bodyOverlay;
   let bodyOverlayClass;
 
-
-  // function openMenu() {
-  //   $menu.addClass(menuSlideoutClass);
-  //   $menu.height($(document).height());
-  // }
 
   function closeMenu() {
     $menu.removeClass(menuSlideoutClass);
