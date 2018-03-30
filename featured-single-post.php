@@ -26,6 +26,9 @@ $video_url = get_video_url($post->ID);
 				<?php if ( $subtitle ) : ?>
 				<p class="subtitle"><?php echo $subtitle; ?></p>
 				<?php endif; ?>
+				<?php if ( $deck ) : ?>
+				<p class="deck"><?php echo $deck; ?></p>
+				<?php endif; ?>
 				<?php echo do_shortcode( '[feature_post_meta css="clearfix"]' ); ?>
 			</div>
 			<?php if($video_url != '') : ?>
@@ -35,9 +38,6 @@ $video_url = get_video_url($post->ID);
 				<?php the_post_thumbnail(); ?>
 				<p class="caption"><?php echo get_post(get_post_thumbnail_id())->post_excerpt; ?></p>
 			</div>
-			<?php endif; ?>
-			<?php if ( $deck ) : ?>
-			<p class="deck"><?php echo $deck; ?></p>
 			<?php endif; ?>
 		</div>
 	</div>
