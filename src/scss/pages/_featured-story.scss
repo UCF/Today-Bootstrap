@@ -21,7 +21,7 @@
     line-height: 1.2;
 
     @media (max-width: 544px) {
-      font-size: 28px;
+      font-size: 30px;
     }
   }
 
@@ -36,6 +36,10 @@
   .deck {
     font-size: 24px;
     margin-bottom: 1rem;
+
+    @media (max-width: 544px) {
+      font-size: 20px;
+    }
   }
 
   #byline-date {
@@ -79,6 +83,10 @@
   #content {
     font-size: 18px;
     line-height: 1.6;
+
+    @media (max-width: 544px) {
+      font-size: 16px;
+    }
 
     h1,
     h2,
