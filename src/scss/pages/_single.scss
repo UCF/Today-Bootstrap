@@ -1,0 +1,130 @@
+#single {
+  h1 {
+    font-family: Georgia, serif;
+    font-size: 26px;
+    font-weight: normal;
+    line-height: 1.308;
+    margin-top: 0;
+
+    @media (max-width: 767px) {
+      font-size: 24px;
+      line-height: 1.25;
+    }
+  }
+
+  #subtitle {
+    color: #666;
+    font-size: 18px;
+  }
+
+  #story_feat_img {
+    background: #f7f7f7;
+    text-align: center;
+    width: 100%;
+  }
+
+  #caption,
+  .wp-caption-text {
+    color: #666;
+    font-family: $font-family-sans-serif;
+    font-size: 12px;
+    line-height: 1.5;
+    margin-top: 5px;
+  }
+
+  #content {
+    margin-top: 20px;
+
+    p {
+      margin-bottom: 16px;
+    }
+
+    > p:first-child::first-letter {
+      color: #ffc907;
+      display: block;
+      float: left;
+      font-family: Georgia, serif;
+      font-size: 48px;
+      font-weight: normal;
+      line-height: .9;
+      margin-right: 7px;
+      margin-top: 1px;
+    }
+
+    > p:first-of-type:first-child::after {
+      clear: both;
+      content: '';
+      display: block;
+    }
+  }
+
+  #content a,
+  #social a,
+  #share a {
+    color: #900;
+    text-decoration: underline;
+
+    &:hover {
+      color: $black;
+    }
+  }
+
+  .ucf-social-links {
+    margin-top: 20px;
+  }
+
+  #share {
+    margin-top: 40px;
+
+    h3 {
+      font-family: $font-family-serif;
+      font-size: 16px;
+      font-weight: normal;
+      line-height: 1.375;
+      margin-bottom: 10px;
+      text-transform: none;
+    }
+
+    label[for="share_comment"] {
+      display: block;
+      height: 0;
+      margin: 0;
+      text-indent: -9999px;
+      width: 0;
+    }
+
+    textarea {
+      height: 120px;
+      width: 100%;
+    }
+
+    input#submit {
+      background-color: #ffc907;
+      border: 2px solid $off-white;
+      color: $gray;
+      font-family: $font-family-serif;
+      margin-top: 20px;
+      padding: 5px 10px;
+    }
+  }
+
+  #sidebar h3 {
+    font-family: Georgia, serif;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 1.375;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    text-transform: none;
+  }
+
+  @media (max-width: 767px) {
+    #single article .social {
+      display: none;
+    }
+  }
+}
+
+body:not(:-moz-handler-blocked) #single #content>p:first-child::first-letter {
+  margin-top: 6px; // FF
+}

@@ -1,0 +1,26 @@
+#expert_meta {
+  p {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  a {
+    color: $dark-red;
+    text-decoration: underline;
+
+    &:hover {
+      color: $black;
+    }
+  }
+
+  ul {
+    font-family: $font-family-sans-serif;
+    font-size: 14px;
+    list-style-type: none;
+    margin-left: 0;
+
+    li {
+      margin-bottom: 4px;
+    }
+  }
+}

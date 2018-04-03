@@ -83,62 +83,41 @@ add_filter('rewrite_rules_array', 'rewrite_rules_filter');
 
 
 /**
- * Pulls, parses and caches the weather.
+ * Display weather data.
  *
- * @return array
- * @author Chris Conover, Jo Dickson
+ * @return string
+ * @author Jo Dickson
  **/
-function get_weather_data() {
-	$cache_key = 'weather';
-
-	// Check if cached weather data already exists
-	if(($weather = get_transient($cache_key)) !== False) {
-		return $weather;
-	} else {
-		$weather = array('condition' => 'Fair', 'temp' => '80&#186;', 'img' => '34');
-
-		// Set a timeout
-		$opts = array('http' => array(
-								'method'  => 'GET',
-								'timeout' => WEATHER_FETCH_TIMEOUT,
-		));
-		$context = stream_context_create($opts);
-
-		// Grab the weather feed
-		// using @ to suppress errors which causes the site not to load
-		$raw_weather = @file_get_contents( WEATHER_URL, false, $context );
-		if ($raw_weather) {
-			$json = json_decode($raw_weather);
-
-			$weather['condition'] 	= $json->condition;
-			$weather['temp']		= $json->temp;
-			$weather['img']			= (string)$json->imgCode;
-
-			// The temp, condition and image code should always be set,
-			// but in case they're not, we catch them here:
-
-			# Catch missing cid
-			if (!isset($weather['img']) or !$weather['img']){
-				$weather['img'] = '34';
-			}
-
-			# Catch missing condition
-			if (!is_string($weather['condition']) or !$weather['condition']){
-				$weather['condition'] = 'Fair';
-			}
-
-			# Catch missing temp
-			if (!isset($weather['temp']) or !$weather['temp']){
-				$weather['temp'] = '80&#186;';
-			}
-		}
-
-		// Cache the new weather data
-		set_transient($cache_key, $weather, WEATHER_CACHE_DURATION);
-
-		return $weather;
-	}
+function output_weather_data() {
+	return do_shortcode( '[ucf-weather feed="default" layout="today_nav"]' );
 }
+
+
+/**
+ * Custom layout for the UCF Weather Shortcode plugin for
+ * displaying weather data in the site header.
+ */
+function ucf_weather_default_today_nav( $data, $output ) {
+	if ( !class_exists( 'UCF_Weather_Common' ) ) { return; }
+
+	ob_start();
+	$icon = UCF_Weather_Common::get_weather_icon( $data->condition );
+?>
+	<div class="weather weather-today-nav">
+		<span class="weather-date"><?php echo date( 'l, F j, Y' ); ?></span>
+		<span class="weather-status">
+			<span class="weather-icon <?php echo $icon; ?>" aria-hidden="true"></span>
+			<span class="weather-text">
+				<span class="weather-temp"><?php echo $data->temp; ?>F</span>
+				<span class="weather-condition"><?php echo $data->condition; ?></span>
+			</span>
+		</span>
+	</div>
+<?php
+	return ob_get_clean();
+}
+
+add_filter( 'ucf_weather_default_today_nav', 'ucf_weather_default_today_nav', 10, 2 );
 
 
 /**
@@ -150,32 +129,6 @@ function get_embed_html( $media_url ) {
 	global $wp_embed;
 	return $wp_embed->run_shortcode( '[embed]' . $media_url . '[/embed]' );
 }
-
-
-/**
- * Display weather data.
- *
- * @return string
- * @author Jo Dickson
- **/
-function output_weather_data() {
-	$weather = get_weather_data();
-	?>
-	<div id="weather_bug" class="span5">
-		<div id="wb_date">
-			<?=date('l, F j, Y')?>
-		</div>
-		<a id="wb_more" href="<?=WEATHER_CLICK_URL?>">more weather</a>
-		<div id="wb_status_img">
-			<img src="<?php bloginfo('stylesheet_directory'); ?>/static/img/weather/WC<?=$weather['img']?>.png" alt="<?=$weather['condition']?>" />
-		</div>
-		<div id="wb_status_txt">
-			<?=$weather['condition']?>, <span><?=$weather['temp']?></span>
-		</div>
-	</div>
-	<?php
-}
-
 
 
 /**
@@ -557,32 +510,33 @@ function get_theme_option($key) {
  *
  * @return string
  **/
-function get_header_title() {
-	$header_title = '<a href="'.get_bloginfo('url').'">'.get_bloginfo('name').'</a>';
-
-	global $wp_query;
-	$post = $wp_query->queried_object;
-
-	if(!is_search() || !is_home() || !is_404()) {
-		if(is_category() || is_tag()) {
-			$header_title = $post->name;
-		} else if(is_single() && count($cats = wp_get_post_categories($post->ID)) > 0) {
-			$header_title = get_cat_name($cats[0]);
-		} else if(is_page() || is_single()) {
-			if($post->post_type == 'photoset') {
-				//
-			} else if($post->post_type == 'expert') {
-				$header_title = 'Experts at UCF';
-			} else if($post->post_type == 'video') {
-				$header_title = 'Videos';
-			} else if($post->post_type == 'profile') {
-				$header_title = 'Profiles';
-			} else {
-				$header_title = $post->post_title;
-			}
-		}
+function get_header_title( $elem='' ) {
+	if ( !$elem ) {
+		$elem = ( is_home() || is_front_page() ) ? 'h1' : 'span';
 	}
-	return $header_title;
+	ob_start();
+?>
+	<<?php echo $elem; ?> class="site-title">
+		<a href="<?php echo get_bloginfo( 'url' ); ?>">
+			<img class="site-logo" src="<?php echo THEME_IMG_URL . '/ucftoday4.png'; ?>" alt="<?php echo get_bloginfo( 'name' ); ?>">
+		</a>
+	</<?php echo $elem; ?>>
+<?php
+	return ob_get_clean();
+}
+
+
+/**
+ * Determine whether the site's expandable nav toggle should be disabled
+ * at the -md breakpoint (and force the site's primary navigation to be
+ * visible) depending on the current view.
+ *
+ * @author Jo Dickson
+ * @since 2.3.0
+ * @return bool
+ */
+function disable_md_nav_toggle() {
+	return is_home() || is_front_page() || is_category() || is_tag();
 }
 
 
@@ -596,6 +550,11 @@ function get_header_title() {
 function today_body_classes() {
 	global $post;
 	$classes = '';
+
+	if ( disable_md_nav_toggle() ) {
+		$classes .= 'disable-md-navbar-toggle ';
+	}
+
 	if (is_home()) {
 		$classes .= 'body-home ';
 	}
@@ -607,6 +566,9 @@ function today_body_classes() {
 	}
 	elseif ($post->post_type == 'photoset') {
 		$classes .= 'body-photoset ';
+	}
+	elseif ( get_page_template_slug( $post ) == 'featured-single-post.php' ) {
+		$classes .= 'body-feature ';
 	}
 	else {
 		$classes .= 'body-subpage ';
@@ -798,6 +760,14 @@ function protocol_relative_oembed($html) {
 add_filter('embed_oembed_html', 'protocol_relative_oembed');
 
 /*
+ * Add responsive container to embeds.
+ */
+function video_embed_html( $html ) {
+    return '<div class="video-container">' . $html . '</div>';
+}
+add_filter( 'embed_oembed_html', 'video_embed_html', 10, 3 );
+
+/*
  * Force an exact crop of an image; bypassing wordpress's default
  * cropping settings which do not upscale small images.
  * http://wordpress.stackexchange.com/a/64953
@@ -976,17 +946,13 @@ function display_related_story( $story ) {
 ?>
 	<div class="span3 match-height">
 	<a class="related-story" href="<?php echo get_permalink( $story->ID ); ?>">
-		<div class="related-story-image" style="background-image: url( '<?php echo $thumbnail; ?>' );">
-			<div class="related-story-title-wrapper">
-				<p class="h2 related-story-title text-center"><?php echo $story->post_title; ?></p>
-			</div>
-		</div>
+		<div class="related-story-image" style="background-image: url( '<?php echo $thumbnail; ?>' );"></div>
+		<p class="h2 related-story-title"><?php echo $story->post_title; ?></p>
 	</a>
 	</div>
 <?php
 	return ob_get_clean ();
 }
-
 
 /**
 * Replaces RSS description element content with a post's promo field if available.
@@ -1027,3 +993,51 @@ if ( ! function_exists( 'ucf_social_links_display_affixed_before' ) ) {
 }
 
 add_filter( 'ucf_social_links_display_affixed_before', 'ucf_social_links_display_affixed_before', 10, 2 );
+
+
+/**
+ * Displays 'NewsArticle' schema
+ * @author Cadie Brown
+ * @param WP_Post $post The post object
+ * @return string
+ */
+ function display_news_schema( $post ) {
+	$post_promo = get_post_meta($post->ID, 'promo', true);
+	$excerpt = get_excerpt($post);
+	$thumbnail = get_the_post_thumbnail_url( $post->ID, 'medium' );
+	$thumbnail = $thumbnail ?: FEED_THUMBNAIL_FALLBACK;
+	$description = !empty($post_promo) ? $post_promo : $excerpt;
+	ob_start();
+ ?>
+	<script type="application/ld+json">
+		{
+		"@context": "http://schema.org",
+		"@type": "NewsArticle",
+		"mainEntityOfPage": {
+			"@type": "WebPage",
+			"@id": "<?php echo site_url(); ?>"
+		},
+		"headline": "<?php echo htmlspecialchars( the_title(), ENT_QUOTES ); ?>",
+		"image": [
+			"<?php echo $thumbnail; ?>"
+		],
+		"datePublished": "<?php echo get_the_date(DATE_ISO8601); ?>",
+		"dateModified": "<?php echo get_the_modified_date(DATE_ISO8601); ?>",
+		"author": {
+			"@type": "Person",
+			"name": "<?php echo htmlspecialchars( get_the_author(), ENT_QUOTES ); ?>"
+		},
+		"publisher": {
+			"@type": "Organization",
+			"name": "University of Central Florida",
+			"logo": {
+				"@type": "ImageObject",
+				"url": "<?php echo THEME_IMG_URL; ?>/ucftoday4_small.png"
+			}
+		},
+		"description": "<?php echo htmlspecialchars( $description, ENT_QUOTES ); ?>"
+		}
+	</script>
+<?php
+	return ob_get_clean ();
+}

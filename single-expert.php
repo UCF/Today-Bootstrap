@@ -12,7 +12,7 @@
 	<div id="single">
 	<? if($use_page == true) { ?>
 		<?=apply_filters('the_content', $page->post_content)?>
-	<?php 
+	<?php
 	} else { ?>
 		<div class="row">
 			<?=do_shortcode('[single_post css="span7"]')?>
@@ -24,7 +24,7 @@
 				<?=do_shortcode('[single_post_recommended]')?>
 			</div>
 		</div>
-	<?php 
+	<?php
 	}
 	?>
 	</div>

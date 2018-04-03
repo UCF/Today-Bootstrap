@@ -88,12 +88,6 @@ define('GA_ACCOUNT', $theme_options['ga_account']);
 define('CB_UID', $theme_options['cb_uid']);
 define('CB_DOMAIN', $theme_options['cb_domain']);
 
-# Weather
-define('WEATHER_URL', 'http://weather.smca.ucf.edu/');
-define('WEATHER_CLICK_URL', 'http://www.weather.com/weather/today/Orlando+FL+32816');
-define('WEATHER_CACHE_DURATION', 60 * 5); //seconds
-define('WEATHER_FETCH_TIMEOUT', 8); //seconds
-
 # Announcements
 define('ANNOUNCE_DEFAULT', 'http://www.ucf.edu/announcements/?include_ongoing=0&output=json');
 define('ANNOUNCE_CACHE_DURATION', 60 * 5); // seconds
@@ -120,6 +114,9 @@ define('CURRENT_PROTOCOL', is_ssl() ? 'https://' : 'http://');
 
 # ESI processing
 define('ESI_INCLUDE_URL', THEME_STATIC_URL.'/esi.php');
+
+# Feed thumbnail default image
+define( 'FEED_THUMBNAIL_FALLBACK', get_bloginfo( 'stylesheet_directory' ) . '/static/img/no-photo.png' );
 
 
 /**
@@ -158,10 +155,6 @@ Config::$custom_taxonomies = array(
  * )
  **/
 Config::$esi_whitelist = array(
-	1 => array(
-		'name' => 'output_weather_data',
-		'safe_args' => array(),
-	),
 	2 => array(
 		'name' => 'do_shortcode',
 		'safe_args' => array('[events]', '[events css="border-bottom"]'),
@@ -287,6 +280,13 @@ Config::$theme_settings = array(
 		)),
 	),
 	'Site' => array(
+		new TextField(array(
+			'name'        => 'Site Subtitle',
+			'id'          => THEME_OPTIONS_NAME.'[site_subtitle]',
+			'description' => 'Descriptive text to display next to the UCF Today logo in the site header.',
+			'default'     => '',
+			'value'       => $theme_options['site_subtitle'],
+		)),
 		new RadioField(array(
 			'name' 		  => 'Enable Edge Side Includes (ESI)',
 			'id' 		  => THEME_OPTIONS_NAME.'[enable_esi]',
@@ -308,28 +308,24 @@ Config::$links = array(
 
 
 Config::$styles = array(
-	array('admin' => True, 'src' => THEME_CSS_URL.'/admin.css',),
+	array('admin' => True, 'src' => THEME_CSS_URL.'/admin.min.css',),
 	CURRENT_PROTOCOL.'universityheader.ucf.edu/bar/css/bar.css',
-	THEME_STATIC_URL.'/bootstrap/bootstrap/css/bootstrap.min.css',
 	'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'
 );
 
 array_push(Config::$styles,
 	plugins_url( 'gravityforms/css/forms.css' ),
-	THEME_CSS_URL.'/webcom-base.css',
+	THEME_CSS_URL.'/style.min.css',
 	get_bloginfo('stylesheet_url')
 );
 
 Config::$scripts = array(
-	array( 'admin' => True, 'src' => THEME_JS_URL.'/admin.js', ),
+	array( 'admin' => True, 'src' => THEME_JS_URL.'/admin.min.js', ),
 	CURRENT_PROTOCOL.'universityheader.ucf.edu/bar/js/university-header.js?use-bootstrap-overrides=1',
-	THEME_STATIC_URL.'/bootstrap/bootstrap/js/bootstrap.min.js',
-	array( 'name' => 'base-script',  'src' => THEME_JS_URL.'/webcom-base.js', ),
 	array( 'name' => 'autoellipsis',  'src' => THEME_JS_URL.'/jquery.autoellipsis-1.0.10.min.js', ),
 	array( 'name' => 'jquery-cookie',  'src' => THEME_JS_URL.'/jquery-cookie.js', ),
 	array( 'name' => 'matchheight', 'src' => 'https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight-min.js' ),
-	array( 'name' => 'theme-script', 'src' => THEME_JS_URL.'/script.js', ),
-	array( 'name' => 'ucf-mobile-menu', 'src' => THEME_JS_URL.'/ucf-mobile-menu.js', ),
+	array( 'name' => 'theme-script', 'src' => THEME_JS_URL.'/script.min.js', ),
 );
 
 Config::$metas = array(
