@@ -862,6 +862,8 @@ function sc_external_stories($atts = Array())
 
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
 
+	$link_page_name = ( isset( $atts['link_page_name'] ) ) ? $atts['link_page_name'] : 'External Stories';
+
 	$stories = resolve_posts(	Array(	'tag' => $wp_query->queried_object->slug),
 								Array(	'post_type' => 'externalstory',
 										'numberposts' => 4));
@@ -880,6 +882,8 @@ function sc_external_stories($atts = Array())
 					</li>
 				<? } ?>
 			</ul>
+			<a href="<?php echo get_page_link( get_page_by_title( $link_page_name )->ID )?>" class="external-stories-view-all">View All &raquo;</a>
+
 		</div>
 		<?
 		$html = ob_get_contents(); ob_end_clean();
@@ -887,6 +891,45 @@ function sc_external_stories($atts = Array())
 	}
 }
 add_shortcode('external_stories', 'sc_external_stories');
+
+
+/**
+ * List all external UCF stories
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_all_external_stories($atts = Array())
+{
+	global $wp_query;
+
+	$css = ( isset( $atts['css'] ) ) ? $atts['css'] : '';
+
+	$stories = resolve_posts(	Array(	'tag' => $wp_query->queried_object->slug ),
+								Array(	'post_type' => 'externalstory',
+										'numberposts' => -1
+									) );
+
+	if ( count( $stories ) > 0 ) {
+		ob_start();
+		?>
+		<div class="<?php echo $css; ?>" id="all_external_stories">
+			<ul class="story-list">
+				<?php foreach ( $stories as $story ) : ?>
+					<li>
+						<a href="<?php echo get_post_meta( $story->ID, 'externalstory_url', True ); ?>">
+							<?php echo get_post_meta( $story->ID, 'externalstory_text', True ); ?>
+						</a>
+						<span><?php echo get_post_meta( $story->ID, 'externalstory_source', True ); ?></span>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+		</div>
+		<?php
+		return ob_get_clean();
+	}
+}
+add_shortcode('all_external_stories', 'sc_all_external_stories');
 
 
 /**

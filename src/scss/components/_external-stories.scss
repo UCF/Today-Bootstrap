@@ -15,3 +15,33 @@
     color: #037f95;
   }
 }
+
+a {
+  &.external-stories-view-all {
+    clear: right;
+    color: #333;
+    float: right;
+    font-family: "Helvetica Neue",Helvetica-Neue,Helvetica,sans-serif;
+    font-size: 12px;
+    line-height: 2.333;
+    margin: 0 0 12px 0;
+  }
+}
+
+#all_external_stories li {
+  padding: 10px 0;
+
+  a {
+    display: inline-block;
+    color: #333;
+    font-size: 1.3rem;
+    padding: 0em 0.5em 0 0;
+  }
+
+  span {
+    display: block;
+    color: #037f95;
+    font-size: 1rem;
+    vertical-align:  baseline;
+  }
+}
