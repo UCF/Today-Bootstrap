@@ -890,6 +890,45 @@ add_shortcode('external_stories', 'sc_external_stories');
 
 
 /**
+ * List all external UCF stories
+ *
+ * @return string
+ * @author Chris Conover
+ **/
+function sc_all_external_stories($atts = Array())
+{
+	global $wp_query;
+
+	$css = ( isset( $atts['css'] ) ) ? $atts['css'] : '';
+
+	$stories = resolve_posts(	Array(	'tag' => $wp_query->queried_object->slug ),
+								Array(	'post_type' => 'externalstory',
+										'numberposts' => -1
+									) );
+
+	if ( count( $stories ) > 0 ) {
+		ob_start();
+		?>
+		<div class="<?php echo $css; ?>" id="all_external_stories">
+			<ul class="story-list">
+				<?php foreach ( $stories as $story ) : ?>
+					<li>
+						<a href="<?php echo get_post_meta( $story->ID, 'externalstory_url', True ); ?>">
+							<?php echo get_post_meta( $story->ID, 'externalstory_text', True ); ?>
+						</a>
+						<span><?php echo get_post_meta( $story->ID, 'externalstory_source', True ); ?></span>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+		</div>
+		<?php
+		return ob_get_clean();
+	}
+}
+add_shortcode('all_external_stories', 'sc_all_external_stories');
+
+
+/**
  * Announcements
  *
  * @return string
