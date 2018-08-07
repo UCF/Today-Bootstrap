@@ -34,11 +34,12 @@
   }
 
   .deck {
-    font-size: 24px;
+    color: #525252;
+    font-size: 21px;
     margin-bottom: 1rem;
 
     @media (max-width: 544px) {
-      font-size: 20px;
+      font-size: 18px;
     }
   }
 
@@ -64,6 +65,10 @@
       .caption {
         margin: 5px 30px 16px;
       }
+    }
+
+    img {
+      width: 100%;
     }
   }
 
@@ -203,6 +208,10 @@
           font-family: $font-family-sans-serif;
         }
       }
+    }
+
+    .wp-caption {
+      max-width: 100%;
     }
 
     @media (max-width: 544px) {
