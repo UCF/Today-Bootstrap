@@ -882,7 +882,7 @@ function sc_external_stories($atts = Array())
 					</li>
 				<? } ?>
 			</ul>
-			<a href="<?php echo get_page_link( get_page_by_title( $link_page_name )->ID )?>" class="external-stories-view-all">View All &raquo;</a>
+			<a href="<?php echo get_page_link( get_page_by_title( $link_page_name )->ID ); ?>" class="external-stories-view-all">View All &raquo;</a>
 
 		</div>
 		<?
@@ -899,16 +899,15 @@ add_shortcode('external_stories', 'sc_external_stories');
  * @return string
  * @author Chris Conover
  **/
-function sc_all_external_stories($atts = Array())
-{
+function sc_all_external_stories( $atts = array() ) {
 	global $wp_query;
 
 	$css = ( isset( $atts['css'] ) ) ? $atts['css'] : '';
-
-	$stories = resolve_posts(	Array(	'tag' => $wp_query->queried_object->slug ),
-								Array(	'post_type' => 'externalstory',
-										'numberposts' => -1
-									) );
+	$stories = resolve_posts( array( 'tag' => $wp_query->queried_object->slug ),
+							  array(
+								'post_type'   => 'externalstory',
+								'numberposts' => -1
+							  ) );
 
 	if ( count( $stories ) > 0 ) {
 		ob_start();
