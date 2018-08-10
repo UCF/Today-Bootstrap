@@ -991,15 +991,14 @@ add_shortcode('single_post', 'sc_single_post');
 function sc_author_bio( $atts = array() ) {
 	global $post;
 
-	$css = (isset($atts['css'])) ? $atts['css'] : '';
+	$css = ( isset($atts['css']) ) ? $atts['css'] : '';
 
-	$author_title = get_post_meta($post->ID, 'author_title', True);
-	$author_title = ($author_title != '') ? '<p id="author_title">'.$author_title.'</p>' : '';
+	$author_title = get_post_meta( $post->ID, 'author_title', True );
 
-	$author_byline = get_post_meta($post->ID, 'author_byline', True);
-	$author_byline = ($byline != '') ? $byline : get_the_author();
+	$author_byline = get_post_meta( $post->ID, 'author_byline', True );
+	$author_byline = ( $author_byline != '' ) ? $author_byline : get_the_author();
 
-	$author_bio = get_post_meta($post->ID, 'author_bio', True);
+	$author_bio = get_post_meta( $post->ID, 'author_bio', True );
 
 	$featured_post_bio = is_page_template( 'featured-single-post.php' ) ? ' featured-author-bio' : '';
 
