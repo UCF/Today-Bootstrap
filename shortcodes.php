@@ -1005,15 +1005,16 @@ function sc_author_bio( $atts = array() ) {
 	$classes = $css.$featured_post_bio;
 
 	ob_start();
+	if ($author_bio != '') :
 	?>
-	<hr>
-	<div class="author-bio <?php echo $classes; ?>">
-		<p class="author-byline"><?php echo $author_byline; ?></p>
-		<p class="author-title"><?php echo $author_title; ?></p>
-		<p class="author-bio"><?php echo $author_bio; ?></p>
-	</div>
-
+		<hr>
+		<div class="author-bio <?php echo $classes; ?>">
+			<p class="author-byline"><?php echo $author_byline; ?></p>
+			<p class="author-title"><?php echo $author_title; ?></p>
+			<p class="author-bio"><?php echo $author_bio; ?></p>
+		</div>
 	<?php
+	endif;
 	return ob_get_clean();
 }
 add_shortcode( author_bio, sc_author_bio );
