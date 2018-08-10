@@ -393,6 +393,12 @@ class Post extends CustomPostType
 					'type'	=> 'text'
 				),
 				Array(
+					'name'	=> 'Author Bio',
+					'desc'	=> 'Appears at the end of the story under the Author\'s name and title.',
+					'id'	=> 'author_bio',
+					'type'	=> 'textarea'
+				),
+				Array(
 					'name'	=> 'Source',
 					'desc'	=> 'Appears below the date on the single story page and below the content on the featured story page.',
 					'id'	=> 'source',
