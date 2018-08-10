@@ -388,7 +388,7 @@ class Post extends CustomPostType
 				),
 				Array(
 					'name'	=> 'Author Byline',
-					'desc'	=> 'Appears in place of post author\'s name',
+					'desc'	=> 'Appears in place of post author\'s name.',
 					'id'	=> 'author_byline',
 					'type'	=> 'text'
 				),
