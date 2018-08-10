@@ -55,12 +55,7 @@ $video_url = get_video_url($post->ID);
 					<p><?php echo $source; ?></p>
 				</div>
 				<?php echo display_social( get_permalink( $post->ID ), $title, 'affixed' ); ?>
-				<hr>
-				<div class="author-bio featured-author-bio">
-					<p class="author-byline"><?php echo $author_byline; ?></p>
-					<p class="author-title"><?php echo $author_title; ?></p>
-					<p class="author-bio"><?php echo $author_bio; ?></p>
-				</div>
+				<?php echo do_shortcode( '[author_bio]' ); ?>
 			</div>
 		</div>
 	</article>
