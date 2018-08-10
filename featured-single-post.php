@@ -12,10 +12,6 @@ $category_title = get_cat_name($cats[0]);
 $subtitle = get_post_meta( $post->ID, 'subtitle', TRUE );
 $deck = get_post_meta( $post->ID, 'deck', TRUE );
 $source = get_post_meta( $post->ID, 'source', TRUE);
-$author_byline = get_post_meta($post->ID, 'author_byline', True);
-$author_byline = ($byline != '') ? $byline : get_the_author();
-$author_title = get_post_meta($post->ID, 'author_title', True);
-$author_bio = get_post_meta($post->ID, 'author_bio', True);
 
 $video_url = get_video_url($post->ID);
 
