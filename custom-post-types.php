@@ -396,7 +396,7 @@ class Post extends CustomPostType
 					'name'	=> 'Author Bio',
 					'desc'	=> 'Appears at the end of the story under the Author\'s name and title.',
 					'id'	=> 'author_bio',
-					'type'	=> 'textarea'
+					'type'	=> 'wysiwyg'
 				),
 				Array(
 					'name'	=> 'Source',
