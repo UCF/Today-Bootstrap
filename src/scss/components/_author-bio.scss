@@ -1,0 +1,29 @@
+.author-bio {
+  color: $gray;
+
+  .author-byline {
+    font-weight: bold;
+    color: #525252;
+    margin-bottom: 3px;
+  }
+
+  .author-title {
+    font-size: .9rem;
+  }
+
+  a {
+    color: $gray;
+    text-decoration: underline;
+
+    &:hover {
+      color: $dark-gray;
+    }
+  }
+
+  &.featured-author-bio {
+    .author-byline,
+    .author-title {
+      font-family: $font-family-sans-serif;
+    }
+  }
+}
