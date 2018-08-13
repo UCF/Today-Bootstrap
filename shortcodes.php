@@ -861,8 +861,8 @@ function sc_external_stories($atts = Array())
 	global $wp_query;
 
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
-
-	$link_page_name = ( isset( $atts['link_page_name'] ) ) ? $atts['link_page_name'] : 'External Stories';
+	$heading = ( isset( $atts['heading'] ) ) ? $atts['heading'] : 'UCF in the News';
+	$link_page_name = ( isset( $atts['link_page_name'] ) ) ? $atts['link_page_name'] : 'UCF in the News';
 
 	$stories = resolve_posts(	Array(	'tag' => $wp_query->queried_object->slug),
 								Array(	'post_type' => 'externalstory',
@@ -871,7 +871,7 @@ function sc_external_stories($atts = Array())
 		ob_start();
 		?>
 		<div class="<?=$css?>" id="external_stories">
-			<h2>Stories About UCF</h2>
+			<h2><?php echo $heading; ?></h2>
 			<ul class="story-list">
 				<? foreach($stories as $story) { ?>
 					<li>
