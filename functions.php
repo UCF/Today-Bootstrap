@@ -760,10 +760,14 @@ function protocol_relative_oembed($html) {
 add_filter('embed_oembed_html', 'protocol_relative_oembed');
 
 /*
- * Add responsive container to embeds.
+ * Add responsive container to YouTube embeds
  */
-function video_embed_html( $html ) {
-    return '<div class="video-container">' . $html . '</div>';
+function video_embed_html( $html, $url ) {
+	if ( strpos( $url, 'youtube.com' ) !== false || strpos( $url, 'youtu.be' ) !== false ) {
+		return '<div class="video-container">' . $html . '</div>';
+	} else {
+		return $html;
+	}
 }
 add_filter( 'embed_oembed_html', 'video_embed_html', 10, 3 );
 
