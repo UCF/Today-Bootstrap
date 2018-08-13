@@ -897,7 +897,7 @@ add_shortcode('external_stories', 'sc_external_stories');
  * List all external UCF stories
  *
  * @return string
- * @author Chris Conover
+ * @author Cadie Brown
  **/
 function sc_all_external_stories( $atts = array() ) {
 	global $wp_query;
@@ -914,14 +914,22 @@ function sc_all_external_stories( $atts = array() ) {
 		?>
 		<div class="<?php echo $css; ?>" id="all_external_stories">
 			<ul class="story-list">
-				<?php foreach ( $stories as $story ) : ?>
-					<li>
-						<a href="<?php echo get_post_meta( $story->ID, 'externalstory_url', True ); ?>">
-							<?php echo get_post_meta( $story->ID, 'externalstory_text', True ); ?>
-						</a>
-						<span><?php echo get_post_meta( $story->ID, 'externalstory_source', True ); ?></span>
-					</li>
-				<?php endforeach; ?>
+			<?php foreach ( $stories as $story ) :
+				$story_url = get_post_meta( $story->ID, 'externalstory_url', True );
+				$story_text = get_post_meta( $story->ID, 'externalstory_text', True );
+				$story_source = get_post_meta( $story->ID, 'externalstory_source', True );
+				$story_description = get_post_meta( $story->ID, 'externalstory_description', True );
+			?>
+				<li>
+					<a href="<?php echo $story_url; ?>">
+						<?php echo $story_text; ?>
+					</a>
+					<?php if ( $story_description ) : ?>
+						<p><?php echo $story_description; ?></p>
+					<?php endif; ?>
+					<span><?php echo $story_source; ?></span>
+				</li>
+			<?php endforeach; ?>
 			</ul>
 		</div>
 		<?php
