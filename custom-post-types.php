@@ -614,6 +614,12 @@ class ExternalStory extends CustomPostType
 					'type'	=> 'text'
 				),
 				Array(
+					'name'	=> 'Link Description',
+					'desc'	=> '',
+					'id'	=> $prefix.'description',
+					'type'	=> 'textarea'
+				),
+				Array(
 					'name'	=> 'Source',
 					'desc'	=> '',
 					'id'	=> $prefix.'source',
