@@ -892,7 +892,11 @@ function sc_external_stories( $atts = array() ) {
 					</li>
 				<?php endforeach; ?>
 			</ul>
-			<a href="<?php echo get_page_link( get_page_by_title( $link_page_name )->ID ); ?>" class="external-stories-view-all">View All &raquo;</a>
+			<?php
+			$link_page_name_id = get_page_by_title( $link_page_name )->ID;
+			if ( $link_page_name_id ) : ?>
+				<a href="<?php echo get_page_link( $link_page_name_id ); ?>" class="external-stories-view-all">View All &raquo;</a>
+			<?php endif; ?>
 		</div>
 		<?
 		$html = ob_get_contents(); ob_end_clean();
