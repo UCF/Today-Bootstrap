@@ -885,7 +885,7 @@ function sc_external_stories( $atts = array() ) {
 						<a href="<?php echo $story_url; ?>">
 							<?php echo $story_text; ?>
 						</a>
-						<?php if ( $show_description && !empty( $story_description ) ) : ?>
+						<?php if ( $show_description && $story_description ) : ?>
 							<p><?php echo $story_description; ?></p>
 						<?php endif; ?>
 						<span><?php echo $story_source; ?></span>
