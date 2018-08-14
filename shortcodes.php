@@ -862,7 +862,7 @@ function sc_external_stories( $atts = array() ) {
 	$css = ( isset( $atts['css'] ) ) ? $atts['css'] : '';
 	$heading = ( isset( $atts['heading'] ) ) ? $atts['heading'] : 'UCF in the News';
 	$links_per_page = ( isset( $atts['links_per_page'] ) && is_numeric( $atts['links_per_page'] ) ) ? intval( $atts['links_per_page'] ) : 4;
-	$link_page_name = ( isset( $atts['link_page_name'] ) ) ? $atts['link_page_name'] : 'UCF in the News';
+	$linked_page_name = ( isset( $atts['linked_page_name'] ) ) ? $atts['linked_page_name'] : 'UCF in the News';
 	$show_description = filter_var( $atts['show_description'], FILTER_VALIDATE_BOOLEAN );
 	$show_description = ( isset( $atts['show_description'] ) && $show_description ) ? $show_description : false;
 
@@ -893,9 +893,9 @@ function sc_external_stories( $atts = array() ) {
 				<?php endforeach; ?>
 			</ul>
 			<?php
-			$link_page_name_id = get_page_by_title( $link_page_name )->ID;
-			if ( $link_page_name_id ) : ?>
-				<a href="<?php echo get_page_link( $link_page_name_id ); ?>" class="external-stories-view-all">View All &raquo;</a>
+			$linked_page_name_id = get_page_by_title( $linked_page_name )->ID;
+			if ( $linked_page_name_id ) : ?>
+				<a href="<?php echo get_page_link( $linked_page_name_id ); ?>" class="external-stories-view-all">View All &raquo;</a>
 			<?php endif; ?>
 		</div>
 		<?
