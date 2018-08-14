@@ -861,7 +861,7 @@ function sc_external_stories( $atts = array() ) {
 
 	$css = ( isset( $atts['css'] ) ) ? $atts['css'] : '';
 	$heading = ( isset( $atts['heading'] ) ) ? $atts['heading'] : 'UCF in the News';
-	$number_links = ( isset( $atts['number_links'] ) && is_numeric( $atts['number_links'] ) ) ? intval( $atts['number_links'] ) : 4;
+	$links_per_page = ( isset( $atts['links_per_page'] ) && is_numeric( $atts['links_per_page'] ) ) ? intval( $atts['links_per_page'] ) : 4;
 	$link_page_name = ( isset( $atts['link_page_name'] ) ) ? $atts['link_page_name'] : 'UCF in the News';
 	$show_description = filter_var( $atts['show_description'], FILTER_VALIDATE_BOOLEAN );
 	$show_description = ( isset( $atts['show_description'] ) && $show_description ) ? $show_description : false;
@@ -912,14 +912,14 @@ function sc_all_external_stories( $atts = array() ) {
 	global $wp_query, $paged;
 
 	$css = ( isset( $atts['css'] ) ) ? $atts['css'] : '';
-	$number_links = ( isset( $atts['number_links'] ) && is_numeric( $atts['number_links'] ) ) ? intval( $atts['number_links'] ) : 4;
+	$links_per_page = ( isset( $atts['links_per_page'] ) && is_numeric( $atts['links_per_page'] ) ) ? intval( $atts['links_per_page'] ) : 25;
 	$show_description = filter_var( $atts['show_description'], FILTER_VALIDATE_BOOLEAN );
 	$show_description = ( isset( $atts['show_description'] ) && $show_description ) ? $show_description : false;
 
 	$temp = $wp_query;
 	$wp_query = null;
 	$wp_query = new WP_Query();
-	$wp_query->query('showposts='.$number_links.'&post_type=externalstory'.'&paged='.$paged);
+	$wp_query->query('showposts='.$links_per_page.'&post_type=externalstory'.'&paged='.$paged);
 
 	ob_start();
 	?>
