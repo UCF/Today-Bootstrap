@@ -868,7 +868,7 @@ function sc_external_stories( $atts = array() ) {
 
 	$stories = resolve_posts(	Array(	'tag' => $wp_query->queried_object->slug),
 								Array(	'post_type' => 'externalstory',
-										'numberposts' => $number_links ) );
+										'numberposts' => $links_per_page ) );
 	if ( count( $stories ) > 0 ) {
 		ob_start();
 		?>
