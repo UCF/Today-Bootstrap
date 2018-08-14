@@ -912,11 +912,9 @@ function sc_all_external_stories( $atts = array() ) {
 	global $wp_query;
 
 	$css = ( isset( $atts['css'] ) ) ? $atts['css'] : '';
-	$stories = resolve_posts( array( 'tag' => $wp_query->queried_object->slug ),
-							  array(
-								'post_type'   => 'externalstory',
-								'numberposts' => -1
-							  ) );
+	$number_links = ( isset( $atts['number_links'] ) && is_numeric( $atts['number_links'] ) ) ? intval( $atts['number_links'] ) : 4;
+	$show_description = filter_var( $atts['show_description'], FILTER_VALIDATE_BOOLEAN );
+	$show_description = ( isset( $atts['show_description'] ) && $show_description ) ? $show_description : false;
 
 	if ( count( $stories ) > 0 ) {
 		ob_start();
@@ -933,7 +931,7 @@ function sc_all_external_stories( $atts = array() ) {
 					<a href="<?php echo $story_url; ?>">
 						<?php echo $story_text; ?>
 					</a>
-					<?php if ( $story_description ) : ?>
+				<?php if ( $show_description && $story_description ) : ?>
 						<p><?php echo $story_description; ?></p>
 					<?php endif; ?>
 					<span><?php echo $story_source; ?></span>
