@@ -909,39 +909,51 @@ add_shortcode('external_stories', 'sc_external_stories');
  * @author Cadie Brown
  **/
 function sc_all_external_stories( $atts = array() ) {
-	global $wp_query;
+	global $wp_query, $paged;
 
 	$css = ( isset( $atts['css'] ) ) ? $atts['css'] : '';
 	$number_links = ( isset( $atts['number_links'] ) && is_numeric( $atts['number_links'] ) ) ? intval( $atts['number_links'] ) : 4;
 	$show_description = filter_var( $atts['show_description'], FILTER_VALIDATE_BOOLEAN );
 	$show_description = ( isset( $atts['show_description'] ) && $show_description ) ? $show_description : false;
 
-	if ( count( $stories ) > 0 ) {
-		ob_start();
+	$temp = $wp_query;
+	$wp_query = null;
+	$wp_query = new WP_Query();
+	$wp_query->query('showposts='.$number_links.'&post_type=externalstory'.'&paged='.$paged);
+
+	ob_start();
+	?>
+	<div class="<?php echo $css; ?>" id="all_external_stories">
+		<ul class="story-list">
+		<?php while ( $wp_query->have_posts() ) : $wp_query->the_post();
+			$story_url = get_post_meta( get_the_ID(), 'externalstory_url', True );
+			$story_text = get_post_meta( get_the_ID(), 'externalstory_text', True );
+			$story_source = get_post_meta( get_the_ID(), 'externalstory_source', True );
+			$story_description = get_post_meta( get_the_ID(), 'externalstory_description', True );
 		?>
-		<div class="<?php echo $css; ?>" id="all_external_stories">
-			<ul class="story-list">
-			<?php foreach ( $stories as $story ) :
-				$story_url = get_post_meta( $story->ID, 'externalstory_url', True );
-				$story_text = get_post_meta( $story->ID, 'externalstory_text', True );
-				$story_source = get_post_meta( $story->ID, 'externalstory_source', True );
-				$story_description = get_post_meta( $story->ID, 'externalstory_description', True );
-			?>
-				<li>
-					<a href="<?php echo $story_url; ?>">
-						<?php echo $story_text; ?>
-					</a>
+			<li>
+				<a href="<?php echo $story_url; ?>">
+					<?php echo $story_text; ?>
+				</a>
 				<?php if ( $show_description && $story_description ) : ?>
-						<p><?php echo $story_description; ?></p>
-					<?php endif; ?>
-					<span><?php echo $story_source; ?></span>
-				</li>
-			<?php endforeach; ?>
+					<p><?php echo $story_description; ?></p>
+				<?php endif; ?>
+				<span><?php echo $story_source; ?></span>
+			</li>
+		<?php endwhile; ?>
+		</ul>
+
+		<nav aria-label="UCF in the News external stories navigation">
+			<ul class="pagination">
+				<li class="previous"><?php previous_posts_link('&laquo; Previous'); ?></li>
+				<li class="next"><?php next_posts_link('Next &raquo;'); ?></li>
 			</ul>
-		</div>
-		<?php
-		return ob_get_clean();
-	}
+		</nav>
+	</div>
+	<?php
+	$wp_query = null;
+	$wp_query = $temp;
+	return ob_get_clean();
 }
 add_shortcode('all_external_stories', 'sc_all_external_stories');
 
