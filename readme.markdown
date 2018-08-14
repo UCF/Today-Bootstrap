@@ -128,6 +128,9 @@ Other attributes are listed below the given shortcode's name, if available.
 
 ### External Stories
 * external_stories
+	* heading (string... default: "UCF in the News") - Can be used to adjust the heading that's displayed before the list of news stories
+	* link_page_name (string...default:"External Stories") - Determines the name of the page the 'View All' link will go to
+* all_external_stories
 
 ### Profiles
 * profile
