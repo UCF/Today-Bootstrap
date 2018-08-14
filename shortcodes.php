@@ -862,11 +862,12 @@ function sc_external_stories($atts = Array())
 
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
 	$heading = ( isset( $atts['heading'] ) ) ? $atts['heading'] : 'UCF in the News';
+	$number_links = ( isset( $atts['number_links'] ) && is_numeric( $atts['number_links'] ) ) ? intval( $atts['number_links'] ) : 4;
 	$link_page_name = ( isset( $atts['link_page_name'] ) ) ? $atts['link_page_name'] : 'UCF in the News';
 
 	$stories = resolve_posts(	Array(	'tag' => $wp_query->queried_object->slug),
 								Array(	'post_type' => 'externalstory',
-										'numberposts' => 4));
+										'numberposts' => $number_links ) );
 	if(count($stories) > 0) {
 		ob_start();
 		?>
