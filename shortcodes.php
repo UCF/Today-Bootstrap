@@ -871,25 +871,11 @@ function sc_external_stories( $atts = array() ) {
 		<div class="<?php echo $css; ?>" id="external_stories">
 			<h2><?php echo $heading; ?></h2>
 			<ul class="story-list">
-				<?php foreach ( $stories as $story ) :
-					$story_url = get_post_meta( $story->ID, 'externalstory_url', True );
-					$story_text = get_post_meta( $story->ID, 'externalstory_text', True );
-					$story_source = get_post_meta( $story->ID, 'externalstory_source', True );
-					$story_description = get_post_meta( $story->ID, 'externalstory_description', True );
-					// Does not show an external story post without having a value set for url, text or source
-					if ( $story_url && $story_text && $story_source ) :
-					?>
-						<li>
-							<a href="<?php echo $story_url; ?>">
-								<?php echo $story_text; ?>
-							</a>
-							<?php if ( $show_description && $story_description ) : ?>
-								<p><?php echo $story_description; ?></p>
-							<?php endif; ?>
-							<span><?php echo $story_source; ?></span>
-						</li>
-					<?php endif; ?>
-				<?php endforeach; ?>
+				<?php
+				foreach ( $stories as $story ) {
+					echo display_external_stories_list_item( $story->ID );
+				}
+				?>
 			</ul>
 			<?php
 			$linked_page_name_id = get_page_by_title( $linked_page_name )->ID;
@@ -928,25 +914,11 @@ function sc_all_external_stories( $atts = array() ) {
 	if ( $external_stories_query->have_posts() ) : ?>
 		<div class="<?php echo $css; ?>" id="all_external_stories">
 			<ul class="story-list">
-			<?php while ( $external_stories_query->have_posts() ) : $external_stories_query->the_post();
-				$story_url = get_post_meta( get_the_ID(), 'externalstory_url', True );
-				$story_text = get_post_meta( get_the_ID(), 'externalstory_text', True );
-				$story_source = get_post_meta( get_the_ID(), 'externalstory_source', True );
-				$story_description = get_post_meta( get_the_ID(), 'externalstory_description', True );
-				// Does not show an external story post without having a value set for url, text or source
-				if ( $story_url && $story_text && $story_source ) :
-				?>
-					<li>
-						<a href="<?php echo $story_url; ?>">
-							<?php echo $story_text; ?>
-						</a>
-						<?php if ( $show_description && $story_description ) : ?>
-							<p><?php echo $story_description; ?></p>
-						<?php endif; ?>
-						<span><?php echo $story_source; ?></span>
-					</li>
-				<?php endif; ?>
-			<?php endwhile; ?>
+			<?php
+			while ( $external_stories_query->have_posts() ) : $external_stories_query->the_post();
+				echo display_external_stories_list_item( get_the_ID() );
+			endwhile;
+			?>
 			</ul>
 			<nav aria-label="UCF in the News external stories navigation">
 				<ul class="pagination">
