@@ -877,7 +877,8 @@ function sc_external_stories( $atts = array() ) {
 					$story_source = get_post_meta( $story->ID, 'externalstory_source', True );
 					$story_description = get_post_meta( $story->ID, 'externalstory_description', True );
 					// Does not show an external story post without having a value set for url, text or source
-					if ( $story_url && $story_text && $story_source ) : ?>
+					if ( $story_url && $story_text && $story_source ) :
+					?>
 						<li>
 							<a href="<?php echo $story_url; ?>">
 								<?php echo $story_text; ?>
@@ -887,14 +888,13 @@ function sc_external_stories( $atts = array() ) {
 							<?php endif; ?>
 							<span><?php echo $story_source; ?></span>
 						</li>
-					<?php
-					endif;
-				endforeach;
-				?>
+					<?php endif; ?>
+				<?php endforeach; ?>
 			</ul>
 			<?php
 			$linked_page_name_id = get_page_by_title( $linked_page_name )->ID;
-			if ( $linked_page_name_id ) : ?>
+			if ( $linked_page_name_id ) :
+			?>
 				<a href="<?php echo get_page_link( $linked_page_name_id ); ?>" class="external-stories-view-all">View All &raquo;</a>
 			<?php endif; ?>
 		</div>
@@ -934,7 +934,8 @@ function sc_all_external_stories( $atts = array() ) {
 				$story_source = get_post_meta( get_the_ID(), 'externalstory_source', True );
 				$story_description = get_post_meta( get_the_ID(), 'externalstory_description', True );
 				// Does not show an external story post without having a value set for url, text or source
-				if ( $story_url && $story_text && $story_source ) : ?>
+				if ( $story_url && $story_text && $story_source ) :
+				?>
 					<li>
 						<a href="<?php echo $story_url; ?>">
 							<?php echo $story_text; ?>
@@ -944,10 +945,8 @@ function sc_all_external_stories( $atts = array() ) {
 						<?php endif; ?>
 						<span><?php echo $story_source; ?></span>
 					</li>
-				<?php
-				endif;
-			endwhile;
-			?>
+				<?php endif; ?>
+			<?php endwhile; ?>
 			</ul>
 			<nav aria-label="UCF in the News external stories navigation">
 				<ul class="pagination">
@@ -956,7 +955,7 @@ function sc_all_external_stories( $atts = array() ) {
 				</ul>
 			</nav>
 		</div>
-		<?php
+	<?php
 		wp_reset_postdata();
 	endif;
 	return ob_get_clean();
