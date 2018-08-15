@@ -911,14 +911,17 @@ add_shortcode('external_stories', 'sc_external_stories');
  * @author Cadie Brown
  **/
 function sc_all_external_stories( $atts = array() ) {
-
 	$css = ( isset( $atts['css'] ) ) ? $atts['css'] : '';
 	$links_per_page = ( isset( $atts['links_per_page'] ) && is_numeric( $atts['links_per_page'] ) ) ? intval( $atts['links_per_page'] ) : 25;
 	$show_description = ( isset( $atts['show_description'] ) ) ? filter_var( $atts['show_description'], FILTER_VALIDATE_BOOLEAN ) : false;
 
 	$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
-	$external_stories_query = new WP_Query();
-	$external_stories_query->query('showposts='.$links_per_page.'&post_type=externalstory'.'&paged='.$paged);
+	$external_stories_args = array(
+		'posts_per_page' => $links_per_page,
+		'post_type' => 'externalstory',
+		'paged' => $paged
+	);
+	$external_stories_query = new WP_Query( $external_stories_args );
 
 	ob_start();
 	if ( $external_stories_query->have_posts() ) :
@@ -946,12 +949,12 @@ function sc_all_external_stories( $atts = array() ) {
 		<nav aria-label="UCF in the News external stories navigation">
 			<ul class="pagination">
 				<li class="previous"><?php previous_posts_link('&laquo; Previous'); ?></li>
-				<li class="next"><?php next_posts_link('Next &raquo;'); ?></li>
+				<li class="next"><?php next_posts_link( 'Next &raquo;', $external_stories_query->max_num_pages ); ?></li>
 			</ul>
 		</nav>
 	</div>
 	<?php
-	wp_reset_postdata();
+		wp_reset_postdata();
 	endif;
 	return ob_get_clean();
 }
