@@ -878,7 +878,8 @@ function sc_external_stories( $atts = array() ) {
 					$story_text = get_post_meta( $story->ID, 'externalstory_text', True );
 					$story_source = get_post_meta( $story->ID, 'externalstory_source', True );
 					$story_description = get_post_meta( $story->ID, 'externalstory_description', True );
-				?>
+					// Does not show an external story post without having a value set for url, text or source
+					if ( $story_url && $story_text && $story_source ) : ?>
 					<li>
 						<a href="<?php echo $story_url; ?>">
 							<?php echo $story_text; ?>
@@ -888,7 +889,10 @@ function sc_external_stories( $atts = array() ) {
 						<?php endif; ?>
 						<span><?php echo $story_source; ?></span>
 					</li>
-				<?php endforeach; ?>
+					<?php
+					endif;
+				endforeach; 
+				?>
 			</ul>
 			<?php
 			$linked_page_name_id = get_page_by_title( $linked_page_name )->ID;
@@ -933,7 +937,8 @@ function sc_all_external_stories( $atts = array() ) {
 			$story_text = get_post_meta( get_the_ID(), 'externalstory_text', True );
 			$story_source = get_post_meta( get_the_ID(), 'externalstory_source', True );
 			$story_description = get_post_meta( get_the_ID(), 'externalstory_description', True );
-		?>
+				// Does not show an external story post without having a value set for url, text or source
+				if ( $story_url && $story_text && $story_source ) : ?>
 			<li>
 				<a href="<?php echo $story_url; ?>">
 					<?php echo $story_text; ?>
@@ -943,7 +948,10 @@ function sc_all_external_stories( $atts = array() ) {
 				<?php endif; ?>
 				<span><?php echo $story_source; ?></span>
 			</li>
-		<?php endwhile; ?>
+				<?php
+				endif;
+			endwhile;
+			?>
 		</ul>
 
 		<nav aria-label="UCF in the News external stories navigation">
