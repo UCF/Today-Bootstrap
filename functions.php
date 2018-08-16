@@ -1065,7 +1065,7 @@ function display_external_stories_list_item( $story_id, $show_description ) {
 	?>
 		<li>
 			<?php if ( $story_url && $story_text ) : ?>
-				<a href="<?php echo $story_url; ?>">
+				<a href="<?php echo $story_url; ?>" class="external-story-link-title">
 					<?php echo $story_text; ?>
 				</a>
 			<?php endif; ?>
