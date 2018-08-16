@@ -873,7 +873,7 @@ function sc_external_stories( $atts = array() ) {
 			<ul class="story-list">
 				<?php
 				foreach ( $stories as $story ) {
-					echo display_external_stories_list_item( $story->ID );
+					echo display_external_stories_list_item( $story->ID, $show_description );
 				}
 				?>
 			</ul>
@@ -916,7 +916,7 @@ function sc_all_external_stories( $atts = array() ) {
 			<ul class="story-list">
 			<?php
 			while ( $external_stories_query->have_posts() ) : $external_stories_query->the_post();
-				echo display_external_stories_list_item( get_the_ID() );
+				echo display_external_stories_list_item( get_the_ID(), $show_description );
 			endwhile;
 			?>
 			</ul>

@@ -1048,12 +1048,13 @@ add_filter( 'ucf_social_links_display_affixed_before', 'ucf_social_links_display
 
 
 /**
- * Returns the External Story post list
+ * Returns the External Story post item as a list item
  * @author Cadie Brown
- * @param String $story | The external story's post_ID
+ * @param Integer $story_id | The external story's post_ID
+ * @param Boolean $show_description | Whether or not to show the link's description
  * @return String
  **/
-function display_external_stories_list_item( $story_id ) {
+function display_external_stories_list_item( $story_id, $show_description ) {
 	$story_url = get_post_meta( $story_id, 'externalstory_url', True );
 	$story_text = get_post_meta( $story_id, 'externalstory_text', True );
 	$story_source = get_post_meta( $story_id, 'externalstory_source', True );
