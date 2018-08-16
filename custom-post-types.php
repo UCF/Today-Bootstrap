@@ -617,7 +617,9 @@ class ExternalStory extends CustomPostType
 					'name'	=> 'Link Description',
 					'desc'	=> '',
 					'id'	=> $prefix.'description',
-					'type'	=> 'textarea'
+					'type'	=> 'wysiwyg',
+					'wysiwyg_media_buttons' => false,
+					'wysiwyg_textarea_rows' => 5
 				),
 				Array(
 					'name'	=> 'Source *',
