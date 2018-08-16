@@ -882,6 +882,7 @@ function sc_external_stories( $atts = array() ) {
 			if ( $linked_page_name_id ) :
 			?>
 				<a href="<?php echo get_page_link( $linked_page_name_id ); ?>" class="external-stories-view-all">View All &raquo;</a>
+				<div class="clearfix"></div>
 			<?php endif; ?>
 		</div>
 	<?php
