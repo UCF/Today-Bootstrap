@@ -128,6 +128,13 @@ Other attributes are listed below the given shortcode's name, if available.
 
 ### External Stories
 * external_stories
+	* heading (string - default: "UCF in the News"): Can be used to adjust the heading that's displayed before the list of news stories
+	* links_per_page (string - default: 4): The number of links/external stories that are listed
+	* link_page_name (string - default: "External Stories"): Determines the name of the page the 'View All' link will go to
+	* show_description (boolean - default: false): Whether or not the link descriptions are shown under the link title. This attribute accepts 'true', 'false', 'yes' or 'no' and converts the string to the corresponding boolean value
+* all_external_stories
+	* links_per_page (string - default: 25): The number of links/external stories that are listed
+	* show_description (boolean - default: false): Whether or not the link descriptions are shown under the link title. This attribute accepts 'true', 'false', 'yes' or 'no' and converts the string to the corresponding boolean value
 
 ### Profiles
 * profile
