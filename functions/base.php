@@ -1573,6 +1573,14 @@ function _show_meta_boxes($post, $meta_box){
 			<?php break; case 'textarea':?>
 				<textarea name="<?=$field['id']?>" id="<?=$field['id']?>" cols="60" rows="4"><?=($current_value) ? htmlentities($current_value) : $field['std']?></textarea>
 
+			<?php break; case 'wysiwyg' :
+				$settings = array(
+					'media_buttons' => $field['wysiwyg_media_buttons'] ? $field['wysiwyg_media_buttons'] : false,
+					'textarea_rows' => $field['wysiwyg_textarea_rows'] ? $field['wysiwyg_textarea_rows'] : 10
+				);
+				wp_editor( $current_value, $field['id'], $settings );
+			?>
+
 			<?php break; case 'select':?>
 				<select name="<?=$field['id']?>" id="<?=$field['id']?>">
 					<option value=""><?=($field['default']) ? $field['default'] : '--'?></option>
