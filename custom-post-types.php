@@ -608,13 +608,13 @@ class ExternalStory extends CustomPostType
 		$prefix = $this->options('name').'_';
 		return Array(
 				Array(
-					'name'	=> 'Link Text',
+					'name'	=> 'Link Text *',
 					'desc'	=> '',
 					'id'	=> $prefix.'text',
 					'type'	=> 'text'
 				),
 				Array(
-					'name'	=> 'Link URL',
+					'name'	=> 'Link URL *',
 					'desc'	=> '',
 					'id'	=> $prefix.'url',
 					'type'	=> 'text'
@@ -626,10 +626,16 @@ class ExternalStory extends CustomPostType
 					'type'	=> 'textarea'
 				),
 				Array(
-					'name'	=> 'Source',
+					'name'	=> 'Source *',
 					'desc'	=> '',
 					'id'	=> $prefix.'source',
 					'type'	=> 'text'
+				),
+				Array(
+					'name'	=> 'Note',
+					'desc'	=> '<em>Fields marked with an asterisk are required. If any of the required fields are left empty, this external story will not be displayed.</em>',
+					'id'	=> $prefix.'note',
+					'type'	=> 'note'
 				)
 			);
 	}
