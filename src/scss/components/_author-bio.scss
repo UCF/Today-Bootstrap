@@ -30,5 +30,13 @@
     .author-title {
       font-family: $font-family-sans-serif;
     }
+
+    .author-bio {
+      a,
+      strong,
+      em {
+        font-family: $font-family-serif !important;        
+      }
+    }
   }
 }
