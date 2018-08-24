@@ -760,10 +760,14 @@ function protocol_relative_oembed($html) {
 add_filter('embed_oembed_html', 'protocol_relative_oembed');
 
 /*
- * Add responsive container to embeds.
+ * Add responsive container to YouTube embeds
  */
-function video_embed_html( $html ) {
-    return '<div class="video-container">' . $html . '</div>';
+function video_embed_html( $html, $url ) {
+	if ( strpos( $url, 'youtube.com' ) !== false || strpos( $url, 'youtu.be' ) !== false ) {
+		return '<div class="video-container">' . $html . '</div>';
+	} else {
+		return $html;
+	}
 }
 add_filter( 'embed_oembed_html', 'video_embed_html', 10, 3 );
 
@@ -1040,4 +1044,37 @@ add_filter( 'ucf_social_links_display_affixed_before', 'ucf_social_links_display
 	</script>
 <?php
 	return ob_get_clean ();
+}
+
+
+/**
+ * Returns the External Story post item as a list item
+ * @author Cadie Brown
+ * @param Integer $story_id | The external story's post_ID
+ * @param Boolean $show_description | Whether or not to show the link's description
+ * @return String
+ **/
+function display_external_stories_list_item( $story_id, $show_description ) {
+	$story_url = get_post_meta( $story_id, 'externalstory_url', True );
+	$story_text = get_post_meta( $story_id, 'externalstory_text', True );
+	$story_source = get_post_meta( $story_id, 'externalstory_source', True );
+	$story_description = get_post_meta( $story_id, 'externalstory_description', True );
+	ob_start();
+	// Does not show an external story post without having a value set for url, text or source
+	if ( $story_url && $story_text && $story_source ) :
+	?>
+		<li>
+			<?php if ( $story_url && $story_text ) : ?>
+				<a href="<?php echo $story_url; ?>" class="external-story-link-title">
+					<?php echo $story_text; ?>
+				</a>
+			<?php endif; ?>
+			<?php if ( $show_description && $story_description ) : ?>
+				<p><?php echo $story_description; ?></p>
+			<?php endif; ?>
+			<span><?php echo $story_source; ?></span>
+		</li>
+	<?php
+	endif;
+	return ob_get_clean();
 }

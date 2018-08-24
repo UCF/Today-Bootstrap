@@ -4,7 +4,7 @@
   line-height: 1.2;
   margin-bottom: 15px;
 
-  a {
+  .external-story-link-title {
     color: $black;
     display: block;
     text-decoration: underline;
@@ -12,6 +12,66 @@
   }
 
   span {
-    color: #037f95;
+    color: #6f6f6f;
+    font-size: .85rem;
+  }
+
+  p {
+    font-size: .85rem;
+    line-height: 1.4;
+    margin: 3px 0;
+  }
+}
+
+a {
+  &.external-stories-view-all {
+    clear: right;
+    color: #333;
+    float: right;
+    font-family: "Helvetica Neue",Helvetica-Neue,Helvetica,sans-serif;
+    font-size: 12px;
+    line-height: 2.333;
+  }
+}
+
+#all_external_stories .story-list li {
+  margin-bottom: 25px;
+  margin-right: 10px;
+
+  .external-story-link-title {
+    color: #333;
+    display: inline-block;
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+
+  p {
+    line-height: 1.4;
+    margin: 3px 0;
+  }
+
+  span {
+    color: #6f6f6f;
+    display: block;
+  }
+}
+
+#all_external_stories nav {
+  .pagination {
+    list-style: none;
+    margin-right: 10px;
+
+    li {
+      display: inline-block;
+
+      a {
+        color: #333;
+        font-size: .9rem;
+      }
+
+      &.next {
+        float: right;
+      }
+    }
   }
 }
