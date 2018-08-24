@@ -1035,10 +1035,8 @@ add_shortcode('single_post', 'sc_single_post');
  * @return string
  * @author Cadie Brown
  **/
-function sc_author_bio( $atts = array() ) {
+function sc_author_bio() {
 	global $post;
-
-	$css = ( isset($atts['css']) ) ? $atts['css'] : '';
 
 	$author_title = get_post_meta( $post->ID, 'author_title', True );
 
@@ -1049,16 +1047,14 @@ function sc_author_bio( $atts = array() ) {
 
 	$featured_post_bio = is_page_template( 'featured-single-post.php' ) ? ' featured-author-bio' : '';
 
-	$classes = $css.$featured_post_bio;
-
 	ob_start();
-	if ($author_bio != '') :
+	if ( $author_bio != '' ) :
 	?>
 		<hr>
-		<div class="author-bio-container <?php echo $classes; ?>">
+		<div class="author-bio-container<?php echo $featured_post_bio; ?>">
 			<p class="author-byline"><?php echo $author_byline; ?></p>
 			<p class="author-title"><?php echo $author_title; ?></p>
-			<p class="author-bio"><?php echo $author_bio; ?></p>
+			<div class="author-bio"><?php echo $author_bio; ?></div>
 		</div>
 	<?php
 	endif;
