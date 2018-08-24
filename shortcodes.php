@@ -1054,7 +1054,7 @@ function sc_author_bio() {
 		<div class="author-bio-container<?php echo $featured_post_bio; ?>">
 			<p class="author-byline"><?php echo $author_byline; ?></p>
 			<p class="author-title"><?php echo $author_title; ?></p>
-			<p class="author-bio"><?php echo $author_bio; ?></p>
+			<div class="author-bio"><?php echo $author_bio; ?></div>
 		</div>
 	<?php
 	endif;
