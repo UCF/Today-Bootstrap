@@ -1070,7 +1070,7 @@ function display_external_stories_list_item( $story_id, $show_description ) {
 				</a>
 			<?php endif; ?>
 			<?php if ( $show_description && $story_description ) : ?>
-				<p><?php echo $story_description; ?></p>
+				<?php echo $story_description; ?>
 			<?php endif; ?>
 			<span><?php echo $story_source; ?></span>
 		</li>
