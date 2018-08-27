@@ -1104,7 +1104,9 @@ function display_author_bio( $post ) {
 		<hr>
 		<div class="author-bio-container<?php echo $featured_post_bio; ?>">
 			<p class="author-byline"><?php echo $author_byline; ?></p>
-			<p class="author-title"><?php echo $author_title; ?></p>
+			<?php if ( $author_title ) : ?>
+				<p class="author-title"><?php echo $author_title; ?></p>
+			<?php endif; ?>
 			<div class="author-bio"><?php echo $author_bio; ?></div>
 		</div>
 	<?php
