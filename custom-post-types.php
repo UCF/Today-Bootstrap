@@ -388,9 +388,17 @@ class Post extends CustomPostType
 				),
 				Array(
 					'name'	=> 'Author Byline',
-					'desc'	=> 'Appears in place of post author\'s name',
+					'desc'	=> 'Appears in place of post author\'s name.',
 					'id'	=> 'author_byline',
 					'type'	=> 'text'
+				),
+				Array(
+					'name'	=> 'Author Bio',
+					'desc'	=> 'Appears at the end of the story under the Author\'s name and title.',
+					'id'	=> 'author_bio',
+					'type'	=> 'wysiwyg',
+					'wysiwyg_media_buttons' => false,
+					'wysiwyg_textarea_rows' => 5
 				),
 				Array(
 					'name'	=> 'Source',

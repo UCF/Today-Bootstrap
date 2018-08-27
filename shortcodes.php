@@ -1016,6 +1016,7 @@ function sc_single_post($atts = Array())
 			<div id="content">
 				<?=strip_tags( $content, '<p><a><ol><ul><li><em><strong><img><blockquote><div>' )?>
 			</div>
+			<?php echo display_author_bio( $post ); ?>
 			<div id="share" role="form">
 				<?=comment_form( $comment_form_args, $post->ID )?>
 			</div>
