@@ -1016,7 +1016,7 @@ function sc_single_post($atts = Array())
 			<div id="content">
 				<?=strip_tags( $content, '<p><a><ol><ul><li><em><strong><img><blockquote><div>' )?>
 			</div>
-			<?php echo do_shortcode( '[author_bio]' ); ?>
+			<?php echo display_author_bio( $post ); ?>
 			<div id="share" role="form">
 				<?=comment_form( $comment_form_args, $post->ID )?>
 			</div>
@@ -1027,40 +1027,6 @@ function sc_single_post($atts = Array())
 	return $html;
 }
 add_shortcode('single_post', 'sc_single_post');
-
-/**
- * Returns author bio markup for both
- * single and featured posts
- *
- * @return string
- * @author Cadie Brown
- **/
-function sc_author_bio() {
-	global $post;
-
-	$author_title = get_post_meta( $post->ID, 'author_title', True );
-
-	$author_byline = get_post_meta( $post->ID, 'author_byline', True );
-	$author_byline = ( $author_byline != '' ) ? $author_byline : get_the_author();
-
-	$author_bio = get_post_meta( $post->ID, 'author_bio', True );
-
-	$featured_post_bio = is_page_template( 'featured-single-post.php' ) ? ' featured-author-bio' : '';
-
-	ob_start();
-	if ( $author_bio != '' ) :
-	?>
-		<hr>
-		<div class="author-bio-container<?php echo $featured_post_bio; ?>">
-			<p class="author-byline"><?php echo $author_byline; ?></p>
-			<p class="author-title"><?php echo $author_title; ?></p>
-			<div class="author-bio"><?php echo $author_bio; ?></div>
-		</div>
-	<?php
-	endif;
-	return ob_get_clean();
-}
-add_shortcode( author_bio, sc_author_bio );
 
 
 /**
