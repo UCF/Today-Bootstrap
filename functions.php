@@ -1078,3 +1078,36 @@ function display_external_stories_list_item( $story_id, $show_description ) {
 	endif;
 	return ob_get_clean();
 }
+
+
+/**
+ * Returns author bio markup for both
+ * single and featured posts
+ *
+ * @return string
+ * @param WP_Post $post The post object
+ * @author Cadie Brown
+ **/
+function display_author_bio( $post ) {
+	$author_title = get_post_meta( $post->ID, 'author_title', True );
+
+	$author_byline = get_post_meta( $post->ID, 'author_byline', True );
+	$author_byline = ( $author_byline != '' ) ? $author_byline : get_the_author();
+
+	$author_bio = get_post_meta( $post->ID, 'author_bio', True );
+
+	$featured_post_bio = is_page_template( 'featured-single-post.php' ) ? ' featured-author-bio' : '';
+
+	ob_start();
+	if ( $author_bio != '' ) :
+	?>
+		<hr>
+		<div class="author-bio-container<?php echo $featured_post_bio; ?>">
+			<p class="author-byline"><?php echo $author_byline; ?></p>
+			<p class="author-title"><?php echo $author_title; ?></p>
+			<div class="author-bio"><?php echo $author_bio; ?></div>
+		</div>
+	<?php
+	endif;
+	return ob_get_clean();
+}
