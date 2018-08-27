@@ -51,6 +51,7 @@ $video_url = get_video_url($post->ID);
 					<p><?php echo $source; ?></p>
 				</div>
 				<?php echo display_social( get_permalink( $post->ID ), $title, 'affixed' ); ?>
+				<?php echo display_author_bio( $post ); ?>
 			</div>
 		</div>
 	</article>

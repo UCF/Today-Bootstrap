@@ -1576,7 +1576,8 @@ function _show_meta_boxes($post, $meta_box){
 			<?php break; case 'wysiwyg' :
 				$settings = array(
 					'media_buttons' => $field['wysiwyg_media_buttons'] ? $field['wysiwyg_media_buttons'] : false,
-					'textarea_rows' => $field['wysiwyg_textarea_rows'] ? $field['wysiwyg_textarea_rows'] : 10
+					'textarea_rows' => $field['wysiwyg_textarea_rows'] ? $field['wysiwyg_textarea_rows'] : 10,
+					'wpautop'       => false
 				);
 				wp_editor( $current_value, $field['id'], $settings );
 			?>
