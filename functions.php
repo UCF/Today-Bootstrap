@@ -760,30 +760,20 @@ function protocol_relative_oembed($html) {
 add_filter('embed_oembed_html', 'protocol_relative_oembed');
 
 /*
- * Add responsive container to YouTube embeds
+ * Add responsive container to YouTube embeds and center other embeds
  */
 function video_embed_html( $html, $url ) {
 	if ( strpos( $url, 'youtube.com' ) !== false || strpos( $url, 'youtu.be' ) !== false ) {
 		return '<div class="video-container">' . $html . '</div>';
+	} else if ( strpos( $url, 'facebook.com' ) !== false
+		|| strpos( $url, 'twitter.com' ) !== false
+		|| strpos( $url, 'instagram.com' ) !== false ) {
+		return '<div class="centered-embed">' . $html . '</div>';
 	} else {
 		return $html;
 	}
 }
 add_filter( 'embed_oembed_html', 'video_embed_html', 10, 3 );
-
-/*
- * Add responsive container to YouTube embeds
- */
-function embed_html( $html, $url ) {
-	if ( strpos( $url, 'facebook.com' ) !== false
-		|| strpos( $url, 'twitter.com' ) !== false
-		|| strpos( $url, 'instagram.com' ) !== false ) {
-		return '<div align="center">' . $html . '</div>';
-	} else {
-		return $html;
-	}
-}
-add_filter( 'embed_oembed_html', 'embed_html', 10, 3 );
 
 /*
  * Force an exact crop of an image; bypassing wordpress's default
