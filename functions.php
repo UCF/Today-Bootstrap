@@ -772,6 +772,20 @@ function video_embed_html( $html, $url ) {
 add_filter( 'embed_oembed_html', 'video_embed_html', 10, 3 );
 
 /*
+ * Add responsive container to YouTube embeds
+ */
+function embed_html( $html, $url ) {
+	if ( strpos( $url, 'facebook.com' ) !== false
+		|| strpos( $url, 'twitter.com' ) !== false
+		|| strpos( $url, 'instagram.com' ) !== false ) {
+		return '<div align="center">' . $html . '</div>';
+	} else {
+		return $html;
+	}
+}
+add_filter( 'embed_oembed_html', 'embed_html', 10, 3 );
+
+/*
  * Force an exact crop of an image; bypassing wordpress's default
  * cropping settings which do not upscale small images.
  * http://wordpress.stackexchange.com/a/64953
