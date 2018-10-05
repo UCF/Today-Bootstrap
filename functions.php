@@ -765,8 +765,9 @@ add_filter('embed_oembed_html', 'protocol_relative_oembed');
 function video_embed_html( $html, $url ) {
 	if ( strpos( $url, 'youtube.com' ) !== false || strpos( $url, 'youtu.be' ) !== false ) {
 		return '<div class="video-container">' . $html . '</div>';
-	} else if ( strpos( $url, 'facebook.com' ) !== false
-		|| strpos( $url, 'twitter.com' ) !== false
+	} else if ( strpos( $url, 'facebook.com' ) !== false ) {
+		return '<div class="text-center">' . $html . '</div>';
+	} else if ( strpos( $url, 'twitter.com' ) !== false
 		|| strpos( $url, 'instagram.com' ) !== false ) {
 		return '<div class="centered-embed">' . $html . '</div>';
 	} else {
