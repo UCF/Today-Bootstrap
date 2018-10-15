@@ -760,11 +760,16 @@ function protocol_relative_oembed($html) {
 add_filter('embed_oembed_html', 'protocol_relative_oembed');
 
 /*
- * Add responsive container to YouTube embeds
+ * Add responsive container to YouTube embeds and center other embeds
  */
 function video_embed_html( $html, $url ) {
 	if ( strpos( $url, 'youtube.com' ) !== false || strpos( $url, 'youtu.be' ) !== false ) {
 		return '<div class="video-container">' . $html . '</div>';
+	} else if ( strpos( $url, 'facebook.com' ) !== false ) {
+		return '<div class="text-center">' . $html . '</div>';
+	} else if ( strpos( $url, 'twitter.com' ) !== false
+		|| strpos( $url, 'instagram.com' ) !== false ) {
+		return '<div class="centered-embed">' . $html . '</div>';
 	} else {
 		return $html;
 	}
