@@ -5,6 +5,7 @@ require_once('custom-taxonomies.php');  		# Where per theme taxonomies are defin
 require_once('custom-post-types.php');  		# Where per theme post types are defined
 require_once('functions/admin.php');  			# Admin/login functions
 require_once('functions/config.php');			# Where per theme settings are registered
+require_once('functions/api.php');              # Custom wp-json points are defined here
 require_once('shortcodes.php');         		# Per theme shortcodes
 
 require_once('third-party/wp-rss-media.php');	# Add images and media tag to the RSS feed for the Widget
@@ -1118,3 +1119,8 @@ function display_author_bio( $post ) {
 	endif;
 	return ob_get_clean();
 }
+
+/**
+ * Rest API
+ */
+add_action( 'rest_api_init', array( 'UCF_Today_Custom_API', 'register_rest_routes' ), 10, 0 );
