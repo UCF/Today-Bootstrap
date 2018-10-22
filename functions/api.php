@@ -11,7 +11,7 @@ if ( ! class_exists( 'UCF_Today_Custom_API' ) ) {
          * @author Jim Barnes
          */
         public static function register_rest_routes() {
-            $root    = 'ucf_news';
+            $root    = 'ucf-news';
             $version = 'v1';
 
             register_rest_route( "{$root}/{$version}", "/external-stories", array(
