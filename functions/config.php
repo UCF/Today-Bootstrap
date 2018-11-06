@@ -9,27 +9,27 @@
  * @author Jared Lang
  **/
 function __init__(){
-	add_theme_support('menus');
-	add_theme_support('post-thumbnails');
+	add_theme_support( 'menus' );
+	add_theme_support( 'post-thumbnails' );
 	// Custom Image Sizes
-	add_image_size('feature', 417, 343, True);
-	add_image_size('story', 95, 91, True); // also used for expert thumb
-	add_image_size('subpage_feature', 469, 270, True);
-	add_image_size('category_story', 167, 154, True);
-	add_image_size('update', 308, 204, True);
-	add_image_size('profile_img', 295, 367, True);
-	add_image_size('story_feature', 548, 396, False);
-	add_image_size('photoset_preview', 590, 443, True);
-	add_image_size('photoset_thumb', 220, 203, True);
-	add_image_size('alert', 47, 49, True);
-	add_image_size('ucf_photo', 300, 230, False);
-	add_image_size('ucf_photo_subpage', 380, 300, True);
-	add_image_size('profile_feature', 230, 286, True);
-	add_image_size('homepage', 66, 66, True);
-	add_image_size('widget_60', 60, 60, True);
-	add_image_size('widget_95', 95, 95, True);
-	add_image_size('gmucf_top_story', 600, 308, True);
-	add_image_size('gmucf_featured_story', 95, 95, True);
+	add_image_size( 'feature', 417, 343, True );
+	add_image_size( 'story', 95, 91, True ); // also used for expert thumb
+	add_image_size( 'subpage_feature', 469, 270, True );
+	add_image_size( 'category_story', 167, 154, True );
+	add_image_size( 'update', 308, 204, True );
+	add_image_size( 'profile_img', 295, 367, True );
+	add_image_size( 'story_feature', 548, 396, False );
+	add_image_size( 'photoset_preview', 590, 443, True );
+	add_image_size( 'photoset_thumb', 220, 203, True );
+	add_image_size( 'alert', 47, 49, True );
+	add_image_size( 'ucf_photo', 300, 230, False );
+	add_image_size( 'ucf_photo_subpage', 380, 300, True );
+	add_image_size( 'profile_feature', 230, 286, True );
+	add_image_size( 'homepage', 66, 66, True );
+	add_image_size( 'widget_60', 60, 60, True );
+	add_image_size( 'widget_95', 95, 95, True );
+	add_image_size( 'gmucf_top_story', 600 );
+	add_image_size( 'gmucf_featured_story', 95, 95, True );
 	register_nav_menu( 'social-links', __( 'Social Links' ) );
 
 	// Widgets
