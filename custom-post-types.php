@@ -25,6 +25,7 @@ abstract class CustomPostType{
 		$built_in       = False,
 		$rewrite 		= True,
 		$show_in_rest   = False,
+		$menu_icon      = 'dashicons-admin-post',
 
 		# Optional default ordering for generic shortcode if not specified by user.
 		$default_orderby = null,
@@ -177,6 +178,7 @@ abstract class CustomPostType{
 			'public'       => $this->options('public'),
 			'taxonomies'   => $this->options('taxonomies'),
 			'_builtin'     => $this->options('built_in'),
+			'menu_icon'    => $this->options('menu_icon'),
 			'rewrite'	   => $this->options('rewrite')
 		);
 
@@ -267,6 +269,7 @@ class Alert extends CustomPostType{
 		$edit_item      = 'Edit Alert',
 		$new_item       = 'New Alert',
 		$use_thumbnails = True,
+		$menu_icon		= 'dashicons-megaphone',
 		$use_metabox    = True;
 
 	public function fields() {
@@ -496,6 +499,7 @@ class PhotoSet extends CustomPostType
 		$use_metabox    = True,
 
 		$rewrite		= Array('slug' => 'ucf-in-photos'),
+		$menu_icon		= 'dashicons-format-gallery',
 
 		$taxonomies     = Array('experts');
 
@@ -532,6 +536,7 @@ class Video extends CustomPostType
 		$use_thumbnails = False,
 		$use_metabox    = True,
 		$use_editor		= True,
+		$menu_icon		= 'dashicons-video-alt3',
 
 		$taxonomies		= Array('category', 'post_tag', 'experts');
 
@@ -571,6 +576,7 @@ class Profile extends CustomPostType
 		$use_editor     = True,
 		$use_thumbnails = True,
 		$use_metabox    = True,
+		$menu_icon		= 'dashicons-groups',
 		$taxonomies     = Array('groups');
 
 	public function fields() {
@@ -604,6 +610,7 @@ class ExternalStory extends CustomPostType
 		$use_thumbnails = False,
 		$use_metabox    = True,
 		$use_editor		= False,
+		$menu_icon		= 'dashicons-media-text',
 		$taxonomies		= Array('category', 'experts');
 
 	public function fields() {
