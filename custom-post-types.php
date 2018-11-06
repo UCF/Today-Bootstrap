@@ -441,6 +441,7 @@ class Expert extends CustomPostType
 		$new_item       = 'New Expert',
 		$use_editor		= True,
 		$use_thumbnails = True,
+		$menu_icon		= 'dashicons-lightbulb',
 		$use_metabox    = True;
 
 	public function fields() {
