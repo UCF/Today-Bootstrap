@@ -78,10 +78,8 @@ if ( ! class_exists( 'UCF_Today_Custom_API' ) ) {
 
             $posts = get_posts( $args );
 
-            $controller = new WP_REST_Posts_Controller( 'externalstory' );
-
             foreach( $posts as $post ) {
-                $data     = self::prepare_external_story_for_response( $post );
+                $data     = self::prepare_external_story_for_response( $post, $request );
                 $retval[] = $data;
             }
 
