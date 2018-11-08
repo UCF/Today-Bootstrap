@@ -1059,7 +1059,7 @@ function sc_single_post_meta($atts = Array())
 			<?php echo $author_title; ?>
 			<p><?php echo date( 'l, F j, Y', strtotime( $post->post_date ) ); ?></p>
 			<?php if( $updated_date ) : ?>
-				<p>Updated <?php echo date( 'F j, Y', strtotime( $updated_date ) ); ?></p>
+				<p><strong>Updated</strong> <?php echo date( 'F j, Y', strtotime( $updated_date ) ); ?></p>
 			<?php endif; ?>
 			<?php echo $source; ?>
 			<?php if( function_exists( 'wp_print' ) ) { ?>
@@ -1534,7 +1534,7 @@ function sc_feature_post_meta( $atts = Array() )
 		<div>
 			<p id="byline-date">By <?php echo $byline; ?> <span class="hidden-mobile">|</span><br class="visible-mobile"> <?php echo date( 'F j, Y', strtotime( $post->post_date ) ); ?></p>
 			<?php if( $updated_date ) : ?>
-				<p class="updated-date">Updated <?php echo date( 'F j, Y', strtotime( $updated_date ) ); ?></p>
+				<p class="updated-date"><strong>Updated</strong> <?php echo date( 'F j, Y', strtotime( $updated_date ) ); ?></p>
 			<?php endif; ?>
 		</div>
 	</div>
