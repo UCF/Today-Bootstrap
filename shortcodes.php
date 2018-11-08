@@ -1057,7 +1057,7 @@ function sc_single_post_meta($atts = Array())
 			<?=$author_title?>
 			<p><?php echo date( 'l, F j, Y', strtotime( $post->post_date ) ); ?></p>
 			<?php echo $source; ?>
-			<? if( function_exists( 'wp_print' ) ) { ?>
+			<?php if( function_exists( 'wp_print' ) ) { ?>
 				<div id="print">
 					<a href="?print=1" rel="nofollow" target="_blank">Print this Article</a>
 				</div>
