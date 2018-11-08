@@ -216,6 +216,17 @@ class TextField extends Field{
  * wordpress' end however.
  *
  * @package default
+ * @author RJ Bruneel
+ **/
+class DateField extends TextField {
+	protected $type_attr = 'date';
+}
+
+/**
+ * PasswordField can be used to accept sensitive information, not encrypted on
+ * wordpress' end however.
+ *
+ * @package default
  * @author Jared Lang
  **/
 class PasswordField extends TextField{
@@ -1568,10 +1579,13 @@ function _show_meta_boxes($post, $meta_box){
 
 			<?php switch ($field['type']):
 				case 'text':?>
-				<input type="text" name="<?=$field['id']?>" id="<?=$field['id']?>" value="<?=($current_value) ? htmlentities($current_value) : $field['std']?>" />
+				<input type="text" name="<?php echo $field['id']; ?>" id="<?php echo $field['id']; ?>" value="<?php echo ( $current_value ) ? htmlentities( $current_value ) : $field['std']; ?>" />
+
+			<?php break; case 'date':?>
+				<input type="date" name="<?php echo $field['id']; ?>" id="<?php echo $field['id']; ?>" value="<?php echo ( $current_value ) ? htmlentities( $current_value ) : $field['std']; ?>" />
 
 			<?php break; case 'textarea':?>
-				<textarea name="<?=$field['id']?>" id="<?=$field['id']?>" cols="60" rows="4"><?=($current_value) ? htmlentities($current_value) : $field['std']?></textarea>
+				<textarea name="<?php echo $field['id']; ?>" id="<?php echo $field['id']; ?>" cols="60" rows="4"><?php echo ( $current_value ) ? htmlentities( $current_value ) : $field['std']; ?></textarea>
 
 			<?php break; case 'wysiwyg' :
 				$settings = array(
