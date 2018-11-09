@@ -95,6 +95,11 @@ if ( ! class_exists( 'UCF_Today_Custom_API' ) ) {
          * @return array A serializable array.
          */
         private static function prepare_external_story_for_response( $post, $request ) {
+
+            $terms = wp_get_post_terms( $post->ID, 'sources' );
+            $field = ( !empty( $terms ) ) ? get_field( 'news_source_image', $terms[0] ) : null;
+            $source_image = ( !empty( $field ) ) ? $field['url'] : null;
+
             // Prepare the return value format
             $retval = array(
                 'title'        => '',
@@ -113,8 +118,8 @@ if ( ! class_exists( 'UCF_Today_Custom_API' ) ) {
             $retval['description']  = get_post_meta( $post->ID, 'externalstory_description', true );
             $retval['url']          = get_post_meta( $post->ID, 'externalstory_url', true );
             $retval['source']       = get_post_meta( $post->ID, 'externalstory_source', true );
-            $retval['source_name']  = ( $source = wp_get_post_terms( $post->ID, 'sources' ) ) ? $source[0]->name : null;
-            $retval['source_image'] = get_field( 'news_source_image', wp_get_post_terms( $post->ID, 'sources' )[0] )['url'];
+            $retval['source_name']  = ( !empty( $source_name = wp_get_post_terms( $post->ID, 'sources' ) ) ) ? $source_name[0]->name : null;
+            $retval['source_image'] = $source_image;
             $retval['publish_date'] = $post->post_date;
             $retval['categories']   = wp_get_post_categories( $post->ID, array( 'fields' => 'names' ) );
 
