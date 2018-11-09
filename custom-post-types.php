@@ -618,7 +618,7 @@ class ExternalStory extends CustomPostType
 		$use_metabox    = True,
 		$use_editor		= False,
 		$menu_icon		= 'dashicons-media-text',
-		$taxonomies		= Array('category', 'experts');
+		$taxonomies		= Array('category', 'experts', 'sources');
 
 	public function fields() {
 		$prefix = $this->options('name').'_';
@@ -645,7 +645,7 @@ class ExternalStory extends CustomPostType
 				),
 				Array(
 					'name'	=> 'Source *',
-					'desc'	=> '',
+					'desc'	=> 'This field has been deprecated, use the "Post Sources" taxonomy instead.',
 					'id'	=> $prefix.'source',
 					'type'	=> 'text'
 				),
