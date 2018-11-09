@@ -1,12 +1,12 @@
 <?php
-require_once('functions/base.php');   			# Base theme functions
-require_once('functions/feeds.php');			# Where functions related to feed data live
-require_once('custom-taxonomies.php');  		# Where per theme taxonomies are defined
-require_once('custom-post-types.php');  		# Where per theme post types are defined
-require_once('functions/admin.php');  			# Admin/login functions
-require_once('functions/config.php');			# Where per theme settings are registered
-require_once('functions/api.php');              # Custom wp-json points are defined here
-require_once('shortcodes.php');         		# Per theme shortcodes
+require_once('functions/base.php');     # Base theme functions
+require_once('functions/feeds.php');    # Where functions related to feed data live
+require_once('custom-taxonomies.php');  # Where per theme taxonomies are defined
+require_once('custom-post-types.php');  # Where per theme post types are defined
+require_once('functions/admin.php');    # Admin/login functions
+require_once('functions/config.php');   # Where per theme settings are registered
+require_once('functions/api.php');      # Custom wp-json points are defined here
+require_once('shortcodes.php');         # Per theme shortcodes
 
 require_once('third-party/wp-rss-media.php');	# Add images and media tag to the RSS feed for the Widget
 
@@ -1063,9 +1063,10 @@ add_filter( 'ucf_social_links_display_affixed_before', 'ucf_social_links_display
 function display_external_stories_list_item( $story_id, $show_description ) {
 	$story_url = get_post_meta( $story_id, 'externalstory_url', True );
 	$story_text = get_post_meta( $story_id, 'externalstory_text', True );
-	$source_name = wp_get_post_terms( $story_id, 'sources' )[0]->name;
-	if( $source_name ) {
-		$story_source = $source_name;
+	$source_name = wp_get_post_terms( $story_id, 'sources' );
+
+	if( !empty( $source_name ) ) {
+		$story_source = $source_name[0]->name;
 	} else {
 		$story_source = get_post_meta( $story_id, 'externalstory_source', True );
 	}

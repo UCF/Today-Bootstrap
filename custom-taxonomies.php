@@ -6,14 +6,14 @@
  **/
 abstract class CustomTaxonomy {
 	public
-		$name			= 'custom_taxonomy',
+		$name  = 'custom_taxonomy',
 
 		// Do not register the taxonomy with the post type here.
 		// Register it on the `taxonomies` attribute of the post type in
 		// custom-post-types.php
-		$object_type	= Array(),
+		$object_type        = Array(),
 
-		$general_name		= 'Post Tags',
+		$general_name       = 'Post Tags',
 		$singular_name      = 'Post Tag',
 		$search_items       = 'Search Tags',
 		$popular_items      = 'Popular Tags',
@@ -142,20 +142,20 @@ class Groups extends CustomTaxonomy{
 class Sources extends CustomTaxonomy{
 
 	public
-		$name				= 'sources',
-		$general_name		= 'Post Sources',
-		$singular_name 		= 'Post Source',
-		$search_items		= 'Search Sources',
-		$popular_items		= 'Popular Sources',
-		$all_times			= 'All Sources',
-		$parent_item		= 'Parent Source',
-		$parent_item_colon	= 'Parent : Source',
-		$edit_item			= 'Edit Source',
-		$update_item		= 'Update Source',
-		$add_new_item		= 'Add New Source',
-		$new_item_name		= 'New Source Name',
-		$menu_name			= NULL,
-		$hierarchical		= True;
+		$name               = 'sources',
+		$general_name       = 'Post Sources',
+		$singular_name      = 'Post Source',
+		$search_items       = 'Search Sources',
+		$popular_items      = 'Popular Sources',
+		$all_times          = 'All Sources',
+		$parent_item        = 'Parent Source',
+		$parent_item_colon  = 'Parent : Source',
+		$edit_item          = 'Edit Source',
+		$update_item        = 'Update Source',
+		$add_new_item       = 'Add New Source',
+		$new_item_name      = 'New Source Name',
+		$menu_name          = NULL,
+		$hierarchical       = True;
 }
 
 
