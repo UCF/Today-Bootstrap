@@ -69,6 +69,7 @@ Note: the Update post type was not carried over from the original theme.
 ## Custom Taxonomies
 * Experts (for Post, Photoset CPTs)
 * Groups (for Profile CPT)
+* Sources (for External Stories CPT)
 
 
 ## Shortcodes

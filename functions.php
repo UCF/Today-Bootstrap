@@ -1063,7 +1063,12 @@ add_filter( 'ucf_social_links_display_affixed_before', 'ucf_social_links_display
 function display_external_stories_list_item( $story_id, $show_description ) {
 	$story_url = get_post_meta( $story_id, 'externalstory_url', True );
 	$story_text = get_post_meta( $story_id, 'externalstory_text', True );
-	$story_source = get_post_meta( $story_id, 'externalstory_source', True );
+	$source_name = wp_get_post_terms( $story_id, 'sources' )[0]->name;
+	if( $source_name ) {
+		$story_source = $source_name;
+	} else {
+		$story_source = get_post_meta( $story_id, 'externalstory_source', True );
+	}
 	$story_description = get_post_meta( $story_id, 'externalstory_description', True );
 	ob_start();
 	// Does not show an external story post without having a value set for url, text or source
