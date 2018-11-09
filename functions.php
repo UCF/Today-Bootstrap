@@ -7,6 +7,7 @@ require_once('functions/admin.php');  			# Admin/login functions
 require_once('functions/config.php');			# Where per theme settings are registered
 require_once('functions/api.php');              # Custom wp-json points are defined here
 require_once('shortcodes.php');         		# Per theme shortcodes
+require_once('functions/gmucf-options.php');         		# GMUCF Options page and functions
 
 require_once('third-party/wp-rss-media.php');	# Add images and media tag to the RSS feed for the Widget
 
