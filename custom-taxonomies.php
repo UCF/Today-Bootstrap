@@ -13,7 +13,7 @@ abstract class CustomTaxonomy {
 		// custom-post-types.php
 		$object_type	= Array(),
 
-		$general_name		= 'Post Tags',
+		$general_name       = 'Post Tags',
 		$singular_name      = 'Post Tag',
 		$search_items       = 'Search Tags',
 		$popular_items      = 'Popular Tags',
@@ -144,7 +144,7 @@ class Sources extends CustomTaxonomy{
 	public
 		$name				= 'sources',
 		$general_name		= 'Post Sources',
-		$singular_name 		= 'Post Source',
+		$singular_name		= 'Post Source',
 		$search_items		= 'Search Sources',
 		$popular_items		= 'Popular Sources',
 		$all_times			= 'All Sources',

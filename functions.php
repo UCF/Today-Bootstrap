@@ -1063,9 +1063,10 @@ add_filter( 'ucf_social_links_display_affixed_before', 'ucf_social_links_display
 function display_external_stories_list_item( $story_id, $show_description ) {
 	$story_url = get_post_meta( $story_id, 'externalstory_url', True );
 	$story_text = get_post_meta( $story_id, 'externalstory_text', True );
-	$source_name = wp_get_post_terms( $story_id, 'sources' )[0]->name;
+	$source_name = wp_get_post_terms( $story_id, 'sources' );
+
 	if( $source_name ) {
-		$story_source = $source_name;
+		$story_source = $source_name[0]->name;
 	} else {
 		$story_source = get_post_meta( $story_id, 'externalstory_source', True );
 	}
