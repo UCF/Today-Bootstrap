@@ -644,7 +644,7 @@ class ExternalStory extends CustomPostType
 					'wysiwyg_textarea_rows' => 5
 				),
 				Array(
-					'name'	=> 'Source *',
+					'name'	=> 'Source',
 					'desc'	=> 'This field has been deprecated, use the "Post Sources" taxonomy instead.',
 					'id'	=> $prefix.'source',
 					'type'	=> 'text'
