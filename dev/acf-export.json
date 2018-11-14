@@ -1,299 +1,14 @@
 [
     {
-        "key": "group_5be4b0336d8e2",
-        "title": "GMUCF Options Page",
-        "fields": [
-            {
-                "key": "field_5be4b17257873",
-                "label": "Email Send Date",
-                "name": "gmucf_email_send_date",
-                "type": "date_picker",
-                "instructions": "Select the date this email is set to send out. If this date is not set to the same date the email sends out, <b>a fallback email will be sent out<\/b>.",
-                "required": 1,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "",
-                    "id": ""
-                },
-                "display_format": "m\/d\/Y",
-                "return_format": "m\/d\/Y",
-                "first_day": 1
-            },
-            {
-                "key": "field_5be4b21557875",
-                "label": "Show Social Share Buttons",
-                "name": "gmucf_show_social_share_buttons",
-                "type": "true_false",
-                "instructions": "If checked, the social share buttons for each story will be displayed underneath the story's description text.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "",
-                    "id": ""
-                },
-                "message": "",
-                "default_value": 1,
-                "ui": 0,
-                "ui_on_text": "",
-                "ui_off_text": ""
-            },
-            {
-                "key": "field_5be59b0c672fa",
-                "label": "Top Stories",
-                "name": "gmucf_top_stories",
-                "type": "flexible_content",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "layouts": {
-                    "5be59b13ac2a4": {
-                        "key": "5be59b13ac2a4",
-                        "name": "gmucf_top_story",
-                        "label": "Top Story",
-                        "display": "block",
-                        "sub_fields": [
-                            {
-                                "key": "field_5be59b3f672fb",
-                                "label": "Select a Story",
-                                "name": "gmucf_story",
-                                "type": "post_object",
-                                "instructions": "Select a story to use for this top story.",
-                                "required": 1,
-                                "conditional_logic": 0,
-                                "wrapper": {
-                                    "width": "",
-                                    "class": "",
-                                    "id": ""
-                                },
-                                "post_type": [
-                                    "post"
-                                ],
-                                "taxonomy": [],
-                                "allow_null": 0,
-                                "multiple": 0,
-                                "return_format": "id",
-                                "ui": 1
-                            },
-                            {
-                                "key": "field_5be59cfe67300",
-                                "label": "Story Image",
-                                "name": "gmucf_story_image",
-                                "type": "image",
-                                "instructions": "",
-                                "required": 0,
-                                "conditional_logic": 0,
-                                "wrapper": {
-                                    "width": "",
-                                    "class": "",
-                                    "id": ""
-                                },
-                                "return_format": "array",
-                                "preview_size": "gmucf_top_story",
-                                "library": "all",
-                                "min_width": "",
-                                "min_height": "",
-                                "min_size": "",
-                                "max_width": "",
-                                "max_height": "",
-                                "max_size": "",
-                                "mime_types": ""
-                            },
-                            {
-                                "key": "field_5be59cd2672ff",
-                                "label": "Story Title",
-                                "name": "gmucf_story_title",
-                                "type": "text",
-                                "instructions": "Insert title here",
-                                "required": 0,
-                                "conditional_logic": 0,
-                                "wrapper": {
-                                    "width": "",
-                                    "class": "",
-                                    "id": ""
-                                },
-                                "default_value": "",
-                                "placeholder": "",
-                                "prepend": "",
-                                "append": "",
-                                "maxlength": ""
-                            },
-                            {
-                                "key": "field_5be59dc167301",
-                                "label": "Story Description",
-                                "name": "gmucf_story_description",
-                                "type": "textarea",
-                                "instructions": "",
-                                "required": 0,
-                                "conditional_logic": 0,
-                                "wrapper": {
-                                    "width": "",
-                                    "class": "",
-                                    "id": ""
-                                },
-                                "default_value": "",
-                                "placeholder": "",
-                                "maxlength": "",
-                                "rows": 4,
-                                "new_lines": ""
-                            }
-                        ],
-                        "min": "1",
-                        "max": ""
-                    }
-                },
-                "button_label": "Add Top Story",
-                "min": "",
-                "max": ""
-            },
-            {
-                "key": "field_5be5a17ce4cc9",
-                "label": "Featured Stories",
-                "name": "gmucf_featured_stories",
-                "type": "flexible_content",
-                "instructions": "Add an even number of stories here to be used in the featured stories section.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "layouts": {
-                    "5be59b13ac2a4": {
-                        "key": "5be59b13ac2a4",
-                        "name": "gmucf_featured_story",
-                        "label": "Featured Story",
-                        "display": "block",
-                        "sub_fields": [
-                            {
-                                "key": "field_5be5a17ce4cca",
-                                "label": "Select a Story",
-                                "name": "gmucf_story",
-                                "type": "post_object",
-                                "instructions": "Select a story to use for this featured story.",
-                                "required": 1,
-                                "conditional_logic": 0,
-                                "wrapper": {
-                                    "width": "",
-                                    "class": "",
-                                    "id": ""
-                                },
-                                "post_type": [
-                                    "post"
-                                ],
-                                "taxonomy": [],
-                                "allow_null": 0,
-                                "multiple": 0,
-                                "return_format": "id",
-                                "ui": 1
-                            },
-                            {
-                                "key": "field_5be5a17ce4cce",
-                                "label": "Story Image",
-                                "name": "gmucf_story_image",
-                                "type": "image",
-                                "instructions": "",
-                                "required": 0,
-                                "conditional_logic": 0,
-                                "wrapper": {
-                                    "width": "",
-                                    "class": "",
-                                    "id": ""
-                                },
-                                "return_format": "array",
-                                "preview_size": "gmucf_featured_story",
-                                "library": "all",
-                                "min_width": "",
-                                "min_height": "",
-                                "min_size": "",
-                                "max_width": "",
-                                "max_height": "",
-                                "max_size": "",
-                                "mime_types": ""
-                            },
-                            {
-                                "key": "field_5be5a17ce4ccf",
-                                "label": "Story Title",
-                                "name": "gmucf_story_title",
-                                "type": "text",
-                                "instructions": "Insert title here",
-                                "required": 0,
-                                "conditional_logic": 0,
-                                "wrapper": {
-                                    "width": "",
-                                    "class": "",
-                                    "id": ""
-                                },
-                                "default_value": "",
-                                "placeholder": "",
-                                "prepend": "",
-                                "append": "",
-                                "maxlength": ""
-                            },
-                            {
-                                "key": "field_5be5a17ce4cd0",
-                                "label": "Story Description",
-                                "name": "gmucf_story_description",
-                                "type": "textarea",
-                                "instructions": "",
-                                "required": 0,
-                                "conditional_logic": 0,
-                                "wrapper": {
-                                    "width": "",
-                                    "class": "",
-                                    "id": ""
-                                },
-                                "default_value": "",
-                                "placeholder": "",
-                                "maxlength": "",
-                                "rows": 4,
-                                "new_lines": ""
-                            }
-                        ],
-                        "min": "2",
-                        "max": ""
-                    }
-                },
-                "button_label": "Add Featured Story",
-                "min": "",
-                "max": ""
-            }
-        ],
-        "location": [
-            [
-                {
-                    "param": "options_page",
-                    "operator": "==",
-                    "value": "gmucf-email"
-                }
-            ]
-        ],
-        "menu_order": 0,
-        "position": "normal",
-        "style": "default",
-        "label_placement": "top",
-        "instruction_placement": "label",
-        "hide_on_screen": "",
-        "active": 1,
-        "description": ""
-    },
-    {
         "key": "group_5be5fd670dcaf",
-        "title": "GMUCF Options Page (copy)",
+        "title": "GMUCF Options Page",
         "fields": [
             {
                 "key": "field_5be5fd67174cc",
                 "label": "Email Send Date",
                 "name": "gmucf_email_send_date",
                 "type": "date_picker",
-                "instructions": "Select the date this email is set to send out. If this date is not set to the same date the email sends out, <b>a fallback email will be sent out<\/b>.",
+                "instructions": "Select the date this email is set to send out. <strong style=\"color: red;\">If this date is not set to the same date the email is set to send out, a fallback email will be sent out.<\/strong>",
                 "required": 1,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -303,14 +18,14 @@
                 },
                 "display_format": "m\/d\/Y",
                 "return_format": "m\/d\/Y",
-                "first_day": 1
+                "first_day": 0
             },
             {
                 "key": "field_5be5fd67174e6",
                 "label": "Show Social Share Buttons",
                 "name": "gmucf_show_social_share_buttons",
                 "type": "true_false",
-                "instructions": "If checked, the social share buttons for each story will be displayed underneath the story's description text.",
+                "instructions": "If checked, the social share buttons for each story will be displayed underneath the description text.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -329,7 +44,7 @@
                 "label": "Email Content",
                 "name": "gmucf_email_content",
                 "type": "flexible_content",
-                "instructions": "Select and order the email content. Select <strong>at least<\/strong> one Top Story and two Featured Stories. The amount of Featured Stories selected <strong>must be an even number<\/strong> and since the featured stories are displayed in the email in two columns, there must be two featured stories next to each other.",
+                "instructions": "Select and order the email content.\r\n<br><br>\r\nSelect <strong>at least<\/strong> one Top Story and two Featured Stories. The amount of Featured Stories selected <strong>must be an even number<\/strong> and since the featured stories are displayed in the email in two columns, there <strong>must be two featured stories next to each other<\/strong>.\r\n<br><br>\r\nSpotlights can be added but are not required. There is a maximum of 2 spotlights per email.\r\n<br><br>\r\nPhoto sets can be selected from either the Top Story or Featured Stories options.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -372,7 +87,7 @@
                                 "label": "Story Image",
                                 "name": "gmucf_story_image",
                                 "type": "image",
-                                "instructions": "If you do not want to use the story's featured image to display in the email, select an image to replace it here.",
+                                "instructions": "Select an image to replace the story's featured image in the email. The width must be 600px. The height can vary but we recommend keeping it around 300px. Make sure to optimize the images before uploading.",
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
@@ -380,13 +95,13 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "return_format": "",
-                                "preview_size": "gmucf_top_story",
-                                "library": "",
-                                "min_width": "",
+                                "return_format": "array",
+                                "preview_size": "full",
+                                "library": "all",
+                                "min_width": 600,
                                 "min_height": "",
                                 "min_size": "",
-                                "max_width": "",
+                                "max_width": 600,
                                 "max_height": "",
                                 "max_size": "",
                                 "mime_types": "jpg, jpeg"
@@ -396,7 +111,7 @@
                                 "label": "Story Title",
                                 "name": "gmucf_story_title",
                                 "type": "text",
-                                "instructions": "Replace the story's default title.",
+                                "instructions": "This will replace the story's title in the email.",
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
@@ -415,7 +130,7 @@
                                 "label": "Story Description",
                                 "name": "gmucf_story_description",
                                 "type": "textarea",
-                                "instructions": "Replace the story's promo field value here.",
+                                "instructions": "This will replace the story's Deck field value in the email.",
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
@@ -453,7 +168,8 @@
                                     "id": ""
                                 },
                                 "post_type": [
-                                    "post"
+                                    "post",
+                                    "photoset"
                                 ],
                                 "taxonomy": [],
                                 "allow_null": 0,
@@ -466,7 +182,7 @@
                                 "label": "Story Image",
                                 "name": "gmucf_story_image",
                                 "type": "image",
-                                "instructions": "If you do not want to use the story's featured image to display in the email, select an image to replace it here.",
+                                "instructions": "Select an image to replace the story's featured image in the email. The width must be 600px. The height can vary but we recommend keeping it around 300px. Make sure to optimize the images before uploading.",
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
@@ -475,12 +191,12 @@
                                     "id": ""
                                 },
                                 "return_format": "url",
-                                "preview_size": "gmucf_top_story",
+                                "preview_size": "full",
                                 "library": "all",
-                                "min_width": "",
+                                "min_width": 600,
                                 "min_height": "",
                                 "min_size": "",
-                                "max_width": "",
+                                "max_width": 600,
                                 "max_height": "",
                                 "max_size": "",
                                 "mime_types": "jpg, jpeg"
@@ -490,7 +206,7 @@
                                 "label": "Story Title",
                                 "name": "gmucf_story_title",
                                 "type": "text",
-                                "instructions": "Replace the story's default title.",
+                                "instructions": "This will replace the story's title in the email.",
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
@@ -509,7 +225,7 @@
                                 "label": "Story Description",
                                 "name": "gmucf_story_description",
                                 "type": "textarea",
-                                "instructions": "Replace the story's promo field value here.",
+                                "instructions": "This will replace the story's Deck field value in the email.",
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
@@ -538,7 +254,7 @@
                                 "label": "Spotlight Image",
                                 "name": "gmucf_spotlight_image",
                                 "type": "image",
-                                "instructions": "Select an image to use as the spotlight. The image <strong>must be<\/strong> 600px wide. The height can vary.",
+                                "instructions": "Select an image to use as the spotlight. The width must be 600px. The height can vary. Make sure to optimize the images before uploading.",
                                 "required": 1,
                                 "conditional_logic": 0,
                                 "wrapper": {
@@ -547,9 +263,9 @@
                                     "id": ""
                                 },
                                 "return_format": "url",
-                                "preview_size": "gmucf_top_story",
+                                "preview_size": "full",
                                 "library": "all",
-                                "min_width": "",
+                                "min_width": 600,
                                 "min_height": "",
                                 "min_size": "",
                                 "max_width": 600,
@@ -562,7 +278,7 @@
                                 "label": "Spotlight Link",
                                 "name": "gmucf_spotlight_link",
                                 "type": "url",
-                                "instructions": "",
+                                "instructions": "Enter the URL that users will be directed to when clicking on the spotlight image.",
                                 "required": 1,
                                 "conditional_logic": 0,
                                 "wrapper": {
@@ -578,7 +294,7 @@
                                 "label": "Spotlight Alt Text",
                                 "name": "gmucf_spotlight_alt_text",
                                 "type": "text",
-                                "instructions": "Enter the alternative text for the spotlight image here. Describe what the image is of and any text in the image. This text will also be used in the text only version of the email.",
+                                "instructions": "Enter the alternative text for the spotlight image here. Describe what the image is of and any text in the image. This text will also be used in the text only version of the email, so make sure it's descriptive.",
                                 "required": 1,
                                 "conditional_logic": 0,
                                 "wrapper": {
@@ -597,7 +313,7 @@
                         "max": "2"
                     }
                 },
-                "button_label": "Add Row",
+                "button_label": "Add Content",
                 "min": "",
                 "max": ""
             }
@@ -613,7 +329,7 @@
         ],
         "menu_order": 0,
         "position": "normal",
-        "style": "default",
+        "style": "seamless",
         "label_placement": "top",
         "instruction_placement": "label",
         "hide_on_screen": "",
