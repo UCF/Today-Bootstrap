@@ -7,12 +7,14 @@
 if ( function_exists('acf_add_options_page') ) {
 
 	acf_add_options_page(array(
-		'page_title' 	=> 'GMUCF Email',
-		'menu_title'	=> 'GMUCF Email',
-		'menu_slug' 	=> 'gmucf-email',
-		'capability'	=> 'editor',
-		'icon_url'      => 'dashicons-email-alt',
-		'redirect'      => false
+		'page_title' 	  => 'GMUCF Email',
+		'post_id'         => 'gmucf_options',
+		'menu_title'	  => 'GMUCF Email',
+		'menu_slug' 	  => 'gmucf-email',
+		'capability'	  => 'editor',
+		'icon_url'        => 'dashicons-email-alt',
+		'redirect'        => false,
+		'updated_message' => 'GMUCF Options Updated'
 	));
 
 }
