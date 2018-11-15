@@ -136,7 +136,8 @@ Config::$custom_post_types = array(
 
 Config::$custom_taxonomies = array(
 	'Experts',
-	'Groups'
+	'Groups',
+	'Sources'
 );
 
 /**
