@@ -20,11 +20,11 @@ if ( function_exists('acf_add_options_page') ) {
 }
 
 /**
- * Sets the default values for each stories image, title and
+ * Sets the default values for each stories' image, title and
  * description for use in the GMUCF Today emails
  * @since 2.9.0
  * @author Cadie Brown
- * @param Array $stories | Stories array from ACF GMUCF Options Page
+ * @param Array $stories | gmucf_email_content array from ACF GMUCF Options Page
  * @return Array
  */
 function gmucf_stories_default_values( $stories ) {
