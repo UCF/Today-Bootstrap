@@ -29,21 +29,25 @@ if ( function_exists('acf_add_options_page') ) {
  */
 function gmucf_stories_default_values( $stories ) {
 	foreach ( $stories as $story ) {
-		$post_id = $story['gmucf_story'];
+		if ( $story['acf_fc_layout'] == 'gmucf_top_story' || $story['acf_fc_layout'] == 'gmucf_featured_story' ) {
+			$post_id = $story['gmucf_story'];
 
-		if ( ! $story['gmucf_story_image'] ) {
-			$story['gmucf_story_image'] = get_the_post_thumbnail_url( $post_id );
+			if ( ! $story['gmucf_story_image'] ) {
+				$story['gmucf_story_image'] = get_the_post_thumbnail_url( $post_id, 'gmucf_top_story' );
+			}
+
+			if ( ! $story['gmucf_story_title'] ) {
+				$story['gmucf_story_title'] = get_the_title( $post_id );
+			}
+
+			if ( ! $story['gmucf_story_description'] ) {
+				$story['gmucf_story_description'] = get_post_meta( $post_id, 'promo', true );
+			}
+
+			$retval[] = $story;
+		} else {
+			$retval[] = $story;
 		}
-
-		if ( ! $story['gmucf_story_title'] ) {
-			$story['gmucf_story_title'] = get_the_title( $post_id );
-		}
-
-		if ( ! $story['gmucf_story_description'] ) {
-			$story['gmucf_story_description'] = get_post_meta( $post_id, 'promo', true );
-		}
-
-		$retval[] = $story;
 	}
 
 	return $retval;
