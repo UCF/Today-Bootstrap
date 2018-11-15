@@ -245,7 +245,7 @@
                     },
                     "5be5fff46ee51": {
                         "key": "5be5fff46ee51",
-                        "name": "spotlight",
+                        "name": "gmucf_spotlight",
                         "label": "Spotlight",
                         "display": "block",
                         "sub_fields": [
