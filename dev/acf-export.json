@@ -79,7 +79,7 @@
                                 "taxonomy": [],
                                 "allow_null": 0,
                                 "multiple": 0,
-                                "return_format": "object",
+                                "return_format": "id",
                                 "ui": 1
                             },
                             {
@@ -87,7 +87,7 @@
                                 "label": "Story Image",
                                 "name": "gmucf_story_image",
                                 "type": "image",
-                                "instructions": "Select an image to replace the story's featured image in the email. The width must be 600px. The height can vary but we recommend keeping it around 300px. Make sure to optimize the images before uploading.",
+                                "instructions": "Select an image to replace the story's featured image in the email.",
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
@@ -98,10 +98,10 @@
                                 "return_format": "array",
                                 "preview_size": "full",
                                 "library": "all",
-                                "min_width": 600,
+                                "min_width": "",
                                 "min_height": "",
                                 "min_size": "",
-                                "max_width": 600,
+                                "max_width": "",
                                 "max_height": "",
                                 "max_size": "",
                                 "mime_types": "jpg, jpeg"
@@ -182,7 +182,7 @@
                                 "label": "Story Image",
                                 "name": "gmucf_story_image",
                                 "type": "image",
-                                "instructions": "Select an image to replace the story's featured image in the email. The width must be 600px. The height can vary but we recommend keeping it around 300px. Make sure to optimize the images before uploading.",
+                                "instructions": "Select an image to replace the story's featured image in the email.",
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
@@ -190,13 +190,13 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "return_format": "url",
+                                "return_format": "array",
                                 "preview_size": "full",
                                 "library": "all",
-                                "min_width": 600,
+                                "min_width": "",
                                 "min_height": "",
                                 "min_size": "",
-                                "max_width": 600,
+                                "max_width": "",
                                 "max_height": "",
                                 "max_size": "",
                                 "mime_types": "jpg, jpeg"
@@ -254,7 +254,7 @@
                                 "label": "Spotlight Image",
                                 "name": "gmucf_spotlight_image",
                                 "type": "image",
-                                "instructions": "Select an image to use as the spotlight. The width must be 600px. The height can vary. Make sure to optimize the images before uploading.",
+                                "instructions": "Select an image to use as the spotlight.",
                                 "required": 1,
                                 "conditional_logic": 0,
                                 "wrapper": {
@@ -262,13 +262,13 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "return_format": "url",
+                                "return_format": "array",
                                 "preview_size": "full",
                                 "library": "all",
-                                "min_width": 600,
+                                "min_width": "",
                                 "min_height": "",
                                 "min_size": "",
-                                "max_width": 600,
+                                "max_width": "",
                                 "max_height": "",
                                 "max_size": "",
                                 "mime_types": "jpg, jpeg"
