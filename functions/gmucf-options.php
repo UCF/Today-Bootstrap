@@ -11,7 +11,7 @@ if ( function_exists('acf_add_options_page') ) {
 		'post_id'         => 'gmucf_options',
 		'menu_title'	  => 'GMUCF Email',
 		'menu_slug' 	  => 'gmucf-email',
-		'capability'	  => 'editor',
+		'capability'	  => 'administrator',
 		'icon_url'        => 'dashicons-email-alt',
 		'redirect'        => false,
 		'updated_message' => 'GMUCF Options Updated'
