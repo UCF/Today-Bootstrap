@@ -184,43 +184,10 @@ if ( ! class_exists( 'UCF_Today_Custom_API' ) ) {
          * @return WP_REST_Response
          */
         public static function get_gmucf_email_options( $request ) {
+			$retval = get_fields( 'gmucf_options' );
 
-            $retval = array(
-                'send_date'        => '',
-				'social_share'     => '',
-				'top_stories'      => '',
-				'featured_stories' => '',
-				'spotlights'       => ''
-			);
-
-			$retval['send_date']        = get_field( 'gmucf_email_send_date', 'option' );
-			$retval['social_share']     = get_field( 'gmucf_show_social_share_buttons', 'option' );
-
-			if ( have_rows( 'gmucf_email_content', 'option' ) ) :
-
-				while ( have_rows( 'gmucf_email_content', 'option' ) ) : the_row();
-
-					if ( get_row_layout() == 'gmucf_top_story' ) :
-
-						$retval['top_stories'][] = get_sub_field( 'gmucf_story' );
-
-					elseif ( get_row_layout() == 'gmucf_featured_story' ) :
-
-						$retval['featured_stories'][] = get_sub_field( 'gmucf_story' );
-
-					elseif ( get_row_layout() == 'gmucf_spotlight' ) :
-
-						$retval['spotlights'][] = get_sub_field( 'gmucf_spotlight_image' );
-
-					endif;
-
-				endwhile;
-
-			endif;
-
-			// $retval['top_stories']      = gmucf_stories_default_values( get_field( 'gmucf_top_stories', 'option' ) );
-			// $retval['featured_stories'] = gmucf_stories_default_values( get_field( 'gmucf_featured_stories', 'option' ) );
-			// $retval['spotlights']       = get_field( 'gmucf_spotlights', 'option' );
+			$gmucf_content_rows            = $retval['gmucf_email_content'];
+			$retval['gmucf_email_content'] = gmucf_stories_default_values( $gmucf_content_rows );
 
             return new WP_REST_Response( $retval, 200 );
         }
