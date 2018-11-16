@@ -49,7 +49,7 @@ function gmucf_stories_default_values( $stories ) {
 			$retval[] = $story;
 		} elseif ( $story['acf_fc_layout'] == 'gmucf_spotlight' ) {
 			$story['gmucf_spotlight_image'] = $story['gmucf_spotlight_image']['sizes']['gmucf_top_story'];
-			
+
 			$retval[] = $story;
 		}
 	}
