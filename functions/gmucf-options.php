@@ -30,9 +30,7 @@ if ( function_exists('acf_add_options_page') ) {
 function gmucf_stories_default_values( $stories ) {
 	foreach ( $stories as $story ) {
 		if ( $story['acf_fc_layout'] == 'gmucf_top_story' ) {
-			gmucf_replace_story_default_values( $story );
-
-			$retval[] = $story;
+			$retval[] = gmucf_replace_story_default_values( $story );
 		} elseif ( $story['acf_fc_layout'] == 'gmucf_featured_stories_row' ) {
 			// for both featured stories, add an 'acf_fc_layout' field with value of 'gmucf_featured_story' to the beginning of the array
 			$story['gmucf_left_featured_story']  = ['acf_fc_layout' => 'gmucf_featured_story'] + $story['gmucf_left_featured_story'];
