@@ -7,6 +7,7 @@ Theme to replace the original Today WordPress theme, which relies on the Themati
 ## Installation
 
 ### Required Plugins:
+* Advanced Custom Fields PRO
 * Social
 * Twitter Tools (requires Social)
 * UCF Social Plugin
@@ -31,6 +32,7 @@ The primary issue with Pingbacks, though, is that media attachments allow them, 
 * Create a menu named 'Top Navigation' with the appropriate navigation links.
 * Create a menu for the social media buttons and assign this menu to the 'Social Links' display location.
 * Ensure that the homepage display option is set to 'Your latest posts' in Reading Settings.
+* Import field groups (dev/acf-export.json) using the ACF importer under Custom Fields > Tools.
 
 
 ## Development
