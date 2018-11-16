@@ -57,16 +57,16 @@ function gmucf_replace_story_default_values( $story ) {
  */
 function gmucf_stories_default_values( $stories ) {
 	foreach ( $stories as $story ) {
-		if ( $story['acf_fc_layout'] == 'gmucf_top_story' ) {
+		if ( $story['acf_fc_layout'] === 'gmucf_top_story' ) {
 			$retval[] = gmucf_replace_story_default_values( $story );
-		} elseif ( $story['acf_fc_layout'] == 'gmucf_featured_stories_row' ) {
+		} elseif ( $story['acf_fc_layout'] === 'gmucf_featured_stories_row' ) {
 			// for both featured stories, add an 'acf_fc_layout' field with value of 'gmucf_featured_story' to the beginning of the array
 			$story['gmucf_left_featured_story']  = ['acf_fc_layout' => 'gmucf_featured_story'] + $story['gmucf_left_featured_story'];
 			$story['gmucf_right_featured_story'] = ['acf_fc_layout' => 'gmucf_featured_story'] + $story['gmucf_right_featured_story'];
 
 			$retval[] = gmucf_replace_story_default_values( $story['gmucf_left_featured_story'] );
 			$retval[] = gmucf_replace_story_default_values( $story['gmucf_right_featured_story'] );
-		} elseif ( $story['acf_fc_layout'] == 'gmucf_spotlight' ) {
+		} elseif ( $story['acf_fc_layout'] === 'gmucf_spotlight' ) {
 			$story['gmucf_spotlight_image'] = $story['gmucf_spotlight_image']['sizes']['gmucf_top_story'];
 
 			$retval[] = $story;
