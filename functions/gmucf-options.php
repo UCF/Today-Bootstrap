@@ -20,6 +20,34 @@ if ( function_exists('acf_add_options_page') ) {
 }
 
 /**
+ * Sets the default values for each stories' image, title and
+ * description for use in the GMUCF Today emails
+ * @since 2.9.0
+ * @author Cadie Brown
+ * @param Array $story | single array with story data
+ * @return Array
+ */
+function gmucf_replace_story_default_values( $story ) {
+	$post_id = $story['gmucf_story'];
+
+	if ( ! $story['gmucf_story_image'] ) {
+		$story['gmucf_story_image'] = get_the_post_thumbnail_url( $post_id, 'gmucf_top_story' );
+	} else {
+		$story['gmucf_story_image'] = $story['gmucf_story_image']['sizes']['gmucf_top_story'];
+	}
+
+	if ( ! $story['gmucf_story_title'] ) {
+		$story['gmucf_story_title'] = get_the_title( $post_id );
+	}
+
+	if ( ! $story['gmucf_story_description'] ) {
+		$story['gmucf_story_description'] = get_post_meta( $post_id, 'promo', true );
+	}
+
+	return $story;
+}
+
+/**
  * Sets the default values depending on what kind
  * of layout is being used
  * @since 2.9.0
@@ -48,32 +76,4 @@ function gmucf_stories_default_values( $stories ) {
 	}
 
 	return $retval;
-}
-
-/**
- * Sets the default values for each stories' image, title and
- * description for use in the GMUCF Today emails
- * @since 2.9.0
- * @author Cadie Brown
- * @param Array $story | single array with story data
- * @return Array
- */
-function gmucf_replace_story_default_values( $story ) {
-	$post_id = $story['gmucf_story'];
-
-	if ( ! $story['gmucf_story_image'] ) {
-		$story['gmucf_story_image'] = get_the_post_thumbnail_url( $post_id, 'gmucf_top_story' );
-	} else {
-		$story['gmucf_story_image'] = $story['gmucf_story_image']['sizes']['gmucf_top_story'];
-	}
-
-	if ( ! $story['gmucf_story_title'] ) {
-		$story['gmucf_story_title'] = get_the_title( $post_id );
-	}
-
-	if ( ! $story['gmucf_story_description'] ) {
-		$story['gmucf_story_description'] = get_post_meta( $post_id, 'promo', true );
-	}
-
-	return $story;
 }
