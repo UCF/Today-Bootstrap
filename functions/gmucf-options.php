@@ -38,15 +38,15 @@ function gmucf_replace_story_default_values( $story ) {
 	} else {
 		$story['gmucf_story_image'] = $story['gmucf_story_image']['sizes']['gmucf_top_story'];
 	}
-
+	
 	if ( ! $story['gmucf_story_title'] ) {
 		$story['gmucf_story_title'] = get_the_title( $post_id );
 	}
-
+	
 	if ( ! $story['gmucf_story_description'] ) {
 		$story['gmucf_story_description'] = get_post_meta( $post_id, 'promo', true );
 	}
-
+	
 	unset( $story['gmucf_story'] );
 	unset( $story['acf_fc_layout'] );
 
@@ -74,6 +74,9 @@ function gmucf_stories_default_values( $stories ) {
 			$retval[] = gmucf_replace_story_default_values( $story['gmucf_right_featured_story'] );
 		} elseif ( $story['acf_fc_layout'] === 'gmucf_spotlight' ) {
 			$story['gmucf_spotlight_image'] = $story['gmucf_spotlight_image']['sizes']['gmucf_top_story'];
+			$story['gmucf_layout']          = $story['acf_fc_layout'];
+
+			unset( $story['acf_fc_layout'] );
 
 			$retval[] = $story;
 		} else {
