@@ -31,6 +31,8 @@ function gmucf_replace_story_default_values( $story ) {
 	$post_id = $story['gmucf_story'];
 
 	$story['gmucf_story_permalink'] = get_permalink( $post_id );
+	$story['gmucf_layout']          = $story['acf_fc_layout'];
+	
 	if ( ! $story['gmucf_story_image'] ) {
 		$story['gmucf_story_image'] = get_the_post_thumbnail_url( $post_id, 'gmucf_top_story' );
 	} else {
@@ -44,6 +46,9 @@ function gmucf_replace_story_default_values( $story ) {
 	if ( ! $story['gmucf_story_description'] ) {
 		$story['gmucf_story_description'] = get_post_meta( $post_id, 'promo', true );
 	}
+
+	unset( $story['gmucf_story'] );
+	unset( $story['acf_fc_layout'] );
 
 	return $story;
 }
