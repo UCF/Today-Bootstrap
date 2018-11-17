@@ -30,6 +30,7 @@ if ( function_exists('acf_add_options_page') ) {
 function gmucf_replace_story_default_values( $story ) {
 	$post_id = $story['gmucf_story'];
 
+	$story['gmucf_story_permalink'] = get_permalink( $post_id );
 	if ( ! $story['gmucf_story_image'] ) {
 		$story['gmucf_story_image'] = get_the_post_thumbnail_url( $post_id, 'gmucf_top_story' );
 	} else {
