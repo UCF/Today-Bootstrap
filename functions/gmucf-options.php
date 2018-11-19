@@ -29,17 +29,17 @@ if ( function_exists('acf_add_options_page') ) {
  */
 function gmucf_replace_story_default_values( $story ) {
 	$post_id = $story['gmucf_story'];
-	
+
 	if ( ! $story['gmucf_story_image'] ) {
 		$story['gmucf_story_image'] = get_the_post_thumbnail_url( $post_id, 'gmucf_top_story' );
 	} else {
 		$story['gmucf_story_image'] = $story['gmucf_story_image']['sizes']['gmucf_top_story'];
 	}
-	
+
 	if ( ! $story['gmucf_story_title'] ) {
 		$story['gmucf_story_title'] = get_the_title( $post_id );
 	}
-	
+
 	if ( ! $story['gmucf_story_description'] ) {
 		$story['gmucf_story_description'] = get_post_meta( $post_id, 'promo', true );
 	}
@@ -67,19 +67,17 @@ function gmucf_stories_default_values( $stories ) {
 	foreach ( $stories as $story ) {
 		if ( $story['acf_fc_layout'] === 'gmucf_top_story' ) {
 			$retval[] = gmucf_replace_story_default_values( $story );
-		} 
-		elseif ( $story['acf_fc_layout'] === 'gmucf_featured_stories_row' ) {
+		} elseif ( $story['acf_fc_layout'] === 'gmucf_featured_stories_row' ) {
 			$story['gmucf_layout']      = $story['acf_fc_layout'];
 			$story['gmucf_featured_story_row'][] = gmucf_replace_story_default_values( $story['gmucf_left_featured_story'] );
 			$story['gmucf_featured_story_row'][] = gmucf_replace_story_default_values( $story['gmucf_right_featured_story'] );
-			
+
 			unset( $story['acf_fc_layout'] );
 			unset( $story['gmucf_left_featured_story'] );
 			unset( $story['gmucf_right_featured_story'] );
 
 			$retval[] = $story;
-		} 
-		elseif ( $story['acf_fc_layout'] === 'gmucf_spotlight' ) {
+		} elseif ( $story['acf_fc_layout'] === 'gmucf_spotlight' ) {
 			$story['gmucf_spotlight_image'] = $story['gmucf_spotlight_image']['sizes']['gmucf_top_story'];
 			$story['gmucf_layout']          = $story['acf_fc_layout'];
 
