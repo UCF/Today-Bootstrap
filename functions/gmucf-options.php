@@ -68,7 +68,7 @@ function gmucf_stories_default_values( $stories ) {
 		if ( $story['acf_fc_layout'] === 'gmucf_top_story' ) {
 			$retval[] = gmucf_replace_story_default_values( $story );
 		} elseif ( $story['acf_fc_layout'] === 'gmucf_featured_stories_row' ) {
-			$story['gmucf_layout']      = $story['acf_fc_layout'];
+			$story['gmucf_layout']               = $story['acf_fc_layout'];
 			$story['gmucf_featured_story_row'][] = gmucf_replace_story_default_values( $story['gmucf_left_featured_story'] );
 			$story['gmucf_featured_story_row'][] = gmucf_replace_story_default_values( $story['gmucf_right_featured_story'] );
 
