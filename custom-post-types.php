@@ -25,6 +25,7 @@ abstract class CustomPostType{
 		$built_in       = False,
 		$rewrite 		= True,
 		$show_in_rest   = False,
+		$menu_icon      = 'dashicons-admin-post',
 
 		# Optional default ordering for generic shortcode if not specified by user.
 		$default_orderby = null,
@@ -177,6 +178,7 @@ abstract class CustomPostType{
 			'public'       => $this->options('public'),
 			'taxonomies'   => $this->options('taxonomies'),
 			'_builtin'     => $this->options('built_in'),
+			'menu_icon'    => $this->options('menu_icon'),
 			'rewrite'	   => $this->options('rewrite')
 		);
 
@@ -267,6 +269,7 @@ class Alert extends CustomPostType{
 		$edit_item      = 'Edit Alert',
 		$new_item       = 'New Alert',
 		$use_thumbnails = True,
+		$menu_icon		= 'dashicons-megaphone',
 		$use_metabox    = True;
 
 	public function fields() {
@@ -347,79 +350,85 @@ class Post extends CustomPostType
 		}
 
 	 	return Array(
-				Array(
-					'name'		=> 'Type',
-					'desc'		=> 'Specify where this post will appear when it is published.<br/>
-									<table><tr>
-									<td>Normal:</td><td>Post will appear in top left column of home page.</td></tr><tr>
-									<td>Promotional:</td><td>Post will appear in the top left column on the front page.</td></tr><tr>
-									<td>Featured:</td><td>Post will appear at the top of the middle column on the front page.</td></tr></table>',
-					'id'		=> 'display_type',
-					'type'		=> 'radio',
-					'options'	=> array(
-										'Normal'					=> 'normal',
-										'Promotional/Press Release' => 'promotional',
-										'Featured' 					=> 'featured',
-									),
-				),
-				Array(
-					'name'	=> 'Promo',
-					'desc'	=> 'Used to promote the story. Appears below the story title in the UCF Today email. <br><em>(Recommended word count is ~30 words)</em>',
-					'id'	=> 'promo',
-					'type'	=> 'textarea'
-				),
-				Array(
-					'name'	=> 'Subtitle',
-					'desc'	=> 'Appears below the post title on the single and featured story pages.',
-					'id'	=> 'subtitle',
-					'type'	=> 'text'
-				),
-				Array(
-					'name'	=> 'Deck',
-					'desc'	=> 'Appears below the subtitle on the featured story page.',
-					'id'	=> 'deck',
-					'type'	=> 'textarea'
-				),
-				Array(
-					'name'	=> 'Author Title',
-					'desc'	=> 'Appears below the author\'s name on the single story page.',
-					'id'	=> 'author_title',
-					'type'	=> 'text'
-				),
-				Array(
-					'name'	=> 'Author Byline',
-					'desc'	=> 'Appears in place of post author\'s name.',
-					'id'	=> 'author_byline',
-					'type'	=> 'text'
-				),
-				Array(
-					'name'	=> 'Author Bio',
-					'desc'	=> 'Appears at the end of the story under the Author\'s name and title.',
-					'id'	=> 'author_bio',
-					'type'	=> 'wysiwyg',
-					'wysiwyg_media_buttons' => false,
-					'wysiwyg_textarea_rows' => 5
-				),
-				Array(
-					'name'	=> 'Source',
-					'desc'	=> 'Appears below the date on the single story page and below the content on the featured story page.',
-					'id'	=> 'source',
-					'type'	=> 'textarea',
-				),
-				Array(
-					'name'		=> 'Primary Tag',
-					'desc'		=> 'Used to populate "More stories about" menu on the single story page.',
-					'id'		=> 'primary_tag',
-					'type'		=> 'select',
-					'options'	=> $primary_tag_options
-				),
-				Array(
-					'name'	=> 'Video URL',
-					'desc'	=> 'If set, this video will replace the featured image on the single story page and display under the header on the featured story page.',
-					'id'	=> 'video_url',
-					'type'	=> 'text'
-				),
-			);
+			Array(
+				'name'	=> 'Updated Date',
+				'desc'	=> 'Displays the story updated date under the publish date. Leave blank to exclude story updated date.',
+				'id'	=> 'updated_date',
+				'type'	=> 'date'
+			),
+			Array(
+				'name'		=> 'Type',
+				'desc'		=> 'Specify where this post will appear when it is published.<br/>
+								<table><tr>
+								<td>Normal:</td><td>Post will appear in top left column of home page.</td></tr><tr>
+								<td>Promotional:</td><td>Post will appear in the top left column on the front page.</td></tr><tr>
+								<td>Featured:</td><td>Post will appear at the top of the middle column on the front page.</td></tr></table>',
+				'id'		=> 'display_type',
+				'type'		=> 'radio',
+				'options'	=> array(
+									'Normal'					=> 'normal',
+									'Promotional/Press Release' => 'promotional',
+									'Featured' 					=> 'featured',
+								),
+			),
+			Array(
+				'name'	=> 'Promo',
+				'desc'	=> 'Used to promote the story. Appears below the story title in the UCF Today email. <br><em>(Recommended word count is ~30 words)</em>',
+				'id'	=> 'promo',
+				'type'	=> 'textarea'
+			),
+			Array(
+				'name'	=> 'Subtitle',
+				'desc'	=> 'Appears below the post title on the single and featured story pages.',
+				'id'	=> 'subtitle',
+				'type'	=> 'text'
+			),
+			Array(
+				'name'	=> 'Deck',
+				'desc'	=> 'Appears below the subtitle on the featured story page.',
+				'id'	=> 'deck',
+				'type'	=> 'textarea'
+			),
+			Array(
+				'name'	=> 'Author Title',
+				'desc'	=> 'Appears below the author\'s name on the single story page.',
+				'id'	=> 'author_title',
+				'type'	=> 'text'
+			),
+			Array(
+				'name'	=> 'Author Byline',
+				'desc'	=> 'Appears in place of post author\'s name.',
+				'id'	=> 'author_byline',
+				'type'	=> 'text'
+			),
+			Array(
+				'name'	=> 'Author Bio',
+				'desc'	=> 'Appears at the end of the story under the Author\'s name and title.',
+				'id'	=> 'author_bio',
+				'type'	=> 'wysiwyg',
+				'wysiwyg_media_buttons' => false,
+				'wysiwyg_textarea_rows' => 5
+			),
+			Array(
+				'name'	=> 'Source',
+				'desc'	=> 'Appears below the date on the single story page and below the content on the featured story page.',
+				'id'	=> 'source',
+				'type'	=> 'textarea',
+			),
+			Array(
+				'name'		=> 'Primary Tag',
+				'desc'		=> 'Used to populate "More stories about" menu on the single story page.',
+				'id'		=> 'primary_tag',
+				'type'		=> 'select',
+				'options'	=> $primary_tag_options
+			),
+			Array(
+				'name'	=> 'Video URL',
+				'desc'	=> 'If set, this video will replace the featured image on the single story page and display under the header on the featured story page.',
+				'id'	=> 'video_url',
+				'type'	=> 'text'
+			),
+		);
 	}
 }
 /**
@@ -438,6 +447,7 @@ class Expert extends CustomPostType
 		$new_item       = 'New Expert',
 		$use_editor		= True,
 		$use_thumbnails = True,
+		$menu_icon		= 'dashicons-lightbulb',
 		$use_metabox    = True;
 
 	public function fields() {
@@ -496,6 +506,7 @@ class PhotoSet extends CustomPostType
 		$use_metabox    = True,
 
 		$rewrite		= Array('slug' => 'ucf-in-photos'),
+		$menu_icon		= 'dashicons-format-gallery',
 
 		$taxonomies     = Array('experts');
 
@@ -532,6 +543,7 @@ class Video extends CustomPostType
 		$use_thumbnails = False,
 		$use_metabox    = True,
 		$use_editor		= True,
+		$menu_icon		= 'dashicons-video-alt3',
 
 		$taxonomies		= Array('category', 'post_tag', 'experts');
 
@@ -571,6 +583,7 @@ class Profile extends CustomPostType
 		$use_editor     = True,
 		$use_thumbnails = True,
 		$use_metabox    = True,
+		$menu_icon		= 'dashicons-groups',
 		$taxonomies     = Array('groups');
 
 	public function fields() {
@@ -604,7 +617,8 @@ class ExternalStory extends CustomPostType
 		$use_thumbnails = False,
 		$use_metabox    = True,
 		$use_editor		= False,
-		$taxonomies		= Array('category', 'experts');
+		$menu_icon		= 'dashicons-media-text',
+		$taxonomies		= Array('category', 'experts', 'sources');
 
 	public function fields() {
 		$prefix = $this->options('name').'_';
@@ -630,8 +644,8 @@ class ExternalStory extends CustomPostType
 					'wysiwyg_textarea_rows' => 5
 				),
 				Array(
-					'name'	=> 'Source *',
-					'desc'	=> '',
+					'name'	=> 'Source',
+					'desc'	=> 'This field has been deprecated, use the "Post Sources" taxonomy instead.',
 					'id'	=> $prefix.'source',
 					'type'	=> 'text'
 				),

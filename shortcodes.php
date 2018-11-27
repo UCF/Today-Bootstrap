@@ -1047,21 +1047,26 @@ function sc_single_post_meta($atts = Array())
 	$source = apply_filters('the_content', get_post_meta($post->ID, 'source', True));
 	$source = ($source != '') ? '<div id="source">'.$source.'</div>' : '';
 
-	$byline = get_post_meta($post->ID, 'author_byline', True);
-	$byline = ($byline != '') ? $byline : get_the_author();
+	$byline = get_post_meta( $post->ID, 'author_byline', True );
+	$byline = ( $byline != '' ) ? $byline : get_the_author();
+
+	$updated_date = get_post_meta( $post->ID, 'updated_date', True );
 
 	ob_start()?>
 	<div class="<?=$css?>" id="meta">
 		<div>
-			<p id="byline">By <?=$byline?></p>
-			<?=$author_title?>
-			<p><?=date('l, F j, Y', strtotime($post->post_date))?></p>
-			<?=$source?>
-			<? if(function_exists('wp_print')) {?>
+			<p id="byline">By <?php echo $byline; ?></p>
+			<?php echo $author_title; ?>
+			<p><?php echo date( 'l, F j, Y', strtotime( $post->post_date ) ); ?></p>
+			<?php if( $updated_date ) : ?>
+				<p><strong>Updated</strong> <?php echo date( 'F j, Y', strtotime( $updated_date ) ); ?></p>
+			<?php endif; ?>
+			<?php echo $source; ?>
+			<?php if( function_exists( 'wp_print' ) ) { ?>
 				<div id="print">
 					<a href="?print=1" rel="nofollow" target="_blank">Print this Article</a>
 				</div>
-			<? } ?>
+			<?php } ?>
 		</div>
 		<?php echo display_social( get_permalink( $post->ID ), $post->post_title, 'affixed' ); ?>
 	</div>
@@ -1514,19 +1519,23 @@ add_shortcode('expert_photos', 'sc_expert_photos');
  * @return string.
  * @author Cadie Brown
  **/
-function sc_feature_post_meta($atts = Array())
+function sc_feature_post_meta( $atts = Array() )
 {
 	global $post;
 
-	$css = (isset($atts['css'])) ? $atts['css'] : '';
+	$css = ( isset( $atts['css'] ) ) ? $atts['css'] : '';
 
-	$byline = get_post_meta($post->ID, 'author_byline', True);
-	$byline = ($byline != '') ? $byline : get_the_author();
+	$byline = get_post_meta( $post->ID, 'author_byline', True );
+	$byline = ( $byline != '' ) ? $byline : get_the_author();
+	$updated_date = get_post_meta( $post->ID, 'updated_date', True );
 
 	ob_start(); ?>
 	<div class="<?php echo $css; ?>" id="meta">
 		<div>
-			<p id="byline-date">By <?php echo $byline; ?> <span class="hidden-mobile">|</span><br class="visible-mobile"> <?php echo date('F j, Y', strtotime($post->post_date)); ?></p>
+			<p id="byline-date">By <?php echo $byline; ?> <span class="hidden-mobile">|</span><br class="visible-mobile"> <?php echo date( 'F j, Y', strtotime( $post->post_date ) ); ?></p>
+			<?php if( $updated_date ) : ?>
+				<p class="updated-date"><strong>Updated</strong> <?php echo date( 'F j, Y', strtotime( $updated_date ) ); ?></p>
+			<?php endif; ?>
 		</div>
 	</div>
 	<?php

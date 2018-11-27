@@ -1,19 +1,19 @@
 <?php
 
 /**
- * Abstract class for defining custom taxonomies.  
- * 
+ * Abstract class for defining custom taxonomies.
+ *
  **/
 abstract class CustomTaxonomy {
 	public
-		$name			= 'custom_taxonomy',
-		
+		$name  = 'custom_taxonomy',
+
 		// Do not register the taxonomy with the post type here.
 		// Register it on the `taxonomies` attribute of the post type in
 		// custom-post-types.php
-		$object_type	= Array(), 
-		
-		$general_name		    = 'Post Tags',
+		$object_type        = Array(),
+
+		$general_name       = 'Post Tags',
 		$singular_name      = 'Post Tag',
 		$search_items       = 'Search Tags',
 		$popular_items      = 'Popular Tags',
@@ -25,7 +25,7 @@ abstract class CustomTaxonomy {
 		$add_new_item       = 'Add New Tag',
 		$new_item_name      = 'New Tag Name',
 		$menu_name          = NULL,
-		
+
 		$public                = True,
 		$show_in_name_menus    = NULL,
 		$show_ui               = NULL,
@@ -35,19 +35,19 @@ abstract class CustomTaxonomy {
 		$rewrite               = True,
 		$query_var             = NULL,
 		$capabilities          = Array();
-	
+
 	function __construct() {
 		if(is_null($this->show_in_name_menus)) $this->show_in_name_menus = $this->public;
 		if(is_null($this->show_ui)) $this->show_ui = $this->public;
 		if(is_null($this->show_tagcloud)) $this->show_tagcloud = $this->show_ui;
 		if(is_null($this->menu_name)) $this->menu_name = $this->general_name;
 	}
-	
+
 	public function options($key){
 		$vars = get_object_vars($this);
 		return $vars[$key];
 	}
-	
+
 	public function labels() {
 		return Array(
 				'name'                       => _x($this->options('general_name'), 'taxonomy general name'),
@@ -67,7 +67,7 @@ abstract class CustomTaxonomy {
 				'menu_name'                  => __($this->options('menu_name'))
 				);
 	}
-	
+
 	public function register() {
 		$args = Array(
 				'labels'                => $this->labels(),
@@ -131,6 +131,31 @@ class Groups extends CustomTaxonomy{
 		$new_item_name		= 'New Group Name',
 		$menu_name			= NULL,
 		$hierarchical		= False;
+}
+
+/**
+ * Source profiles
+ *
+ * @package default
+ * @author RJ Bruneel
+ **/
+class Sources extends CustomTaxonomy{
+
+	public
+		$name               = 'sources',
+		$general_name       = 'Post Sources',
+		$singular_name      = 'Post Source',
+		$search_items       = 'Search Sources',
+		$popular_items      = 'Popular Sources',
+		$all_times          = 'All Sources',
+		$parent_item        = 'Parent Source',
+		$parent_item_colon  = 'Parent : Source',
+		$edit_item          = 'Edit Source',
+		$update_item        = 'Update Source',
+		$add_new_item       = 'Add New Source',
+		$new_item_name      = 'New Source Name',
+		$menu_name          = NULL,
+		$hierarchical       = True;
 }
 
 
