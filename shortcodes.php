@@ -7,7 +7,7 @@
  * @return string
  * @author Chris Conover
  **/
-function sc_post_type_search($params=array(), $content='') {
+function sc_post_type_search( $params=array(), $content='' ) {
 	$defaults = array(
 		'post_type_name'         => 'post',
 		'taxonomy'               => 'category',
@@ -17,58 +17,58 @@ function sc_post_type_search($params=array(), $content='') {
 		'column_count'           => '3',
 		'order_by'               => 'title',
 		'order'                  => 'ASC',
-		'show_sorting'           => True,
+		'show_sorting'           => true,
 		'default_sorting'        => 'term',
-		'show_sorting'           => True
+		'show_sorting'           => true
 	);
 
-	$params = ($params === '') ? $defaults : array_merge($defaults, $params);
+	$params = ( $params === '' ) ? $defaults : array_merge( $defaults, $params );
 
 	$params['show_empty_sections'] = (bool)$params['show_empty_sections'];
-	$params['column_count']        = is_numeric($params['column_count']) ? (int)$params['column_count'] : $defaults['column_count'];
+	$params['column_count']        = is_numeric( $params['column_count'] ) ? (int)$params['column_count'] : $defaults['column_count'];
 	$params['show_sorting']        = (bool)$params['show_sorting'];
 
-	if(!in_array($params['default_sorting'], array('term', 'alpha'))) {
+	if( ! in_array( $params['default_sorting'], array(' term', 'alpha' ) ) ) {
 		$params['default_sorting'] = $default['default_sorting'];
 	}
 
 	// Resolve the post type class
-	if(is_null($post_type_class = get_custom_post_type($params['post_type_name']))) {
+	if( is_null( $post_type_class = get_custom_post_type( $params['post_type_name'] ) ) ) {
 		return '<p>Invalid post type.</p>';
 	}
 	$post_type = new $post_type_class;
 
 	// Set default search text if the user didn't
-	if(!isset($params['default_search_text'])) {
-		$params['default_search_text'] = 'Find a '.$post_type->singular_name;
+	if( ! isset( $params['default_search_text'] ) ) {
+		$params['default_search_text'] = 'Find a ' . $post_type->singular_name;
 	}
 
 	// Register if the search data with the JS PostTypeSearchDataManager
 	// Format is array(post->ID=>terms) where terms include the post title
 	// as well as all associated tag names
 	$search_data = array();
-	foreach(get_posts(array('numberposts' => -1, 'post_type' => $params['post_type_name'])) as $post) {
-		$search_data[$post->ID] = array($post->post_title);
-		foreach(wp_get_object_terms($post->ID, 'post_tag') as $term) {
+	foreach( get_posts (array( 'numberposts' => -1, 'post_type' => $params['post_type_name'] ) ) as $post ) {
+		$search_data[$post->ID] = array( $post->post_title );
+		foreach( wp_get_object_terms( $post->ID, 'post_tag' ) as $term ) {
 			$search_data[$post->ID][] = $term->name;
 		}
 	}
 	?>
 	<script type="text/javascript">
-		if(typeof PostTypeSearchDataManager != 'undefined') {
-			PostTypeSearchDataManager.register(new PostTypeSearchData(
-				<?=json_encode($params['column_count'])?>,
-				<?=json_encode($params['column_width'])?>,
-				<?=json_encode($search_data)?>
-			));
+		if( typeof PostTypeSearchDataManager != 'undefined' ) {
+			PostTypeSearchDataManager.register( new PostTypeSearchData(
+				<?php echo json_encode( $params['column_count'] ); ?>,
+				<?php echo json_encode( $params['column_width'] ); ?>,
+				<?php echo json_encode( $search_data ); ?>
+			) );
 		}
 	</script>
-	<?
+	<?php
 
 	// Split up this post type's posts by term
 	$by_term = array();
-	foreach(get_terms($params['taxonomy']) as $term) {
-		$posts = get_posts(array(
+	foreach ( get_terms( $params['taxonomy'] ) as $term ) {
+		$posts = get_posts( array(
 			'numberposts' => -1,
 			'post_type'   => $params['post_type_name'],
 			'tax_query'   => array(
@@ -82,7 +82,7 @@ function sc_post_type_search($params=array(), $content='') {
 			'order'       => $params['order']
 		));
 
-		if(count($posts) == 0 && $params['show_empty_sections']) {
+		if( count( $posts ) == 0 && $params['show_empty_sections']) {
 			$by_term[$term->name] = array();
 		} else {
 			$by_term[$term->name] = $posts;
@@ -91,25 +91,25 @@ function sc_post_type_search($params=array(), $content='') {
 
 	// Split up this post type's posts by the first alpha character
 	$by_alpha = array();
-	$by_alpha_posts = get_posts(array(
+	$by_alpha_posts = get_posts( array(
 		'numberposts' => -1,
 		'post_type'   => $params['post_type_name'],
 		'orderby'     => 'title',
 		'order'       => 'alpha'
-	));
-	foreach($by_alpha_posts as $post) {
-		if(preg_match('/([a-zA-Z])/', $post->post_title, $matches) == 1) {
-			$by_alpha[strtoupper($matches[1])][] = $post;
+	) );
+	foreach( $by_alpha_posts as $post ) {
+		if ( preg_match('/([a-zA-Z])/', $post->post_title, $matches ) == 1) {
+			$by_alpha[strtoupper( $matches[1] )][] = $post;
 		} else {
 			$by_alpha[$params['non_alpha_section_name']][] = $post;
 		}
 	}
-	ksort($by_alpha);
+	ksort( $by_alpha );
 
-	if($params['show_empty_sections']) {
-		foreach(range('a', 'z') as $letter) {
-			if(!isset($by_alpha[strtoupper($letter)])) {
-				$by_alpha[strtoupper($letter)] = array();
+	if( $params['show_empty_sections'] ) {
+		foreach( range( 'a', 'z' ) as $letter ) {
+			if( ! isset( $by_alpha[strtoupper( $letter )] ) ) {
+				$by_alpha[strtoupper( $letter )] = array();
 			}
 		}
 	}
@@ -125,66 +125,67 @@ function sc_post_type_search($params=array(), $content='') {
 		<div class="post-type-search-header">
 			<form class="post-type-search-form" action="." method="get">
 				<label style="display:none;">Search</label>
-				<input type="text" class="span3" placeholder="<?=$params['default_search_text']?>" />
+				<input type="text" class="span3" placeholder="<?php echo $params['default_search_text']; ?>" />
 			</form>
 		</div>
 		<div class="post-type-search-results "></div>
-		<? if($params['show_sorting']) { ?>
+		<?php if ( $params['show_sorting'] ) : ?>
 		<div class="btn-group post-type-search-sorting">
-			<button class="btn<?if($params['default_sorting'] == 'term') echo ' active';?>"><i class="icon-list-alt"></i></button>
-			<button class="btn<?if($params['default_sorting'] == 'alpha') echo ' active';?>"><i class="icon-font"></i></button>
+			<button class="btn<?php echo ( $params['default_sorting'] == 'term' ) ? ' active' : '';?>"><i class="icon-list-alt"></i></button>
+			<button class="btn<?php echo ( $params['default_sorting'] == 'alpha' ) ? ' active' : '';?>"><i class="icon-font"></i></button>
 		</div>
-		<? } ?>
-	<?
+		<?php
+			endif;
 
-	foreach($sections as $id => $section) {
+	foreach( $sections as $id => $section ) :
 		$hide = false;
-		switch($id) {
+		switch( $id ) {
 			case 'post-type-search-alpha':
-				if($params['default_sorting'] == 'term') {
-					$hide = True;
+				if( $params['default_sorting'] == 'term' ) {
+					$hide = true;
 				}
 				break;
 			case 'post-type-search-term':
-				if($params['default_sorting'] == 'alpha') {
-					$hide = True;
+				if( $params['default_sorting'] == 'alpha' ) {
+					$hide = true;
 				}
 				break;
 		}
 		?>
-		<div class="<?=$id?>"<? if($hide) echo ' style="display:none;"'; ?>>
-			<? foreach($section as $section_title => $section_posts) { ?>
-				<? if(count($section_posts) > 0 || $params['show_empty_sections']) { ?>
+		<div class="<?php echo $id; ?>"<?php echo ($hide) ? ' style="display:none;"' : ''; ?>>
+			<?php foreach ( $section as $section_title => $section_posts ) : ?>
+				<?php if ( count( $section_posts ) > 0 || $params['show_empty_sections'] ) : ?>
 					<div>
-						<h3><?=esc_html($section_title)?></h3>
+						<h3><?php echo esc_html( $section_title ); ?></h3>
 						<div class="row">
-							<? if(count($section_posts) > 0) { ?>
-								<? $posts_per_column = ceil(count($section_posts) / $params['column_count']); ?>
-								<? foreach(range(0, $params['column_count'] - 1) as $column_index) { ?>
-									<? $start = $column_index * $posts_per_column; ?>
-									<? $end   = $start + $posts_per_column; ?>
-									<? if(count($section_posts) > $start) { ?>
-									<div class="<?=$params['column_width']?>">
+							<?php if ( count( $section_posts ) > 0 ) : ?>
+								<?php $posts_per_column = ceil( count( $section_posts ) / $params['column_count'] ); ?>
+								<?php foreach( range( 0, $params['column_count'] - 1 ) as $column_index ) : ?>
+									<?php $start = $column_index * $posts_per_column; ?>
+									<?php $end   = $start + $posts_per_column; ?>
+									<?php if ( count( $section_posts ) > $start ) : ?>
+									<div class="<?php echo $params['column_width']; ?>">
 										<ul>
-										<? foreach(array_slice($section_posts, $start, $end) as $post) { ?>
-											<li data-post-id="<?=$post->ID?>"><?=$post_type->toHTML($post)?></li>
-										<? } ?>
+										<?php foreach ( array_slice( $section_posts, $start, $end ) as $post ) : ?>
+											<li data-post-id="<?php echo $post->ID; ?>"><?php echo $post_type->toHTML( $post ); ?></li>
+										<?php endforeach; ?>
 										</ul>
 									</div>
-									<? } ?>
-								<? } ?>
-							<? } ?>
+									<?php endif; ?>
+								<?php endforeach; ?>
+							<?php endif; ?>
 						</div>
 					</div>
-				<? } ?>
-			<? } ?>
+				<?php endif; ?>
+			<?php endforeach; ?>
 		</div>
-		<?
-	}
-	?> </div> <?
+	<?php endforeach; ?>
+	</div>
+	<?php
 	return ob_get_clean();
 }
-add_shortcode('post-type-search', 'sc_post_type_search');
+
+add_shortcode( 'post-type-search', 'sc_post_type_search' );
 
 
 function sc_search_form() {
@@ -192,7 +193,7 @@ function sc_search_form() {
 	get_search_form();
 	return ob_get_clean();
 }
-add_shortcode('search_form', 'sc_search_form');
+add_shortcode( 'search_form', 'sc_search_form' );
 
 
 
@@ -204,87 +205,94 @@ add_shortcode('search_form', 'sc_search_form');
  * @return string
  * @author Chris Conover
  **/
-function sc_feature($atts = Array(), $id_only = False)
+function sc_feature( $atts = array(), $id_only = false )
 {
 	global $wp_embed;
 
-	$css = (isset($atts['css'])) ? $atts['css'] : '';
+	$css = ( isset( $atts['css'] ) ) ? $atts['css'] : '';
 
-	if(is_front_page()) {
+	if ( is_front_page() ) {
 
-		$feature = resolve_posts(	Array(),
-			Array(
+		$feature = resolve_posts( array(),
+			array(
 				'numberposts' => 1,
-				'meta_query' => Array(
-					Array(
+				'meta_query' => array(
+					array(
 						'key' => 'display_type',
-						'value' => 'featured'))));
+						'value' => 'featured'
+					)
+				)
+			)
+		);
 
-		if($feature !== False) {
-			$feature_media_attachment = get_img_html($feature->ID, 'feature', array('return_id' => true));
-			$attachment_url = wp_get_attachment_image_src($feature_media_attachment['attachment_id'], 'feature');
-			if (!$attachment_url) {
-				$attachment_url = array(0 => THEME_IMG_URL.'/no-photo.png');
+		if ( $feature !== false ) {
+			$feature_media_attachment = get_img_html( $feature->ID, 'feature', array( 'return_id' => true ) );
+			$attachment_url = wp_get_attachment_image_src( $feature_media_attachment['attachment_id'], 'feature' );
+			if ( ! $attachment_url ) {
+				$attachment_url = array( 0 => THEME_IMG_URL.'/no-photo.png' );
 			}
-			$feature_media = '<a href="'.get_permalink($feature->ID).'">'.get_img_html($feature->ID, 'feature').'</a>';
+			$feature_media = '<a href="'.get_permalink( $feature->ID ) . '">' . get_img_html( $feature->ID, 'feature' ) . '</a>';
 
 			ob_start();
-			?>
-			<div class="<?php echo $css?>" id="feature">
+		?>
+			<div class="<?php echo $css; ?>" id="feature">
 				<h2 class="indent">Featured Article</h2>
-				<div class="thumb cropped" style="background-image: url('<?php echo $attachment_url[0]?>');">
+				<div class="thumb cropped" style="background-image: url('<?php echo $attachment_url[0]; ?>');">
 					<?php echo $feature_media; ?>
 				</div>
-				<h2 class="feature-title"><a href="<?php echo get_permalink($feature->ID)?>"><?php echo $feature->post_title?></a></h2>
+				<h2 class="feature-title"><a href="<?php echo get_permalink($feature->ID); ?>"><?php echo $feature->post_title; ?></a></h2>
 			</div>
-			<?
+		<?php
 			return ob_get_clean();
 		}
-	} else if(is_category() || is_tag() || is_page()) {
+	} else if ( is_category() || is_tag() || is_page() ) {
 
 		global $wp_query;
 
-		if(is_category()) {
-			$resolve_atts = Array('category' => $wp_query->queried_object->slug);
+		if( is_category() ) {
+			$resolve_atts = array( 'category' => $wp_query->queried_object->slug );
 		} else if(is_tag()) {
-			$resolve_atts = Array('tag' => $wp_query->queried_object->slug);
+			$resolve_atts = array( 'tag' => $wp_query->queried_object->slug );
 		} else {
-			$resolve_atts = Array();
+			$resolve_atts = array();
 		}
 
-		$top_feature = resolve_posts(	$resolve_atts,
-										Array('numberposts' => 1));
-		if($id_only) return $top_feature->ID;
+		$top_feature = resolve_posts(
+			$resolve_atts,
+			array( 'numberposts' => 1 )
+		);
 
-		$feature_media_attachment = get_img_html($top_feature->ID, 'subpage_feature', array('return_id' => true));
-		$attachment_url = wp_get_attachment_image_src($feature_media_attachment['attachment_id'], 'subpage_feature');
-		if (!$attachment_url) {
-			$attachment_url = array(0 => THEME_IMG_URL.'/no-photo.png');
+		if( $id_only ) return $top_feature->ID;
+
+		$feature_media_attachment = get_img_html( $top_feature->ID, 'subpage_feature', array( 'return_id' => true ) );
+		$attachment_url = wp_get_attachment_image_src( $feature_media_attachment['attachment_id'], 'subpage_feature' );
+		if ( ! $attachment_url ) {
+			$attachment_url = array( 0 => THEME_IMG_URL.'/no-photo.png' );
 		}
-		$feature_media = '<a href="'.get_permalink($feature->ID).'">'.get_img_html($feature->ID, 'feature').'</a>';
+		$feature_media = '<a href="' . get_permalink( $feature->ID ) . '">' . get_img_html( $feature->ID, 'feature' ) . '</a>';
 
 		ob_start();
 
 		?>
-		<div class="<?php echo $css ?>" id="feature">
+		<div class="<?php echo $css; ?>" id="feature">
 			<div class="row">
-				<div class="span5" style="background-image: url('<?php echo $attachment_url[0]?>');">
+				<div class="span5" style="background-image: url('<?php echo $attachment_url[0]; ?>');">
 					<?php echo $feature_media; ?>
 				</div>
 				<div class="span4">
-					<h2 class="feature-cat-title"><a href="<?php echo get_permalink( $top_feature->ID ) ?>"><?php echo $top_feature->post_title ?></a></h2>
+					<h2 class="feature-cat-title"><a href="<?php echo get_permalink( $top_feature->ID ); ?>"><?php echo $top_feature->post_title; ?></a></h2>
 					<p class="story-blurb">
-						<?php echo get_excerpt( $top_feature )?>
+						<?php echo get_excerpt( $top_feature ); ?>
 					</p>
-					<?php echo display_social( get_permalink( $top_feature->ID ), $top_feature->post_title )?>
+					<?php echo display_social( get_permalink( $top_feature->ID ), $top_feature->post_title ); ?>
 				</div>
 			</div>
 		</div>
-		<?
+		<?php
 		return ob_get_clean();
 	}
 }
-add_shortcode('feature', 'sc_feature');
+add_shortcode( 'feature', 'sc_feature' );
 
 
 /**
@@ -293,15 +301,15 @@ add_shortcode('feature', 'sc_feature');
  * @return string
  * @author Chris Conover
  **/
-function sc_ucf_news( $atts = Array() )
+function sc_ucf_news( $atts = array() )
 {
-	$css = ( isset($atts['css']) ) ? $atts['css'] : '';
+	$css = ( isset( $atts['css'] ) ) ? $atts['css'] : '';
 
-	$social		= ( isset( $atts['social'] ) ) ? $atts['social'] : True;
-	$header		= ( isset( $atts['header'] ) ) ? $atts['header'] : True;
+	$social		= ( isset( $atts['social'] ) ) ? $atts['social'] : true;
+	$header		= ( isset( $atts['header'] ) ) ? $atts['header'] : true;
 	$num_posts	= ( isset( $atts['num_posts'] ) && is_numeric( $atts['num_posts'] ) ) ? (int)$atts['num_posts'] : 3;
 
-	$resolve_params = Array();
+	$resolve_params = array();
 
 	if( is_front_page() ) {
 		/*
@@ -316,78 +324,86 @@ function sc_ucf_news( $atts = Array() )
 			post_ids of of the featured and promotional posts. This list should
 			be a relatively small which will keep the processing time down.
 		*/
-		$excluded_posts = Array();
-		$promos = get_posts(Array(
+		$excluded_posts = array();
+		$promos = get_posts( array(
 			'numberposts' => 3,
-			'meta_query' => Array(
-				Array(
+			'meta_query' => array(
+				array(
 					'key' => 'display_type',
 					'value' => 'promotional',
-					'compare' => '='))));
-		$features = get_posts(Array(
+					'compare' => '='
+				)
+			)
+		) );
+
+		$features = get_posts( array(
 			'numberposts' => 1,
-			'meta_query' => Array(
-				Array(
+			'meta_query' => array(
+				array(
 					'key' => 'display_type',
 					'value' => 'featured',
-					'compare' => '='))));
-		foreach( array_merge( $promos,$features ) as $_post ) {
+					'compare' => '='
+				)
+			)
+		) );
+
+		foreach( array_merge( $promos, $features ) as $_post ) {
 			array_push( $excluded_posts, $_post->ID );
 		}
 
 		$resolve_params['exclude'] = $excluded_posts;
-	} else if( is_category() ) {
+	} else if ( is_category() ) {
 		global $wp_query;
 		$atts['category'] = $wp_query->queried_object->slug;
 		$atts['category_title'] = $wp_query->queried_object->cat_name;
-	} else if( is_tag() ) {
+	} else if ( is_tag() ) {
 		global $wp_query;
 		$atts['tag'] = $wp_query->queried_object->slug;
-	} else if( is_page() ) {
+	} else if ( is_page() ) {
 		global $wp_query;
 		$atts['tag'] = str_replace( ' ', '', strtolower( $wp_query->queried_object->post_title ) );
 	}
 
 	# Category and tag pages have a top story. Don't allow the top story
 	# to also show up in the More Headlines sections below it.
-	if(!isset($resolve_params['exclude']) && (is_category() || is_tag())) {
-		$resolve_params['exclude'] = array_merge(Array(sc_feature(Array(), True)), sc_subpage_features(Array(), True));
+	if( ! isset( $resolve_params['exclude'] ) && ( is_category() || is_tag() ) ) {
+		$resolve_params['exclude'] = array_merge( array( sc_feature( array(), true)), sc_subpage_features( array(), true) );
 	}
 
-	$headlines = resolve_posts( $atts, array_merge( Array( 'numberposts' => $num_posts ), $resolve_params ) );
+	$headlines = resolve_posts( $atts, array_merge( array( 'numberposts' => $num_posts ), $resolve_params ) );
 
 	ob_start();
 	?>
-		<div class="<?php echo $css ?>" id="ucf_news">
+		<div class="<?php echo $css; ?>" id="ucf_news">
 			<?php echo ( $header ) ? '<h2>UCF ' . $atts['category_title'] . ' News</h2>' : ''?>
 			<ul class="story-list">
-	<?
+	<?php
 	$count = 0;
-	foreach($headlines as $headline) {
-		$thumb_html = get_img_html($headline->ID, 'story');
+	foreach( $headlines as $headline ) :
+		$thumb_html = get_img_html( $headline->ID, 'story' );
 		?>
-				<li class="clearfix<?php echo ( ( $count + 1 ) == count( $headlines ) ? ' last' : '' ) ?>">
+				<li class="clearfix<?php echo ( ( $count + 1 ) == count( $headlines ) ? ' last' : '' ); ?>">
 					<a href="<?php echo get_permalink( $headline->ID ) ?>">
 						<div class="story-media">
 							<div class="thumb">
-								<?php echo $thumb_html ?>
+								<?php echo $thumb_html; ?>
 							</div>
 						</div>
 						<div class="content">
-							<h3><?php echo $headline->post_title ?></h3>
+							<h3><?php echo $headline->post_title; ?></h3>
 							<p class="story-blurb">
-								<?php echo get_excerpt( $headline ) ?>
+								<?php echo get_excerpt( $headline ); ?>
 							</p>
 						</div>
 					</a>
 				</li>
-		<?
+		<?php
 		$count++;
-	}
+	endforeach;
 	?>
 			</ul>
 		</div>
-	<?
+	<?php
 	$html = ob_get_contents();
 	ob_end_clean();
 	return $html;
@@ -402,18 +418,18 @@ add_shortcode( 'ucf_news', 'sc_ucf_news' );
  * @return string
  * @author RJ Bruneel
  **/
-function sc_more_headlines( $atts = Array() )
+function sc_more_headlines( $atts = array() )
 {
 	$css = ( isset( $atts['css'] ) ) ? $atts['css'] : '';
 
-	$social		= ( isset( $atts['social']) ) ? $atts['social'] : True;
-	$header		= ( isset( $atts['header']) ) ? $atts['header'] : True;
-	$num_posts	= ( isset( $atts['num_posts'] ) && is_numeric($atts['num_posts'] ) ) ? (int)$atts['num_posts'] : 3;
-	$offset	    = ( isset( $atts['offset'] ) && is_numeric($atts['offset'] ) ) ? (int)$atts['offset'] : 3;
+	$social		= ( isset( $atts['social']) ) ? $atts['social'] : true;
+	$header		= ( isset( $atts['header']) ) ? $atts['header'] : true;
+	$num_posts	= ( isset( $atts['num_posts'] ) && is_numeric( $atts['num_posts'] ) ) ? (int)$atts['num_posts'] : 3;
+	$offset	    = ( isset( $atts['offset'] ) && is_numeric( $atts['offset'] ) ) ? (int)$atts['offset'] : 3;
 
-	$resolve_params = Array();
+	$resolve_params = array();
 
-	if( is_front_page() ) {
+	if ( is_front_page() ) {
 		/*
 			It's currently not possible to select posts that aren't
 			marked as promotional or featured using meta_query. I think this
@@ -426,66 +442,74 @@ function sc_more_headlines( $atts = Array() )
 			post_ids of of the featured and promotional posts. This list should
 			be a relatively small which will keep the processing time down.
 		*/
-		$excluded_posts = Array();
-		$promos = get_posts( Array(
+		$excluded_posts = array();
+		$promos = get_posts( array(
 			'numberposts' => 3,
-			'meta_query' => Array(
-				Array(
+			'meta_query' => array(
+				array(
 					'key' => 'display_type',
 					'value' => 'promotional',
-					'compare' => '=' ) ) ) );
-		$features = get_posts(Array(
+					'compare' => '='
+				)
+			)
+		) );
+
+		$features = get_posts(array(
 			'numberposts' => 1,
-			'meta_query' => Array(
-				Array(
+			'meta_query' => array(
+				array(
 					'key' => 'display_type',
 					'value' => 'featured',
-					'compare' => '='))));
+					'compare' => '='
+				)
+			)
+		) );
+
 		foreach( array_merge( $promos,$features ) as $_post ) {
 			array_push( $excluded_posts, $_post->ID );
 		}
 
 		$resolve_params['exclude'] = $excluded_posts;
-	} else if( is_category() ) {
+	} else if ( is_category() ) {
 		global $wp_query;
 		$atts['category'] = $wp_query->queried_object->slug;
 		$atts['category_title'] = $wp_query->queried_object->cat_name;
-	} else if( is_tag() ) {
+	} else if ( is_tag() ) {
 		global $wp_query;
 		$atts['tag'] = $wp_query->queried_object->slug;
-	} else if( is_page() ) {
+	} else if ( is_page() ) {
 		global $wp_query;
 		$atts['tag'] = str_replace( ' ', '', strtolower( $wp_query->queried_object->post_title ) );
 	}
 
 	# Category and tag pages have a top story. Don't allow the top story
 	# to also show up in the More Headlines sections below it.
-	if( !isset( $resolve_params['exclude'] ) && ( is_category() || is_tag() ) ) {
-		$resolve_params['exclude'] = array_merge (Array( sc_feature( Array(), True ) ), sc_subpage_features( Array(), True ) );
+	if( ! isset( $resolve_params['exclude'] ) && ( is_category() || is_tag() ) ) {
+		$resolve_params['exclude'] = array_merge( array( sc_feature( array(), true ) ), sc_subpage_features( array(), true ) );
 	}
 
-	$headlines = resolve_posts( $atts, array_merge( Array( 'numberposts' => $num_posts, 'offset' => $offset ), $resolve_params ) );
+	$headlines = resolve_posts( $atts, array_merge( array( 'numberposts' => $num_posts, 'offset' => $offset ), $resolve_params ) );
 
 	ob_start();
 	?>
 		<div class="<?php echo $css?>" id="more_headlines">
 			<?php echo ( $header ) ? '<h2>More  ' . $atts['category_title'] . ' Headlines</h2>' : ''?>
 			<ul class="story-list">
-	<?
+	<?php
 	$count = 0;
-	foreach($headlines as $headline) {
+	foreach ( $headlines as $headline ) :
 		$thumb_html = get_img_html($headline->ID, 'story');
 		?>
 			<li class="clearfix<?php echo ( ( $count + 1 ) == count( $headlines ) ? ' last' : '' ) ?>">
-				<strong><a href="<?php echo get_permalink( $headline->ID ) ?>"><?php echo $headline->post_title ?></a></strong>
+				<strong><a href="<?php echo get_permalink( $headline->ID ); ?>"><?php echo $headline->post_title; ?></a></strong>
 			</li>
-		<?
+		<?php
 		$count++;
-	}
+	endforeach;
 	?>
 			</ul>
 		</div>
-	<?
+	<?php
 	$html = ob_get_contents();
 	ob_end_clean();
 	return $html;
@@ -500,36 +524,35 @@ add_shortcode( 'more_headlines', 'sc_more_headlines' );
  * @return string
  * @author Chris Conover
  **/
-function sc_ucf_photo($atts = Array())
+function sc_ucf_photo( $atts = array() )
 {
 	$css = ( isset( $atts['css'] ) ) ? $atts['css'] : '';
-	$front_page = isset( $atts['front_page'] ) ? True : False;
+	$front_page = isset( $atts['front_page'] ) ? true : false;
 
 	$link_page_name = ( isset( $atts['link_page_name'] ) ) ? $atts['link_page_name'] : 'Photos';
 
-	$photosets = resolve_posts( $atts, Array( 'post_type' => 'photoset', 'numberposts' => 4 ) );
+	$photosets = resolve_posts( $atts, array( 'post_type' => 'photoset', 'numberposts' => 4 ) );
 
-	if(count($photosets) > 0) {
-		$first = True;
+	if( count( $photosets ) > 0 ) {
+		$first = true;
 		ob_start();
 		?>
 
-			<div class="<?php echo $css ?>" id="ucf_photo">
+			<div class="<?php echo $css; ?>" id="ucf_photo">
 				<div class="clearfix">
 					<h2 class="listing">
-						<?php echo $link_page_name ?>
+						<?php echo $link_page_name; ?>
 					</h2>
-					<a href="<?php echo get_page_link( get_page_by_title( $link_page_name )->ID )?>" class="listing" title="View more photo sets" alt="View more photo sets">
+					<a href="<?php echo get_page_link( get_page_by_title( $link_page_name )->ID ); ?>" class="listing" title="View more photo sets" alt="View more photo sets">
 						More &raquo;
 					</a>
 				</div>
-		<?
-		foreach( $photosets as $photoset ) {
-			if($first) {
-				$first = False;
+		<?php
+		foreach( $photosets as $photoset ) :
+			if ( $first ) :
+				$first = false;
 
-				if($front_page) {
-
+				if( $front_page ) {
 					$image_html = get_img_html( $photoset->ID, 'ucf_photo' );//wp_get_attachment_image_src($first_image->ID, 'ucf_photo');
 				} else {
 					$image_html = get_img_html( $photoset->ID, 'ucf_photo_subpage' );
@@ -537,20 +560,20 @@ function sc_ucf_photo($atts = Array())
 				}
 
 				?>
-					<a href="<?php echo get_permalink( $photoset->ID ) ?>">
-						<?php echo $image_html ?>
+					<a href="<?php echo get_permalink( $photoset->ID ); ?>">
+						<?php echo $image_html; ?>
 					</a>
-					<h3 class="clear"><a href="<?php echo get_permalink( $photoset->ID ) ?>"><?php echo $photoset->post_title ?></a></h3>
-					<p class="story-blurb"><?php echo get_excerpt( $photoset ) ?></p>
+					<h3 class="clear"><a href="<?php echo get_permalink( $photoset->ID ); ?>"><?php echo $photoset->post_title; ?></a></h3>
+					<p class="story-blurb"><?php echo get_excerpt( $photoset ); ?></p>
 				<ul>
-				<?
+				<?php
 
-			}
-		}
+			endif;
+		endforeach;
 
 		?>
 			</ul>
-		</div><?
+		</div><?php
 		return ob_get_clean();
 	}
 }
@@ -563,42 +586,42 @@ add_shortcode( 'ucf_photo', 'sc_ucf_photo' );
  * @return string
  * @author Chris Conover
  **/
-function sc_ucf_video($atts = Array())
+function sc_ucf_video( $atts = array() )
 {
 	global $wp_query, $wp_embed;
 
-	$css = (isset($atts['css'])) ? $atts['css'] : '';
+	$css = ( isset( $atts['css'] ) ) ? $atts['css'] : '';
 
-	$height	= (isset($atts['height'])) ? $atts['height'] : '';
-	$width	= (isset($atts['width'])) ? $atts['width'] : 400;
+	$height	= ( isset( $atts['height'] ) ) ? $atts['height'] : '';
+	$width	= ( isset( $atts['width'] ) ) ? $atts['width'] : 400;
 
-	if(is_category()) $atts['category'] = $wp_query->queried_object->slug;
-	if(is_tag()) $atts['tag'] = $wp_query->queried_object->slug;
+	if ( is_category() ) $atts['category'] = $wp_query->queried_object->slug;
+	if ( is_tag() ) $atts['tag'] = $wp_query->queried_object->slug;
 
-	if(is_front_page()) {
-		$video =  resolve_posts($atts, Array('post_type' => 'video', 'meta_key' => 'video_main_page', 'meta_value' => 'on'));
+	if( is_front_page() ) {
+		$video =  resolve_posts( $atts, array( 'post_type' => 'video', 'meta_key' => 'video_main_page', 'meta_value' => 'on' ) );
 	} else {
-		$video =  resolve_posts($atts, Array('post_type' => 'video'));
+		$video =  resolve_posts( $atts, array( 'post_type' => 'video' ) );
 	}
 
-	if($video !== False) {
-		$video_url = get_video_url($video->ID);
-		if($video_url != '') {
-			$embed_string = '[embed width="'.$width.'" '.($height != '' ? 'height="'.$height.'"' : '').']'.$video_url.'[/embed]';
+	if( $video !== false ) {
+		$video_url = get_video_url( $video->ID );
+		if ( $video_url != '' ) {
+			$embed_string = '[embed width="' . $width . '" ' . ( $height != '' ? 'height="' . $height . '"' : '' ) . ']' . $video_url . '[/embed]';
 			ob_start();
 			?>
-			<div class="<?=$css?>" id="ucf_video">
-				<h2 class="listing">Watch Video</h2><a href="<?=get_page_link(get_page_by_title('Videos')->ID)?>" class="listing">More &raquo;</a>
+			<div class="<?php echo $css; ?>" id="ucf_video">
+				<h2 class="listing">Watch Video</h2><a href="<?php echo get_page_link(get_page_by_title('Videos')->ID); ?>" class="listing">More &raquo;</a>
 					<?php echo $wp_embed->run_shortcode($embed_string); ?>
-				<h4><?=$video->post_title?></h4>
-				<p><?=$video->post_content?></p>
+				<h4><?php echo $video->post_title; ?></h4>
+				<p><?php echo $video->post_content; ?></p>
 			</div>
-			<?
+			<?php
 			return ob_get_clean();
 		}
 	}
 }
-add_shortcode('ucf_video', 'sc_ucf_video');
+add_shortcode( 'ucf_video', 'sc_ucf_video' );
 
 
 /**
@@ -607,23 +630,24 @@ add_shortcode('ucf_video', 'sc_ucf_video');
  * @return string
  * @author Chris Conover
  **/
-function sc_resources($atts = Array())
+function sc_resources( $atts = array() )
 {
-	$css = (isset($atts['css'])) ? $atts['css'] : '';
+	$css = ( isset( $atts['css'] ) ) ? $atts['css'] : '';
 
-	$args = Array('menu' => 'Resources', 'container' => '', 'menu_id'=> '');
+	$args = array( 'menu' => 'Resources', 'container' => '', 'menu_id'=> '' );
 
 	ob_start();
 	?>
-	<div class="<?=$css?>" id="resources">
+	<div class="<?php echo $css; ?>" id="resources">
 		<h2>Resources</h2>
-		<?=wp_nav_menu($args)?>
+		<?php echo wp_nav_menu($args); ?>
 	</div>
-	<?
+	<?php
 	$html = ob_get_contents(); ob_end_clean();
 	return $html;
 }
-add_shortcode('resources', 'sc_resources');
+
+add_shortcode( 'resources', 'sc_resources' );
 
 
 /**
@@ -632,16 +656,16 @@ add_shortcode('resources', 'sc_resources');
  * @return string
  * @author Chris Conover
  **/
-function sc_events($atts = Array())
+function sc_events( $atts = array() )
 {
-	$css 	= (isset($atts['css'])) ? $atts['css'] : '';
-	$header = (isset($atts['header'])) ? $atts['header'] : 'h2';
+	$css 	= ( isset($atts['css'] ) ) ? $atts['css'] : '';
+	$header = ( isset($atts['header'] ) ) ? $atts['header'] : 'h2';
 
 	ob_start();
-	print display_events($header, $css);
+	print display_events( $header, $css );
 	return ob_get_clean();
 }
-add_shortcode('events', 'sc_events');
+add_shortcode( 'events', 'sc_events' );
 
 
 /**
@@ -650,13 +674,13 @@ add_shortcode('events', 'sc_events');
  * @return string
  * @author Chris Conover
  **/
-function sc_promos($atts = Array())
+function sc_promos($atts = array())
 {
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
 
-	$promos = resolve_posts($atts,	Array(	'numberposts' => 3,
-						 					'meta_query' => Array(
-																Array(	'key' => 'display_type',
+	$promos = resolve_posts($atts,	array(	'numberposts' => 3,
+						 					'meta_query' => array(
+																array(	'key' => 'display_type',
 																		'value' => 'promotional'
 																)
 															)
@@ -667,23 +691,23 @@ function sc_promos($atts = Array())
 			<div class="<?=$css?>" id="promos">
 				<h2 class="indent">Promos</h2>
 				<ul class="story-list">
-		<?
+		<?php
 		$count = 0;
 		foreach($promos as $promo) {
 			?>
 			<li<?=(($count + 1) == count($promos) ? ' class="last"' : '')?>>
 				<h3><a href="<?=get_permalink($promo->ID)?>"><?=$promo->post_title?></a></h3>
 				<p class="story-blurb">
-					<?=get_excerpt($promo)?>
+					<?php echo get_excerpt($promo); ?>
 				</p>
 			</li>
-			<?
+			<?php
 			$count++;
 		}
 		?>
 				</ul>
 			</div>
-		<?
+		<?php
 		$html = ob_get_contents(); ob_end_clean();
 		return $html;
 	}
@@ -697,28 +721,28 @@ add_shortcode('promos', 'sc_promos');
  * @return string
  * @author Chris Conover
  **/
-function sc_expert_short($atts = Array())
+function sc_expert_short($atts = array())
 {
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
-	$expert = resolve_posts($atts, Array('numberposts' => 1, 'post_type' => 'expert'));
+	$expert = resolve_posts($atts, array('numberposts' => 1, 'post_type' => 'expert'));
 
-	if($expert !== False) {
+	if($expert !== false) {
 		ob_start();
 		?>
 		<div class="clearfix <?=$css?>" id="expert_short">
 			<h3>Experts at UCF</h3>
 			<a href="<?=get_permalink($expert->ID)?>">
-			  <?=get_img_html($expert->ID, 'story')?>
+			  <?php echo get_img_html($expert->ID, 'story'); ?>
 			</a>
 			<h4>
-				<a href="<?=get_permalink($expert->ID)?>"><?=get_post_meta($expert->ID, 'expert_name', True)?></a>
+				<a href="<?=get_permalink($expert->ID)?>"><?=get_post_meta($expert->ID, 'expert_name', true)?></a>
 			</h4>
-			<p class="title"><?=get_post_meta($expert->ID, 'expert_title', True)?></p>
+			<p class="title"><?=get_post_meta($expert->ID, 'expert_title', true)?></p>
 			<p class="story-blurb bio">
-				<?=$expert->post_content?>
+				<?php echo $expert->post_content; ?>
 			</p>
 		</div>
-		<?
+		<?php
 		$html = ob_get_contents(); ob_end_clean();
 		return $html;
 	}
@@ -732,24 +756,24 @@ add_shortcode('expert_short', 'sc_expert_short');
  * @return string
  * @author Chris Conover
  **/
-function sc_profile($atts = Array())
+function sc_profile($atts = array())
 {
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
-	$profile = resolve_posts($atts, Array('post_type' => 'profile'));
+	$profile = resolve_posts($atts, array('post_type' => 'profile'));
 
-	if($profile !== False) {
+	if($profile !== false) {
 		ob_start();
 		?>
 		<div class="<?=$css?>" id="profile">
 			<a href="<?=get_permalink($profile->ID)?>">
 				<h3>Get to Know: <span class="orange"><?=$profile->post_title?></span></h3>
-				<?=get_img_html($profile->ID, 'profile_img')?>
+				<?php echo get_img_html($profile->ID, 'profile_img'); ?>
 				<p>
-					<?=get_post_meta($profile->ID, 'profile_bio', True)?>
+					<?php echo get_post_meta($profile->ID, 'profile_bio', true); ?>
 				</p>
 			</a>
 		</div>
-		<?
+		<?php
 		$html = ob_get_contents(); ob_end_clean();
 		return $html;
 	}
@@ -763,21 +787,21 @@ add_shortcode('profile', 'sc_profile');
  * @return string
  * @author Chris Conover
  **/
-function sc_subpage_features($atts = Array(), $id_only = False)
+function sc_subpage_features($atts = array(), $id_only = false)
 {
 	global $wp_query;
 
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
 
 	if(is_category()) {
-		$resolve_atts = Array('category' => $wp_query->queried_object->slug);
+		$resolve_atts = array('category' => $wp_query->queried_object->slug);
 	} else if(is_tag()) {
-		$resolve_atts = Array('tag' => $wp_query->queried_object->slug);
+		$resolve_atts = array('tag' => $wp_query->queried_object->slug);
 	}
 
 	$features = resolve_posts(	$resolve_atts,
-								Array( 'numberposts' => 3,
-										'exclude' => Array( sc_feature( Array(), True ) ) ) );
+								array( 'numberposts' => 3,
+										'exclude' => array( sc_feature( array(), true ) ) ) );
 
 	if( $id_only ) {
 		return array_map(create_function('$p', 'return $p->ID;'), $features);
@@ -788,7 +812,7 @@ function sc_subpage_features($atts = Array(), $id_only = False)
 		<div class="row <?php echo $css ?>" id="features">
 			<!-- Features -->
 			<div class="story-list">
-				<?
+				<?php
 				for( $i = 0; $i < count( $features );$i++ ) {
 					$feature = $features[$i];
 				?>
@@ -803,10 +827,10 @@ function sc_subpage_features($atts = Array(), $id_only = False)
 						<?php echo get_excerpt( $feature )?>
 					</p>
 				</div>
-				<? } ?>
+				<?php } ?>
 			</div>
 		</div>
-		<?
+		<?php
 		$html = ob_get_contents(); ob_end_clean();
 		return $html;
 	}
@@ -820,29 +844,29 @@ add_shortcode( 'subpage_features', 'sc_subpage_features' );
  * @return string
  * @author Chris Conover
  **/
-function sc_update($atts = Array())
+function sc_update($atts = array())
 {
 	global $wp_query;
 
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
 
-	$update = resolve_posts(	Array(	'tag' => $wp_query->queried_object->slug),
-								Array(	'post_type' => 'update',
+	$update = resolve_posts(	array(	'tag' => $wp_query->queried_object->slug),
+								array(	'post_type' => 'update',
 										'numberposts' => 1),
-								False,
-								False);
-	if($update !== False) {
+								false,
+								false);
+	if($update !== false) {
 		ob_start();
 		?>
 		<div class="<?=$css?>" id="update">
 			<h3>Update</h3>
 			<div>
 				<h4><?=$update->post_title?></h4>
-				<?=get_img_html($update->ID, 'update')?>
-				<?=$update->post_content?>
+				<?php echo get_img_html($update->ID, 'update'); ?>
+				<?php echo $update->post_content; ?>
 			</div>
 		</div>
-		<?
+		<?php
 		$html = ob_get_contents(); ob_end_clean();
 		return $html;
 	}
@@ -863,8 +887,8 @@ function sc_external_stories( $atts = array() ) {
 	$linked_page_name = ( isset( $atts['linked_page_name'] ) ) ? $atts['linked_page_name'] : 'UCF in the News';
 	$show_description = ( isset( $atts['show_description'] ) ) ? filter_var( $atts['show_description'], FILTER_VALIDATE_BOOLEAN ) : false;
 
-	$stories = resolve_posts(	Array(	'tag' => $wp_query->queried_object->slug),
-								Array(	'post_type' => 'externalstory',
+	$stories = resolve_posts(	array(	'tag' => $wp_query->queried_object->slug),
+								array(	'post_type' => 'externalstory',
 										'numberposts' => $links_per_page ) );
 	ob_start();
 	if ( count( $stories ) > 0 ) : ?>
@@ -960,30 +984,30 @@ add_shortcode('announcements', 'sc_announcements');
  * @return string
  * @author Chris Conover
  **/
-function sc_single_post($atts = Array())
+function sc_single_post($atts = array())
 {
 	global $post, $wp_embed;
 
-	$expert = (get_post_type($post->ID) == 'expert') ? True : False;
+	$expert = (get_post_type($post->ID) == 'expert') ? true : false;
 
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
 
 	if($expert) {
-		$title = get_post_meta($post->ID, 'expert_name', True).', '.get_post_meta($post->ID, 'expert_title', True);
-		$subtitle = get_post_meta($post->ID, 'expert_association', True);
+		$title = get_post_meta($post->ID, 'expert_name', true).', '.get_post_meta($post->ID, 'expert_title', true);
+		$subtitle = get_post_meta($post->ID, 'expert_association', true);
 	} else {
 		$title = $post->post_title;
-		$subtitle = get_post_meta($post->ID, 'subtitle', True);
+		$subtitle = get_post_meta($post->ID, 'subtitle', true);
 	}
 	$subtitle = ($subtitle == '') ? '' : '<p id="subtitle">'.$subtitle.'</p>';
 
-	$img_attach = get_img_html($post->ID, 'story_feature', Array('return_id' => True));
+	$img_attach = get_img_html($post->ID, 'story_feature', array('return_id' => true));
 
 	if($img_attach['attachment_id'] != '') {
 		$attachment = get_post($img_attach['attachment_id']);
 	}
 
-	$comment_form_args = Array(	'fields' => Array(	'<label for="share_name">Name</label><input type="text" id="share_name" name="author" />',
+	$comment_form_args = array(	'fields' => array(	'<label for="share_name">Name</label><input type="text" id="share_name" name="author" />',
 													'<label for="share_email">Email</label>
 													<input type="text" id="share_email" name="email" />'),
 								'comment_field' => '<label for="share_comment">Your Comment</label><textarea id="share_comment" name="comment"></textarea>',
@@ -1004,25 +1028,25 @@ function sc_single_post($atts = Array())
 	<div<?php if ( $css ) { ?> class="<?=$css?>" <?php } ?>>
 		<article role="main">
 			<h1><?=$title?></h1>
-			<?=$subtitle?>
-			<? if($video_url != '') { ?>
+			<?php echo $subtitle; ?>
+			<?php if($video_url != '') { ?>
 				<?php echo $wp_embed->run_shortcode( '[embed width="550" height="500"]'.$video_url.'[/embed]' ); ?>
-			<? } else { ?>
+			<?php } else { ?>
 			<div id="story_feat_img">
-				<?=$img_attach['html']?>
+				<?php echo $img_attach['html']; ?>
 			</div>
-			<? } ?>
+			<?php } ?>
 			<p id="caption"><?=( isset( $attachment ) ) ? $attachment->post_excerpt: ''?></p>
 			<div id="content">
-				<?=strip_tags( $content, '<p><a><ol><ul><li><em><strong><img><blockquote><div>' )?>
+				<?php echo strip_tags( $content, '<p><a><ol><ul><li><em><strong><img><blockquote><div>' ); ?>
 			</div>
 			<?php echo display_author_bio( $post ); ?>
 			<div id="share" role="form">
-				<?=comment_form( $comment_form_args, $post->ID )?>
+				<?php echo comment_form( $comment_form_args, $post->ID ); ?>
 			</div>
 		</article>
 	</div>
-	<?
+	<?php
 	$html = ob_get_contents(); ob_end_clean();
 	return $html;
 }
@@ -1035,22 +1059,22 @@ add_shortcode('single_post', 'sc_single_post');
  * @return string.
  * @author Chris Conover
  **/
-function sc_single_post_meta($atts = Array())
+function sc_single_post_meta($atts = array())
 {
 	global $post;
 
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
 
-	$author_title = get_post_meta($post->ID, 'author_title', True);
+	$author_title = get_post_meta($post->ID, 'author_title', true);
 	$author_title = ($author_title != '') ? '<p id="author_title">'.$author_title.'</p>' : '';
 
-	$source = apply_filters('the_content', get_post_meta($post->ID, 'source', True));
+	$source = apply_filters('the_content', get_post_meta($post->ID, 'source', true));
 	$source = ($source != '') ? '<div id="source">'.$source.'</div>' : '';
 
-	$byline = get_post_meta( $post->ID, 'author_byline', True );
+	$byline = get_post_meta( $post->ID, 'author_byline', true );
 	$byline = ( $byline != '' ) ? $byline : get_the_author();
 
-	$updated_date = get_post_meta( $post->ID, 'updated_date', True );
+	$updated_date = get_post_meta( $post->ID, 'updated_date', true );
 
 	ob_start()?>
 	<div class="<?=$css?>" id="meta">
@@ -1070,7 +1094,7 @@ function sc_single_post_meta($atts = Array())
 		</div>
 		<?php echo display_social( get_permalink( $post->ID ), $post->post_title, 'affixed' ); ?>
 	</div>
-	<?
+	<?php
 	$html = ob_get_contents(); ob_end_clean();
 	return $html;
 }
@@ -1083,13 +1107,13 @@ add_shortcode('single_post_meta', 'sc_single_post_meta');
  * @return string
  * @author Chris Conover
  **/
-function sc_single_post_more_tag($atts = Array())
+function sc_single_post_more_tag($atts = array())
 {
 	global $post;
 
 	$css	= (isset($atts['css'])) ? $atts['css'] : '';
 
-	$primary_tag_id = get_post_meta($post->ID, 'primary_tag', True);
+	$primary_tag_id = get_post_meta($post->ID, 'primary_tag', true);
 
 	if($primary_tag_id == '') {
 		$tags = wp_get_post_tags($post->ID);
@@ -1101,9 +1125,9 @@ function sc_single_post_more_tag($atts = Array())
 	} else {
 		$primary_tag = get_tag($primary_tag_id);
 	}
-	$primary_tag_posts = resolve_posts(	Array(	'tag' => $primary_tag->slug),
-										Array(	'numberposts' => 3,
-												'exclude' => Array($post->ID))
+	$primary_tag_posts = resolve_posts(	array(	'tag' => $primary_tag->slug),
+										array(	'numberposts' => 3,
+												'exclude' => array($post->ID))
 									);
 	if(count($primary_tag_posts) > 0) {
 		ob_start();
@@ -1111,14 +1135,14 @@ function sc_single_post_more_tag($atts = Array())
 		<div class="link_list <?=$css?>">
 			<h3>More about <?=$primary_tag->name?></h3>
 			<ul class="story-list">
-				<? foreach($primary_tag_posts as $tag_post) {?>
+				<?php foreach($primary_tag_posts as $tag_post) {?>
 				<li>
 					<a href="<?=get_permalink($tag_post->ID)?>"><?=$tag_post->post_title?></a>
 				</li>
-				<? } ?>
+				<?php } ?>
 			</ul>
 		</div>
-		<?
+		<?php
 		$html = ob_get_contents(); ob_end_clean();
 		return $html;
 	}
@@ -1132,7 +1156,7 @@ add_shortcode('single_post_more_tag', 'sc_single_post_more_tag');
  * @return string
  * @author Chris Conover
  **/
-function sc_single_post_more_cat($atts = Array())
+function sc_single_post_more_cat($atts = array())
 {
 	global $post;
 
@@ -1142,9 +1166,9 @@ function sc_single_post_more_cat($atts = Array())
 
 	if(count($cats) > 0) {
 		$cat = get_category($cats[0]);
-		$cat_posts = resolve_posts(	Array(	'category' => $cat->slug),
-									Array(	'numberposts' => 3,
-											'exclude' => Array($post->ID))
+		$cat_posts = resolve_posts(	array(	'category' => $cat->slug),
+									array(	'numberposts' => 3,
+											'exclude' => array($post->ID))
 								);
 
 		ob_start();
@@ -1152,14 +1176,14 @@ function sc_single_post_more_cat($atts = Array())
 		<div class="link_list <?=$css?>">
 			<h3>More about <?=$cat->name?></h3>
 			<ul class="story-list">
-				<? foreach($cat_posts as $cat_post) {?>
+				<?php foreach($cat_posts as $cat_post) {?>
 				<li>
 					<a href="<?=get_permalink($cat_post->ID)?>"><?=$cat_post->post_title?></a>
 				</li>
-				<? } ?>
+				<?php } ?>
 			</ul>
 		</div>
-		<?
+		<?php
 		$html = ob_get_contents(); ob_end_clean();
 		return $html;
 	}
@@ -1173,13 +1197,13 @@ add_shortcode('single_post_more_cat', 'sc_single_post_more_cat');
  * @return string
  * @author Chris Conover
  **/
-function sc_single_post_comments($atts = Array())
+function sc_single_post_comments($atts = array())
 {
 	global $post;
 
 	$css	= (isset($atts['css'])) ? $atts['css'] : '';
 
-	$comments = get_comments(Array(	'post_id' => $post->ID,
+	$comments = get_comments(array(	'post_id' => $post->ID,
 									'status' => 'approve',
 									'number' => 3,
 									'type' => ''
@@ -1192,17 +1216,17 @@ function sc_single_post_comments($atts = Array())
 		<div class="<?=$css?>" id="comments">
 			<h3>Comments</h3>
 			<ul class="comment-list">
-				<? foreach($comments as $comment) {?>
+				<?php foreach($comments as $comment) {?>
 				<li>
 					<p class="meta"><?=$comment->comment_author?>, <?=$comment->comment_date?></p>
 					<p class="content">
-						<?=$comment->comment_content?>
+						<?php echo $comment->comment_content; ?>
 					</p>
 				</li>
-				<? } ?>
+				<?php } ?>
 			</ul>
 		</div>
-		<?
+		<?php
 		$html = ob_get_contents(); ob_end_clean();
 		return $html;
 	}
@@ -1216,7 +1240,7 @@ add_shortcode('single_post_comments', 'sc_single_post_comments');
  * @return string
  * @author Chris Conover
  **/
-function sc_single_post_topics($atts = Array())
+function sc_single_post_topics($atts = array())
 {
 	global $post;
 
@@ -1233,21 +1257,21 @@ function sc_single_post_topics($atts = Array())
 		<div class="link_list <?=$css?>" id="more_tags">
 			<h3>More Topics</h3>
 			<ul class="term-list clearfix">
-				<?	for($i = 0; $i < count($tags);$i++) {
+				<?php for($i = 0; $i < count($tags);$i++) {
 						$tag = $tags[$i];
 						if($tag->term_id != $mainsite_tag->term_id) {
 				?>
 				<li>
 					<a href="<?=get_tag_link($tag->term_id)?>">
-						<?=$tag->name?><?=(($i + 1) != count($tags)) ? ',' : ''?>
+						<?php echo $tag->name?><?php echo (($i + 1) != count($tags)) ? ',' : ''; ?>
 					</a>
 				</li>
-				<?
+				<?php
 					}
 				} ?>
 			</ul>
 		</div>
-		<?
+		<?php
 		$html = ob_get_contents(); ob_end_clean();
 		return $html;
 	}
@@ -1261,7 +1285,7 @@ add_shortcode('single_post_topics', 'sc_single_post_topics');
  * @return string
  * @author Chris Conover
  **/
-function sc_single_post_recommended($atts = Array())
+function sc_single_post_recommended($atts = array())
 {
 	global $post;
 	if(get_post_type($post->ID) == 'expert') return '';
@@ -1270,7 +1294,7 @@ function sc_single_post_recommended($atts = Array())
 
 	ob_start();
 	?>
-	<div class="<?=$css?>" id="recommended">
+	<div class="<?php echo $css; ?>" id="recommended">
 		<h3>Recommended Stories</h3>
 		<div id="fb-root"></div>
 		<script>(function(d, s, id) {
@@ -1282,7 +1306,7 @@ function sc_single_post_recommended($atts = Array())
 		}(document, 'script', 'facebook-jssdk'));</script>
 		<div class="fb-recommendations" data-site="today.ucf.edu" data-width="310" data-height="480" data-header="false" font="" border_color="#FFF"></div>
 	</div>
-	<?
+	<?php
 	$html = ob_get_contents(); ob_end_clean();
 	return $html;
 }
@@ -1295,7 +1319,7 @@ add_shortcode('single_post_recommended', 'sc_single_post_recommended');
  * @return string
  * @author Chris Conover
  **/
-function sc_single_post_related_experts($atts = Array())
+function sc_single_post_related_experts($atts = array())
 {
 	global $post;
 
@@ -1304,28 +1328,28 @@ function sc_single_post_related_experts($atts = Array())
 	$experts = wp_get_object_terms($post->ID, 'experts');
 
 	ob_start();
-	foreach($experts as $expert) {
-		$stories = resolve_posts(	Array(),
-									Array(	'numberposts' => 5,
-											'exclude'     => Array($post->ID),
-											'tax_query'   => Array(
-																Array(	'taxonomy' => 'experts',
+	foreach ( $experts as $expert ) :
+		$stories = resolve_posts(	array(),
+									array(	'numberposts' => 5,
+											'exclude'     => array($post->ID),
+											'tax_query'   => array(
+																array(	'taxonomy' => 'experts',
 																		'field'    => 'slug',
 																		'terms'    => $expert->slug))));
-		if(count($stories) > 0) {
+		if ( count( $stories ) > 0) :
 			?>
-			<div class="link_list <?=$css?>" id="related_experts">
-				<h3>More About <?=$expert->name?></h3>
+			<div class="link_list <?php echo $css; ?>" id="related_experts">
+				<h3>More About <?php echo $expert->name; ?></h3>
 				<ul class="story-list">
-			<?
-				foreach($stories as $story) { ?>
-					<li><a href="<?=get_permalink($story->ID)?>"><?=$story->post_title?></a></li>
-			<? } ?>
+			<?php
+				foreach($stories as $story) : ?>
+					<li><a href="<?php echo get_permalink( $story->ID ); ?>"><?php echo $story->post_title; ?></a></li>
+			<?php endforeach; ?>
 				</ul>
 			</div>
-			<?
-		}
-	}
+			<?php
+		endif;
+	endforeach;
 	return ob_get_clean();
 }
 
@@ -1338,41 +1362,41 @@ add_shortcode('single_post_related_experts', 'sc_single_post_related_experts');
  * @return string
  * @author Chris Conover
  **/
-function sc_expert_meta($atts = Array())
+function sc_expert_meta($atts = array())
 {
 	global $post;
 
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
 
-	$email  = get_post_meta($post->ID, 'expert_email', True);
-	$phones = explode(',', get_post_meta($post->ID, 'expert_phone', True));
+	$email  = get_post_meta($post->ID, 'expert_email', true);
+	$phones = explode(',', get_post_meta($post->ID, 'expert_phone', true));
 
 	$img_html = '';
-	$img_details = get_img_html($post->ID, 'full', Array('return_id' => True));
+	$img_details = get_img_html($post->ID, 'full', array('return_id' => true));
 	if($img_details['attachment_id'] != '') {
 		$img_src = wp_get_attachment_image_src($img_details['attachment_id'], 'full');
-		if($img_src != False) {
+		if($img_src != false) {
 			$img_html = '<p><a href="'.$img_src[0].'" target="_blank">Download Profile Image</a></p>';
 		}
 	}
 
 	ob_start();
 	?>
-	<div class="<?=$css?>" id="expert_meta">
+	<div class="<?php echo $css; ?>" id="expert_meta">
 		<h3>Contact Information</h3>
-		<? if($email != '') {?>
-		<p><a href="mailto:<?=$email?>"><?=$email?></a></p>
-		<? } ?>
-		<? if(count($phones) > 0) {?>
+		<?php if ( $email != '' ) : ?>
+		<p><a href="mailto:<?php echo $email; ?>"><?php echo $email; ?></a></p>
+		<?php endif; ?>
+		<?php if ( count($phones) > 0) : ?>
 		<ul>
-			<? foreach($phones as $phone ) {?>
-			<li><?=$phone?></li>
-			<? } ?>
+			<?php foreach ( $phones as $phone ) :?>
+			<li><?php echo $phone; ?></li>
+			<?php endforeach; ?>
 		</ul>
-		<?}?>
-		<?=$img_html?>
+		<?php endif; ?>
+		<?php echo $img_html; ?>
 	</div>
-	<?
+	<?php
 	$html = ob_get_contents(); ob_end_clean();
 	return $html;
 }
@@ -1385,17 +1409,17 @@ add_shortcode('expert_meta', 'sc_expert_meta');
  * @return string
  * @author Chris Conover
  **/
-function sc_expert_tagged($atts = Array())
+function sc_expert_tagged($atts = array())
 {
 	global $post;
 
 	$css	= (isset($atts['css'])) ? $atts['css'] : '';
 
-	$term = get_term_by('name', get_post_meta($post->ID, 'expert_name', True), 'experts');
+	$term = get_term_by('name', get_post_meta($post->ID, 'expert_name', true), 'experts');
 
-	$stories = resolve_posts(Array(),Array(	'numberposts' => 5,
-											'tax_query' => Array(
-																Array(
+	$stories = resolve_posts(array(),array(	'numberposts' => 5,
+											'tax_query' => array(
+																array(
 																		'taxonomy' => 'experts',
 																		'field' => 'slug',
 																		'terms' => $term->slug
@@ -1407,14 +1431,14 @@ function sc_expert_tagged($atts = Array())
 		ob_start();
 		?>
 		<div class="link_list <?=$css?>">
-			<h3>More about <?=get_post_meta($post->ID, 'expert_name', True)?></h3>
+			<h3>More about <?=get_post_meta($post->ID, 'expert_name', true)?></h3>
 			<ul class="story-list">
-				<? foreach($stories as $story) {?>
+				<?php foreach ( $stories as $story ) : ?>
 				<li><a href="<?=get_permalink($story->ID)?>"><?=$story->post_title?></a></li>
-				<?}?>
+				<?php endforeach; ?>
 			</ul>
 		</div>
-		<?
+		<?php
 		$html = ob_get_contents(); ob_end_clean();
 		return $html;
 	}
@@ -1428,18 +1452,18 @@ add_shortcode('expert_tagged', 'sc_expert_tagged');
  * @return string
  * @author Chris Conover
  **/
-function sc_expert_videos($atts = Array())
+function sc_expert_videos($atts = array())
 {
 	global $post;
 
 	$css	= (isset($atts['css'])) ? $atts['css'] : '';
 
-	$term = get_term_by('name', get_post_meta($post->ID, 'expert_name', True), 'experts');
+	$term = get_term_by('name', get_post_meta($post->ID, 'expert_name', true), 'experts');
 
-	$videos = resolve_posts(Array(),Array(	'post_type' => 'video',
+	$videos = resolve_posts(array(),array(	'post_type' => 'video',
 											'numberposts' => 5,
-											'tax_query' => Array(
-																Array(
+											'tax_query' => array(
+																array(
 																		'taxonomy' => 'experts',
 																		'field' => 'slug',
 																		'terms' => $term->slug
@@ -1453,14 +1477,14 @@ function sc_expert_videos($atts = Array())
 		ob_start();
 		?>
 		<div class="link_list <?=$css?>">
-			<h3>Videos about <?=get_post_meta($post->ID, 'expert_name', True)?></h3>
+			<h3>Videos about <?=get_post_meta($post->ID, 'expert_name', true)?></h3>
 			<ul class="video-list">
-				<? foreach($videos as $video) {?>
+				<?php foreach ( $videos as $video ) : ?>
 				<li><a href="<?=get_permalink($video->ID)?>"><?=$video->post_title?></a></li>
-				<?}?>
+				<?php endforeach; ?>
 			</ul>
 		</div>
-		<?
+		<?php
 		$html = ob_get_contents(); ob_end_clean();
 		return $html;
 	}
@@ -1474,18 +1498,18 @@ add_shortcode('expert_videos', 'sc_expert_videos');
  * @return string
  * @author Chris Conover
  **/
-function sc_expert_photos($atts = Array())
+function sc_expert_photos($atts = array())
 {
 	global $post;
 
 	$css	= (isset($atts['css'])) ? $atts['css'] : '';
 
-	$term = get_term_by('name', get_post_meta($post->ID, 'expert_name', True), 'experts');
+	$term = get_term_by('name', get_post_meta($post->ID, 'expert_name', true), 'experts');
 
-	$photosets = resolve_posts(Array(),Array(	'post_type' => 'photoset',
+	$photosets = resolve_posts(array(),array(	'post_type' => 'photoset',
 												'numberposts' => 5,
-												'tax_query' => Array(
-																Array(
+												'tax_query' => array(
+																array(
 																		'taxonomy' => 'experts',
 																		'field' => 'slug',
 																		'terms' => $term->slug
@@ -1498,14 +1522,14 @@ function sc_expert_photos($atts = Array())
 		ob_start();
 		?>
 		<div class="link_list <?=$css?>">
-			<h3>Photos about <?=get_post_meta($post->ID, 'expert_name', True)?></h3>
+			<h3>Photos about <?=get_post_meta($post->ID, 'expert_name', true)?></h3>
 			<ul class="photoset-list">
-				<? foreach($photosets as $photoset) {?>
+				<?php foreach ( $photosets as $photoset ) : ?>
 				<li><a href="<?=get_permalink($photoset->ID)?>"><?=$photoset->post_title?></a></li>
-				<?}?>
+				<?php endforeach; ?>
 			</ul>
 		</div>
-		<?
+		<?php
 		$html = ob_get_contents(); ob_end_clean();
 		return $html;
 	}
@@ -1519,15 +1543,15 @@ add_shortcode('expert_photos', 'sc_expert_photos');
  * @return string.
  * @author Cadie Brown
  **/
-function sc_feature_post_meta( $atts = Array() )
+function sc_feature_post_meta( $atts = array() )
 {
 	global $post;
 
 	$css = ( isset( $atts['css'] ) ) ? $atts['css'] : '';
 
-	$byline = get_post_meta( $post->ID, 'author_byline', True );
+	$byline = get_post_meta( $post->ID, 'author_byline', true );
 	$byline = ( $byline != '' ) ? $byline : get_the_author();
-	$updated_date = get_post_meta( $post->ID, 'updated_date', True );
+	$updated_date = get_post_meta( $post->ID, 'updated_date', true );
 
 	ob_start(); ?>
 	<div class="<?php echo $css; ?>" id="meta">
@@ -1551,13 +1575,13 @@ add_shortcode('feature_post_meta', 'sc_feature_post_meta');
  * @return string
  * @author Chris Conover
  **/
-function sc_photo_set($atts = Array())
+function sc_photo_set($atts = array())
 {
 	global $post;
 
 	$css	= (isset($atts['css'])) ? $atts['css'] : '';
 
-	$images = resolve_posts(Array(), Array(	'post_type' => 'attachment',
+	$images = resolve_posts(array(), array(	'post_type' => 'attachment',
 											'post_parent' => $post->ID,
 											'numberposts' => -1,
 											'orderby' => 'menu_order',
@@ -1570,12 +1594,12 @@ function sc_photo_set($atts = Array())
 		<div class="row">
 			<h3 class="span8"><?=$post->post_title?></h3>
 			<div class="span4">
-				<?=display_social(get_permalink($post->ID), $post->post_title)?>
+				<?php echo display_social( get_permalink( $post->ID ), $post->post_title ); ?>
 			</div>
 		</div>
 		<p><?=$post->post_content?> <strong>(<?=count($images)?> photos total)</strong></p>
 		<ul class="photoset-list">
-			<? for($i = 1; $i <= count($images);$i++) {
+			<?php for ( $i = 1; $i <= count( $images );$i++ ) :
 				$image_obj = $images[$i - 1];
 				$text = '';
 				// caption -> post_excerpt
@@ -1586,18 +1610,18 @@ function sc_photo_set($atts = Array())
 					$text = $image_obj->post_content;
 				}
 				?>
-			<li class="image" id="photo-<?=$i?>">
-				<?=get_img_html($image_obj->ID, 'photoset_photo', Array('sent_attach' => True))?>
-				<p class="clearfix"><span><?=$i?></span><?=$text?></p>
+			<li class="image" id="photo-<?php echo $i; ?>">
+				<?php echo get_img_html( $image_obj->ID, 'photoset_photo', array( 'sent_attach' => true ) ); ?>
+				<p class="clearfix"><span><?php echo $i; ?></span><?php echo $text; ?></p>
 			</li>
-		<? } ?>
+			<?php endfor; ?>
 		</ul>
 	</div>
-	<?
+	<?php
 	$html = ob_get_contents(); ob_end_clean();
 	return $html;
 }
-add_shortcode('photo_set', 'sc_photo_set');
+add_shortcode( 'photo_set', 'sc_photo_set' );
 
 
 /**
@@ -1606,65 +1630,65 @@ add_shortcode('photo_set', 'sc_photo_set');
  * @return string
  * @author Chris Conover
  **/
-function sc_photo_sets($atts = Array())
+function sc_photo_sets($atts = array())
 {
 
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
 
-	$photo_sets = resolve_posts(Array(), Array(	'post_type' => 'photoset',
+	$photo_sets = resolve_posts(array(), array(	'post_type' => 'photoset',
 												'numberposts' => -1));
-	$first = True;
+	$first = true;
 	ob_start();?>
 	<div id="photo-sets" class="<?=$css?>">
-	<?
+	<?php
 	$count = 0;
-	foreach($photo_sets as $photo_set) {
+	foreach($photo_sets as $photo_set) :
 
 		$image_id = 0;
-		if( ($image_id = get_post_meta($photo_set->ID, '_thumbnail_id', True)) == '') {
-			$image = resolve_posts(Array(), Array(
+		if( ($image_id = get_post_meta($photo_set->ID, '_thumbnail_id', true)) == '') {
+			$image = resolve_posts(array(), array(
 				'post_type'   => 'attachment',
 				'post_parent' => $photo_set->ID,
 				'numberposts' => 1,
 				'order'       => 'DESC'));
-			if($image !== False) {
+			if($image !== false) {
 				$image_id = $image->ID;
 			}
 		}
 
-		if($first) { ?>
+		if ( $first ) : ?>
 			<div class="row">
 				<div class="span8">
-					<a href="<?=get_permalink($photo_set->ID)?>">
-						<?=get_img_html($image_id, 'photoset_preview', Array('sent_attach' => True))?>
+					<a href="<?php echo get_permalink( $photo_set->ID ); ?>">
+						<?php echo get_img_html( $image_id, 'photoset_preview', array( 'sent_attach' => true ) ); ?>
 					</a>
 				</div>
 				<div class="span4 last">
-					<h3><a href="<?=get_permalink($photo_set->ID)?>"><?=$photo_set->post_title?></a></h3>
-					<p><?=$photo_set->post_content?></p>
+					<h3><a href="<?php echo get_permalink( $photo_set->ID ); ?>"><?php echo $photo_set->post_title; ?></a></h3>
+					<p><?php echo $photo_set->post_content; ?></p>
 				</div>
 				<hr class="span12" />
 			</div>
 			<div class="row photoset-list">
-		<? } else {	?>
-			<?php if (($count % 4) == 0 && $count !== 0) { ?>
+		<?php else : ?>
+			<?php if ( ($count % 4 ) == 0 && $count !== 0 ) : ?>
 			</div>
 			<div class="row photoset-list">
-			<?php } ?>
+			<?php endif; ?>
 				<div class="span3 <?=$css_class?>">
-					<a href="<?=get_permalink($photo_set->ID)?>">
-						<?=get_img_html($image_id, 'photoset_thumb', Array('sent_attach' => True))?>
+					<a href="<?php echo get_permalink( $photo_set->ID ); ?>">
+						<?php echo get_img_html($image_id, 'photoset_thumb', array('sent_attach' => true)); ?>
 					</a>
-					<h3><a href="<?=get_permalink($photo_set->ID)?>"><?=$photo_set->post_title?></a></h3>
+					<h3><a href="<?php echo get_permalink( $photo_set->ID ); ?>"><?php echo $photo_set->post_title; ?></a></h3>
 				</div>
-		<? $count++;
-		}
+		<?php $count++;
+		endif;
 		$first = false;
 		?>
-	<? } ?>
+	<?php endforeach; ?>
 		</div>
 	</div>
-	<?
+	<?php
 	return ob_get_clean();
 }
 add_shortcode('photo_sets', 'sc_photo_sets');
@@ -1676,78 +1700,79 @@ add_shortcode('photo_sets', 'sc_photo_sets');
  * @return string
  * @author Chris Conover
  **/
-function sc_videos($atts = Array())
+function sc_videos($atts = array())
 {
 	global $wp_embed;
 
 	$css            = (isset($atts['css'])) ? $atts['css'] : '';
-	$specific_video = (isset($atts['specific_video'])) ? $atts['specific_video'] : False;
+	$specific_video = (isset($atts['specific_video'])) ? $atts['specific_video'] : false;
 
 	$video = null;
 
 
-	if($specific_video !== False) {
+	if($specific_video !== false) {
 		$specific_video = get_post($specific_video);
-		if($specific_video != False) {
-			$videos = resolve_posts(Array(), Array( 'post_type' => 'video',
+		if($specific_video != false) {
+			$videos = resolve_posts(array(), array( 'post_type' => 'video',
 													'numberposts' => -1,
-													'exclude' => Array($specific_video->ID)));
-			$videos = array_merge(Array($specific_video), $videos);
+													'exclude' => array($specific_video->ID)));
+			$videos = array_merge(array($specific_video), $videos);
 		}
 	} else {
-		$videos = resolve_posts(Array(), Array( 'post_type' => 'video',
+		$videos = resolve_posts(array(), array( 'post_type' => 'video',
 												'numberposts' => -1,
-												'exclude' => Array($specific_video->ID)));
+												'exclude' => array($specific_video->ID)));
 	}
 
-	$first = True;
+	$first = true;
 	$count = 0;
 	ob_start();?>
-	<?php if ($css !== '') { ?><div class="<?=$css?>"><?php } ?>
-	<?
-	foreach($videos as $video) {
-		$video_url = get_video_url($video->ID);
-		if($video_url != '') {
-			if($first) {
+	<?php if ($css !== '') : ?>
+		<div class="<?php echo $css; ?>">
+	<?php endif; 
+	foreach( $videos as $video ) :
+		$video_url = get_video_url( $video->ID );
+		if ( $video_url != '' ) :
+			if ( $first ) :
 				$first = false;
-				$embed_string = '[embed width="590" height="430"]'.$video_url.'[/embed]';
+				$embed_string = '[embed width="590" height="430"]' . $video_url . '[/embed]';
 				?>
 				<div class="row">
 					<div class="feature span8">
 						<?php echo $wp_embed->run_shortcode($embed_string); ?>
 					</div>
 					<div class="span4">
-						<h3><?=$video->post_title?></h3>
-						<p><?=$video->post_content?></p>
+						<h3><?php echo $video->post_title; ?></h3>
+						<p><?php echo $video->post_content; ?></p>
 					</div>
 					<hr class="span12" />
 				</div>
 				<div class="row video-list thumbnails">
-			<? } else {
-				if(strpos($video_url, 'youtube.com')) {
-					preg_match('/v=(?<video_id>[^&]+)&?/', get_post_meta($video->ID, 'video_url', True), $matches);
-					if(isset($matches['video_id'])) {
+			<?php else :
+				if( strpos( $video_url, 'youtube.com' ) ) :
+					preg_match( '/v=(?<video_id>[^&]+)&?/', get_post_meta( $video->ID, 'video_url', true ), $matches );
+					if ( isset( $matches['video_id'] ) ) :
 						$video_id = $matches['video_id'];
 					?>
-					<?php if (($count % 3) == 0 && $count !== 0) { ?>
+					<?php if (($count % 3) == 0 && $count !== 0) : ?>
 				</div>
 				<div class="row video-list thumbnails">
-					<?php } ?>
+					<?php endif; ?>
 					<div class="span4" id="video-<?=$count?>">
 						<a class="thumbnail" href="<?=get_permalink($video->ID)?>">
 							<img src="//i1.ytimg.com/vi/<?=$matches['video_id']?>/hqdefault.jpg" alt="Video: <?=$video->post_title?>" />
 							<h3><?=$video->post_title?></h3>
 						</a>
 					</div>
-				<? $count++;
-					}
-				}
-			}
-		}
-	} ?>
+				<?php $count++;
+					endif;
+				endif;
+			endif;
+		endif;
+	endforeach; ?>
 	</div>
-	<?php if ($css !== '') { ?></div><?php } ?>
-	<?
+<?php if ($css !== '') : ?></div><?php endif; ?>
+	<?php
 	return ob_get_clean();
 }
 add_shortcode('videos', 'sc_videos');
@@ -1759,15 +1784,15 @@ add_shortcode('videos', 'sc_videos');
  * @return string
  * @author Chris Conover
  **/
-function sc_profile_feature($atts = Array())
+function sc_profile_feature($atts = array())
 {
 	$count = 0;
 	$css = (isset($atts['css'])) ? $atts['css'] : '';
 
 	if(isset($atts['group'])) {
 		$group_name = $atts['group'];
-		if( ($group = get_term_by('name', $group_name, 'groups')) !== False) {
-			$profiles = get_posts(Array('numberposts' => 4, 'post_type' => 'profile', 'group' => $group->slug));
+		if( ($group = get_term_by('name', $group_name, 'groups')) !== false) {
+			$profiles = get_posts(array('numberposts' => 4, 'post_type' => 'profile', 'group' => $group->slug));
 			ob_start();?>
 			<div id="profile-feature" class="<?=$css?>">
 				<div class="row">
@@ -1783,9 +1808,9 @@ function sc_profile_feature($atts = Array())
 						foreach($profiles as $profile) { ?>
 							<div class="span3">
 								<a href="<?=get_permalink($profile->ID)?>">
-									<?=get_the_post_thumbnail($profile->ID, 'profile_feature')?>
+									<?php echo get_the_post_thumbnail($profile->ID, 'profile_feature'); ?>
 									<h4><?=$profile->post_title?></h4>
-									<strong><?=get_post_meta($profile->ID, 'profile_jobtitle', True)?></strong>
+									<strong><?=get_post_meta($profile->ID, 'profile_jobtitle', true)?></strong>
 								</a>
 							</div>
 					<?php
@@ -1794,7 +1819,7 @@ function sc_profile_feature($atts = Array())
 					?>
 				</div>
 			</div>
-		<?
+		<?php
 		}
 		return ob_get_clean();
 	}
@@ -1830,14 +1855,14 @@ function sc_archive_articles($attrs) {
     ob_start();
     ?>
     <h2 class='month_year'><?=date('F Y', strtotime($year . '-' . $month . '-1')); ?></h2>
-    <?
+    <?php
     if (count($articles) > 0) {
         ?>
 
         <div class="<?=$css?>" id="archives">
             <!-- Features -->
             <ul>
-        <?
+        <?php
             for($i = 0; $i < count($articles);$i++) {
                 $article = $articles[$i];
                 $class = '';
@@ -1847,20 +1872,20 @@ function sc_archive_articles($attrs) {
                 <li<?=($class != '') ? ' class="'.$class.' clearfix" ':' class="clearfix"'?>>
                     <div class="thumbnail">
                         <a href="<?=get_permalink($article->ID)?>">
-                            <?=get_img_html($article->ID, 'story')?>
+                            <?php echo get_img_html($article->ID, 'story'); ?>
                         </a>
 
                     </div>
                     <h3><a href="<?=get_permalink($article->ID)?>"><?=$article->post_title?></a></h3>
                     <p class="date"><?=$article->post_date; ?></p>
                     <p class="ellipse">
-                        <?=get_excerpt($article)?>
+                        <?php echo get_excerpt($article); ?>
                     </p>
                 </li>
-            <? } ?>
+            <?php } ?>
             </ul>
         </div>
-    <?
+    <?php
     }
 
     # no need to unset the last / in the url since it isn't a number
@@ -1909,7 +1934,7 @@ function sc_callout( $atts, $content='' ) {
 		array(
 			'background' => '#000',
 			'color'      => '#fff',
-			'container'  => True,
+			'container'  => true,
 			'class'      => null
 		),
 		$atts
