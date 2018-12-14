@@ -1,38 +1,37 @@
-<?php disallow_direct_load('tag.php');?>
-<?php get_header();?>
+<?php disallow_direct_load( 'tag.php' ); ?>
+<?php get_header(); ?>
 
 <?php
 	$use_page = false;
-	$page = get_page_by_title('Tag');
-	if ($page !== null) {
+	$page = get_page_by_title( 'Tag' );
+
+	if ( $page !== null ) {
 		$use_page = $page->post_content !== '' ? true : false;
 	}
 ?>
 	<div class="subpage">
-	<? if($use_page == true) { ?>
-		<?=apply_filters('the_content', $page->post_content)?>
-	<?php
-	} else { ?>
+	<?php if ( $use_page == true ) {
+		echo apply_filters( 'the_content', $page->post_content );
+	} else {
+	?>
 		<div class="row">
 			<div class="span9 border-right">
 				<h1 class="term-heading"><?php single_tag_title(); ?></h1>
-				<?=do_shortcode('[feature css="border-bottom"]')?>
-				<?=do_shortcode('[subpage_features]')?>
+				<?php echo do_shortcode( '[feature css="border-bottom"]' ); ?>
+				<?php echo do_shortcode( '[subpage_features]' ); ?>
 			</div>
 			<div class="span3" id="sidebar">
-				<?=esi_include('do_shortcode', '[events]', true)?>
+				<?php echo esi_include( 'do_shortcode', '[events]', true ); ?>
 			</div>
 			<hr class="span12" /></div>
 		<div class="row">
 			<div class="span5 border-right">
-				<?=do_shortcode('[ucf_news social="0"]')?>
+				<?php echo do_shortcode( '[ucf_news social="0"]' ); ?>
 			</div>
 			<div class="span7">
-				<?=do_shortcode('[ucf_video width="540"]')?>
+				<?php echo do_shortcode( '[ucf_video width="540"]' ); ?>
 			</div>
 		</div>
-	<?php
-	}
-	?>
+	<?php } ?>
 	</div>
-<?php get_footer();?>
+<?php get_footer(); ?>
