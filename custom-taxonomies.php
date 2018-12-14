@@ -37,51 +37,51 @@ abstract class CustomTaxonomy {
 		$capabilities          = Array();
 
 	function __construct() {
-		if(is_null($this->show_in_name_menus)) $this->show_in_name_menus = $this->public;
-		if(is_null($this->show_ui)) $this->show_ui = $this->public;
-		if(is_null($this->show_tagcloud)) $this->show_tagcloud = $this->show_ui;
-		if(is_null($this->menu_name)) $this->menu_name = $this->general_name;
+		if( is_null( $this->show_in_name_menus ) ) $this->show_in_name_menus = $this->public;
+		if( is_null( $this->show_ui ) ) $this->show_ui = $this->public;
+		if( is_null( $this->show_tagcloud ) ) $this->show_tagcloud = $this->show_ui;
+		if( is_null( $this->menu_name ) ) $this->menu_name = $this->general_name;
 	}
 
-	public function options($key){
-		$vars = get_object_vars($this);
+	public function options( $key ) {
+		$vars = get_object_vars( $this );
 		return $vars[$key];
 	}
 
 	public function labels() {
 		return Array(
-				'name'                       => _x($this->options('general_name'), 'taxonomy general name'),
-				'singular_name'              => _x($this->options('singular_name'), 'taxonomy singular name'),
-				'search_items'               => __($this->options('search_items')),
-				'popular_items'              => __($this->options('popular_items')),
-				'all_items'                  => __($this->options('all_items')),
-				'parent_item'                => __($this->options('popular_items')),
-				'parent_item_colon'          => __($this->options('parent_item_colon')),
-				'edit_item'                  => __($this->options('edit_item')),
-				'update_item'                => __($this->options('update_item')),
-				'add_new_item'               => __($this->options('add_new_item')),
-				'new_item_name'              => __($this->options('new_item_name')),
-				'separate_items_with_commas' => __($this->options('separate_items_with_commas')),
-				'add_or_remove_items'        => __($this->options('add_or_remove_items')),
-				'choose_from_most_used'      => __($this->options('choose_from_most_used')),
-				'menu_name'                  => __($this->options('menu_name'))
-				);
+				'name'                       => _x( $this->options( 'general_name' ), 'taxonomy general name' ),
+				'singular_name'              => _x( $this->options( 'singular_name' ), 'taxonomy singular name' ),
+				'search_items'               => __( $this->options( 'search_items') ),
+				'popular_items'              => __( $this->options( 'popular_items') ),
+				'all_items'                  => __( $this->options( 'all_items') ),
+				'parent_item'                => __( $this->options( 'popular_items') ),
+				'parent_item_colon'          => __( $this->options( 'parent_item_colon') ),
+				'edit_item'                  => __( $this->options( 'edit_item') ),
+				'update_item'                => __( $this->options( 'update_item') ),
+				'add_new_item'               => __( $this->options( 'add_new_item') ),
+				'new_item_name'              => __( $this->options( 'new_item_name') ),
+				'separate_items_with_commas' => __( $this->options( 'separate_items_with_commas') ),
+				'add_or_remove_items'        => __( $this->options( 'add_or_remove_items') ),
+				'choose_from_most_used'      => __( $this->options( 'choose_from_most_used') ),
+				'menu_name'                  => __( $this->options( 'menu_name' ) )
+			);
 	}
 
 	public function register() {
 		$args = Array(
 				'labels'                => $this->labels(),
-				'public'                => $this->options('public'),
-				'show_in_nav_menus'     => $this->options('show_in_nav_menus'),
-				'show_ui'               => $this->options('show_ui'),
-				'show_tagcloud'         => $this->options('show_tagcloud'),
-				'hierarchical'          => $this->options('hierarchical'),
-				'update_count_callback' => $this->options('update_count_callback'),
-				'rewrite'               => $this->options('rewrite'),
-				'query_var'             => $this->options('query_var'),
-				'capabilities'          => $this->options('capabilities')
+				'public'                => $this->options( 'public' ),
+				'show_in_nav_menus'     => $this->options( 'show_in_nav_menus' ),
+				'show_ui'               => $this->options( 'show_ui' ),
+				'show_tagcloud'         => $this->options( 'show_tagcloud' ),
+				'hierarchical'          => $this->options( 'hierarchical' ),
+				'update_count_callback' => $this->options( 'update_count_callback' ),
+				'rewrite'               => $this->options( 'rewrite' ),
+				'query_var'             => $this->options( 'query_var' ),
+				'capabilities'          => $this->options( 'capabilities' )
 			);
-		register_taxonomy($this->options('name'), $this->options('object_type'), $args);
+		register_taxonomy( $this->options( 'name' ), $this->options( 'object_type' ), $args );
 	}
 }
 
@@ -91,7 +91,7 @@ abstract class CustomTaxonomy {
  * @package default
  * @author Chris Conover
  **/
-class Experts extends CustomTaxonomy{
+class Experts extends CustomTaxonomy {
 	public
 		$name				= 'experts',
 		$general_name		= 'Post Experts',
@@ -115,7 +115,7 @@ class Experts extends CustomTaxonomy{
  * @package default
  * @author Chris Conover
  **/
-class Groups extends CustomTaxonomy{
+class Groups extends CustomTaxonomy {
 	public
 		$name				= 'groups',
 		$general_name		= 'Post Groups',
@@ -139,7 +139,7 @@ class Groups extends CustomTaxonomy{
  * @package default
  * @author RJ Bruneel
  **/
-class Sources extends CustomTaxonomy{
+class Sources extends CustomTaxonomy {
 
 	public
 		$name				= 'sources',
