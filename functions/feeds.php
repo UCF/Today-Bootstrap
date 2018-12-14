@@ -108,7 +108,7 @@ function display_announcements( $param, $value, $header='h3', $css ) {
 					<?php endforeach; ?>
 				</ul>
 			</div>
-			<?
+			<?php
 			$html = ob_get_contents();
 			set_transient( $feed, $html, ANNOUNCE_CACHE_DURATION );
 			ob_end_clean();
@@ -144,7 +144,5 @@ function get_announcements( $param, $value ) {
 		$announcements = json_decode( $raw_announcements, true );
 		return $announcements;
 	}
-	else { return NULL; }
+	else { return null; }
 }
-
-?>
