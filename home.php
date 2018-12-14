@@ -1,14 +1,14 @@
-<?php disallow_direct_load('home.php'); ?>
+<?php disallow_direct_load( 'home.php' ); ?>
 <?php get_header(); ?>
 <?php
 	$use_page = false;
-	$page = get_page_by_title('Home');
-	if ($page !== null) {
+	$page = get_page_by_title( 'Home' );
+	if ( $page !== null ) {
 		$use_page = $page->post_content !== '' ? true : false;
 	}
  ?>
 <div class="row page-content" id="home">
-	<? if($use_page == true) { ?>
+	<? if( $use_page === true ) { ?>
 		<?php echo apply_filters( 'the_content', $page->post_content ) ?>
 	<?php
 		} else { ?>
