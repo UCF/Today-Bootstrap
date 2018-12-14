@@ -1641,7 +1641,7 @@ function _show_meta_boxes( $post, $meta_box ) {
 				<?php if ( $document ) : ?>
 				<a href="<?php echo $url; ?>"><?php echo $document->post_title; ?></a><br /><br />
 				<?php endif;?>
-				<input type="file" id="file_<?php echo $post->ID; ?>" name="<?php echo field['id']; ?>"><br />
+				<input type="file" id="file_<?php echo $post->ID; ?>" name="<?php echo $field['id']; ?>"><br />
 
 			<?php break; case 'note':?>
 				<?php echo $current_value; ?>
