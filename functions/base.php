@@ -1143,7 +1143,7 @@ function opengraph_setup() {
 	$options = get_option( THEME_OPTIONS_NAME );
 
 	if ( ! (bool)$options['enable_og'] ) return;
-	if ( is_search() ) return}
+	if ( is_search() ) return;
 
 	global $post, $page;
 	setup_postdata( $post );
