@@ -670,7 +670,7 @@ function get_featured_image_url( $post ) {
 	if( has_post_thumbnail( $post ) && ( $thumbnail_id = get_post_thumbnail_id( $post ) ) && ( $image = wp_get_attachment_image_src( $thumbnail_id ) ) ) {
 		return $image[0];
 	}
-	return False;
+	return false;
 }
 
 
@@ -919,7 +919,7 @@ function sc_object_list( $attrs, $options = array() ) {
 	$default_options = array(
 		'default_content' => null,
 		'sort_func' => null,
-		'objects_only' => False
+		'objects_only' => false
 	);
 
 	extract( array_merge( $default_options, $options ) );
