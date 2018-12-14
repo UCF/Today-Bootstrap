@@ -50,7 +50,7 @@
 
 		<?php
 		// START custom page stylesheet
-		$post_type = get_post_type($post->ID);
+		$post_type = get_post_type( $post->ID );
 
 		if (
 			( $stylesheet_id = get_post_meta( $post->ID, $post_type.'_stylesheet', True ) ) !== False
