@@ -12,7 +12,8 @@
 	<div class="subpage">
 	<?php if ( $use_page == true ) {
 		echo apply_filters( 'the_content', $page->post_content );
-	} else { ?>
+	} else {
+	?>
 		<div class="row">
 			<div class="span9 border-right">
 				<h1 class="term-heading"><?php single_tag_title(); ?></h1>
