@@ -1269,7 +1269,7 @@ function header_title() {
 		$content = single_post_title( '', false );
 	}
 	elseif ( is_home() || is_front_page() ) {
-		$content = get_bloginfo( 'name' s);
+		$content = get_bloginfo( 'name' );
 	}
 	elseif ( is_page() ) {
 		$content = single_post_title( '', false );
@@ -1621,7 +1621,7 @@ function _show_meta_boxes( $post, $meta_box ) {
 
 			<?php break; case 'radio':?>
 				<?php foreach ( $field['options'] as $k => $v) : ?>
-				<label for="<?php echo $field['id']; ?>_<?php echo slug( $k, '_' ); ?>"><?php echop $k; ?></label>
+				<label for="<?php echo $field['id']; ?>_<?php echo slug( $k, '_' ); ?>"><?php echo $k; ?></label>
 				<input type="radio" name="<?php echo $field['id']; ?>" id="<?php echo $field['id']; ?>_<?php echo slug( $k, '_' ); ?>" value="<?php echo $v; ?>"<?php echo ( $current_value === $v ) ? ' checked="checked"' : ''; ?> />
 				<?php endforeach; ?>
 
