@@ -65,16 +65,16 @@ if ( have_posts() ) {
 
 	$json = json_encode( $json );
 
-	header("Content-Type: application/json; charset={$charset}");
-	header("Access-Control-Allow-Origin: *");
-	header("Access-Control-Allow-Methods: GET");
+	header( "Content-Type: application/json; charset={$charset}" );
+	header( "Access-Control-Allow-Origin: *" );
+	header( "Access-Control-Allow-Methods: GET" );
 	echo $json;
 } else {
 	$json = json_encode( array() );
 
-	header("Content-Type: application/json; charset={$charset}");
-	header("Access-Control-Allow-Origin: *");
-	header("Access-Control-Allow-Methods: GET");
+	header( "Content-Type: application/json; charset={$charset}" );
+	header( "Access-Control-Allow-Origin: *" );
+	header( "Access-Control-Allow-Methods: GET" );
 	echo $json;
 }
 
