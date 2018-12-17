@@ -19,7 +19,7 @@ function display_events( $header='h2', $css=null ) {
 	$events  = get_events( $start, $limit );
 
 	ob_start();
-	if( $events !== NULL && count( $events ) ):
+	if ( $events !== NULL && count( $events ) ):
 	?>
 		<div class="events <?php echo $css; ?>">
 			<<?php echo $header; ?>>Events @ UCF</<?php echo $header; ?>>
@@ -92,7 +92,7 @@ function display_announcements( $param, $value, $header='h3', $css ) {
 		return $html;
 	} else {
 		$json = get_announcements( $param, $value );
-		if( ! empty( $json ) ) {
+		if ( ! empty( $json ) ) {
 			ob_start();
 		?>
 			<div class="<?php echo $css; ?>" id="announcements">

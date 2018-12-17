@@ -31,7 +31,7 @@ $video_url = get_video_url( $post->ID );
 				<?php endif; ?>
 				<?php echo do_shortcode( '[feature_post_meta css="clearfix"]' ); ?>
 			</div>
-			<?php if( $video_url != '' ) : ?>
+			<?php if ( $video_url != '' ) : ?>
 				<?php echo $wp_embed->run_shortcode( '[embed width="550" height="500"]' . $video_url . '[/embed]' ); ?>
 			<?php else : ?>
 			<div class="feature-story-image">

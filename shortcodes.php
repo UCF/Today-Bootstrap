@@ -28,18 +28,18 @@ function sc_post_type_search( $params=array(), $content='' ) {
 	$params['column_count']        = is_numeric( $params['column_count'] ) ? (int)$params['column_count'] : $defaults['column_count'];
 	$params['show_sorting']        = (bool)$params['show_sorting'];
 
-	if( ! in_array( $params['default_sorting'], array( ' term', 'alpha' ) ) ) {
+	if ( ! in_array( $params['default_sorting'], array( ' term', 'alpha' ) ) ) {
 		$params['default_sorting'] = $default['default_sorting'];
 	}
 
 	// Resolve the post type class
-	if( is_null( $post_type_class = get_custom_post_type( $params['post_type_name'] ) ) ) {
+	if ( is_null( $post_type_class = get_custom_post_type( $params['post_type_name'] ) ) ) {
 		return '<p>Invalid post type.</p>';
 	}
 	$post_type = new $post_type_class;
 
 	// Set default search text if the user didn't
-	if( ! isset( $params['default_search_text'] ) ) {
+	if ( ! isset( $params['default_search_text'] ) ) {
 		$params['default_search_text'] = 'Find a ' . $post_type->singular_name;
 	}
 
@@ -55,7 +55,7 @@ function sc_post_type_search( $params=array(), $content='' ) {
 	}
 	?>
 	<script type="text/javascript">
-		if( typeof PostTypeSearchDataManager != 'undefined' ) {
+		if ( typeof PostTypeSearchDataManager != 'undefined' ) {
 			PostTypeSearchDataManager.register( new PostTypeSearchData(
 				<?php echo json_encode( $params['column_count'] ); ?>,
 				<?php echo json_encode( $params['column_width'] ); ?>,
@@ -106,9 +106,9 @@ function sc_post_type_search( $params=array(), $content='' ) {
 	}
 	ksort( $by_alpha );
 
-	if( $params['show_empty_sections'] ) {
+	if ( $params['show_empty_sections'] ) {
 		foreach( range( 'a', 'z' ) as $letter ) {
-			if( ! isset( $by_alpha[strtoupper( $letter )] ) ) {
+			if ( ! isset( $by_alpha[strtoupper( $letter )] ) ) {
 				$by_alpha[strtoupper( $letter )] = array();
 			}
 		}
@@ -141,12 +141,12 @@ function sc_post_type_search( $params=array(), $content='' ) {
 		$hide = false;
 		switch( $id ) {
 			case 'post-type-search-alpha':
-				if( $params['default_sorting'] == 'term' ) {
+				if ( $params['default_sorting'] == 'term' ) {
 					$hide = true;
 				}
 				break;
 			case 'post-type-search-term':
-				if( $params['default_sorting'] == 'alpha' ) {
+				if ( $params['default_sorting'] == 'alpha' ) {
 					$hide = true;
 				}
 				break;
@@ -249,7 +249,7 @@ function sc_feature( $atts = array(), $id_only = false )
 
 		global $wp_query;
 
-		if( is_category() ) {
+		if ( is_category() ) {
 			$resolve_atts = array( 'category' => $wp_query->queried_object->slug );
 		} elseif ( is_tag() ) {
 			$resolve_atts = array( 'tag' => $wp_query->queried_object->slug );
@@ -262,7 +262,7 @@ function sc_feature( $atts = array(), $id_only = false )
 			array( 'numberposts' => 1 )
 		);
 
-		if( $id_only ) return $top_feature->ID;
+		if ( $id_only ) return $top_feature->ID;
 
 		$feature_media_attachment = get_img_html( $top_feature->ID, 'subpage_feature', array( 'return_id' => true ) );
 		$attachment_url = wp_get_attachment_image_src( $feature_media_attachment['attachment_id'], 'subpage_feature' );
@@ -311,7 +311,7 @@ function sc_ucf_news( $atts = array() )
 
 	$resolve_params = array();
 
-	if( is_front_page() ) {
+	if ( is_front_page() ) {
 		/*
 			It's currently not possible to select posts that aren't
 			marked as promotional or featured using meta_query. I think this
@@ -366,7 +366,7 @@ function sc_ucf_news( $atts = array() )
 
 	# Category and tag pages have a top story. Don't allow the top story
 	# to also show up in the More Headlines sections below it.
-	if( ! isset( $resolve_params['exclude'] ) && ( is_category() || is_tag() ) ) {
+	if ( ! isset( $resolve_params['exclude'] ) && ( is_category() || is_tag() ) ) {
 		$resolve_params['exclude'] = array_merge( array( sc_feature( array(), true ) ), sc_subpage_features( array(), true ) );
 	}
 
@@ -484,7 +484,7 @@ function sc_more_headlines( $atts = array() )
 
 	# Category and tag pages have a top story. Don't allow the top story
 	# to also show up in the More Headlines sections below it.
-	if( ! isset( $resolve_params['exclude'] ) && ( is_category() || is_tag() ) ) {
+	if ( ! isset( $resolve_params['exclude'] ) && ( is_category() || is_tag() ) ) {
 		$resolve_params['exclude'] = array_merge( array( sc_feature( array(), true ) ), sc_subpage_features( array(), true ) );
 	}
 
@@ -533,7 +533,7 @@ function sc_ucf_photo( $atts = array() )
 
 	$photosets = resolve_posts( $atts, array( 'post_type' => 'photoset', 'numberposts' => 4 ) );
 
-	if( count( $photosets ) > 0 ) {
+	if ( count( $photosets ) > 0 ) {
 		$first = true;
 		ob_start();
 		?>
@@ -552,7 +552,7 @@ function sc_ucf_photo( $atts = array() )
 			if ( $first ) :
 				$first = false;
 
-				if( $front_page ) {
+				if ( $front_page ) {
 					$image_html = get_img_html( $photoset->ID, 'ucf_photo' );//wp_get_attachment_image_src($first_image->ID, 'ucf_photo');
 				} else {
 					$image_html = get_img_html( $photoset->ID, 'ucf_photo_subpage' );
@@ -598,13 +598,13 @@ function sc_ucf_video( $atts = array() )
 	if ( is_category() ) $atts['category'] = $wp_query->queried_object->slug;
 	if ( is_tag() ) $atts['tag'] = $wp_query->queried_object->slug;
 
-	if( is_front_page() ) {
+	if ( is_front_page() ) {
 		$video =  resolve_posts( $atts, array( 'post_type' => 'video', 'meta_key' => 'video_main_page', 'meta_value' => 'on' ) );
 	} else {
 		$video =  resolve_posts( $atts, array( 'post_type' => 'video' ) );
 	}
 
-	if( $video !== false ) {
+	if ( $video !== false ) {
 		$video_url = get_video_url( $video->ID );
 		if ( $video_url != '' ) {
 			$embed_string = '[embed width="' . $width . '" ' . ( $height != '' ? 'height="' . $height . '"' : '' ) . ']' . $video_url . '[/embed]';
@@ -1533,7 +1533,7 @@ function sc_feature_post_meta( $atts = array() ) {
 	<div class="<?php echo $css; ?>" id="meta">
 		<div>
 			<p id="byline-date">By <?php echo $byline; ?> <span class="hidden-mobile">|</span><br class="visible-mobile"> <?php echo date( 'F j, Y', strtotime( $post->post_date ) ); ?></p>
-			<?php if( $updated_date ) : ?>
+			<?php if ( $updated_date ) : ?>
 				<p class="updated-date"><strong>Updated</strong> <?php echo date( 'F j, Y', strtotime( $updated_date ) ); ?></p>
 			<?php endif; ?>
 		</div>

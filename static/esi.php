@@ -1,9 +1,9 @@
 <?php
 require_once( '../../../../wp-blog-header.php' );
 
-if( isset( $_GET['statement'] ) ) {
+if ( isset( $_GET['statement'] ) ) {
 	$statementkey = (int)$_GET['statement']; // force int
-	if( array_key_exists( $statementkey, Config::$esi_whitelist ) ) {
+	if ( array_key_exists( $statementkey, Config::$esi_whitelist ) ) {
 		$argset 		= $_GET['args'] ? base64_decode( $_GET['args'] ) : null; // args passed here are not serialized
 		$print_results 	= $_GET['print_results'] == '0' ? false : true;
 		$statementname 	= Config::$esi_whitelist[$statementkey]['name'];

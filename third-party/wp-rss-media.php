@@ -80,7 +80,7 @@ function mrss_item() {
 	# it isn't tied to the post as a traditional attachment. Rather
 	# a  _thumbnail_id entry is inserted into the postmeta table noting
 	# the attachment ID of the media post.
-	if( ( $thumbnail_id = get_post_meta( $post->ID, '_thumbnail_id', true ) ) !== false &&
+	if ( ( $thumbnail_id = get_post_meta( $post->ID, '_thumbnail_id', true ) ) !== false &&
 		$thumbnail_id != '' &&
 		!is_null( $thumbnail_post = get_post( $thumbnail_id ) ) &&
 		in_array( $thumbnail_post->post_mime_type, $valid_mime_types ) ) {

@@ -37,10 +37,10 @@ abstract class CustomTaxonomy {
 		$capabilities          = Array();
 
 	function __construct() {
-		if( is_null( $this->show_in_name_menus ) ) $this->show_in_name_menus = $this->public;
-		if( is_null( $this->show_ui ) ) $this->show_ui = $this->public;
-		if( is_null( $this->show_tagcloud ) ) $this->show_tagcloud = $this->show_ui;
-		if( is_null( $this->menu_name ) ) $this->menu_name = $this->general_name;
+		if ( is_null( $this->show_in_name_menus ) ) $this->show_in_name_menus = $this->public;
+		if ( is_null( $this->show_ui ) ) $this->show_ui = $this->public;
+		if ( is_null( $this->show_tagcloud ) ) $this->show_tagcloud = $this->show_ui;
+		if ( is_null( $this->menu_name ) ) $this->menu_name = $this->general_name;
 	}
 
 	public function options( $key ) {

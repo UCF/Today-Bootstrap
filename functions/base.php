@@ -667,7 +667,7 @@ function get_custom_post_type( $name ) {
 * @author Chris Conover
 **/
 function get_featured_image_url( $post ) {
-	if( has_post_thumbnail( $post ) && ( $thumbnail_id = get_post_thumbnail_id( $post ) ) && ( $image = wp_get_attachment_image_src( $thumbnail_id ) ) ) {
+	if ( has_post_thumbnail( $post ) && ( $thumbnail_id = get_post_thumbnail_id( $post ) ) && ( $image = wp_get_attachment_image_src( $thumbnail_id ) ) ) {
 		return $image[0];
 	}
 	return false;
@@ -954,10 +954,10 @@ function sc_object_list( $attrs, $options = array() ) {
 	$class = new $class;
 
 	# Use post type specified ordering?
-	if( ! isset( $attrs['orderby'] ) && ! is_null( $class->default_orderby ) ) {
+	if ( ! isset( $attrs['orderby'] ) && ! is_null( $class->default_orderby ) ) {
 		$params['orderby'] = $class->orderby;
 	}
-	if( ! isset( $attrs['order'] ) && ! is_null( $class->default_order ) ) {
+	if ( ! isset( $attrs['order'] ) && ! is_null( $class->default_order ) ) {
 		$params['order'] = $class->default_order;
 	}
 
@@ -1193,7 +1193,7 @@ function opengraph_setup() {
 		array( 'property' => 'og:description', 'content' => $description ),
 	);
 
-    if( is_tag() || is_category() ) {
+    if ( is_tag() || is_category() ) {
         $metas[] = array( 'name' => 'description', 'content' => $description );
     }
 
@@ -1302,7 +1302,7 @@ function header_title() {
 		$content .= get_query_var( 'paged' );
 	}
 
-	if( $content ) {
+	if ( $content ) {
 		if ( is_home() || is_front_page() ) {
 			$elements = array(
 				'site_name' => $site_name,
@@ -1321,7 +1321,7 @@ function header_title() {
 	}
 
 	// But if they don't, it won't try to implode
-	if( is_array( $elements ) ) {
+	if ( is_array( $elements ) ) {
 		$doctitle = implode( ' ', $elements );
 	}
 	else {

@@ -164,19 +164,19 @@ function gen_alerts_html()
 				$link_html = ( $link_text && $link_url ) ? "<a href=\"$link_url\">$link_text</a>" : '';
 
 				$thumbnail_id = get_post_thumbnail_id( $alert->ID );
-				if( $thumbnail_id != '' ) {
+				if ( $thumbnail_id != '' ) {
 					$thumbnail = wp_get_attachment_image_src( $thumbnail_id, 'alert' );
 					array_push( $li_inline_styles, 'background-image: url(' . $thumbnail[0] . ');' );
 				}
 
-				if( $bg_color != '' ) {
-					if( substr( $bg_color, 0, 1 ) != '#' ) {
+				if ( $bg_color != '' ) {
+					if ( substr( $bg_color, 0, 1 ) != '#' ) {
 						$bg_color = '#' . $bg_color;
 					}
 					array_push( $span_inline_styles, 'background-color: ' . $bg_color . ';' );
 				}
-				if( $text_color != '' ) {
-					if( substr( $text_color, 0, 1 ) != '#' ) {
+				if ( $text_color != '' ) {
+					if ( substr( $text_color, 0, 1 ) != '#' ) {
 						$text_color = '#' . $text_color;
 					}
 					array_push( $span_inline_styles, 'color: ' . $text_color . ';' );
@@ -219,14 +219,14 @@ function get_img_html( $post_id, $size = 'thumbnail', $options = array() )
 	$org_size = $size;
 	$img_alttext = get_the_title( $post_id );
 
-	if( $sent_attach ) {
+	if ( $sent_attach ) {
 		$attach_id = $post_id;
 	} else {
 
 		$attach_id 	= get_post_thumbnail_id( $post_id );
 
 		// Look for image attachments that aren't featured images
-		if( $attach_id === '' ) {
+		if ( $attach_id === '' ) {
 			$attachments = get_posts(
 				array(
 					'post_type' => 'attachment',
@@ -303,7 +303,7 @@ function resolve_posts( $atts, $args = array(), $filters = true, $strip_tags = t
 								'offset' => 0,
 								'post_type' => 'post' ), $args );
 
-	if( $tag !== false ) {
+	if ( $tag !== false ) {
 		$posts = get_posts( array_merge( $args, array( 'tag' => $tag ) ) );
 	} elseif ( $category !== false ) {
 		$posts = get_posts( array_merge( $args, array( 'category_name' => $category ) ) );
@@ -322,11 +322,11 @@ function resolve_posts( $atts, $args = array(), $filters = true, $strip_tags = t
 			)
 		);
 	}
-	if( ! isset( $posts ) || count( $posts ) == 0) {
+	if ( ! isset( $posts ) || count( $posts ) == 0) {
 		$posts = get_posts( $args );
 	}
 
-	if( $filters && $strip_tags ) {
+	if ( $filters && $strip_tags ) {
 		array_walk( $posts, create_function( '&$p', 'return "";' ) );
 	} elseif ( $filters ) {
 		array_walk( $posts, create_function( '$p', 'return apply_filters("the_content", $p->post_content);' ) );
@@ -364,7 +364,7 @@ function get_excerpt( $post, $hl_term = '' )
 {
 	setup_postdata( $post );
 
-	if( $hl_term != '' ) {
+	if ( $hl_term != '' ) {
 		$stripped_content = strip_tags( $post->post_content );
 		if ( ( $term_loc = stripos( $stripped_content, $hl_term ) ) !== false ) {
 			// Get the actual term to preserve capitalization
@@ -382,7 +382,7 @@ function get_excerpt( $post, $hl_term = '' )
 		}
 	}
 
-	if( $post->post_excerpt != '' ) {
+	if ( $post->post_excerpt != '' ) {
 		return strip_tags( $post->post_excerpt );
 	}
 	return strip_tags( get_the_excerpt() );
@@ -405,7 +405,7 @@ function mainsite_tag_exists( $post_id )
 	$tags = wp_get_post_tags( $post_id );
 
 	foreach( $tags as $tag ) {
-		if( $tag->slug == MAINSITE_TAG_SLUG ) {
+		if ( $tag->slug == MAINSITE_TAG_SLUG ) {
 			$mainsite_tag_existed = true;
 		}
 	}
@@ -428,26 +428,26 @@ function check_mainsite_tag( $post_id )
 
 	$mainsite_tag = get_mainsite_tag();
 
-	if( $mainsite_tag !== false ) {
+	if ( $mainsite_tag !== false ) {
 
 		$post_tags = wp_get_post_tags( $post_id );
 		$mainsite_tag_exists = false;
 		foreach( $post_tags as $tag ) {
-			if( $tag->slug == MAINSITE_TAG_SLUG ) {
+			if ( $tag->slug == MAINSITE_TAG_SLUG ) {
 				$mainsite_tag_exists = true;
 				break;
 			}
 		}
 
-		if( ! in_array( 'administrator', $roles ) && ! in_array( 'editor', $roles ) ) {
+		if ( ! in_array( 'administrator', $roles ) && ! in_array( 'editor', $roles ) ) {
 
 			// Maintsite tag was added
-			if( $mainsite_tag_exists && ! $mainsite_tag_existed ) {
+			if ( $mainsite_tag_exists && ! $mainsite_tag_existed ) {
 				// Remove it
 
 				$new_tags = array();
 				foreach( $post_tags as $tag ) {
-					if( $tag->term_id != $mainsite_tag->term_id ) {
+					if ( $tag->term_id != $mainsite_tag->term_id ) {
 						array_push( $new_tags, $tag->name );
 					}
 				}
@@ -676,7 +676,7 @@ add_action( 'template_redirect', 'kill_unused_templates' );
  **/
 function filter_media_comment_status( $open, $post_id ) {
 	$post = get_post( $post_id );
-	if( $post->post_type == 'attachment' ) {
+	if ( $post->post_type == 'attachment' ) {
 		return false;
 	}
 	return $open;
@@ -702,7 +702,7 @@ function esi_include( $statementname, $argset=null, $print_results=false ) {
 	// Never include ESI over HTTPS
 	$enable_esi = get_theme_option( 'enable_esi' );
 
-	if( ! is_null( $enable_esi ) && $enable_esi === '1' && is_ssl() == false ) {
+	if ( ! is_null( $enable_esi ) && $enable_esi === '1' && is_ssl() == false ) {
 		$argset = ( $argset !== null ) ? $argset = '&args=' . urlencode( base64_encode( $argset ) ) : '';
 		$print_results = ( $print_results === false ) ? '0' : '1'; // whether or not to print results instead of return
 		?>
@@ -1082,7 +1082,7 @@ function display_external_stories_list_item( $story_id, $show_description ) {
 	$story_text = get_post_meta( $story_id, 'externalstory_text', true );
 	$source_name = wp_get_post_terms( $story_id, 'sources' );
 
-	if( !empty( $source_name ) ) {
+	if ( !empty( $source_name ) ) {
 		$story_source = $source_name[0]->name;
 	} else {
 		$story_source = get_post_meta( $story_id, 'externalstory_source', true );
