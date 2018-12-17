@@ -274,7 +274,7 @@ function get_img_html( $post_id, $size = 'thumbnail', $options = array() )
 		}
 
 	 	$html = ( isset( $thumb[0] ) ) ? '<img src="' . $thumb[0] . '" ' . $element_id . 'width="' . $dims['width'] . '" height="' . $dims['height'] . '" alt="' . $img_alttext . '" />' : '';
-	} else if ( $org_size != 'story_feature' ) {
+	} elseif ( $org_size != 'story_feature' ) {
 		$html = '<img src="' . get_bloginfo( 'stylesheet_directory' ) . '/static/img/no-photo.png" ' . $element_id . ' alt="' . $img_alttext . '" />';
 	}
 
@@ -305,9 +305,9 @@ function resolve_posts( $atts, $args = array(), $filters = true, $strip_tags = t
 
 	if( $tag !== false ) {
 		$posts = get_posts( array_merge( $args, array( 'tag' => $tag ) ) );
-	} else if ( $category !== false ) {
+	} elseif ( $category !== false ) {
 		$posts = get_posts( array_merge( $args, array( 'category_name' => $category ) ) );
-	} else if ( $home_page !== false ) {
+	} elseif ( $home_page !== false ) {
 		$posts = get_posts(
 			array_merge(
 				$args,
@@ -328,9 +328,9 @@ function resolve_posts( $atts, $args = array(), $filters = true, $strip_tags = t
 
 	if( $filters && $strip_tags ) {
 		array_walk( $posts, create_function( '&$p', 'return "";' ) );
-	} else if ( $filters ) {
+	} elseif ( $filters ) {
 		array_walk( $posts, create_function( '$p', 'return apply_filters("the_content", $p->post_content);' ) );
-	} else if ( $strip_tags ) {
+	} elseif ( $strip_tags ) {
 		array_walk( $posts, create_function( '$p', 'return strip_tags("the_content", $p->post_content);' ) );
 	}
 
@@ -454,7 +454,7 @@ function check_mainsite_tag( $post_id )
 				wp_set_post_tags( $post_id, implode( ',', $new_tags ) );
 				wp_die( '<div style="background-color:#FF0000;border:1px solid #FF0000;padding:15px;color: #FFF;">Only adminstrators or editors can add the Main Site Stories tag to a post.</div>' );
 			// Mainsite tag we removed
-			} else if ( ! $mainsite_tag_exists && $mainsite_tag_existed) {
+			} elseif ( ! $mainsite_tag_exists && $mainsite_tag_existed) {
 				// Add it
 				wp_set_post_tags( $post_id, $mainsite_tag->name, true );
 				wp_die( '<div style="background-color:#FF0000;border:1px solid #FF0000;padding:15px;color: #FFF;">Only adminstrators or editors can remove the Main Site Stories tag from a post.</div>' );
@@ -783,9 +783,9 @@ add_filter( 'embed_oembed_html', 'protocol_relative_oembed' );
 function video_embed_html( $html, $url ) {
 	if ( strpos( $url, 'youtube.com' ) !== false || strpos( $url, 'youtu.be' ) !== false ) {
 		return '<div class="video-container">' . $html . '</div>';
-	} else if ( strpos( $url, 'facebook.com' ) !== false ) {
+	} elseif ( strpos( $url, 'facebook.com' ) !== false ) {
 		return '<div class="text-center">' . $html . '</div>';
-	} else if ( strpos( $url, 'twitter.com' ) !== false
+	} elseif ( strpos( $url, 'twitter.com' ) !== false
 		|| strpos( $url, 'instagram.com' ) !== false ) {
 		return '<div class="centered-embed">' . $html . '</div>';
 	} else {

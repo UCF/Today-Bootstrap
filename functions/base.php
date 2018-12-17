@@ -500,7 +500,7 @@ function bootstrap_menus() {
 				//display this element
 				if ( is_array( $args[0] ) )
 					$args[0]['has_children'] = ! empty( $children_elements[$element->$id_field] );
-				else if ( is_object( $args[0] ) )
+				elseif ( is_object( $args[0] ) )
 					$args[0]->has_children = ! empty( $children_elements[$element->$id_field] );
 				$cb_args = array_merge( array( &$output, $element, $depth ), $args );
 				call_user_func_array( array( &$this, 'start_el' ), $cb_args );
