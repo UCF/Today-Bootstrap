@@ -4,9 +4,9 @@
  * Adds the GMUCF Email options page if
  * ACF Pro is installed
  */
-if ( function_exists('acf_add_options_page') ) {
+if ( function_exists( 'acf_add_options_page' ) ) {
 
-	acf_add_options_page(array(
+	acf_add_options_page( array(
 		'page_title' 	  => 'GMUCF Email',
 		'post_id'         => 'gmucf_options',
 		'menu_title'	  => 'GMUCF Email',
@@ -15,7 +15,7 @@ if ( function_exists('acf_add_options_page') ) {
 		'icon_url'        => 'dashicons-email-alt',
 		'redirect'        => false,
 		'updated_message' => 'GMUCF Options Updated'
-	));
+	) );
 
 }
 

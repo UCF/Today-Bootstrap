@@ -32,9 +32,9 @@ function mrss_init() {
 	if ( isset( $_GET['mrss'] ) && $_GET['mrss'] == 'off' )
 		return;
 
-	add_action('rss2_ns', 'mrss_ns');
+	add_action( 'rss2_ns', 'mrss_ns' );
 
-	add_action('rss2_item', 'mrss_item', 10, 0);
+	add_action( 'rss2_item', 'mrss_item', 10, 0 );
 }
 
 function mrss_ns() {
@@ -80,9 +80,9 @@ function mrss_item() {
 	# it isn't tied to the post as a traditional attachment. Rather
 	# a  _thumbnail_id entry is inserted into the postmeta table noting
 	# the attachment ID of the media post.
-	if( ( $thumbnail_id = get_post_meta( $post->ID, '_thumbnail_id', true ) ) !== false &&
+	if ( ( $thumbnail_id = get_post_meta( $post->ID, '_thumbnail_id', true ) ) !== false &&
 		$thumbnail_id != '' &&
-		!is_null( $thumbnail_post = get_post( $thumbnail_id) ) &&
+		!is_null( $thumbnail_post = get_post( $thumbnail_id ) ) &&
 		in_array( $thumbnail_post->post_mime_type, $valid_mime_types ) ) {
 
 		$attachments = array_merge( $attachments, array( $thumbnail_post ) );
@@ -161,7 +161,7 @@ function mrss_item() {
 				$item['thumbnail']['attr']['type'] = $attachment->post_mime_type;
 			}
 		} else {
-			if ( !empty($img['thumbnail']) ) {
+			if ( !empty( $img['thumbnail'] ) ) {
 				$item['thumbnail']['attr']['url'] = $img['thumbnail'];
 			}
 		}

@@ -37,10 +37,10 @@ abstract class CustomTaxonomy {
 		$capabilities          = Array();
 
 	function __construct() {
-		if( is_null( $this->show_in_name_menus ) ) $this->show_in_name_menus = $this->public;
-		if( is_null( $this->show_ui ) ) $this->show_ui = $this->public;
-		if( is_null( $this->show_tagcloud ) ) $this->show_tagcloud = $this->show_ui;
-		if( is_null( $this->menu_name ) ) $this->menu_name = $this->general_name;
+		if ( is_null( $this->show_in_name_menus ) ) $this->show_in_name_menus = $this->public;
+		if ( is_null( $this->show_ui ) ) $this->show_ui = $this->public;
+		if ( is_null( $this->show_tagcloud ) ) $this->show_tagcloud = $this->show_ui;
+		if ( is_null( $this->menu_name ) ) $this->menu_name = $this->general_name;
 	}
 
 	public function options( $key ) {
@@ -52,18 +52,18 @@ abstract class CustomTaxonomy {
 		return Array(
 				'name'                       => _x( $this->options( 'general_name' ), 'taxonomy general name' ),
 				'singular_name'              => _x( $this->options( 'singular_name' ), 'taxonomy singular name' ),
-				'search_items'               => __( $this->options( 'search_items') ),
-				'popular_items'              => __( $this->options( 'popular_items') ),
-				'all_items'                  => __( $this->options( 'all_items') ),
-				'parent_item'                => __( $this->options( 'popular_items') ),
-				'parent_item_colon'          => __( $this->options( 'parent_item_colon') ),
-				'edit_item'                  => __( $this->options( 'edit_item') ),
-				'update_item'                => __( $this->options( 'update_item') ),
-				'add_new_item'               => __( $this->options( 'add_new_item') ),
-				'new_item_name'              => __( $this->options( 'new_item_name') ),
-				'separate_items_with_commas' => __( $this->options( 'separate_items_with_commas') ),
-				'add_or_remove_items'        => __( $this->options( 'add_or_remove_items') ),
-				'choose_from_most_used'      => __( $this->options( 'choose_from_most_used') ),
+				'search_items'               => __( $this->options( 'search_items' ) ),
+				'popular_items'              => __( $this->options( 'popular_items' ) ),
+				'all_items'                  => __( $this->options( 'all_items' ) ),
+				'parent_item'                => __( $this->options( 'popular_items' ) ),
+				'parent_item_colon'          => __( $this->options( 'parent_item_colon' ) ),
+				'edit_item'                  => __( $this->options( 'edit_item' ) ),
+				'update_item'                => __( $this->options( 'update_item' ) ),
+				'add_new_item'               => __( $this->options( 'add_new_item' ) ),
+				'new_item_name'              => __( $this->options( 'new_item_name' ) ),
+				'separate_items_with_commas' => __( $this->options( 'separate_items_with_commas' ) ),
+				'add_or_remove_items'        => __( $this->options( 'add_or_remove_items' ) ),
+				'choose_from_most_used'      => __( $this->options( 'choose_from_most_used' ) ),
 				'menu_name'                  => __( $this->options( 'menu_name' ) )
 			);
 	}

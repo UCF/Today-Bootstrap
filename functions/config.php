@@ -54,13 +54,13 @@ function __init__(){
 		'before_widget' => '<div id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</div>',
 	) );
-	foreach(Config::$styles as $style){Config::add_css($style);}
-	foreach(Config::$scripts as $script){Config::add_script($script);}
+	foreach( Config::$styles as $style ){Config::add_css( $style );}
+	foreach( Config::$scripts as $script ){Config::add_script( $script );}
 
 	global $timer;
 	$timer = Timer::start();
 
-	wp_deregister_script('l10n');
+	wp_deregister_script( 'l10n' );
 	set_defaults_for_options();
 }
 add_action( 'after_setup_theme', '__init__' );
@@ -83,7 +83,7 @@ define( 'THEME_OPTIONS_GROUP', 'settings' );
 define( 'THEME_OPTIONS_NAME', 'theme' );
 define( 'THEME_OPTIONS_PAGE_TITLE', 'Theme Options' );
 
-$theme_options = get_option(THEME_OPTIONS_NAME);
+$theme_options = get_option( THEME_OPTIONS_NAME );
 define( 'GA_ACCOUNT', $theme_options['ga_account'] );
 define( 'CB_UID', $theme_options['cb_uid'] );
 define( 'CB_DOMAIN', $theme_options['cb_domain'] );
@@ -307,7 +307,7 @@ Config::$theme_settings = array(
 
 Config::$links = array(
 	array( 'rel' => 'shortcut icon', 'href' => THEME_IMG_URL.'/favicon.ico', ),
-	array( 'rel' => 'alternate', 'type' => 'application/rss+xml', 'href' => get_bloginfo('rss_url'), ),
+	array( 'rel' => 'alternate', 'type' => 'application/rss+xml', 'href' => get_bloginfo( 'rss_url' ), ),
 );
 
 

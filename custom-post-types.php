@@ -232,7 +232,7 @@ abstract class CustomPostType {
 
 		ob_start();
 		?>
-		<ul class="<?php if( $css_classes ): ?><?php echo $css_classes; ?><?php else: ?><?php echo $class->options( 'name' ); ?>-list<?php endif; ?>">
+		<ul class="<?php if ( $css_classes ): ?><?php echo $css_classes; ?><?php else: ?><?php echo $class->options( 'name' ); ?>-list<?php endif; ?>">
 			<?php foreach( $objects as $o ): ?>
 			<li>
 				<?php echo $class->toHTML( $o ); ?>

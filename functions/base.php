@@ -210,7 +210,7 @@ class TextField extends Field {
 	function input_html(){
 		ob_start();
 	?>
-		<input type="<?php echo $this->type_attr; ?>" id="<?php echo htmlentities( $this->id ); ?>" name="<?php echo htmlentities( $this->id ); ?>" value="<?php echo htmlentities($this->value); ?>" />
+		<input type="<?php echo $this->type_attr; ?>" id="<?php echo htmlentities( $this->id ); ?>" name="<?php echo htmlentities( $this->id ); ?>" value="<?php echo htmlentities( $this->value ); ?>" />
 	<?php
 		return ob_get_clean();
 	}
@@ -250,7 +250,7 @@ class TextareaField extends Field {
 	function input_html() {
 		ob_start();
 	?>
-		<textarea id="<?php echo htmlentities($this->id); ?>" name="<?php echo htmlentities( $this->id ); ?>"><?php echo htmlentities( $this->value ); ?></textarea>
+		<textarea id="<?php echo htmlentities( $this->id ); ?>" name="<?php echo htmlentities( $this->id ); ?>"><?php echo htmlentities( $this->value ); ?></textarea>
 	<?php
 		return ob_get_clean();
 	}
@@ -269,7 +269,7 @@ class SelectField extends ChoicesField {
 	?>
 		<select name="<?php echo htmlentities( $this->id ); ?>" id="<?php echo htmlentities( $this->id ); ?>">
 		<?php foreach ( $this->choices as $key=>$value ) : ?>
-			<option value="<?php echo htmlentities( $value ); ?>"<?php echo ( $this->value === $value ) ? ' selected="selected"' : ''; ?>><?php echo htmlentities($key); ?></option>
+			<option value="<?php echo htmlentities( $value ); ?>"<?php echo ( $this->value === $value ) ? ' selected="selected"' : ''; ?>><?php echo htmlentities( $key ); ?></option>
 		<?php endforeach;?>
 		</select>
 	<?php
@@ -317,7 +317,7 @@ class CheckboxField extends ChoicesField {
 			<?php $checked = ( is_array( $this->value ) && in_array( $value, $this->value ) ); ?>
 			<li>
 				<input type="checkbox" name="<?php echo htmlentities( $this->id ); ?>[]" id="<?php echo $id; ?>" value="<?php echo htmlentities( $value ); ?>"<?php echo $checked ? ' checked="checked"' : ''; ?> />
-				<label for="<?php echo $id; ?>"><?php echo htmlentities($key); ?></label>
+				<label for="<?php echo $id; ?>"><?php echo htmlentities( $key ); ?></label>
 			</li>
 			<?php endforeach;?>
 		</ul>
@@ -417,7 +417,7 @@ function dump() {
  * @author Jared Lang
  **/
 function indent( $html, $n ){
-	$tabs = str_repeat( "\t", $n) ;
+	$tabs = str_repeat( "\t", $n ) ;
 	$html = explode( "\n", $html );
 	foreach( $html as $key=>$line ){
 		$html[$key] = $tabs.trim( $line );
@@ -459,8 +459,8 @@ function bootstrap_menus() {
 				$class_names = $value = '';
 
 				$classes = empty( $item->classes ) ? array() : (array) $item->classes;
-				$classes[] = ($args->has_children) ? 'dropdown' : '';
-				$classes[] = ($item->current || $item->current_item_ancestor) ? 'active' : '';
+				$classes[] = ( $args->has_children ) ? 'dropdown' : '';
+				$classes[] = ( $item->current || $item->current_item_ancestor ) ? 'active' : '';
 				$classes[] = 'menu-item-' . $item->ID;
 
 
@@ -471,7 +471,7 @@ function bootstrap_menus() {
 				$id = strlen( $id ) ? ' id="' . esc_attr( $id ) . '"' : '';
 
 				$output .= $indent . '<li' . $id . $value . $class_names . $li_attributes . '>';
-				if(strpos($class_names, 'menu-item-type-custom') !== false) {
+				if ( strpos( $class_names, 'menu-item-type-custom' ) !== false ) {
 					$output .= '<i class="pull-right close-icon">&times;</i>';
 				}
 
@@ -479,12 +479,12 @@ function bootstrap_menus() {
 				$attributes .= ! empty( $item->target )     ? ' target="' . esc_attr( $item->target     ) .'"' : '';
 				$attributes .= ! empty( $item->xfn )        ? ' rel="'    . esc_attr( $item->xfn        ) .'"' : '';
 				$attributes .= ! empty( $item->url )        ? ' href="'   . esc_attr( $item->url        ) .'"' : '';
-				$attributes .= ($args->has_children) 	    ? ' class="dropdown-toggle" data-toggle="dropdown"' : '';
+				$attributes .= ( $args->has_children ) 	    ? ' class="dropdown-toggle" data-toggle="dropdown"' : '';
 
 				$item_output = $args->before;
 				$item_output .= '<a'. $attributes .'>';
 				$item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
-				$item_output .= ($args->has_children) ? ' <b class="caret"></b></a>' : '</a>';
+				$item_output .= ( $args->has_children ) ? ' <b class="caret"></b></a>' : '</a>';
 				$item_output .= $args->after;
 
 				$output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
@@ -492,7 +492,7 @@ function bootstrap_menus() {
 
 			function display_element( $element, &$children_elements, $max_depth, $depth=0, $args, &$output ) {
 
-				if ( !$element )
+				if ( ! $element )
 					return;
 
 				$id_field = $this->db_fields['id'];
@@ -500,38 +500,38 @@ function bootstrap_menus() {
 				//display this element
 				if ( is_array( $args[0] ) )
 					$args[0]['has_children'] = ! empty( $children_elements[$element->$id_field] );
-				else if ( is_object( $args[0] ) )
+				elseif ( is_object( $args[0] ) )
 					$args[0]->has_children = ! empty( $children_elements[$element->$id_field] );
-				$cb_args = array_merge( array(&$output, $element, $depth), $args);
-				call_user_func_array(array(&$this, 'start_el'), $cb_args);
+				$cb_args = array_merge( array( &$output, $element, $depth ), $args );
+				call_user_func_array( array( &$this, 'start_el' ), $cb_args );
 
 				$id = $element->$id_field;
 
 				// descend only when the depth is right and there are childrens for this element
-				if ( ($max_depth == 0 || $max_depth > $depth+1 ) && isset( $children_elements[$id]) ) {
+				if ( ( $max_depth == 0 || $max_depth > $depth+1 ) && isset( $children_elements[$id] ) ) {
 
 					foreach( $children_elements[ $id ] as $child ){
 
-						if ( !isset($newlevel) ) {
+						if ( ! isset( $newlevel ) ) {
 							$newlevel = true;
 							//start the child delimiter
-							$cb_args = array_merge( array(&$output, $depth), $args);
-							call_user_func_array(array(&$this, 'start_lvl'), $cb_args);
+							$cb_args = array_merge( array( &$output, $depth ), $args );
+							call_user_func_array( array( &$this, 'start_lvl' ), $cb_args );
 						}
 						$this->display_element( $child, $children_elements, $max_depth, $depth + 1, $args, $output );
 					}
 						unset( $children_elements[ $id ] );
 				}
 
-				if ( isset($newlevel) && $newlevel ){
+				if ( isset( $newlevel ) && $newlevel ){
 					//end the child delimiter
-					$cb_args = array_merge( array(&$output, $depth), $args);
-					call_user_func_array(array(&$this, 'end_lvl'), $cb_args);
+					$cb_args = array_merge( array( &$output, $depth ), $args );
+					call_user_func_array( array( &$this, 'end_lvl' ), $cb_args );
 				}
 
 				//end this element
-				$cb_args = array_merge( array(&$output, $element, $depth), $args);
-				call_user_func_array(array(&$this, 'end_el'), $cb_args);
+				$cb_args = array_merge( array( &$output, $element, $depth ), $args );
+				call_user_func_array( array( &$this, 'end_el' ), $cb_args );
 
 			}
 
@@ -667,7 +667,7 @@ function get_custom_post_type( $name ) {
 * @author Chris Conover
 **/
 function get_featured_image_url( $post ) {
-	if( has_post_thumbnail( $post ) && ( $thumbnail_id = get_post_thumbnail_id( $post ) ) && ( $image = wp_get_attachment_image_src( $thumbnail_id ) ) ) {
+	if ( has_post_thumbnail( $post ) && ( $thumbnail_id = get_post_thumbnail_id( $post ) ) && ( $image = wp_get_attachment_image_src( $thumbnail_id ) ) ) {
 		return $image[0];
 	}
 	return false;
@@ -947,17 +947,17 @@ function sc_object_list( $attrs, $options = array() ) {
 	if ( ! in_array( strtoupper( $params['join'] ), array( 'AND', 'OR' ) ) ) {
 		return '<p class="error">Invalid join type, must be one of "and" or "or".</p>';
 	}
-	if ( null === ( $class = get_custom_post_type($params['type'] ) ) ) {
+	if ( null === ( $class = get_custom_post_type( $params['type'] ) ) ) {
 		return '<p class="error">Invalid post type.</p>';
 	}
 
 	$class = new $class;
 
 	# Use post type specified ordering?
-	if( ! isset( $attrs['orderby'] ) && ! is_null( $class->default_orderby ) ) {
+	if ( ! isset( $attrs['orderby'] ) && ! is_null( $class->default_orderby ) ) {
 		$params['orderby'] = $class->orderby;
 	}
-	if( ! isset( $attrs['order'] ) && ! is_null( $class->default_order ) ) {
+	if ( ! isset( $attrs['order'] ) && ! is_null( $class->default_order ) ) {
 		$params['order'] = $class->default_order;
 	}
 
@@ -976,7 +976,7 @@ function sc_object_list( $attrs, $options = array() ) {
 
 	foreach( $taxonomies as $tax ){
 		$terms = $params[$tax];
-		$terms = trim(preg_replace( '/\s+/', ' ', $terms ) );
+		$terms = trim( preg_replace( '/\s+/', ' ', $terms ) );
 		$terms = explode( ' ', $terms );
 
 		if ( array_key_exists( $tax, $translate ) ) {
@@ -1005,7 +1005,7 @@ function sc_object_list( $attrs, $options = array() ) {
 
 	global $post;
 	$objects = array();
-	while($query->have_posts()){
+	while( $query->have_posts() ){
 		$query->the_post();
 		$objects[] = $post;
 	}
@@ -1022,7 +1022,7 @@ function sc_object_list( $attrs, $options = array() ) {
 	}
 
 	if ( count( $objects ) ) {
-		$html = $class->objectsToHTML($objects, $params['class'] );
+		$html = $class->objectsToHTML( $objects, $params['class'] );
 	}else{
 		$html = $default_content;
 	}
@@ -1038,7 +1038,7 @@ function sc_object_list( $attrs, $options = array() ) {
  **/
 function set_defaults_for_options(){
 	$values  = get_option( THEME_OPTIONS_NAME );
-	if ($values === false or is_string( $values ) ) {
+	if ( $values === false or is_string( $values ) ) {
 		add_option( THEME_OPTIONS_NAME );
 		$values = array();
 	}
@@ -1166,7 +1166,7 @@ function opengraph_setup() {
 		$description = "UCF " . date( 'F Y', strtotime( $monthYear['year'] . '-' . $monthYear['mon'] . '-1' ) ) . " News Stories, articles, and events happening around the University of Central Florida. Orlando, Florida news and college news";
     } elseif ( is_category() ) {
         $description = single_cat_title( "Read all about ", false ) . " news at UCF Today - University of Central Florida";
-	} elseif (is_tag()) {
+	} elseif ( is_tag() ) {
         $description = single_tag_title( "Learn more about ", false ) . " news at UCF Today - University of Central Florida";
     } else {
 		ob_start();
@@ -1193,7 +1193,7 @@ function opengraph_setup() {
 		array( 'property' => 'og:description', 'content' => $description ),
 	);
 
-    if( is_tag() || is_category() ) {
+    if ( is_tag() || is_category() ) {
         $metas[] = array( 'name' => 'description', 'content' => $description );
     }
 
@@ -1273,13 +1273,13 @@ function header_title() {
 	}
 	elseif ( is_page() ) {
 		$content = single_post_title( '', false );
-		if ($content == "News Archive" ) {
+		if ( $content == "News Archive" ) {
 			$monthYear = _getArchiveMonthYear();
 			$content = "UCF News Archive - UCF News, Orlando FL News, " . date( 'F Y', strtotime( $monthYear['year'] . '-' . $monthYear['mon'] . '-1' ) );
 		}
 	}
 	elseif ( is_search() ) {
-		$content = esc_html(stripslashes( get_search_query() ) );
+		$content = esc_html( stripslashes( get_search_query() ) );
 		$content .= ' - '.__( 'Search Results' );
 	}
 	elseif ( is_category() ) {
@@ -1302,7 +1302,7 @@ function header_title() {
 		$content .= get_query_var( 'paged' );
 	}
 
-	if( $content ) {
+	if ( $content ) {
 		if ( is_home() || is_front_page() ) {
 			$elements = array(
 				'site_name' => $site_name,
@@ -1321,7 +1321,7 @@ function header_title() {
 	}
 
 	// But if they don't, it won't try to implode
-	if( is_array( $elements ) ) {
+	if ( is_array( $elements ) ) {
 		$doctitle = implode( ' ', $elements );
 	}
 	else {
@@ -1360,7 +1360,7 @@ function body_classes() {
 function installed_custom_post_types() {
 	$installed = Config::$custom_post_types;
 
-	return array_map(create_function( '$class', '
+	return array_map( create_function( '$class', '
 		return new $class;
 	' ), $installed );
 }
@@ -1372,7 +1372,7 @@ function installed_custom_post_types() {
 function installed_custom_taxonomies(){
 	$installed = Config::$custom_taxonomies;
 
-	return array_map(create_function( '$class', '
+	return array_map( create_function( '$class', '
 		return new $class;
 	' ), $installed );
 }
@@ -1541,18 +1541,18 @@ function save_default( $post_id, $field ){
  **/
 function _save_meta_data( $post_id, $meta_box ){
 	// verify nonce
-	if ( ! wp_verify_nonce( $_POST['meta_box_nonce'], basename(__FILE__) ) ) {
+	if ( ! wp_verify_nonce( $_POST['meta_box_nonce'], basename( __FILE__ ) ) ) {
 		return $post_id;
 	}
 
 	// check autosave
-	if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) {
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 		return $post_id;
 	}
 
 	// check permissions
 	if ( 'page' === $_POST['post_type'] ) {
-		if ( ! current_user_can(' edit_page', $post_id ) ) {
+		if ( ! current_user_can( ' edit_page', $post_id ) ) {
 			return $post_id;
 		}
 	} elseif ( ! current_user_can( 'edit_post', $post_id ) ) {
@@ -1579,7 +1579,7 @@ function _save_meta_data( $post_id, $meta_box ){
  **/
 function _show_meta_boxes( $post, $meta_box ) {
 	?>
-	<input type="hidden" name="meta_box_nonce" value="<?php echo wp_create_nonce( basename( __FILE__) ); ?>"/>
+	<input type="hidden" name="meta_box_nonce" value="<?php echo wp_create_nonce( basename( __FILE__ ) ); ?>"/>
 	<table class="form-table">
 	<?php foreach( $meta_box['fields'] as $field ) :
 		$current_value = get_post_meta( $post->ID, $field['id'], true ); ?>
@@ -1615,12 +1615,12 @@ function _show_meta_boxes( $post, $meta_box ) {
 				<select name="<?php echo $field['id']; ?>" id="<?php echo $field['id']; ?>">
 					<option value=""><?php echo ( $field['default'] ) ? $field['default'] : '--'?></option>
 				<?php foreach ( $field['options'] as $k => $v ) :?>
-					<option <?php echo ($current_value === $v) ? ' selected="selected"' : ''; ?> value="<?php echo $v; ?>"><?php echo $k; ?></option>
+					<option <?php echo ( $current_value === $v ) ? ' selected="selected"' : ''; ?> value="<?php echo $v; ?>"><?php echo $k; ?></option>
 				<?php endforeach;?>
 				</select>
 
 			<?php break; case 'radio':?>
-				<?php foreach ( $field['options'] as $k => $v) : ?>
+				<?php foreach ( $field['options'] as $k => $v ) : ?>
 				<label for="<?php echo $field['id']; ?>_<?php echo slug( $k, '_' ); ?>"><?php echo $k; ?></label>
 				<input type="radio" name="<?php echo $field['id']; ?>" id="<?php echo $field['id']; ?>_<?php echo slug( $k, '_' ); ?>" value="<?php echo $v; ?>"<?php echo ( $current_value === $v ) ? ' checked="checked"' : ''; ?> />
 				<?php endforeach; ?>
@@ -1667,7 +1667,7 @@ function _getArchiveMonthYear() {
 	$year = $today["year"];
 
 	$url_path = explode( '/', $_SERVER['REQUEST_URI'] );
-	if ( is_numeric( $url_path[count($url_path) - 2] ) ) {
+	if ( is_numeric( $url_path[count( $url_path ) - 2] ) ) {
 		$year = intval( substr( $url_path[count( $url_path ) - 2], 0, 4 ) );
 		$month = intval( substr( $url_path[count( $url_path ) - 2], 4 ) );
 		unset( $url_path[count( $url_path ) - 2] );

@@ -19,7 +19,7 @@ function display_events( $header='h2', $css=null ) {
 	$events  = get_events( $start, $limit );
 
 	ob_start();
-	if( $events !== NULL && count( $events ) ):
+	if ( $events !== NULL && count( $events ) ):
 	?>
 		<div class="events <?php echo $css; ?>">
 			<<?php echo $header; ?>>Events @ UCF</<?php echo $header; ?>>
@@ -88,11 +88,11 @@ function display_announcements( $param, $value, $header='h3', $css ) {
 	// Create transient key; e.g. 'announcements_role_staff'
 	$feed = 'announcements_' . $param . '_'.$value;
 
-	if( ($html = get_transient( $feed ) ) !== false ) {
+	if ( ( $html = get_transient( $feed ) ) !== false ) {
 		return $html;
 	} else {
 		$json = get_announcements( $param, $value );
-		if( ! empty( $json ) ) {
+		if ( ! empty( $json ) ) {
 			ob_start();
 		?>
 			<div class="<?php echo $css; ?>" id="announcements">
@@ -135,7 +135,7 @@ function get_announcements( $param, $value ) {
 	$opts = array( 'http' => array(
 						'method'  => 'GET',
 						'timeout' => FEED_FETCH_TIMEOUT
-	));
+	) );
 	$context = stream_context_create( $opts );
 
 	// Grab the feed

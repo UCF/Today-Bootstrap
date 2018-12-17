@@ -100,7 +100,7 @@ function output_weather_data() {
  * displaying weather data in the site header.
  */
 function ucf_weather_default_today_nav( $data, $output ) {
-	if ( !class_exists( 'UCF_Weather_Common' ) ) return;
+	if ( ! class_exists( 'UCF_Weather_Common' ) ) return;
 
 	ob_start();
 	$icon = UCF_Weather_Common::get_weather_icon( $data->condition );
@@ -145,7 +145,7 @@ function gen_alerts_html()
 		$hidden_alerts	= array();
 		$alerts_html 	= '';
 
-		if ($alerts) {
+		if ( $alerts ) {
 			$alert_html = '<div class="row" id="alerts"><ul class="span12">';
 
 			foreach( $alerts as $alert ) {
@@ -164,19 +164,19 @@ function gen_alerts_html()
 				$link_html = ( $link_text && $link_url ) ? "<a href=\"$link_url\">$link_text</a>" : '';
 
 				$thumbnail_id = get_post_thumbnail_id( $alert->ID );
-				if( $thumbnail_id != '' ) {
+				if ( $thumbnail_id != '' ) {
 					$thumbnail = wp_get_attachment_image_src( $thumbnail_id, 'alert' );
 					array_push( $li_inline_styles, 'background-image: url(' . $thumbnail[0] . ');' );
 				}
 
-				if( $bg_color != '' ) {
-					if( substr( $bg_color, 0, 1 ) != '#' ) {
+				if ( $bg_color != '' ) {
+					if ( substr( $bg_color, 0, 1 ) != '#' ) {
 						$bg_color = '#' . $bg_color;
 					}
 					array_push( $span_inline_styles, 'background-color: ' . $bg_color . ';' );
 				}
-				if( $text_color != '' ) {
-					if( substr( $text_color, 0, 1 ) != '#' ) {
+				if ( $text_color != '' ) {
+					if ( substr( $text_color, 0, 1 ) != '#' ) {
 						$text_color = '#' . $text_color;
 					}
 					array_push( $span_inline_styles, 'color: ' . $text_color . ';' );
@@ -219,14 +219,14 @@ function get_img_html( $post_id, $size = 'thumbnail', $options = array() )
 	$org_size = $size;
 	$img_alttext = get_the_title( $post_id );
 
-	if( $sent_attach ) {
+	if ( $sent_attach ) {
 		$attach_id = $post_id;
 	} else {
 
 		$attach_id 	= get_post_thumbnail_id( $post_id );
 
 		// Look for image attachments that aren't featured images
-		if( $attach_id === '' ) {
+		if ( $attach_id === '' ) {
 			$attachments = get_posts(
 				array(
 					'post_type' => 'attachment',
@@ -274,7 +274,7 @@ function get_img_html( $post_id, $size = 'thumbnail', $options = array() )
 		}
 
 	 	$html = ( isset( $thumb[0] ) ) ? '<img src="' . $thumb[0] . '" ' . $element_id . 'width="' . $dims['width'] . '" height="' . $dims['height'] . '" alt="' . $img_alttext . '" />' : '';
-	} else if ( $org_size != 'story_feature' ) {
+	} elseif ( $org_size != 'story_feature' ) {
 		$html = '<img src="' . get_bloginfo( 'stylesheet_directory' ) . '/static/img/no-photo.png" ' . $element_id . ' alt="' . $img_alttext . '" />';
 	}
 
@@ -303,11 +303,11 @@ function resolve_posts( $atts, $args = array(), $filters = true, $strip_tags = t
 								'offset' => 0,
 								'post_type' => 'post' ), $args );
 
-	if( $tag !== false ) {
+	if ( $tag !== false ) {
 		$posts = get_posts( array_merge( $args, array( 'tag' => $tag ) ) );
-	} else if ( $category !== false ) {
+	} elseif ( $category !== false ) {
 		$posts = get_posts( array_merge( $args, array( 'category_name' => $category ) ) );
-	} else if ( $home_page !== false ) {
+	} elseif ( $home_page !== false ) {
 		$posts = get_posts(
 			array_merge(
 				$args,
@@ -322,15 +322,15 @@ function resolve_posts( $atts, $args = array(), $filters = true, $strip_tags = t
 			)
 		);
 	}
-	if( ! isset( $posts ) || count( $posts ) == 0) {
+	if ( ! isset( $posts ) || count( $posts ) == 0) {
 		$posts = get_posts( $args );
 	}
 
-	if( $filters && $strip_tags ) {
+	if ( $filters && $strip_tags ) {
 		array_walk( $posts, create_function( '&$p', 'return "";' ) );
-	} else if ( $filters ) {
+	} elseif ( $filters ) {
 		array_walk( $posts, create_function( '$p', 'return apply_filters("the_content", $p->post_content);' ) );
-	} else if ( $strip_tags ) {
+	} elseif ( $strip_tags ) {
 		array_walk( $posts, create_function( '$p', 'return strip_tags("the_content", $p->post_content);' ) );
 	}
 
@@ -364,7 +364,7 @@ function get_excerpt( $post, $hl_term = '' )
 {
 	setup_postdata( $post );
 
-	if( $hl_term != '' ) {
+	if ( $hl_term != '' ) {
 		$stripped_content = strip_tags( $post->post_content );
 		if ( ( $term_loc = stripos( $stripped_content, $hl_term ) ) !== false ) {
 			// Get the actual term to preserve capitalization
@@ -382,7 +382,7 @@ function get_excerpt( $post, $hl_term = '' )
 		}
 	}
 
-	if( $post->post_excerpt != '' ) {
+	if ( $post->post_excerpt != '' ) {
 		return strip_tags( $post->post_excerpt );
 	}
 	return strip_tags( get_the_excerpt() );
@@ -405,7 +405,7 @@ function mainsite_tag_exists( $post_id )
 	$tags = wp_get_post_tags( $post_id );
 
 	foreach( $tags as $tag ) {
-		if( $tag->slug == MAINSITE_TAG_SLUG ) {
+		if ( $tag->slug == MAINSITE_TAG_SLUG ) {
 			$mainsite_tag_existed = true;
 		}
 	}
@@ -428,36 +428,36 @@ function check_mainsite_tag( $post_id )
 
 	$mainsite_tag = get_mainsite_tag();
 
-	if( $mainsite_tag !== false ) {
+	if ( $mainsite_tag !== false ) {
 
 		$post_tags = wp_get_post_tags( $post_id );
 		$mainsite_tag_exists = false;
 		foreach( $post_tags as $tag ) {
-			if( $tag->slug == MAINSITE_TAG_SLUG ) {
+			if ( $tag->slug == MAINSITE_TAG_SLUG ) {
 				$mainsite_tag_exists = true;
 				break;
 			}
 		}
 
-		if( ! in_array( 'administrator', $roles ) && ! in_array( 'editor', $roles ) ) {
+		if ( ! in_array( 'administrator', $roles ) && ! in_array( 'editor', $roles ) ) {
 
 			// Maintsite tag was added
-			if( $mainsite_tag_exists && ! $mainsite_tag_existed ) {
+			if ( $mainsite_tag_exists && ! $mainsite_tag_existed ) {
 				// Remove it
 
 				$new_tags = array();
 				foreach( $post_tags as $tag ) {
-					if( $tag->term_id != $mainsite_tag->term_id ) {
+					if ( $tag->term_id != $mainsite_tag->term_id ) {
 						array_push( $new_tags, $tag->name );
 					}
 				}
 				wp_set_post_tags( $post_id, implode( ',', $new_tags ) );
-				wp_die('<div style="background-color:#FF0000;border:1px solid #FF0000;padding:15px;color: #FFF;">Only adminstrators or editors can add the Main Site Stories tag to a post.</div>');
+				wp_die( '<div style="background-color:#FF0000;border:1px solid #FF0000;padding:15px;color: #FFF;">Only adminstrators or editors can add the Main Site Stories tag to a post.</div>' );
 			// Mainsite tag we removed
-			} else if ( ! $mainsite_tag_exists && $mainsite_tag_existed) {
+			} elseif ( ! $mainsite_tag_exists && $mainsite_tag_existed) {
 				// Add it
 				wp_set_post_tags( $post_id, $mainsite_tag->name, true );
-				wp_die('<div style="background-color:#FF0000;border:1px solid #FF0000;padding:15px;color: #FFF;">Only adminstrators or editors can remove the Main Site Stories tag from a post.</div>');
+				wp_die( '<div style="background-color:#FF0000;border:1px solid #FF0000;padding:15px;color: #FFF;">Only adminstrators or editors can remove the Main Site Stories tag from a post.</div>' );
 			}
 		}
 	}
@@ -524,7 +524,7 @@ function get_theme_option( $key ) {
  * @return string
  **/
 function get_header_title( $elem='' ) {
-	if ( !$elem ) {
+	if ( ! $elem ) {
 		$elem = ( is_home() || is_front_page() ) ? 'h1' : 'span';
 	}
 	ob_start();
@@ -568,16 +568,16 @@ function today_body_classes() {
 		$classes .= 'disable-md-navbar-toggle ';
 	}
 
-	if (is_home()) {
+	if ( is_home() ) {
 		$classes .= 'body-home ';
 	}
-	elseif (is_404()) {
+	elseif ( is_404() ) {
 		$classes .= 'body-404 ';
 	}
-	elseif (is_search()) {
+	elseif ( is_search() ) {
 		$classes .= 'body-search ';
 	}
-	elseif ($post->post_type == 'photoset') {
+	elseif ( $post->post_type == 'photoset' ) {
 		$classes .= 'body-photoset ';
 	}
 	elseif ( get_page_template_slug( $post ) == 'featured-single-post.php' ) {
@@ -605,11 +605,11 @@ function get_posts_search( $query='', $post_type='post', $extra_args=array() ) {
 		's'			  => $query,
 	);
 
-	if ($extra_args) {
+	if ( $extra_args ) {
 		array_merge( $args, $extra_args );
 	}
 
-	return get_posts($args);
+	return get_posts( $args );
 }
 
 
@@ -635,8 +635,8 @@ function display_social( $url, $title, $layout='default' ) {
  *
  * See http://wordpress.stackexchange.com/questions/3326/301-redirect-instead-of-404-when-url-is-a-prefix-of-a-post-or-page-name
  **/
-function no_redirect_on_404($redirect_url) {
-    if (is_404()) {
+function no_redirect_on_404( $redirect_url ) {
+    if ( is_404() ) {
         return false;
     }
     return $redirect_url;
@@ -676,7 +676,7 @@ add_action( 'template_redirect', 'kill_unused_templates' );
  **/
 function filter_media_comment_status( $open, $post_id ) {
 	$post = get_post( $post_id );
-	if( $post->post_type == 'attachment' ) {
+	if ( $post->post_type == 'attachment' ) {
 		return false;
 	}
 	return $open;
@@ -702,7 +702,7 @@ function esi_include( $statementname, $argset=null, $print_results=false ) {
 	// Never include ESI over HTTPS
 	$enable_esi = get_theme_option( 'enable_esi' );
 
-	if( ! is_null( $enable_esi ) && $enable_esi === '1' && is_ssl() == false ) {
+	if ( ! is_null( $enable_esi ) && $enable_esi === '1' && is_ssl() == false ) {
 		$argset = ( $argset !== null ) ? $argset = '&args=' . urlencode( base64_encode( $argset ) ) : '';
 		$print_results = ( $print_results === false ) ? '0' : '1'; // whether or not to print results instead of return
 		?>
@@ -747,8 +747,8 @@ function esi_include( $statementname, $argset=null, $print_results=false ) {
 function filter_archive_date_range( $where = '' ) {
     $monthYear = _getArchiveMonthYear();
 
-	$where .= ' AND post_date <= "' . date('Y-m-t', strtotime($monthYear["year"] . '-' . $monthYear["mon"] . '-1')) .
-		'" AND post_date >= "' . date('Y-m-d', strtotime($monthYear["year"] . '-' . $monthYear["mon"] . '-1')) . '"';
+	$where .= ' AND post_date <= "' . date( 'Y-m-t', strtotime( $monthYear["year"] . '-' . $monthYear["mon"] . '-1' ) ) .
+		'" AND post_date >= "' . date( 'Y-m-d', strtotime( $monthYear["year"] . '-' . $monthYear["mon"] . '-1' ) ) . '"';
 
 	return $where;
 }
@@ -775,7 +775,7 @@ function get_video_url( $video_ID ) {
 function protocol_relative_oembed( $html ) {
     return preg_replace( '@src="https?:@', 'src="', $html );
 }
-add_filter('embed_oembed_html', 'protocol_relative_oembed');
+add_filter( 'embed_oembed_html', 'protocol_relative_oembed' );
 
 /*
  * Add responsive container to YouTube embeds and center other embeds
@@ -783,9 +783,9 @@ add_filter('embed_oembed_html', 'protocol_relative_oembed');
 function video_embed_html( $html, $url ) {
 	if ( strpos( $url, 'youtube.com' ) !== false || strpos( $url, 'youtu.be' ) !== false ) {
 		return '<div class="video-container">' . $html . '</div>';
-	} else if ( strpos( $url, 'facebook.com' ) !== false ) {
+	} elseif ( strpos( $url, 'facebook.com' ) !== false ) {
 		return '<div class="text-center">' . $html . '</div>';
-	} else if ( strpos( $url, 'twitter.com' ) !== false
+	} elseif ( strpos( $url, 'twitter.com' ) !== false
 		|| strpos( $url, 'instagram.com' ) !== false ) {
 		return '<div class="centered-embed">' . $html . '</div>';
 	} else {
@@ -813,7 +813,7 @@ function image_crop_dimensions( $default, $orig_w, $orig_h, $new_w, $new_h, $cro
 
     return array( 0, 0, (int) $s_x, (int) $s_y, (int) $new_w, (int) $new_h, (int) $crop_w, (int) $crop_h );
 }
-add_filter('image_resize_dimensions', 'image_crop_dimensions', 10, 6);
+add_filter( 'image_resize_dimensions', 'image_crop_dimensions', 10, 6 );
 
 /**
  * Add ID attribute to registered University Header script.
@@ -923,7 +923,7 @@ function get_more_stories( $post ) {
 	$primary_tag = get_post_meta( $post->ID, 'primary_tag', TRUE );
 
 	if ( ! $primary_tag ) {
-		$tags = wp_get_post_tags($post->ID);
+		$tags = wp_get_post_tags( $post->ID );
 		if ( count( $tags ) > 0 ) {
 			$primary_tag = $tags[0];
 		} else {
@@ -1082,7 +1082,7 @@ function display_external_stories_list_item( $story_id, $show_description ) {
 	$story_text = get_post_meta( $story_id, 'externalstory_text', true );
 	$source_name = wp_get_post_terms( $story_id, 'sources' );
 
-	if( !empty( $source_name ) ) {
+	if ( ! empty( $source_name ) ) {
 		$story_source = $source_name[0]->name;
 	} else {
 		$story_source = get_post_meta( $story_id, 'externalstory_source', true );

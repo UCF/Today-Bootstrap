@@ -8,13 +8,13 @@
 				<h2>Page Not Found</h2>
 				<?php
 					$page = get_page_by_title( '404' );
-					if($page){
+					if ( $page ) {
 						$content = $page->post_content;
 						$content = apply_filters( 'the_content', $content );
 						$content = str_replace( ']]>', ']]>', $content );
 					}
 				?>
-				<?php if( $content ) : ?>
+				<?php if ( $content ) : ?>
 					<?php echo $content; ?>
 				<?php else : ?>
 					<p>The page you were looking for appears to have been moved, deleted or does not exist. Try using the navigation or search above or browse to the <a href="/">home page</a>.</p>
