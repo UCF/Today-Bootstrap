@@ -1078,15 +1078,16 @@ add_filter( 'ucf_social_links_display_affixed_before', 'ucf_social_links_display
  * @return String
  **/
 function display_external_stories_list_item( $story_id, $show_description ) {
-	$story_url = get_post_meta( $story_id, 'externalstory_url', True );
-	$story_text = get_post_meta( $story_id, 'externalstory_text', True );
-	$source_name = wp_get_post_terms( $story_id, 'sources' )[0]->name;
-	if( $source_name ) {
-		$story_source = $source_name;
+	$story_url = get_post_meta( $story_id, 'externalstory_url', true );
+	$story_text = get_post_meta( $story_id, 'externalstory_text', true );
+	$source_name = wp_get_post_terms( $story_id, 'sources' );
+
+	if( !empty( $source_name ) ) {
+		$story_source = $source_name[0]->name;
 	} else {
-		$story_source = get_post_meta( $story_id, 'externalstory_source', True );
+		$story_source = get_post_meta( $story_id, 'externalstory_source', true );
 	}
-	$story_description = get_post_meta( $story_id, 'externalstory_description', True );
+	$story_description = get_post_meta( $story_id, 'externalstory_description', true );
 	ob_start();
 	// Does not show an external story post without having a value set for url, text or source
 	if ( $story_url && $story_text && $story_source ) :
@@ -1117,12 +1118,12 @@ function display_external_stories_list_item( $story_id, $show_description ) {
  * @author Cadie Brown
  **/
 function display_author_bio( $post ) {
-	$author_title = get_post_meta( $post->ID, 'author_title', True );
+	$author_title = get_post_meta( $post->ID, 'author_title', true );
 
-	$author_byline = get_post_meta( $post->ID, 'author_byline', True );
+	$author_byline = get_post_meta( $post->ID, 'author_byline', true );
 	$author_byline = ( $author_byline != '' ) ? $author_byline : get_the_author();
 
-	$author_bio = get_post_meta( $post->ID, 'author_bio', True );
+	$author_bio = get_post_meta( $post->ID, 'author_bio', true );
 
 	$featured_post_bio = is_page_template( 'featured-single-post.php' ) ? ' featured-author-bio' : '';
 
