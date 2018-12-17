@@ -492,7 +492,7 @@ function bootstrap_menus() {
 
 			function display_element( $element, &$children_elements, $max_depth, $depth=0, $args, &$output ) {
 
-				if ( !$element )
+				if ( ! $element )
 					return;
 
 				$id_field = $this->db_fields['id'];
@@ -512,7 +512,7 @@ function bootstrap_menus() {
 
 					foreach( $children_elements[ $id ] as $child ){
 
-						if ( !isset( $newlevel ) ) {
+						if ( ! isset( $newlevel ) ) {
 							$newlevel = true;
 							//start the child delimiter
 							$cb_args = array_merge( array( &$output, $depth ), $args );

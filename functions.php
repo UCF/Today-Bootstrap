@@ -100,7 +100,7 @@ function output_weather_data() {
  * displaying weather data in the site header.
  */
 function ucf_weather_default_today_nav( $data, $output ) {
-	if ( !class_exists( 'UCF_Weather_Common' ) ) return;
+	if ( ! class_exists( 'UCF_Weather_Common' ) ) return;
 
 	ob_start();
 	$icon = UCF_Weather_Common::get_weather_icon( $data->condition );
@@ -524,7 +524,7 @@ function get_theme_option( $key ) {
  * @return string
  **/
 function get_header_title( $elem='' ) {
-	if ( !$elem ) {
+	if ( ! $elem ) {
 		$elem = ( is_home() || is_front_page() ) ? 'h1' : 'span';
 	}
 	ob_start();
@@ -1082,7 +1082,7 @@ function display_external_stories_list_item( $story_id, $show_description ) {
 	$story_text = get_post_meta( $story_id, 'externalstory_text', true );
 	$source_name = wp_get_post_terms( $story_id, 'sources' );
 
-	if ( !empty( $source_name ) ) {
+	if ( ! empty( $source_name ) ) {
 		$story_source = $source_name[0]->name;
 	} else {
 		$story_source = get_post_meta( $story_id, 'externalstory_source', true );

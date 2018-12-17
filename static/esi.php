@@ -9,7 +9,7 @@ if ( isset( $_GET['statement'] ) ) {
 		$statementname 	= Config::$esi_whitelist[$statementkey]['name'];
 		$statementargs	= Config::$esi_whitelist[$statementkey]['safe_args'];
 
-		if ( !is_array( $statementargs ) || $argset == null ) {
+		if ( ! is_array( $statementargs ) || $argset == null ) {
 			if ( $print_results ) {
 				print call_user_func( $statementname );
 			}
