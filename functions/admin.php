@@ -154,7 +154,7 @@ function theme_options_sanitize( $input ) {
  * @return string
  * @author Jared Lang
  **/
-function editor_styles($css){
+function editor_styles( $css ){
 	$css   = array_map( 'trim', explode( ',', $css ) );
 	$css   = implode( ',', $css );
 	return $css;

@@ -48,7 +48,7 @@ if ( have_posts() ) {
 			'permalink' => get_permalink(),
 			'content'   => strip_shortcodes( get_the_content() ),
 			'excerpt'   => get_the_excerpt(),
-			'date'      => get_the_date(DATE_ISO8601),
+			'date'      => get_the_date( DATE_ISO8601 ),
 			'author'    => get_the_author()
 		);
 

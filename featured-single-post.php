@@ -11,7 +11,7 @@ $cats = wp_get_post_categories( $post->ID );
 $category_title = get_cat_name( $cats[0] );
 $subtitle = get_post_meta( $post->ID, 'subtitle', TRUE );
 $deck = get_post_meta( $post->ID, 'deck', TRUE );
-$source = get_post_meta( $post->ID, 'source', TRUE);
+$source = get_post_meta( $post->ID, 'source', TRUE );
 
 $video_url = get_video_url( $post->ID );
 

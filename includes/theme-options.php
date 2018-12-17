@@ -14,7 +14,7 @@
 <form method="post" action="options.php" id="theme-options" class="i-am-a-fancy-admin">
     <?php settings_fields( THEME_OPTIONS_GROUP ); ?>
 	<div class="container">
-		<h2><?php echo __(THEME_OPTIONS_PAGE_TITLE); ?></h2>
+		<h2><?php echo __( THEME_OPTIONS_PAGE_TITLE ); ?></h2>
 
 		<?php if ( $updated ) : ?>
 		<div class="updated fade">
@@ -35,7 +35,7 @@
 		<div class="fields">
 			<ul>
 				<?php foreach ( $settings as $section=>$fields ) : ?>
-				<li class="section" id="<?php echo slug($section); ?>">
+				<li class="section" id="<?php echo slug( $section ); ?>">
 					<h3><?php echo $section; ?></h3>
 					<table class="form-table">
 						<?php foreach ( $fields as $field ) : ?>
@@ -52,7 +52,7 @@
 				<?php endforeach; ?>
 			</ul>
 			<div class="submit">
-				<input type="submit" class="button-primary" value="<?php echo __('Save Options'); ?>" />
+				<input type="submit" class="button-primary" value="<?php echo __( 'Save Options' ); ?>" />
 			</div>
 		</div>
 	</div>

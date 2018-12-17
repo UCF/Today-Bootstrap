@@ -88,7 +88,7 @@ function display_announcements( $param, $value, $header='h3', $css ) {
 	// Create transient key; e.g. 'announcements_role_staff'
 	$feed = 'announcements_' . $param . '_'.$value;
 
-	if( ($html = get_transient( $feed ) ) !== false ) {
+	if ( ( $html = get_transient( $feed ) ) !== false ) {
 		return $html;
 	} else {
 		$json = get_announcements( $param, $value );
@@ -135,7 +135,7 @@ function get_announcements( $param, $value ) {
 	$opts = array( 'http' => array(
 						'method'  => 'GET',
 						'timeout' => FEED_FETCH_TIMEOUT
-	));
+	) );
 	$context = stream_context_create( $opts );
 
 	// Grab the feed

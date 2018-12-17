@@ -28,7 +28,7 @@ function sc_post_type_search( $params=array(), $content='' ) {
 	$params['column_count']        = is_numeric( $params['column_count'] ) ? (int)$params['column_count'] : $defaults['column_count'];
 	$params['show_sorting']        = (bool)$params['show_sorting'];
 
-	if( ! in_array( $params['default_sorting'], array(' term', 'alpha' ) ) ) {
+	if( ! in_array( $params['default_sorting'], array( ' term', 'alpha' ) ) ) {
 		$params['default_sorting'] = $default['default_sorting'];
 	}
 
@@ -80,9 +80,9 @@ function sc_post_type_search( $params=array(), $content='' ) {
 			),
 			'orderby'     => $params['order_by'],
 			'order'       => $params['order']
-		));
+		) );
 
-		if( count( $posts ) == 0 && $params['show_empty_sections']) {
+		if ( count( $posts ) == 0 && $params['show_empty_sections'] ) {
 			$by_term[$term->name] = array();
 		} else {
 			$by_term[$term->name] = $posts;
@@ -98,7 +98,7 @@ function sc_post_type_search( $params=array(), $content='' ) {
 		'order'       => 'alpha'
 	) );
 	foreach( $by_alpha_posts as $post ) {
-		if ( preg_match('/([a-zA-Z])/', $post->post_title, $matches ) == 1) {
+		if ( preg_match( '/([a-zA-Z] )/', $post->post_title, $matches ) == 1 ) {
 			$by_alpha[strtoupper( $matches[1] )][] = $post;
 		} else {
 			$by_alpha[$params['non_alpha_section_name']][] = $post;
@@ -152,7 +152,7 @@ function sc_post_type_search( $params=array(), $content='' ) {
 				break;
 		}
 		?>
-		<div class="<?php echo $id; ?>"<?php echo ($hide) ? ' style="display:none;"' : ''; ?>>
+		<div class="<?php echo $id; ?>"<?php echo ( $hide ) ? ' style="display:none;"' : ''; ?>>
 			<?php foreach ( $section as $section_title => $section_posts ) : ?>
 				<?php if ( count( $section_posts ) > 0 || $params['show_empty_sections'] ) : ?>
 					<div>
@@ -240,7 +240,7 @@ function sc_feature( $atts = array(), $id_only = false )
 				<div class="thumb cropped" style="background-image: url('<?php echo $attachment_url[0]; ?>');">
 					<?php echo $feature_media; ?>
 				</div>
-				<h2 class="feature-title"><a href="<?php echo get_permalink($feature->ID); ?>"><?php echo $feature->post_title; ?></a></h2>
+				<h2 class="feature-title"><a href="<?php echo get_permalink( $feature->ID ); ?>"><?php echo $feature->post_title; ?></a></h2>
 			</div>
 		<?php
 			return ob_get_clean();
@@ -251,7 +251,7 @@ function sc_feature( $atts = array(), $id_only = false )
 
 		if( is_category() ) {
 			$resolve_atts = array( 'category' => $wp_query->queried_object->slug );
-		} else if(is_tag()) {
+		} else if ( is_tag() ) {
 			$resolve_atts = array( 'tag' => $wp_query->queried_object->slug );
 		} else {
 			$resolve_atts = array();
@@ -367,7 +367,7 @@ function sc_ucf_news( $atts = array() )
 	# Category and tag pages have a top story. Don't allow the top story
 	# to also show up in the More Headlines sections below it.
 	if( ! isset( $resolve_params['exclude'] ) && ( is_category() || is_tag() ) ) {
-		$resolve_params['exclude'] = array_merge( array( sc_feature( array(), true)), sc_subpage_features( array(), true) );
+		$resolve_params['exclude'] = array_merge( array( sc_feature( array(), true ) ), sc_subpage_features( array(), true ) );
 	}
 
 	$headlines = resolve_posts( $atts, array_merge( array( 'numberposts' => $num_posts ), $resolve_params ) );
@@ -422,8 +422,8 @@ function sc_more_headlines( $atts = array() )
 {
 	$css = ( isset( $atts['css'] ) ) ? $atts['css'] : '';
 
-	$social		= ( isset( $atts['social']) ) ? $atts['social'] : true;
-	$header		= ( isset( $atts['header']) ) ? $atts['header'] : true;
+	$social		= ( isset( $atts['social'] ) ) ? $atts['social'] : true;
+	$header		= ( isset( $atts['header'] ) ) ? $atts['header'] : true;
 	$num_posts	= ( isset( $atts['num_posts'] ) && is_numeric( $atts['num_posts'] ) ) ? (int)$atts['num_posts'] : 3;
 	$offset	    = ( isset( $atts['offset'] ) && is_numeric( $atts['offset'] ) ) ? (int)$atts['offset'] : 3;
 
@@ -454,7 +454,7 @@ function sc_more_headlines( $atts = array() )
 			)
 		) );
 
-		$features = get_posts(array(
+		$features = get_posts( array(
 			'numberposts' => 1,
 			'meta_query' => array(
 				array(
@@ -498,7 +498,7 @@ function sc_more_headlines( $atts = array() )
 	<?php
 	$count = 0;
 	foreach ( $headlines as $headline ) :
-		$thumb_html = get_img_html($headline->ID, 'story');
+		$thumb_html = get_img_html( $headline->ID, 'story' );
 		?>
 			<li class="clearfix<?php echo ( ( $count + 1 ) == count( $headlines ) ? ' last' : '' ); ?>">
 				<strong><a href="<?php echo get_permalink( $headline->ID ); ?>"><?php echo $headline->post_title; ?></a></strong>
@@ -556,7 +556,7 @@ function sc_ucf_photo( $atts = array() )
 					$image_html = get_img_html( $photoset->ID, 'ucf_photo' );//wp_get_attachment_image_src($first_image->ID, 'ucf_photo');
 				} else {
 					$image_html = get_img_html( $photoset->ID, 'ucf_photo_subpage' );
-					wp_get_attachment_image_src( $first_image->ID, 'ucf_photo_subpage') ;
+					wp_get_attachment_image_src( $first_image->ID, 'ucf_photo_subpage' ) ;
 				}
 
 				?>
@@ -611,8 +611,8 @@ function sc_ucf_video( $atts = array() )
 			ob_start();
 			?>
 			<div class="<?php echo $css; ?>" id="ucf_video">
-				<h2 class="listing">Watch Video</h2><a href="<?php echo get_page_link(get_page_by_title('Videos')->ID); ?>" class="listing">More &raquo;</a>
-					<?php echo $wp_embed->run_shortcode($embed_string); ?>
+				<h2 class="listing">Watch Video</h2><a href="<?php echo get_page_link( get_page_by_title( 'Videos' )->ID ); ?>" class="listing">More &raquo;</a>
+					<?php echo $wp_embed->run_shortcode( $embed_string ); ?>
 				<h4><?php echo $video->post_title; ?></h4>
 				<p><?php echo $video->post_content; ?></p>
 			</div>
@@ -657,8 +657,8 @@ add_shortcode( 'resources', 'sc_resources' );
  **/
 function sc_events( $atts = array() )
 {
-	$css 	= ( isset($atts['css'] ) ) ? $atts['css'] : '';
-	$header = ( isset($atts['header'] ) ) ? $atts['header'] : 'h2';
+	$css 	= ( isset( $atts['css'] ) ) ? $atts['css'] : '';
+	$header = ( isset( $atts['header'] ) ) ? $atts['header'] : 'h2';
 
 	ob_start();
 	print display_events( $header, $css );
@@ -693,7 +693,7 @@ function sc_promos( $atts = array() ) {
 		$count = 0;
 		foreach ( $promos as $promo ) :
 		?>
-			<li<?php echo ( ( $count + 1 ) == count( $promos ) ? ' class="last"' : ''); ?>>
+			<li<?php echo ( ( $count + 1 ) == count( $promos ) ? ' class="last"' : '' ); ?>>
 				<h3><a href="<?php echo get_permalink( $promo->ID ); ?>"><?php echo $promo->post_title; ?></a></h3>
 				<p class="story-blurb">
 					<?php echo get_excerpt( $promo ); ?>
@@ -878,7 +878,7 @@ function sc_external_stories( $atts = array() ) {
 	$linked_page_name = ( isset( $atts['linked_page_name'] ) ) ? $atts['linked_page_name'] : 'UCF in the News';
 	$show_description = ( isset( $atts['show_description'] ) ) ? filter_var( $atts['show_description'], FILTER_VALIDATE_BOOLEAN ) : false;
 
-	$stories = resolve_posts(	array(	'tag' => $wp_query->queried_object->slug),
+	$stories = resolve_posts(	array(	'tag' => $wp_query->queried_object->slug ),
 								array(	'post_type' => 'externalstory',
 										'numberposts' => $links_per_page
 								)
@@ -940,7 +940,7 @@ function sc_all_external_stories( $atts = array() ) {
 			</ul>
 			<nav aria-label="UCF in the News external stories navigation">
 				<ul class="pagination">
-					<li class="previous"><?php previous_posts_link('&laquo; Previous'); ?></li>
+					<li class="previous"><?php previous_posts_link( '&laquo; Previous' ); ?></li>
 					<li class="next"><?php next_posts_link( 'Next &raquo;', $external_stories_query->max_num_pages ); ?></li>
 				</ul>
 			</nav>
@@ -1104,7 +1104,7 @@ function sc_single_post_more_tag( $atts = array() ) {
 
 	if ( $primary_tag_id == '' ) {
 		$tags = wp_get_post_tags( $post->ID );
-		if ( count($tags) > 0 ) {
+		if ( count( $tags ) > 0 ) {
 			$primary_tag = $tags[0];
 		} else {
 			return '';
@@ -1152,9 +1152,9 @@ function sc_single_post_more_cat( $atts = array() ) {
 
 	if ( count( $cats ) > 0 ) {
 		$cat = get_category( $cats[0] );
-		$cat_posts = resolve_posts(	array(	'category' => $cat->slug),
+		$cat_posts = resolve_posts(	array(	'category' => $cat->slug ),
 									array(	'numberposts' => 3,
-											'exclude' => array($post->ID)
+											'exclude' => array( $post->ID )
 										)
 								);
 
@@ -1246,7 +1246,7 @@ function sc_single_post_topics( $atts = array() ) {
 				?>
 				<li>
 					<a href="<?php echo get_tag_link( $tag->term_id ); ?>">
-						<?php echo $tag->name; ?><?php echo (($i + 1) != count($tags)) ? ',' : ''; ?>
+						<?php echo $tag->name; ?><?php echo ( ( $i + 1 ) != count( $tags ) ) ? ',' : ''; ?>
 					</a>
 				</li>
 				<?php
@@ -1371,7 +1371,7 @@ function sc_expert_meta( $atts = array() ) {
 		<?php if ( $email != '' ) : ?>
 		<p><a href="mailto:<?php echo $email; ?>"><?php echo $email; ?></a></p>
 		<?php endif; ?>
-		<?php if ( count($phones) > 0) : ?>
+		<?php if ( count( $phones ) > 0 ) : ?>
 		<ul>
 			<?php foreach ( $phones as $phone ) : ?>
 			<li><?php echo $phone; ?></li>
@@ -1573,7 +1573,7 @@ function sc_photo_set( $atts = array() ) {
 				<?php echo display_social( get_permalink( $post->ID ), $post->post_title ); ?>
 			</div>
 		</div>
-		<p><?php echo $post->post_content; ?> <strong>(<?php echo count($images); ?> photos total)</strong></p>
+		<p><?php echo $post->post_content; ?> <strong>(<?php echo count( $images ); ?> photos total)</strong></p>
 		<ul class="photoset-list">
 			<?php for ( $i = 1; $i <= count( $images ); $i++ ) :
 				$image_obj = $images[$i - 1];
@@ -1626,7 +1626,7 @@ function sc_photo_sets( $atts = array() ) {
 				'post_type'   => 'attachment',
 				'post_parent' => $photo_set->ID,
 				'numberposts' => 1,
-				'order'       => 'DESC'));
+				'order'       => 'DESC' ) );
 			if ( $image !== false ) {
 				$image_id = $image->ID;
 			}
@@ -1689,7 +1689,7 @@ function sc_videos( $atts = array() ) {
 		if ( $specific_video != false ) {
 			$videos = resolve_posts( array(), array( 'post_type' => 'video',
 													 'numberposts' => -1,
-													 'exclude' => array($specific_video->ID)
+													 'exclude' => array( $specific_video->ID )
 													)
 									);
 			$videos = array_merge( array( $specific_video ), $videos );
@@ -1719,7 +1719,7 @@ function sc_videos( $atts = array() ) {
 				?>
 				<div class="row">
 					<div class="feature span8">
-						<?php echo $wp_embed->run_shortcode($embed_string); ?>
+						<?php echo $wp_embed->run_shortcode( $embed_string ); ?>
 					</div>
 					<div class="span4">
 						<h3><?php echo $video->post_title; ?></h3>
@@ -1772,7 +1772,7 @@ function sc_profile_feature( $atts = array() ) {
 	$count = 0;
 	$css = ( isset( $atts['css'] ) ) ? $atts['css'] : '';
 
-	if ( isset($atts['group'] ) ) {
+	if ( isset( $atts['group'] ) ) {
 		$group_name = $atts['group'];
 		if ( ( $group = get_term_by( 'name', $group_name, 'groups' ) ) !== false ) {
 			$profiles = get_posts( array(	'numberposts' => 4,
@@ -1844,7 +1844,7 @@ function sc_archive_articles( $attrs ) {
     ?>
     <h2 class='month_year'><?php echo date( 'F Y', strtotime( $year . '-' . $month . '-1' ) ); ?></h2>
     <?php
-    if ( count( $articles ) > 0) {
+    if ( count( $articles ) > 0 ) {
 	?>
         <div class="<?php echo $css; ?>" id="archives">
             <!-- Features -->
@@ -1886,7 +1886,7 @@ function sc_archive_articles( $attrs ) {
     }
     $url = implode( '/', $url_path );
 
-    $archive_year_month = date( 'Ym', strtotime( $year . '-' . $month . '-1') );
+    $archive_year_month = date( 'Ym', strtotime( $year . '-' . $month . '-1' ) );
 
     $args = array(
         'post_type'        => 'post',
@@ -1901,7 +1901,7 @@ function sc_archive_articles( $attrs ) {
 
     if ( $oldest_year_month < $archive_year_month ) {
         ?>
-        <div class="previous"><a href="<?php echo $url . date('Ym', strtotime($year . '-' . $month . '-1 -1 month')) . '/'; ?>">Previous Month</a></div>
+        <div class="previous"><a href="<?php echo $url . date( 'Ym', strtotime( $year . '-' . $month . '-1 -1 month' ) ) . '/'; ?>">Previous Month</a></div>
         <?php
     }
 

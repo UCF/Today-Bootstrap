@@ -3,8 +3,8 @@
 <?php if ( $options['enable_google'] || $options['enable_google'] === null ): ?>
 <?php
 	$domain  = $options['search_domain'];
-	$limit   = (int )$options['search_per_page'];
-	$start   = ( is_numeric( $_GET['start'] ) ) ? ( int )$_GET['start'] : 0;
+	$limit   = (int)$options['search_per_page'];
+	$start   = ( is_numeric( $_GET['start'] ) ) ? (int)$_GET['start'] : 0;
 	$results = get_search_results( $_GET['s'], $start, $limit, $domain );
 ?>
 <?php get_header(); ?>
@@ -116,7 +116,7 @@
 										?>
 											<li>
 												<a href="<?php echo get_category_link( $cat->term_id ); ?>">
-													<?php echo $cat->name; ?><?php echo ( ( $count + 1 ) !== $alltaxs_count) ? ',' : ''; ?>
+													<?php echo $cat->name; ?><?php echo ( ( $count + 1 ) !== $alltaxs_count ) ? ',' : ''; ?>
 												</a>
 											</li>
 										<?php
@@ -150,7 +150,7 @@
 					<?php
 					foreach ( $experts as $expert ) {
 						$title = get_post_meta( $expert->ID, 'expert_title', true );
-						$association = get_post_meta( $expert->ID, 'expert_association', true) ;
+						$association = get_post_meta( $expert->ID, 'expert_association', true ) ;
 					?>
 						<li class="clearfix">
 							<a href="<?php echo get_permalink( $expert->ID ); ?>"><?php echo get_img_html( $expert->ID, 'story' ); ?></a>

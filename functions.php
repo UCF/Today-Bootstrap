@@ -145,7 +145,7 @@ function gen_alerts_html()
 		$hidden_alerts	= array();
 		$alerts_html 	= '';
 
-		if ($alerts) {
+		if ( $alerts ) {
 			$alert_html = '<div class="row" id="alerts"><ul class="span12">';
 
 			foreach( $alerts as $alert ) {
@@ -452,12 +452,12 @@ function check_mainsite_tag( $post_id )
 					}
 				}
 				wp_set_post_tags( $post_id, implode( ',', $new_tags ) );
-				wp_die('<div style="background-color:#FF0000;border:1px solid #FF0000;padding:15px;color: #FFF;">Only adminstrators or editors can add the Main Site Stories tag to a post.</div>');
+				wp_die( '<div style="background-color:#FF0000;border:1px solid #FF0000;padding:15px;color: #FFF;">Only adminstrators or editors can add the Main Site Stories tag to a post.</div>' );
 			// Mainsite tag we removed
 			} else if ( ! $mainsite_tag_exists && $mainsite_tag_existed) {
 				// Add it
 				wp_set_post_tags( $post_id, $mainsite_tag->name, true );
-				wp_die('<div style="background-color:#FF0000;border:1px solid #FF0000;padding:15px;color: #FFF;">Only adminstrators or editors can remove the Main Site Stories tag from a post.</div>');
+				wp_die( '<div style="background-color:#FF0000;border:1px solid #FF0000;padding:15px;color: #FFF;">Only adminstrators or editors can remove the Main Site Stories tag from a post.</div>' );
 			}
 		}
 	}
@@ -568,16 +568,16 @@ function today_body_classes() {
 		$classes .= 'disable-md-navbar-toggle ';
 	}
 
-	if (is_home()) {
+	if ( is_home() ) {
 		$classes .= 'body-home ';
 	}
-	elseif (is_404()) {
+	elseif ( is_404() ) {
 		$classes .= 'body-404 ';
 	}
-	elseif (is_search()) {
+	elseif ( is_search() ) {
 		$classes .= 'body-search ';
 	}
-	elseif ($post->post_type == 'photoset') {
+	elseif ( $post->post_type == 'photoset' ) {
 		$classes .= 'body-photoset ';
 	}
 	elseif ( get_page_template_slug( $post ) == 'featured-single-post.php' ) {
@@ -605,11 +605,11 @@ function get_posts_search( $query='', $post_type='post', $extra_args=array() ) {
 		's'			  => $query,
 	);
 
-	if ($extra_args) {
+	if ( $extra_args ) {
 		array_merge( $args, $extra_args );
 	}
 
-	return get_posts($args);
+	return get_posts( $args );
 }
 
 
@@ -635,8 +635,8 @@ function display_social( $url, $title, $layout='default' ) {
  *
  * See http://wordpress.stackexchange.com/questions/3326/301-redirect-instead-of-404-when-url-is-a-prefix-of-a-post-or-page-name
  **/
-function no_redirect_on_404($redirect_url) {
-    if (is_404()) {
+function no_redirect_on_404( $redirect_url ) {
+    if ( is_404() ) {
         return false;
     }
     return $redirect_url;
@@ -747,8 +747,8 @@ function esi_include( $statementname, $argset=null, $print_results=false ) {
 function filter_archive_date_range( $where = '' ) {
     $monthYear = _getArchiveMonthYear();
 
-	$where .= ' AND post_date <= "' . date('Y-m-t', strtotime($monthYear["year"] . '-' . $monthYear["mon"] . '-1')) .
-		'" AND post_date >= "' . date('Y-m-d', strtotime($monthYear["year"] . '-' . $monthYear["mon"] . '-1')) . '"';
+	$where .= ' AND post_date <= "' . date( 'Y-m-t', strtotime( $monthYear["year"] . '-' . $monthYear["mon"] . '-1' ) ) .
+		'" AND post_date >= "' . date( 'Y-m-d', strtotime( $monthYear["year"] . '-' . $monthYear["mon"] . '-1' ) ) . '"';
 
 	return $where;
 }
@@ -775,7 +775,7 @@ function get_video_url( $video_ID ) {
 function protocol_relative_oembed( $html ) {
     return preg_replace( '@src="https?:@', 'src="', $html );
 }
-add_filter('embed_oembed_html', 'protocol_relative_oembed');
+add_filter( 'embed_oembed_html', 'protocol_relative_oembed' );
 
 /*
  * Add responsive container to YouTube embeds and center other embeds
@@ -813,7 +813,7 @@ function image_crop_dimensions( $default, $orig_w, $orig_h, $new_w, $new_h, $cro
 
     return array( 0, 0, (int) $s_x, (int) $s_y, (int) $new_w, (int) $new_h, (int) $crop_w, (int) $crop_h );
 }
-add_filter('image_resize_dimensions', 'image_crop_dimensions', 10, 6);
+add_filter( 'image_resize_dimensions', 'image_crop_dimensions', 10, 6 );
 
 /**
  * Add ID attribute to registered University Header script.
@@ -923,7 +923,7 @@ function get_more_stories( $post ) {
 	$primary_tag = get_post_meta( $post->ID, 'primary_tag', TRUE );
 
 	if ( ! $primary_tag ) {
-		$tags = wp_get_post_tags($post->ID);
+		$tags = wp_get_post_tags( $post->ID );
 		if ( count( $tags ) > 0 ) {
 			$primary_tag = $tags[0];
 		} else {
