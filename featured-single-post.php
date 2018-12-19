@@ -12,6 +12,7 @@ $category_title = get_cat_name($cats[0]);
 $subtitle = get_post_meta( $post->ID, 'subtitle', TRUE );
 $deck = get_post_meta( $post->ID, 'deck', TRUE );
 $source = get_post_meta( $post->ID, 'source', TRUE);
+$more_stories_markup = display_more_stories_featured( $post );
 
 $video_url = get_video_url($post->ID);
 
@@ -55,10 +56,11 @@ $video_url = get_video_url($post->ID);
 			</div>
 		</div>
 	</article>
+<?php if ( !empty( $more_stories_markup ) ) : ?>
 	<aside class="related-stories">
 		<h2 class="text-center">Related Stories</h2>
-		<?php echo display_more_stories_featured( $post ); ?>
+		<?php echo $more_stories_markup; ?>
 		<div class="clearfix"></div>
 	</aside>
-
+<?php endif; ?>
 	<?php get_footer( 'featured' ); ?>
