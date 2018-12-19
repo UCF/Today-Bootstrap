@@ -978,7 +978,7 @@ function display_related_story( $story ) {
 	</a>
 	</div>
 <?php
-	return ob_get_clean ();
+	return ob_get_clean();
 }
 
 /**
@@ -1066,7 +1066,7 @@ add_filter( 'ucf_social_links_display_affixed_before', 'ucf_social_links_display
 		}
 	</script>
 <?php
-	return ob_get_clean ();
+	return ob_get_clean();
 }
 
 
