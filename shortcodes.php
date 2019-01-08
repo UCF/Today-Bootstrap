@@ -1555,7 +1555,8 @@ function sc_photo_set($atts = Array())
 {
 	global $post;
 
-	$css	= (isset($atts['css'])) ? $atts['css'] : '';
+	$css	 = (isset($atts['css'])) ? $atts['css'] : '';
+	$heading = ( isset( $atts['heading_elem'] ) ) ? $atts['heading_elem'] : 'h3';
 
 	$images = resolve_posts(Array(), Array(	'post_type' => 'attachment',
 											'post_parent' => $post->ID,
@@ -1568,7 +1569,7 @@ function sc_photo_set($atts = Array())
 	?>
 	<div id="photoset" class="<?=$css?>">
 		<div class="row">
-			<h3 class="span8"><?=$post->post_title?></h3>
+			<<?php echo $heading; ?> class="span8"><?=$post->post_title?></<?php echo $heading; ?>>
 			<div class="span4">
 				<?=display_social(get_permalink($post->ID), $post->post_title)?>
 			</div>
@@ -1682,6 +1683,7 @@ function sc_videos($atts = Array())
 
 	$css            = (isset($atts['css'])) ? $atts['css'] : '';
 	$specific_video = (isset($atts['specific_video'])) ? $atts['specific_video'] : False;
+	$heading        = ( isset( $atts['heading_elem'] ) ) ? $atts['heading_elem'] : 'h3';
 
 	$video = null;
 
@@ -1717,7 +1719,7 @@ function sc_videos($atts = Array())
 						<?php echo $wp_embed->run_shortcode($embed_string); ?>
 					</div>
 					<div class="span4">
-						<h3><?=$video->post_title?></h3>
+						<<?php echo $heading; ?>><?=$video->post_title?></<?php echo $heading; ?>>
 						<p><?=$video->post_content?></p>
 					</div>
 					<hr class="span12" />
