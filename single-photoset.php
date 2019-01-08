@@ -15,7 +15,7 @@
 				<?=apply_filters('the_content', $page->post_content)?>
 			<?php
 			} else { ?>
-				<?=do_shortcode('[photo_set]')?>
+				<?=do_shortcode('[photo_set heading_elem="h1"]')?>
 			<?php
 			}
 			?>

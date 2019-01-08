@@ -15,7 +15,7 @@
 				<?=apply_filters('the_content', $page->post_content)?>
 			<?php
 			} else { ?>
-				<?=do_shortcode('[videos specific_video="'.$post->ID.'"]')?>
+				<?=do_shortcode('[videos specific_video="'.$post->ID.'" heading_elem="h1"]')?>
 			<?php
 			}
 			?>
