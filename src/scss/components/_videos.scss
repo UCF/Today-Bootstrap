@@ -9,10 +9,14 @@
   margin-top: 0;
 }
 
-#videos .feature+div h3 {
-  font-size: 22px;
-  line-height: 1.091;
-  text-transform: none;
+#videos .feature+div {
+  h1,
+  h3 {
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.091;
+    text-transform: none;
+  }
 }
 
 

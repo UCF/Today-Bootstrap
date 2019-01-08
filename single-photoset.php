@@ -14,7 +14,7 @@
 			<?php if ( $use_page == true ) : ?>
 				<?php echo apply_filters( 'the_content', $page->post_content ); ?>
 			<?php else : ?>
-				<?php echo do_shortcode( '[photo_set]' ); ?>
+				<?php echo do_shortcode( '[photo_set heading_elem="h1"]' ); ?>
 			<?php endif; ?>
 		</article>
 	</div>
