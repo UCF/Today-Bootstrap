@@ -139,11 +139,10 @@ function get_embed_html( $media_url ) {
  * @return string
  * @author Chris Conover
  **/
-function gen_alerts_html()
-{
-		$alerts 		= get_posts( array( 'post_type' => 'alert' ) );
-		$hidden_alerts	= array();
-		$alerts_html 	= '';
+function gen_alerts_html() {
+		$alerts        = get_posts( array( 'post_type' => 'alert' ) );
+		$hidden_alerts = array();
+		$alerts_html   = '';
 
 		if ( $alerts ) {
 			$alert_html = '<div class="row" id="alerts"><ul class="span12">';
@@ -214,9 +213,9 @@ function get_img_html( $post_id, $size = 'thumbnail', $options = array() )
 		$size = 'full';
 	}
 
-	$element_id		= ( isset( $options['element_id'] ) ) ? $options['element_id'] : '';
-	$return_id		= ( isset( $options['return_id'] ) ) ? $options['return_id'] : false;
-	$sent_attach	= ( isset( $options['sent_attach'] ) ) ? $options['sent_attach'] : false;
+	$element_id  = ( isset( $options['element_id'] ) ) ? $options['element_id'] : '';
+	$return_id   = ( isset( $options['return_id'] ) ) ? $options['return_id'] : false;
+	$sent_attach = ( isset( $options['sent_attach'] ) ) ? $options['sent_attach'] : false;
 
 	$org_size = $size;
 	$img_alttext = get_the_title( $post_id );
@@ -303,9 +302,11 @@ function resolve_posts( $atts, $args = array(), $filters = true, $strip_tags = t
 	$tag		= ( isset( $atts['tag'] ) ) ? $atts['tag'] : false;
 	$category	= ( isset( $atts['category'] ) ) ? $atts['category'] : false;
 
-	$args = array_merge( array(	'numberposts' => 1,
-								'offset' => 0,
-								'post_type' => 'post' ), $args );
+	$args = array_merge( array(
+							'numberposts' => 1,
+							'offset' => 0,
+							'post_type' => 'post' ), $args
+						);
 
 	if ( $tag !== false ) {
 		$posts = get_posts( array_merge( $args, array( 'tag' => $tag ) ) );
