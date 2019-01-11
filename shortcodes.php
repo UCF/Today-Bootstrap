@@ -404,10 +404,7 @@ function sc_ucf_news( $atts = array() )
 			</ul>
 		</div>
 	<?php
-	$html = ob_get_contents();
-	ob_end_clean();
-	return $html;
-
+	return ob_get_clean();
 }
 add_shortcode( 'ucf_news', 'sc_ucf_news' );
 
@@ -510,10 +507,7 @@ function sc_more_headlines( $atts = array() )
 			</ul>
 		</div>
 	<?php
-	$html = ob_get_contents();
-	ob_end_clean();
-	return $html;
-
+	return ob_get_clean();
 }
 add_shortcode( 'more_headlines', 'sc_more_headlines' );
 
