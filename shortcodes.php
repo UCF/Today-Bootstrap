@@ -634,7 +634,7 @@ function sc_resources( $atts = array() )
 	?>
 	<div class="<?php echo $css; ?>" id="resources">
 		<h2>Resources</h2>
-		<?php echo wp_nav_menu( $args ); ?>
+		<?php wp_nav_menu( $args ); ?>
 	</div>
 	<?php
 	return ob_get_clean();

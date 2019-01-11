@@ -113,7 +113,7 @@
 						<div class="site-header-desc"><?php echo wptexturize( get_theme_option( 'site_subtitle' ) ); ?></div>
 					</div>
 					<?php
-					echo wp_nav_menu( array(
+					wp_nav_menu( array(
 						'menu' => 'Top Navigation',
 						'container' => 'false',
 						'menu_class' => 'site-menu',
