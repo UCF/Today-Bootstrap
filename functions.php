@@ -210,7 +210,9 @@ function get_img_html( $post_id, $size = 'thumbnail', $options = array() )
 {
 	global $wpdb, $_wp_additional_image_sizes;
 
-	if ( $size == 'photoset_photo' ) $size = 'full';
+	if ( $size === 'photoset_photo' ) {
+		$size = 'full';
+	}
 
 	$element_id		= ( isset( $options['element_id'] ) ) ? $options['element_id'] : '';
 	$return_id		= ( isset( $options['return_id'] ) ) ? $options['return_id'] : false;
@@ -257,7 +259,9 @@ function get_img_html( $post_id, $size = 'thumbnail', $options = array() )
 
 	$html = '';
 
-	if ( in_array( $size, array( 'story', 'category_feature' ) ) ) $size = 'thumbnail';
+	if ( in_array( $size, array( 'story', 'category_feature' ) ) ) {
+		$size = 'thumbnail';
+	}
 
 	if ( $attach_id != '' ) {
 
@@ -322,7 +326,7 @@ function resolve_posts( $atts, $args = array(), $filters = true, $strip_tags = t
 			)
 		);
 	}
-	if ( ! isset( $posts ) || count( $posts ) == 0) {
+	if ( ! isset( $posts ) || count( $posts ) === 0) {
 		$posts = get_posts( $args );
 	}
 
@@ -346,7 +350,7 @@ function resolve_posts( $atts, $args = array(), $filters = true, $strip_tags = t
 		}
 	}
 
-	return ( $args['numberposts'] == 1 ) ? ( count( $posts ) > 0 ) ? $posts[0] : false : $posts;
+	return ( $args['numberposts'] === 1 ) ? ( count( $posts ) > 0 ) ? $posts[0] : false : $posts;
 }
 
 
@@ -405,7 +409,7 @@ function mainsite_tag_exists( $post_id )
 	$tags = wp_get_post_tags( $post_id );
 
 	foreach( $tags as $tag ) {
-		if ( $tag->slug == MAINSITE_TAG_SLUG ) {
+		if ( $tag->slug === MAINSITE_TAG_SLUG ) {
 			$mainsite_tag_existed = true;
 		}
 	}
@@ -433,7 +437,7 @@ function check_mainsite_tag( $post_id )
 		$post_tags = wp_get_post_tags( $post_id );
 		$mainsite_tag_exists = false;
 		foreach( $post_tags as $tag ) {
-			if ( $tag->slug == MAINSITE_TAG_SLUG ) {
+			if ( $tag->slug === MAINSITE_TAG_SLUG ) {
 				$mainsite_tag_exists = true;
 				break;
 			}
@@ -577,10 +581,10 @@ function today_body_classes() {
 	elseif ( is_search() ) {
 		$classes .= 'body-search ';
 	}
-	elseif ( $post->post_type == 'photoset' ) {
+	elseif ( $post->post_type === 'photoset' ) {
 		$classes .= 'body-photoset ';
 	}
-	elseif ( get_page_template_slug( $post ) == 'featured-single-post.php' ) {
+	elseif ( get_page_template_slug( $post ) === 'featured-single-post.php' ) {
 		$classes .= 'body-feature ';
 	}
 	else {
@@ -676,7 +680,7 @@ add_action( 'template_redirect', 'kill_unused_templates' );
  **/
 function filter_media_comment_status( $open, $post_id ) {
 	$post = get_post( $post_id );
-	if ( $post->post_type == 'attachment' ) {
+	if ( $post->post_type === 'attachment' ) {
 		return false;
 	}
 	return $open;
@@ -694,7 +698,7 @@ function esi_include( $statementname, $argset=null, $print_results=false ) {
 	// Get the statement key
 	$statementkey = null;
 	foreach ( Config::$esi_whitelist as $key=>$function ) {
-		if ( $function['name'] == $statementname ) $statementkey = $key;
+		if ( $function['name'] === $statementname ) $statementkey = $key;
 	}
 
 	if ( ! $statementkey ) return null;
@@ -702,7 +706,7 @@ function esi_include( $statementname, $argset=null, $print_results=false ) {
 	// Never include ESI over HTTPS
 	$enable_esi = get_theme_option( 'enable_esi' );
 
-	if ( ! is_null( $enable_esi ) && $enable_esi === '1' && is_ssl() == false ) {
+	if ( ! is_null( $enable_esi ) && $enable_esi === '1' && is_ssl() === false ) {
 		$argset = ( $argset !== null ) ? $argset = '&args=' . urlencode( base64_encode( $argset ) ) : '';
 		$print_results = ( $print_results === false ) ? '0' : '1'; // whether or not to print results instead of return
 		?>
@@ -713,7 +717,7 @@ function esi_include( $statementname, $argset=null, $print_results=false ) {
 		$statementargs = Config::$esi_whitelist[$statementkey]['safe_args'];
 		// If no safe arguments are defined in the whitelist for this statement,
 		// run call_user_func(); otherwise check arguments and run call_user_func_array()
-		if ( ! is_array( $statementargs ) || $argset == null) {
+		if ( ! is_array( $statementargs ) || $argset === null) {
 			if ( $print_results ) {
 				print call_user_func( $statementname );
 			}
