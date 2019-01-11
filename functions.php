@@ -302,11 +302,14 @@ function resolve_posts( $atts, $args = array(), $filters = true, $strip_tags = t
 	$tag		= ( isset( $atts['tag'] ) ) ? $atts['tag'] : false;
 	$category	= ( isset( $atts['category'] ) ) ? $atts['category'] : false;
 
-	$args = array_merge( array(
-							'numberposts' => 1,
-							'offset' => 0,
-							'post_type' => 'post' ), $args
-						);
+	$args = array_merge(
+		array(
+			'numberposts' => 1,
+			'offset' => 0,
+			'post_type' => 'post'
+		),
+		$args
+	);
 
 	if ( $tag !== false ) {
 		$posts = get_posts( array_merge( $args, array( 'tag' => $tag ) ) );

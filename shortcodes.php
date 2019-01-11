@@ -834,14 +834,15 @@ function sc_update( $atts = array() ) {
 
 	$css = ( isset( $atts['css'] ) ) ? $atts['css'] : '';
 
-	$update = resolve_posts( array(	'tag' => $wp_query->queried_object->slug ),
-							 array(
-								'post_type'   => 'update',
-								'numberposts' => 1
-								),
-								false,
-								false
-							);
+	$update = resolve_posts(
+		array( 'tag' => $wp_query->queried_object->slug ),
+		array(
+			'post_type'   => 'update',
+			'numberposts' => 1
+		),
+		false,
+		false
+	);
 	if ( $update !== false ) {
 		ob_start();
 		?>
@@ -873,12 +874,13 @@ function sc_external_stories( $atts = array() ) {
 	$linked_page_name = ( isset( $atts['linked_page_name'] ) ) ? $atts['linked_page_name'] : 'UCF in the News';
 	$show_description = ( isset( $atts['show_description'] ) ) ? filter_var( $atts['show_description'], FILTER_VALIDATE_BOOLEAN ) : false;
 
-	$stories = resolve_posts( array( 'tag' => $wp_query->queried_object->slug ),
-							  array(
-								'post_type' => 'externalstory',
-								'numberposts' => $links_per_page
-								)
-							);
+	$stories = resolve_posts(
+		array( 'tag' => $wp_query->queried_object->slug ),
+		array(
+			'post_type'   => 'externalstory',
+			'numberposts' => $links_per_page
+		)
+	);
 	ob_start();
 	if ( count( $stories ) > 0 ) : ?>
 		<div class="<?php echo $css; ?>" id="external_stories">
@@ -1305,19 +1307,20 @@ function sc_single_post_related_experts( $atts = array() ) {
 
 	ob_start();
 	foreach ( $experts as $expert ) :
-		$stories = resolve_posts( array(),
-								  array(
-									'numberposts' => 5,
-									'exclude'     => array( $post->ID ),
-									'tax_query'   => array(
-														array(
-															'taxonomy' => 'experts',
-															'field'    => 'slug',
-															'terms'    => $expert->slug
-														)
-													)
-									)
-								);
+		$stories = resolve_posts(
+			array(),
+			array(
+				'numberposts' => 5,
+				'exclude'     => array( $post->ID ),
+				'tax_query'   => array(
+					array(
+						'taxonomy' => 'experts',
+						'field'    => 'slug',
+						'terms'    => $expert->slug
+					)
+				)
+			)
+		);
 
 		if ( count( $stories ) > 0 ) :
 			?>
@@ -1397,16 +1400,18 @@ function sc_expert_tagged( $atts = array() ) {
 
 	$term = get_term_by( 'name', get_post_meta( $post->ID, 'expert_name', true ), 'experts' );
 
- 	$stories = resolve_posts( array(), array(
-		 								'numberposts' => 5,
-										'tax_query'   => array(
-															array(
-																'taxonomy' => 'experts',
-																'field' => 'slug',
-																'terms' => $term->slug
-															)
-														)
-										)
+	$stories = resolve_posts(
+		array(),
+		array(
+			'numberposts' => 5,
+			'tax_query'   => array(
+				array(
+					'taxonomy' => 'experts',
+					'field'    => 'slug',
+					'terms'    => $term->slug
+				)
+			)
+		)
 							);
 	if ( count( $stories ) > 0 ) {
 		ob_start();
@@ -1439,18 +1444,20 @@ function sc_expert_videos( $atts = array() ) {
 
 	$term = get_term_by( 'name', get_post_meta( $post->ID, 'expert_name', true ), 'experts' );
 
-	$videos = resolve_posts( array(), array(
-										'post_type'   => 'video',
-										'numberposts' => 5,
-										'tax_query'   => array(
-															array(
-																'taxonomy' => 'experts',
-																'field'    => 'slug',
-																'terms'    => $term->slug
-															)
-														)
-										)
-							);
+	$videos = resolve_posts(
+		array(),
+		array(
+			'post_type'   => 'video',
+			'numberposts' => 5,
+			'tax_query'   => array(
+				array(
+					'taxonomy' => 'experts',
+					'field'    => 'slug',
+					'terms'    => $term->slug
+				)
+			)
+		)
+	);
 	$video_page = get_page_by_title( 'Videos' );
 
 	if ( count( $videos ) > 0 ) {
@@ -1484,18 +1491,20 @@ function sc_expert_photos( $atts = array() ) {
 
 	$term = get_term_by( 'name', get_post_meta( $post->ID, 'expert_name', true ), 'experts' );
 
-	$photosets = resolve_posts( array(), array(
-											'post_type'   => 'photoset',
-											'numberposts' => 5,
-											'tax_query'   => array(
-																array(
-																	'taxonomy' => 'experts',
-																	'field' => 'slug',
-																	'terms' => $term->slug
-																)
-															)
-										)
-							);
+	$photosets = resolve_posts(
+		array(),
+		array(
+			'post_type'   => 'photoset',
+			'numberposts' => 5,
+			'tax_query'   => array(
+				array(
+					'taxonomy' => 'experts',
+					'field'    => 'slug',
+					'terms'    => $term->slug
+				)
+			)
+		)
+	);
 
 	if ( count( $photosets ) > 0 ) {
 		ob_start();
@@ -1610,11 +1619,13 @@ add_shortcode( 'photo_set', 'sc_photo_set' );
 function sc_photo_sets( $atts = array() ) {
 	$css = ( isset( $atts['css'] ) ) ? $atts['css'] : '';
 
-	$photo_sets = resolve_posts( array(), array(
-											'post_type' => 'photoset',
-											'numberposts' => -1
-										)
-								);
+	$photo_sets = resolve_posts(
+		array(),
+		array(
+			'post_type' => 'photoset',
+			'numberposts' => -1
+		)
+	);
 	$first = true;
 	ob_start();
 	?>
@@ -1779,12 +1790,13 @@ function sc_profile_feature( $atts = array() ) {
 	if ( isset( $atts['group'] ) ) {
 		$group_name = $atts['group'];
 		if ( ( $group = get_term_by( 'name', $group_name, 'groups' ) ) !== false ) {
-			$profiles = get_posts( array(
-									'numberposts' => 4,
-									'post_type' => 'profile',
-									'group' => $group->slug
-									)
-								);
+			$profiles = get_posts(
+				array(
+					'numberposts' => 4,
+					'post_type' => 'profile',
+					'group' => $group->slug
+				)
+			);
 			ob_start();
 			?>
 			<div id="profile-feature" class="<?php echo $css; ?>">
