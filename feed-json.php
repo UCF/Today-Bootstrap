@@ -16,7 +16,7 @@ if ( $thumb_dimensions_user ) {
 		$thumb_dimensions_user = explode( 'x', $thumb_dimensions_user, 2 );
 		$thumb_x = intval( $thumb_dimensions_user[0] );
 		if ( $thumb_x !== 0 ) {
-			if ( count( $thumb_dimensions_user ) == 2 ) {
+			if ( count( $thumb_dimensions_user ) === 2 ) {
 				$thumb_y = intval( $thumb_dimensions_user[1] );
 				if ( $thumb_y !== 0 ) {
 					// Both x and y dimensions are valid

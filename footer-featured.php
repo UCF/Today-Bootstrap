@@ -1,7 +1,7 @@
 			<div id="footer">
 				<div class="row">
 					<div class="span12 text-center">
-						<?php echo wp_nav_menu( array (
+						<?php wp_nav_menu( array (
 							'theme_location' => 'social-links',
 							'container' => 'div',
 							'container_id' => 'social-menu-wrap',

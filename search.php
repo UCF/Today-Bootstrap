@@ -85,7 +85,7 @@
 								$alltaxs_count = count( $tags ) + count( $cats );
 								foreach ( $tags as $t ) {
 									// account for the mainsite tag and remove it from the tax count
-									if ( $t->term_id == $mainsite_tag->term_id ) {
+									if ( $t->term_id === $mainsite_tag->term_id ) {
 										$alltaxs_count = $alltaxs_count - 1;
 									}
 								}

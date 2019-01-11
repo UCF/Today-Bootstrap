@@ -10,7 +10,7 @@
 	}
 ?>
 	<div class="subpage">
-	<?php if ( $use_page == true ) {
+	<?php if ( $use_page === true ) {
 		echo apply_filters( 'the_content', $page->post_content );
 	} else {
 	?>

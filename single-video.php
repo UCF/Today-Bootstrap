@@ -11,7 +11,7 @@
 
 	<div id="videos">
 		<article role="main">
-			<?php if ( $use_page == true ) : ?>
+			<?php if ( $use_page === true ) : ?>
 				<?php echo apply_filters( 'the_content', $page->post_content ); ?>
 			<?php else : ?>
 				<?php echo do_shortcode( '[videos specific_video="' . $post->ID . '" heading_elem="h1"]' ); ?>

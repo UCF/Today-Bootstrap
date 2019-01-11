@@ -508,7 +508,7 @@ function bootstrap_menus() {
 				$id = $element->$id_field;
 
 				// descend only when the depth is right and there are childrens for this element
-				if ( ( $max_depth == 0 || $max_depth > $depth+1 ) && isset( $children_elements[$id] ) ) {
+				if ( ( $max_depth === 0 || $max_depth > $depth+1 ) && isset( $children_elements[$id] ) ) {
 
 					foreach( $children_elements[ $id ] as $child ){
 
@@ -636,7 +636,7 @@ function create_html_element( $tag, $attr=array(), $content=null, $self_close=tr
  * When called, prevents direct loads of the value of $page.
  **/
 function disallow_direct_load( $page ) {
-	if ( $page == basename( $_SERVER['SCRIPT_FILENAME'] ) ) {
+	if ( $page === basename( $_SERVER['SCRIPT_FILENAME'] ) ) {
 		die( 'No' );
 	}
 }
@@ -738,7 +738,7 @@ function get_menu( $name, $classes=null, $id=null, $callback=null ){
 		ob_start();
 		?>
 		<ul<?php if ( $classes ) : ?> class="<?php echo $classes; ?>"<?php endif; ?><?php if ( $id ) : ?> id="<?php echo $id; ?>"<?php endif; ?>>
-			<?php foreach ( $items as $key=>$item ) : $last = $key == count( $items ) - 1; ?>
+			<?php foreach ( $items as $key=>$item ) : $last = $key === count( $items ) - 1; ?>
 			<li<?php if ( $last ) : ?> class="last"<?php endif; ?>><a href="<?php echo $item->url; ?>"><?php echo $item->title; ?></a></li>
 			<?php endforeach;?>
 		</ul>
@@ -938,7 +938,7 @@ function sc_object_list( $attrs, $options = array() ) {
 	$params = array_merge( $default_attrs, $attrs );
 
 	# verify options
-	if ( $params['type'] == null ) {
+	if ( $params['type'] === null ) {
 		return '<p class="error">No type defined for object list.</p>';
 	}
 	if ( ! is_numeric( $params['limit'] ) ) {
@@ -1161,7 +1161,7 @@ function opengraph_setup() {
 	# Set description
 	if ( is_front_page() ) {
 		$description = htmlentities( get_bloginfo( 'description' ) );
-	} elseif ( single_post_title( '', FALSE ) == "News Archive" ) {
+	} elseif ( single_post_title( '', FALSE ) === "News Archive" ) {
 		$monthYear = _getArchiveMonthYear();
 		$description = "UCF " . date( 'F Y', strtotime( $monthYear['year'] . '-' . $monthYear['mon'] . '-1' ) ) . " News Stories, articles, and events happening around the University of Central Florida. Orlando, Florida news and college news";
     } elseif ( is_category() ) {
@@ -1273,7 +1273,7 @@ function header_title() {
 	}
 	elseif ( is_page() ) {
 		$content = single_post_title( '', false );
-		if ( $content == "News Archive" ) {
+		if ( $content === "News Archive" ) {
 			$monthYear = _getArchiveMonthYear();
 			$content = "UCF News Archive - UCF News, Orlando FL News, " . date( 'F Y', strtotime( $monthYear['year'] . '-' . $monthYear['mon'] . '-1' ) );
 		}

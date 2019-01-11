@@ -82,7 +82,7 @@ function get_events( $start, $limit ){
 
 
 function display_announcements( $param, $value, $header='h3', $css ) {
-	$param = ( $param == 'role' || $param == 'keyword' || $param == 'time' ) ? $param : 'role';
+	$param = ( $param === 'role' || $param === 'keyword' || $param === 'time' ) ? $param : 'role';
 	$value = $value !== null ? sanitize_title( $value ) : 'all';
 
 	// Create transient key; e.g. 'announcements_role_staff'
@@ -119,7 +119,7 @@ function display_announcements( $param, $value, $header='h3', $css ) {
 
 
 function get_announcements( $param, $value ) {
-	$param = ( $param == 'role' || $param == 'keyword' || $param == 'time' ) ? $param : 'role';
+	$param = ( $param === 'role' || $param === 'keyword' || $param === 'time' ) ? $param : 'role';
 	$value = $value !== null ? $value : 'all';
 
 	$url = ANNOUNCE_DEFAULT;

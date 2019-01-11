@@ -29,7 +29,7 @@ function mrss_init() {
 		return;
 	}
 
-	if ( isset( $_GET['mrss'] ) && $_GET['mrss'] == 'off' )
+	if ( isset( $_GET['mrss'] ) && $_GET['mrss'] === 'off' )
 		return;
 
 	add_action( 'rss2_ns', 'mrss_ns' );
