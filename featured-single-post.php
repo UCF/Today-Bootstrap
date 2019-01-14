@@ -7,14 +7,14 @@ disallow_direct_load( 'featured-single-post.php' );
 get_header(); the_post();
 
 $title = $post->post_title;
-$cats = wp_get_post_categories($post->ID);
-$category_title = get_cat_name($cats[0]);
+$cats = wp_get_post_categories( $post->ID );
+$category_title = get_cat_name( $cats[0] );
 $subtitle = get_post_meta( $post->ID, 'subtitle', TRUE );
 $deck = get_post_meta( $post->ID, 'deck', TRUE );
 $source = get_post_meta( $post->ID, 'source', TRUE);
 $more_stories_markup = display_more_stories_featured( $post );
 
-$video_url = get_video_url($post->ID);
+$video_url = get_video_url( $post->ID );
 
 ?>
 
@@ -32,12 +32,12 @@ $video_url = get_video_url($post->ID);
 				<?php endif; ?>
 				<?php echo do_shortcode( '[feature_post_meta css="clearfix"]' ); ?>
 			</div>
-			<?php if($video_url != '') : ?>
-				<?php echo $wp_embed->run_shortcode( '[embed width="550" height="500"]'.$video_url.'[/embed]' ); ?>
+			<?php if ( $video_url != '' ) : ?>
+				<?php echo $wp_embed->run_shortcode( '[embed width="550" height="500"]' . $video_url . '[/embed]' ); ?>
 			<?php else : ?>
 			<div class="feature-story-image">
 				<?php the_post_thumbnail(); ?>
-				<p class="caption"><?php echo get_post(get_post_thumbnail_id())->post_excerpt; ?></p>
+				<p class="caption"><?php echo get_post( get_post_thumbnail_id() )->post_excerpt; ?></p>
 			</div>
 			<?php endif; ?>
 		</div>

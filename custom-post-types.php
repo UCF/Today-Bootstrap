@@ -4,7 +4,7 @@
  * Abstract class for defining custom post types.
  *
  **/
-abstract class CustomPostType{
+abstract class CustomPostType {
 	public
 		$name           = 'custom_post_type',
 		$plural_name    = 'Custom Posts',
@@ -21,7 +21,7 @@ abstract class CustomPostType{
 		$use_metabox    = False, # Enable if you have custom fields to display in admin
 		$use_shortcode  = False, # Auto generate a shortcode for the post type
 		                         # (see also objectsToHTML and toHTML methods)
-		$taxonomies     = array('post_tag'),
+		$taxonomies     = array( 'post_tag' ),
 		$built_in       = False,
 		$rewrite 		= True,
 		$show_in_rest   = False,
@@ -37,16 +37,16 @@ abstract class CustomPostType{
 	 * custom post type.  Any options valid in get_posts can be passed as an
 	 * option array.  Returns an array of objects.
 	 **/
-	public function get_objects($options=array()){
+	public function get_objects( $options=array() ){
 
 		$defaults = array(
 			'numberposts'   => -1,
 			'orderby'       => 'title',
 			'order'         => 'ASC',
-			'post_type'     => $this->options('name'),
+			'post_type'     => $this->options( 'name' ),
 		);
-		$options = array_merge($defaults, $options);
-		$objects = get_posts($options);
+		$options = array_merge( $defaults, $options );
+		$objects = get_posts( $options );
 		return $objects;
 	}
 
@@ -55,12 +55,12 @@ abstract class CustomPostType{
 	 * Similar to get_objects, but returns array of key values mapping post
 	 * title to id if available, otherwise it defaults to id=>id.
 	 **/
-	public function get_objects_as_options($options=array()){
-		$objects = $this->get_objects($options);
+	public function get_objects_as_options( $options=array() ){
+		$objects = $this->get_objects( $options );
 		$opt     = array();
-		foreach($objects as $o){
-			switch(True){
-				case $this->options('use_title'):
+		foreach( $objects as $o ){
+			switch( True ){
+				case $this->options( 'use_title' ):
 					$opt[$o->post_title] = $o->ID;
 					break;
 				default:
@@ -75,8 +75,8 @@ abstract class CustomPostType{
 	/**
 	 * Return the instances values defined by $key.
 	 **/
-	public function options($key){
-		$vars = get_object_vars($this);
+	public function options( $key ) {
+		$vars = get_object_vars( $this );
 		return $vars[$key];
 	}
 
@@ -85,7 +85,7 @@ abstract class CustomPostType{
 	 * Additional fields on a custom post type may be defined by overriding this
 	 * method on an descendant object.
 	 **/
-	public function fields(){
+	public function fields() {
 		return array();
 	}
 
@@ -97,19 +97,19 @@ abstract class CustomPostType{
 	public function supports(){
 		#Default support array
 		$supports = array();
-		if ($this->options('use_title')){
+		if ( $this->options( 'use_title' ) ) {
 			$supports[] = 'title';
 		}
-		if ($this->options('use_order')){
+		if ( $this->options( 'use_order' ) ) {
 			$supports[] = 'page-attributes';
 		}
-		if ($this->options('use_thumbnails')){
+		if ( $this->options( 'use_thumbnails' ) ) {
 			$supports[] = 'thumbnail';
 		}
-		if ($this->options('use_editor')){
+		if ( $this->options( 'use_editor' ) ) {
 			$supports[] = 'editor';
 		}
-		if ($this->options('use_revisions')){
+		if ( $this->options( 'use_revisions' ) ) {
 			$supports[] = 'revisions';
 		}
 		return $supports;
@@ -121,11 +121,11 @@ abstract class CustomPostType{
 	 **/
 	public function labels(){
 		return array(
-			'name'          => __($this->options('plural_name')),
-			'singular_name' => __($this->options('singular_name')),
-			'add_new_item'  => __($this->options('add_new_item')),
-			'edit_item'     => __($this->options('edit_item')),
-			'new_item'      => __($this->options('new_item')),
+			'name'          => __( $this->options( 'plural_name' ) ),
+			'singular_name' => __( $this->options( 'singular_name' ) ),
+			'add_new_item'  => __( $this->options( 'add_new_item' ) ),
+			'edit_item'     => __( $this->options( 'edit_item' ) ),
+			'new_item'      => __( $this->options( 'new_item' ) ),
 		);
 	}
 
@@ -134,12 +134,12 @@ abstract class CustomPostType{
 	 * Creates metabox array for custom post type. Override method in
 	 * descendants to add or modify metaboxes.
 	 **/
-	public function metabox(){
-		if ($this->options('use_metabox')){
+	public function metabox() {
+		if ( $this->options( 'use_metabox' ) ) {
 			return array(
-				'id'       => $this->options('name').'_metabox',
-				'title'    => __($this->options('singular_name').' Fields'),
-				'page'     => $this->options('name'),
+				'id'       => $this->options( 'name' ).'_metabox',
+				'title'    => __( $this->options( 'singular_name' ).' Fields' ),
+				'page'     => $this->options( 'name' ),
 				'context'  => 'normal',
 				'priority' => 'high',
 				'fields'   => $this->fields(),
@@ -152,8 +152,8 @@ abstract class CustomPostType{
 	/**
 	 * Registers metaboxes defined for custom post type.
 	 **/
-	public function register_metaboxes(){
-		if ($this->options('use_metabox')){
+	public function register_metaboxes() {
+		if ( $this->options( 'use_metabox' ) ) {
 			$metabox = $this->metabox();
 			add_meta_box(
 				$metabox['id'],
@@ -171,31 +171,31 @@ abstract class CustomPostType{
 	 * Registers the custom post type and any other ancillary actions that are
 	 * required for the post to function properly.
 	 **/
-	public function register(){
+	public function register() {
 		$registration = array(
 			'labels'       => $this->labels(),
 			'supports'     => $this->supports(),
-			'public'       => $this->options('public'),
-			'taxonomies'   => $this->options('taxonomies'),
-			'_builtin'     => $this->options('built_in'),
-			'menu_icon'    => $this->options('menu_icon'),
-			'rewrite'	   => $this->options('rewrite')
+			'public'       => $this->options( 'public' ),
+			'taxonomies'   => $this->options( 'taxonomies' ),
+			'_builtin'     => $this->options( 'built_in' ),
+			'menu_icon'    => $this->options( 'menu_icon' ),
+			'rewrite'	   => $this->options( 'rewrite' )
 		);
 
-		if ( $this->options('show_in_rest') ) {
+		if ( $this->options( 'show_in_rest' ) ) {
 			$registration['show_in_rest'] = True;
 			$registration['rest_base'] = $this->name . 's';
 			$registration['rest_controller_class'] = 'WP_REST_Posts_Controller';
 		}
 
-		if ($this->options('use_order')){
-			$registration = array_merge($registration, array('hierarchical' => True,));
+		if ( $this->options( 'use_order' ) ) {
+			$registration = array_merge( $registration, array( 'hierarchical' => True, ) );
 		}
 
-		register_post_type($this->options('name'), $registration);
+		register_post_type( $this->options( 'name' ), $registration );
 
-		if ($this->options('use_shortcode')){
-			add_shortcode($this->options('name').'-list', array($this, 'shortcode'));
+		if ( $this->options( 'use_shortcode' ) ) {
+			add_shortcode( $this->options( 'name' ).'-list', array( $this, 'shortcode' ) );
 		}
 	}
 
@@ -205,16 +205,16 @@ abstract class CustomPostType{
 	 * Defaults to just outputting a list of objects outputted as defined by
 	 * toHTML method.
 	 **/
-	public function shortcode($attr){
+	public function shortcode( $attr ) {
 		$default = array(
-			'type' => $this->options('name'),
+			'type' => $this->options( 'name' ),
 		);
-		if (is_array($attr)){
-			$attr = array_merge($default, $attr);
-		}else{
+		if ( is_array( $attr ) ) {
+			$attr = array_merge( $default, $attr );
+		} else {
 			$attr = $default;
 		}
-		return sc_object_list($attr);
+		return sc_object_list( $attr );
 	}
 
 
@@ -224,18 +224,18 @@ abstract class CustomPostType{
 	 * this, if you just want to override how a single object is outputted, see
 	 * the toHTML method.
 	 **/
-	public function objectsToHTML($objects, $css_classes){
-		if (count($objects) < 1){ return '';}
+	public function objectsToHTML( $objects, $css_classes ) {
+		if ( count( $objects ) < 1 ) { return ''; }
 
-		$class = get_custom_post_type($objects[0]->post_type);
+		$class = get_custom_post_type( $objects[0]->post_type );
 		$class = new $class;
 
 		ob_start();
 		?>
-		<ul class="<?php if($css_classes):?><?=$css_classes?><?php else:?><?=$class->options('name')?>-list<?php endif;?>">
-			<?php foreach($objects as $o):?>
+		<ul class="<?php if ( $css_classes ): ?><?php echo $css_classes; ?><?php else: ?><?php echo $class->options( 'name' ); ?>-list<?php endif; ?>">
+			<?php foreach( $objects as $o ): ?>
 			<li>
-				<?=$class->toHTML($o)?>
+				<?php echo $class->toHTML( $o ); ?>
 			</li>
 			<?php endforeach;?>
 		</ul>
@@ -248,8 +248,8 @@ abstract class CustomPostType{
 	/**
 	 * Outputs this item in HTML.  Can be overridden for descendants.
 	 **/
-	public function toHTML($object){
-		$html = '<a href="'.get_permalink($object->ID).'">'.$object->post_title.'</a>';
+	public function toHTML( $object ) {
+		$html = '<a href="'.get_permalink( $object->ID ).'">'.$object->post_title.'</a>';
 		return $html;
 	}
 }
@@ -260,7 +260,7 @@ abstract class CustomPostType{
  *
  * @author Chris Conover
  **/
-class Alert extends CustomPostType{
+class Alert extends CustomPostType {
 	public
 		$name           = 'alert',
 		$plural_name    = 'Alerts',
@@ -273,7 +273,7 @@ class Alert extends CustomPostType{
 		$use_metabox    = True;
 
 	public function fields() {
-		$prefix = $this->options('name').'_';
+		$prefix = $this->options( 'name' ).'_';
 		return array(
 			array(
 				'name'	=> 'Text',
@@ -298,7 +298,7 @@ class Alert extends CustomPostType{
 				'desc'		=> '',
 				'id'		=> $prefix.'type',
 				'type'		=> 'select',
-				'options'	=> Array('Advisory (Background Color: #F79501, Text Color: #FFFFFF)' => 'advisory', 'Severe (Background Color: #FF0000, Text Color: #FFFFFF)' => 'severe'),
+				'options'	=> Array( 'Advisory (Background Color: #F79501, Text Color: #FFFFFF)' => 'advisory', 'Severe (Background Color: #FF0000, Text Color: #FFFFFF)' => 'severe' ),
 				'std'		=> 'advisory'
 			),
 			array(
@@ -337,7 +337,7 @@ class Post extends CustomPostType
 		$use_order = False,
 		$use_title = True,
 		$use_metabox = True,
-		$taxonomies = array('experts', 'post_tag', 'category'),
+		$taxonomies = array( 'experts', 'post_tag', 'category' ),
 		$built_in = True,
 		$show_in_rest = True;
 
@@ -345,7 +345,7 @@ class Post extends CustomPostType
 		global $post;
 
 		$primary_tag_options = Array();
-		foreach(wp_get_post_tags($post->ID) as $tag) {
+		foreach( wp_get_post_tags( $post->ID ) as $tag ) {
 			$primary_tag_options[$tag->name] = $tag->term_id;
 		}
 
@@ -451,7 +451,7 @@ class Expert extends CustomPostType
 		$use_metabox    = True;
 
 	public function fields() {
-		$prefix = $this->options('name').'_';
+		$prefix = $this->options( 'name' ).'_';
 		return Array(
 				Array(
 					'name'	=> 'Name',
@@ -505,13 +505,13 @@ class PhotoSet extends CustomPostType
 		$use_thumbnails = True,
 		$use_metabox    = True,
 
-		$rewrite		= Array('slug' => 'ucf-in-photos'),
+		$rewrite		= Array( 'slug' => 'ucf-in-photos' ),
 		$menu_icon		= 'dashicons-format-gallery',
 
-		$taxonomies     = Array('experts');
+		$taxonomies     = Array( 'experts' );
 
 	public function fields() {
-		$prefix = $this->options('name').'_';
+		$prefix = $this->options( 'name' ).'_';
 		return Array(
 				Array(
 					'name'	=> 'Note',
@@ -545,10 +545,10 @@ class Video extends CustomPostType
 		$use_editor		= True,
 		$menu_icon		= 'dashicons-video-alt3',
 
-		$taxonomies		= Array('category', 'post_tag', 'experts');
+		$taxonomies		= Array( 'category', 'post_tag', 'experts' );
 
 	public function fields() {
-		$prefix = $this->options('name').'_';
+		$prefix = $this->options( 'name' ).'_';
 		return Array(
 				Array(
 					'name'	=> 'Video Link',
@@ -584,10 +584,10 @@ class Profile extends CustomPostType
 		$use_thumbnails = True,
 		$use_metabox    = True,
 		$menu_icon		= 'dashicons-groups',
-		$taxonomies     = Array('groups');
+		$taxonomies     = Array( 'groups' );
 
 	public function fields() {
-		$prefix = $this->options('name').'_';
+		$prefix = $this->options( 'name' ).'_';
 		return Array(
 				Array(
 					'name'	=> 'Job Title',
@@ -618,10 +618,10 @@ class ExternalStory extends CustomPostType
 		$use_metabox    = True,
 		$use_editor		= False,
 		$menu_icon		= 'dashicons-media-text',
-		$taxonomies		= Array('category', 'experts', 'sources');
+		$taxonomies		= Array( 'category', 'experts', 'sources' );
 
 	public function fields() {
-		$prefix = $this->options('name').'_';
+		$prefix = $this->options( 'name' ).'_';
 		return Array(
 				Array(
 					'name'	=> 'Link Text *',

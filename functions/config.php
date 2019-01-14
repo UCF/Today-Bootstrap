@@ -54,66 +54,66 @@ function __init__(){
 		'before_widget' => '<div id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</div>',
 	) );
-	foreach(Config::$styles as $style){Config::add_css($style);}
-	foreach(Config::$scripts as $script){Config::add_script($script);}
+	foreach( Config::$styles as $style ){Config::add_css( $style );}
+	foreach( Config::$scripts as $script ){Config::add_script( $script );}
 
 	global $timer;
 	$timer = Timer::start();
 
-	wp_deregister_script('l10n');
+	wp_deregister_script( 'l10n' );
 	set_defaults_for_options();
 }
-add_action('after_setup_theme', '__init__');
+add_action( 'after_setup_theme', '__init__' );
 
 
 
 # Set theme constants
-#define('DEBUG', True);                  # Always on
-#define('DEBUG', False);                 # Always off
-define('DEBUG', isset($_GET['debug'])); # Enable via get parameter
-define('THEME_URL', get_stylesheet_directory_uri());
-define('THEME_ADMIN_URL', get_admin_url());
-define('THEME_DIR', get_stylesheet_directory());
-define('THEME_INCLUDES_DIR', THEME_DIR.'/includes');
-define('THEME_STATIC_URL', THEME_URL.'/static');
-define('THEME_IMG_URL', THEME_STATIC_URL.'/img');
-define('THEME_JS_URL', THEME_STATIC_URL.'/js');
-define('THEME_CSS_URL', THEME_STATIC_URL.'/css');
-define('THEME_OPTIONS_GROUP', 'settings');
-define('THEME_OPTIONS_NAME', 'theme');
-define('THEME_OPTIONS_PAGE_TITLE', 'Theme Options');
+#define( 'DEBUG', True );                  # Always on
+#define( 'DEBUG', False );                 # Always off
+define( 'DEBUG', isset( $_GET['debug'] ) ); # Enable via getparameter
+define( 'THEME_URL', get_stylesheet_directory_uri() );
+define( 'THEME_ADMIN_URL', get_admin_url() );
+define( 'THEME_DIR', get_stylesheet_directory() );
+define( 'THEME_INCLUDES_DIR', THEME_DIR.'/includes' );
+define( 'THEME_STATIC_URL', THEME_URL.'/static' );
+define( 'THEME_IMG_URL', THEME_STATIC_URL.'/img' );
+define( 'THEME_JS_URL', THEME_STATIC_URL.'/js' );
+define( 'THEME_CSS_URL', THEME_STATIC_URL.'/css' );
+define( 'THEME_OPTIONS_GROUP', 'settings' );
+define( 'THEME_OPTIONS_NAME', 'theme' );
+define( 'THEME_OPTIONS_PAGE_TITLE', 'Theme Options' );
 
-$theme_options = get_option(THEME_OPTIONS_NAME);
-define('GA_ACCOUNT', $theme_options['ga_account']);
-define('CB_UID', $theme_options['cb_uid']);
-define('CB_DOMAIN', $theme_options['cb_domain']);
+$theme_options = get_option( THEME_OPTIONS_NAME );
+define( 'GA_ACCOUNT', $theme_options['ga_account'] );
+define( 'CB_UID', $theme_options['cb_uid'] );
+define( 'CB_DOMAIN', $theme_options['cb_domain'] );
 
 # Announcements
-define('ANNOUNCE_DEFAULT', 'http://www.ucf.edu/announcements/?include_ongoing=0&output=json');
-define('ANNOUNCE_CACHE_DURATION', 60 * 5); // seconds
+define( 'ANNOUNCE_DEFAULT', 'http://www.ucf.edu/announcements/?include_ongoing=0&output=json' );
+define( 'ANNOUNCE_CACHE_DURATION', 60 * 5 ); // seconds
 
 # Alerts
-define('ALERT_COOKIE_NAME', 'ucf_today_alerts');
+define( 'ALERT_COOKIE_NAME', 'ucf_today_alerts' );
 
 # Mainsite Tag Checker
-define('MAINSITE_TAG_SLUG', 'main-site-stories');
+define( 'MAINSITE_TAG_SLUG', 'main-site-stories' );
 $mainsite_tag_existed = False;
 
 # Events
-define('EVENTS_URL', 'http://events.ucf.edu');
-define('EVENTS_CALENDAR_ID', 1);
-define('EVENTS_CACHE_DURATION', 60 * 5); //seconds
+define( 'EVENTS_URL', 'http://events.ucf.edu' );
+define( 'EVENTS_CALENDAR_ID', 1 );
+define( 'EVENTS_CACHE_DURATION', 60 * 5 ); //seconds
 
 # JSON feed retrieval timeout
-define('FEED_FETCH_TIMEOUT', 5); //seconds
+define( 'FEED_FETCH_TIMEOUT', 5 ); //seconds
 
 # Protocol-agnostic URL schemes aren't supported before WP 3.5,
 # so we have to determine the protocol before registering
 # any non-relative resources.
-define('CURRENT_PROTOCOL', is_ssl() ? 'https://' : 'http://');
+define( 'CURRENT_PROTOCOL', is_ssl() ? 'https://' : 'http://' );
 
 # ESI processing
-define('ESI_INCLUDE_URL', THEME_STATIC_URL.'/esi.php');
+define( 'ESI_INCLUDE_URL', THEME_STATIC_URL.'/esi.php' );
 
 # Feed thumbnail default image
 define( 'FEED_THUMBNAIL_FALLBACK', get_bloginfo( 'stylesheet_directory' ) . '/static/img/no-photo.png' );
@@ -158,7 +158,7 @@ Config::$custom_taxonomies = array(
 Config::$esi_whitelist = array(
 	2 => array(
 		'name' => 'do_shortcode',
-		'safe_args' => array('[events]', '[events css="border-bottom"]'),
+		'safe_args' => array( '[events]', '[events css="border-bottom"]' ),
 	),
 );
 
@@ -170,28 +170,28 @@ Config::$theme_settings = array(
 	'Analytics' => array(
 		new TextField(array(
 			'name'        => 'Google WebMaster Verification',
-			'id'          => THEME_OPTIONS_NAME.'[gw_verify]',
+			'id'          => THEME_OPTIONS_NAME . '[gw_verify]',
 			'description' => 'Example: <em>9Wsa3fspoaoRE8zx8COo48-GCMdi5Kd-1qFpQTTXSIw</em>',
 			'default'     => null,
 			'value'       => $theme_options['gw_verify'],
 		)),
 		new TextField(array(
 			'name'        => 'Google Analytics Account',
-			'id'          => THEME_OPTIONS_NAME.'[ga_account]',
+			'id'          => THEME_OPTIONS_NAME . '[ga_account]',
 			'description' => 'Example: <em>UA-9876543-21</em>. Leave blank for development.',
 			'default'     => null,
 			'value'       => $theme_options['ga_account'],
 		)),
 		new TextField(array(
 			'name'        => 'Chartbeat UID',
-			'id'          => THEME_OPTIONS_NAME.'[cb_uid]',
+			'id'          => THEME_OPTIONS_NAME . '[cb_uid]',
 			'description' => 'Example: <em>1842</em>',
 			'default'     => null,
 			'value'       => $theme_options['cb_uid'],
 		)),
 		new TextField(array(
 			'name'        => 'Chartbeat Domain',
-			'id'          => THEME_OPTIONS_NAME.'[cb_domain]',
+			'id'          => THEME_OPTIONS_NAME . '[cb_domain]',
 			'description' => 'Example: <em>some.domain.com</em>',
 			'default'     => null,
 			'value'       => $theme_options['cb_domain'],
@@ -200,7 +200,7 @@ Config::$theme_settings = array(
 	'Events' => array(
 		new SelectField(array(
 			'name'        => 'Events Max Items',
-			'id'          => THEME_OPTIONS_NAME.'[events_max_items]',
+			'id'          => THEME_OPTIONS_NAME . '[events_max_items]',
 			'description' => 'Maximum number of events to display whenever outputting event information.',
 			'value'       => $theme_options['events_max_items'],
 			'default'     => 5,
@@ -214,7 +214,7 @@ Config::$theme_settings = array(
 		)),
 		new TextField(array(
 			'name'        => 'Events Calendar URL',
-			'id'          => THEME_OPTIONS_NAME.'[events_url]',
+			'id'          => THEME_OPTIONS_NAME . '[events_url]',
 			'description' => 'Base URL for the calendar you wish to use. Example: <em>http://events.ucf.edu/mycalendar</em>',
 			'value'       => $theme_options['events_url'],
 			'default'     => 'http://events.ucf.edu',
@@ -223,7 +223,7 @@ Config::$theme_settings = array(
 	'Search' => array(
 		new RadioField(array(
 			'name'        => 'Enable Google Search',
-			'id'          => THEME_OPTIONS_NAME.'[enable_google]',
+			'id'          => THEME_OPTIONS_NAME . '[enable_google]',
 			'description' => 'Enable to use the google search appliance to power the search functionality.',
 			'default'     => 0,
 			'choices'     => array(
@@ -234,14 +234,14 @@ Config::$theme_settings = array(
 	    )),
 		new TextField(array(
 			'name'        => 'Search Domain',
-			'id'          => THEME_OPTIONS_NAME.'[search_domain]',
+			'id'          => THEME_OPTIONS_NAME . '[search_domain]',
 			'description' => 'Domain to use for the built-in google search.  Useful for development or if the site needs to search a domain other than the one it occupies. Example: <em>some.domain.com</em>',
 			'default'     => null,
 			'value'       => $theme_options['search_domain'],
 		)),
 		new TextField(array(
 			'name'        => 'Search Results Per Page',
-			'id'          => THEME_OPTIONS_NAME.'[search_per_page]',
+			'id'          => THEME_OPTIONS_NAME . '[search_per_page]',
 			'description' => 'Number of search results to show per page of results',
 			'default'     => 10,
 			'value'       => $theme_options['search_per_page'],
@@ -250,7 +250,7 @@ Config::$theme_settings = array(
 	'Social' => array(
 		new RadioField(array(
 			'name'        => 'Enable OpenGraph',
-			'id'          => THEME_OPTIONS_NAME.'[enable_og]',
+			'id'          => THEME_OPTIONS_NAME . '[enable_og]',
 			'description' => 'Turn on the opengraph meta information used by Facebook.',
 			'default'     => 1,
 			'choices'     => array(
@@ -261,21 +261,21 @@ Config::$theme_settings = array(
 	    )),
 		new TextField(array(
 			'name'        => 'Facebook Admins',
-			'id'          => THEME_OPTIONS_NAME.'[fb_admins]',
+			'id'          => THEME_OPTIONS_NAME . '[fb_admins]',
 			'description' => 'Comma seperated facebook usernames or user ids of those responsible for administrating any facebook pages created from pages on this site. Example: <em>592952074, abe.lincoln</em>',
 			'default'     => null,
 			'value'       => $theme_options['fb_admins'],
 		)),
 		new TextField(array(
 			'name'        => 'Facebook URL',
-			'id'          => THEME_OPTIONS_NAME.'[facebook_url]',
+			'id'          => THEME_OPTIONS_NAME . '[facebook_url]',
 			'description' => 'URL to the facebook page you would like to direct visitors to.  Example: <em>https://www.facebook.com/CSBrisketBus</em>',
 			'default'     => null,
 			'value'       => $theme_options['facebook_url'],
 		)),
 		new TextField(array(
 			'name'        => 'Twitter URL',
-			'id'          => THEME_OPTIONS_NAME.'[twitter_url]',
+			'id'          => THEME_OPTIONS_NAME . '[twitter_url]',
 			'description' => 'URL to the twitter user account you would like to direct visitors to.  Example: <em>http://twitter.com/csbrisketbus</em>',
 			'value'       => $theme_options['twitter_url'],
 		)),
@@ -283,14 +283,14 @@ Config::$theme_settings = array(
 	'Site' => array(
 		new TextField(array(
 			'name'        => 'Site Subtitle',
-			'id'          => THEME_OPTIONS_NAME.'[site_subtitle]',
+			'id'          => THEME_OPTIONS_NAME . '[site_subtitle]',
 			'description' => 'Descriptive text to display next to the UCF Today logo in the site header.',
 			'default'     => '',
 			'value'       => $theme_options['site_subtitle'],
 		)),
 		new RadioField(array(
 			'name' 		  => 'Enable Edge Side Includes (ESI)',
-			'id' 		  => THEME_OPTIONS_NAME.'[enable_esi]',
+			'id' 		  => THEME_OPTIONS_NAME . '[enable_esi]',
 			'description' => 'Replace specified content with Edge Side Includes (ESI) to be processed by Varnish.',
 			'default' 	  => 0,
 			'choices' 	  => array(
@@ -303,21 +303,21 @@ Config::$theme_settings = array(
 );
 
 Config::$links = array(
-	array('rel' => 'shortcut icon', 'href' => THEME_IMG_URL.'/favicon.ico',),
-	array('rel' => 'alternate', 'type' => 'application/rss+xml', 'href' => get_bloginfo('rss_url'),),
+	array( 'rel' => 'shortcut icon', 'href' => THEME_IMG_URL.'/favicon.ico', ),
+	array( 'rel' => 'alternate', 'type' => 'application/rss+xml', 'href' => get_bloginfo( 'rss_url' ), ),
 );
 
 
 Config::$styles = array(
-	array('admin' => True, 'src' => THEME_CSS_URL.'/admin.min.css',),
-	CURRENT_PROTOCOL.'universityheader.ucf.edu/bar/css/bar.css',
+	array( 'admin' => True, 'src' => THEME_CSS_URL.'/admin.min.css', ),
+	CURRENT_PROTOCOL . 'universityheader.ucf.edu/bar/css/bar.css',
 	'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'
 );
 
-array_push(Config::$styles,
+array_push( Config::$styles,
 	plugins_url( 'gravityforms/css/forms.css' ),
-	THEME_CSS_URL.'/style.min.css',
-	get_bloginfo('stylesheet_url')
+	THEME_CSS_URL . '/style.min.css',
+	get_bloginfo( 'stylesheet_url' )
 );
 
 Config::$scripts = array(
@@ -330,12 +330,12 @@ Config::$scripts = array(
 );
 
 Config::$metas = array(
-	array('charset' => 'utf-8',),
+	array( 'charset' => 'utf-8', ),
 );
-if ($theme_options['gw_verify']){
+if ( $theme_options['gw_verify'] ) {
 	Config::$metas[] = array(
 		'name'    => 'google-site-verification',
-		'content' => htmlentities($theme_options['gw_verify']),
+		'content' => htmlentities( $theme_options['gw_verify'] ),
 	);
 }
 
@@ -343,10 +343,10 @@ if ($theme_options['gw_verify']){
 
 function jquery_in_header() {
     wp_deregister_script( 'jquery' );
-    wp_register_script( 'jquery', CURRENT_PROTOCOL.'ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js');
+    wp_register_script( 'jquery', CURRENT_PROTOCOL.'ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' );
     wp_enqueue_script( 'jquery' );
     wp_register_script( 'jquery-textFit', THEME_JS_URL.'/jquery.textFit.min.js' );
     wp_enqueue_script( 'jquery-textFit' );
 }
 
-add_action('wp_enqueue_scripts', 'jquery_in_header');
+add_action( 'wp_enqueue_scripts', 'jquery_in_header' );

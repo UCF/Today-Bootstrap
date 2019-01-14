@@ -16,7 +16,7 @@ if ( $thumb_dimensions_user ) {
 		$thumb_dimensions_user = explode( 'x', $thumb_dimensions_user, 2 );
 		$thumb_x = intval( $thumb_dimensions_user[0] );
 		if ( $thumb_x !== 0 ) {
-			if ( count( $thumb_dimensions_user ) == 2 ) {
+			if ( count( $thumb_dimensions_user ) === 2 ) {
 				$thumb_y = intval( $thumb_dimensions_user[1] );
 				if ( $thumb_y !== 0 ) {
 					// Both x and y dimensions are valid
@@ -48,7 +48,7 @@ if ( have_posts() ) {
 			'permalink' => get_permalink(),
 			'content'   => strip_shortcodes( get_the_content() ),
 			'excerpt'   => get_the_excerpt(),
-			'date'      => get_the_date(DATE_ISO8601),
+			'date'      => get_the_date( DATE_ISO8601 ),
 			'author'    => get_the_author()
 		);
 
@@ -61,16 +61,16 @@ if ( have_posts() ) {
 
 	$json = json_encode( $json );
 
-	header("Content-Type: application/json; charset={$charset}");
-	header("Access-Control-Allow-Origin: *");
-	header("Access-Control-Allow-Methods: GET");
+	header( "Content-Type: application/json; charset={$charset}" );
+	header( "Access-Control-Allow-Origin: *" );
+	header( "Access-Control-Allow-Methods: GET" );
 	echo $json;
 } else {
 	$json = json_encode( array() );
 
-	header("Content-Type: application/json; charset={$charset}");
-	header("Access-Control-Allow-Origin: *");
-	header("Access-Control-Allow-Methods: GET");
+	header( "Content-Type: application/json; charset={$charset}" );
+	header( "Access-Control-Allow-Origin: *" );
+	header( "Access-Control-Allow-Methods: GET" );
 	echo $json;
 }
 

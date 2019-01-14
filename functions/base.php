@@ -10,6 +10,7 @@
  * and facilitate configuration of the theme.
  **/
 class ArgumentException extends Exception{}
+
 class Config{
 	static
 		$body_classes      = array(), # Body classes
@@ -26,9 +27,9 @@ class Config{
 	/**
 	 * Creates and returns a normalized name for a resource url defined by $src.
 	 **/
-	static function generate_name($src, $ignore_suffix=''){
-		$base = basename($src, $ignore_suffix);
-		$name = slug($base);
+	static function generate_name( $src, $ignore_suffix='' ){
+		$base = basename( $src, $ignore_suffix );
+		$name = slug( $base );
 		return $name;
 	}
 
@@ -50,32 +51,33 @@ class Config{
 	 *    'src'   => 'http://some.domain/style.css',
 	 * );
 	 **/
-	static function add_css($attr){
+	static function add_css( $attr ){
 		# Allow string arguments, defining source.
-		if (is_string($attr)){
+		if ( is_string( $attr ) ) {
 			$new        = array();
 			$new['src'] = $attr;
 			$attr       = $new;
 		}
 
-		if (!isset($attr['src'])){
-			throw new ArgumentException('add_css expects argument array to contain key "src"');
+		if ( ! isset( $attr['src'] ) ) {
+			throw new ArgumentException( 'add_css expects argument array to contain key "src"' );
 		}
-		$default = array(
-			'name'  => self::generate_name($attr['src'], '.css'),
-			'media' => 'all',
-			'admin' => False,
-		);
-		$attr = array_merge($default, $attr);
 
-		$is_admin = (is_admin() or is_login());
+		$default = array(
+			'name'  => self::generate_name( $attr['src'], '.css' ),
+			'media' => 'all',
+			'admin' => false,
+		);
+		$attr = array_merge( $default, $attr );
+
+		$is_admin = ( is_admin() || is_login() );
 
 		if (
-			($attr['admin'] and $is_admin) or
-			(!$attr['admin'] and !$is_admin)
-		){
-			wp_deregister_style($attr['name']);
-			wp_enqueue_style($attr['name'], $attr['src'], null, null, $attr['media']);
+			( $attr['admin'] && $is_admin ) ||
+			( ! $attr['admin'] && ! $is_admin )
+		) {
+			wp_deregister_style( $attr['name'] );
+			wp_enqueue_style( $attr['name'], $attr['src'], null, null, $attr['media'] );
 		}
 	}
 
@@ -92,32 +94,34 @@ class Config{
 	 *    'src'   => 'http://some.domain/style.js',
 	 * );
 	 **/
-	static function add_script($attr){
+	static function add_script( $attr ) {
 		# Allow string arguments, defining source.
-		if (is_string($attr)){
+		if ( is_string( $attr ) ) {
 			$new        = array();
 			$new['src'] = $attr;
 			$attr       = $new;
 		}
 
-		if (!isset($attr['src'])){
-			throw new ArgumentException('add_script expects argument array to contain key "src"');
+		if ( ! isset( $attr['src'] ) ) {
+			throw new ArgumentException( 'add_script expects argument array to contain key "src"' );
 		}
-		$default = array(
-			'name'  => self::generate_name($attr['src'], '.js'),
-			'admin' => False,
-		);
-		$attr = array_merge($default, $attr);
 
-		$is_admin = (is_admin() or is_login());
+		$default = array(
+			'name'  => self::generate_name( $attr['src'], '.js' ),
+			'admin' => false,
+		);
+
+		$attr = array_merge( $default, $attr );
+
+		$is_admin = ( is_admin() || is_login() );
 
 		if (
-			($attr['admin'] and $is_admin) or
-			(!$attr['admin'] and !$is_admin)
-		){
+			( $attr['admin'] && $is_admin ) ||
+			( ! $attr['admin'] && ! $is_admin )
+		) {
 			# Override previously defined scripts
-			wp_deregister_script($attr['name']);
-			wp_enqueue_script($attr['name'], $attr['src'], null, null, True);
+			wp_deregister_script( $attr['name'] );
+			wp_enqueue_script( $attr['name'], $attr['src'], null, null, true );
 		}
 	}
 }
@@ -128,14 +132,14 @@ class Config{
  * @package default
  * @author Jared Lang
  **/
-abstract class Field{
-	protected function check_for_default(){
-		if ($this->value === null){
+abstract class Field {
+	protected function check_for_default() {
+		if ( $this->value === null ) {
 			$this->value = $this->default;
 		}
 	}
 
-	function __construct($attr){
+	function __construct( $attr ){
 		$this->name        = @$attr['name'];
 		$this->id          = @$attr['id'];
 		$this->value       = @$attr['value'];
@@ -147,9 +151,9 @@ abstract class Field{
 
 	function label_html(){
 		ob_start();
-		?>
-		<label class="block" for="<?=htmlentities($this->id)?>"><?=__($this->name)?></label>
-		<?php
+	?>
+		<label class="block" for="<?php echo htmlentities( $this->id ); ?>"><?php echo __( $this->name ); ?></label>
+	<?php
 		return ob_get_clean();
 	}
 
@@ -159,15 +163,17 @@ abstract class Field{
 
 	function description_html(){
 		ob_start();
-		?>
-		<?php if($this->description):?>
-		<p class="description"><?=__($this->description)?></p>
-		<?php endif;?>
-		<?php
+
+		if ( $this->description ) :
+	?>
+		<p class="description"><?php echo __( $this->description ); ?></p>
+	<?php
+		endif;
+
 		return ob_get_clean();
 	}
 
-	function html(){
+	function html() {
 		$label       = $this->label_html();
 		$input       = $this->input_html();
 		$description = $this->description_html();
@@ -184,10 +190,10 @@ abstract class Field{
  * @package default
  * @author Jared Lang
  **/
-abstract class ChoicesField extends Field{
-	function __construct($attr){
+abstract class ChoicesField extends Field {
+	function __construct( $attr ){
 		$this->choices = @$attr['choices'];
-		parent::__construct($attr);
+		parent::__construct( $attr );
 	}
 }
 
@@ -198,14 +204,14 @@ abstract class ChoicesField extends Field{
  * @package default
  * @author Jared Lang
  **/
-class TextField extends Field{
+class TextField extends Field {
 	protected $type_attr = 'text';
 
 	function input_html(){
 		ob_start();
-		?>
-		<input type="<?=$this->type_attr?>" id="<?=htmlentities($this->id)?>" name="<?=htmlentities($this->id)?>" value="<?=htmlentities($this->value)?>" />
-		<?php
+	?>
+		<input type="<?php echo $this->type_attr; ?>" id="<?php echo htmlentities( $this->id ); ?>" name="<?php echo htmlentities( $this->id ); ?>" value="<?php echo htmlentities( $this->value ); ?>" />
+	<?php
 		return ob_get_clean();
 	}
 }
@@ -229,7 +235,7 @@ class DateField extends TextField {
  * @package default
  * @author Jared Lang
  **/
-class PasswordField extends TextField{
+class PasswordField extends TextField {
 	protected $type_attr = 'password';
 }
 
@@ -240,12 +246,12 @@ class PasswordField extends TextField{
  * @package default
  * @author Jared Lang
  **/
-class TextareaField extends Field{
-	function input_html(){
+class TextareaField extends Field {
+	function input_html() {
 		ob_start();
-		?>
-		<textarea id="<?=htmlentities($this->id)?>" name="<?=htmlentities($this->id)?>"><?=htmlentities($this->value)?></textarea>
-		<?php
+	?>
+		<textarea id="<?php echo htmlentities( $this->id ); ?>" name="<?php echo htmlentities( $this->id ); ?>"><?php echo htmlentities( $this->value ); ?></textarea>
+	<?php
 		return ob_get_clean();
 	}
 }
@@ -257,16 +263,16 @@ class TextareaField extends Field{
  * @package default
  * @author Jared Lang
  **/
-class SelectField extends ChoicesField{
+class SelectField extends ChoicesField {
 	function input_html(){
 		ob_start();
-		?>
-		<select name="<?=htmlentities($this->id)?>" id="<?=htmlentities($this->id)?>">
-			<?php foreach($this->choices as $key=>$value):?>
-			<option<?php if($this->value == $value):?> selected="selected"<?php endif;?> value="<?=htmlentities($value)?>"><?=htmlentities($key)?></option>
-			<?php endforeach;?>
+	?>
+		<select name="<?php echo htmlentities( $this->id ); ?>" id="<?php echo htmlentities( $this->id ); ?>">
+		<?php foreach ( $this->choices as $key=>$value ) : ?>
+			<option value="<?php echo htmlentities( $value ); ?>"<?php echo ( $this->value === $value ) ? ' selected="selected"' : ''; ?>><?php echo htmlentities( $key ); ?></option>
+		<?php endforeach;?>
 		</select>
-		<?php
+	<?php
 		return ob_get_clean();
 	}
 }
@@ -278,17 +284,17 @@ class SelectField extends ChoicesField{
  * @package default
  * @author Jared Lang
  **/
-class RadioField extends ChoicesField{
-	function input_html(){
+class RadioField extends ChoicesField {
+	function input_html() {
 		ob_start();
-		?>
+	?>
 		<ul class="radio-list">
-			<?php $i = 0; foreach($this->choices as $key=>$value): $id = htmlentities($this->id).'_'.$i++;?>
+		<?php $i = 0; foreach( $this->choices as $key=>$value ): $id = htmlentities( $this->id ) . '_' . $i++; ?>
 			<li>
-				<input<?php if($this->value == $value):?> checked="checked"<?php endif;?> type="radio" name="<?=htmlentities($this->id)?>" id="<?=$id?>" value="<?=htmlentities($value)?>" />
-				<label for="<?=$id?>"><?=htmlentities($key)?></label>
+				<input type="radio" name="<?php echo htmlentities( $this->id ); ?>" id="<?php echo $id; ?>" value="<?php echo htmlentities( $value ); ?>"<?php echo ( $this->value === $value ) ? ' checked="checked"' : '';?> />
+				<label for="<?php echo $id; ?>"><?php echo htmlentities( $key ); ?></label>
 			</li>
-			<?php endforeach;?>
+		<?php endforeach;?>
 		</ul>
 		<?php
 		return ob_get_clean();
@@ -302,19 +308,20 @@ class RadioField extends ChoicesField{
  * @package default
  * @author Jared Lang
  **/
-class CheckboxField extends ChoicesField{
+class CheckboxField extends ChoicesField {
 	function input_html(){
 		ob_start();
-		?>
+	?>
 		<ul class="checkbox-list">
-			<?php $i = 0; foreach($this->choices as $key=>$value): $id = htmlentities($this->id).'_'.$i++;?>
+			<?php $i = 0; foreach( $this->choices as $key=>$value ): $id = htmlentities( $this->id ) . '_' . $i++; ?>
+			<?php $checked = ( is_array( $this->value ) && in_array( $value, $this->value ) ); ?>
 			<li>
-				<input<?php if(is_array($this->value) and in_array($value, $this->value)):?> checked="checked"<?php endif;?> type="checkbox" name="<?=htmlentities($this->id)?>[]" id="<?=$id?>" value="<?=htmlentities($value)?>" />
-				<label for="<?=$id?>"><?=htmlentities($key)?></label>
+				<input type="checkbox" name="<?php echo htmlentities( $this->id ); ?>[]" id="<?php echo $id; ?>" value="<?php echo htmlentities( $value ); ?>"<?php echo $checked ? ' checked="checked"' : ''; ?> />
+				<label for="<?php echo $id; ?>"><?php echo htmlentities( $key ); ?></label>
 			</li>
 			<?php endforeach;?>
 		</ul>
-		<?php
+	<?php
 		return ob_get_clean();
 	}
 }
@@ -326,38 +333,38 @@ class CheckboxField extends ChoicesField{
  * @package default
  * @author Jared Lang
  **/
-class Timer{
+class Timer {
 	private $start_time  = null;
 	private $end_time    = null;
 
-	public function start_timer(){
-		$this->start_time = microtime(True);
+	public function start_timer() {
+		$this->start_time = microtime( true );
 		$this->end_time   = null;
 	}
 
-	public function stop_timer(){
-		$this->end_time = microtime(True);
+	public function stop_timer() {
+		$this->end_time = microtime( true );
 	}
 
-	public function clear_timer(){
+	public function clear_timer() {
 		$this->start_time = null;
 		$this->end_time   = null;
 	}
 
-	public function reset_timer(){
+	public function reset_timer() {
 		$this->clear_timer();
 		$this->start_timer();
 	}
 
-	public function elapsed(){
-		if ($this->end_time !== null){
+	public function elapsed() {
+		if ( $this->end_time !== null ){
 			return $this->end_time - $this->start_time;
 		}else{
-			return microtime(True) - $this->start_time;
+			return microtime( true ) - $this->start_time;
 		}
 	}
 
-	public function __toString(){
+	public function __toString() {
 		return $this->elapsed;
 	}
 
@@ -367,7 +374,7 @@ class Timer{
 	 * @return instance of Timer
 	 * @author Jared Lang
 	 **/
-	public static function start(){
+	public static function start() {
 		$timer_instance = new self();
 		$timer_instance->start_timer();
 		return $timer_instance;
@@ -392,13 +399,13 @@ class Timer{
  * @return string
  * @author Jared Lang
  **/
-function dump(){
+function dump() {
 	$args = func_get_args();
 	$out  = array();
-	foreach($args as $arg){
-		$out[] = print_r($arg, True);
+	foreach( $args as $arg ){
+		$out[] = print_r( $arg, true );
 	}
-	$out = implode("<br />", $out);
+	$out = implode( "<br />", $out );
 	return "<pre>{$out}</pre>";
 }
 
@@ -409,13 +416,13 @@ function dump(){
  * @return string
  * @author Jared Lang
  **/
-function indent($html, $n){
-	$tabs = str_repeat("\t", $n);
-	$html = explode("\n", $html);
-	foreach($html as $key=>$line){
-		$html[$key] = $tabs.trim($line);
+function indent( $html, $n ){
+	$tabs = str_repeat( "\t", $n ) ;
+	$html = explode( "\n", $html );
+	foreach( $html as $key=>$line ){
+		$html[$key] = $tabs.trim( $line );
 	}
-	$html = implode("\n", $html);
+	$html = implode( "\n", $html );
 	return $html;
 }
 
@@ -437,10 +444,10 @@ function bootstrap_menus() {
 	class Bootstrap_Walker_Nav_Menu extends Walker_Nav_Menu {
 
 
-			function start_lvl( &$output, $depth ) {
+			function start_lvl( &$output, $depth, $args=array() ) {
 
 				$indent = str_repeat( "\t", $depth );
-				$output	   .= "\n$indent<ul class=\"dropdown-menu\">\n";
+				$output	.= "\n$indent<ul class=\"dropdown-menu\">\n";
 
 			}
 
@@ -452,8 +459,8 @@ function bootstrap_menus() {
 				$class_names = $value = '';
 
 				$classes = empty( $item->classes ) ? array() : (array) $item->classes;
-				$classes[] = ($args->has_children) ? 'dropdown' : '';
-				$classes[] = ($item->current || $item->current_item_ancestor) ? 'active' : '';
+				$classes[] = ( $args->has_children ) ? 'dropdown' : '';
+				$classes[] = ( $item->current || $item->current_item_ancestor ) ? 'active' : '';
 				$classes[] = 'menu-item-' . $item->ID;
 
 
@@ -464,7 +471,7 @@ function bootstrap_menus() {
 				$id = strlen( $id ) ? ' id="' . esc_attr( $id ) . '"' : '';
 
 				$output .= $indent . '<li' . $id . $value . $class_names . $li_attributes . '>';
-				if(strpos($class_names, 'menu-item-type-custom') !== false) {
+				if ( strpos( $class_names, 'menu-item-type-custom' ) !== false ) {
 					$output .= '<i class="pull-right close-icon">&times;</i>';
 				}
 
@@ -472,12 +479,12 @@ function bootstrap_menus() {
 				$attributes .= ! empty( $item->target )     ? ' target="' . esc_attr( $item->target     ) .'"' : '';
 				$attributes .= ! empty( $item->xfn )        ? ' rel="'    . esc_attr( $item->xfn        ) .'"' : '';
 				$attributes .= ! empty( $item->url )        ? ' href="'   . esc_attr( $item->url        ) .'"' : '';
-				$attributes .= ($args->has_children) 	    ? ' class="dropdown-toggle" data-toggle="dropdown"' : '';
+				$attributes .= ( $args->has_children ) 	    ? ' class="dropdown-toggle" data-toggle="dropdown"' : '';
 
 				$item_output = $args->before;
 				$item_output .= '<a'. $attributes .'>';
 				$item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
-				$item_output .= ($args->has_children) ? ' <b class="caret"></b></a>' : '</a>';
+				$item_output .= ( $args->has_children ) ? ' <b class="caret"></b></a>' : '</a>';
 				$item_output .= $args->after;
 
 				$output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
@@ -485,7 +492,7 @@ function bootstrap_menus() {
 
 			function display_element( $element, &$children_elements, $max_depth, $depth=0, $args, &$output ) {
 
-				if ( !$element )
+				if ( ! $element )
 					return;
 
 				$id_field = $this->db_fields['id'];
@@ -493,43 +500,44 @@ function bootstrap_menus() {
 				//display this element
 				if ( is_array( $args[0] ) )
 					$args[0]['has_children'] = ! empty( $children_elements[$element->$id_field] );
-				else if ( is_object( $args[0] ) )
+				elseif ( is_object( $args[0] ) )
 					$args[0]->has_children = ! empty( $children_elements[$element->$id_field] );
-				$cb_args = array_merge( array(&$output, $element, $depth), $args);
-				call_user_func_array(array(&$this, 'start_el'), $cb_args);
+				$cb_args = array_merge( array( &$output, $element, $depth ), $args );
+				call_user_func_array( array( &$this, 'start_el' ), $cb_args );
 
 				$id = $element->$id_field;
 
 				// descend only when the depth is right and there are childrens for this element
-				if ( ($max_depth == 0 || $max_depth > $depth+1 ) && isset( $children_elements[$id]) ) {
+				if ( ( $max_depth === 0 || $max_depth > $depth+1 ) && isset( $children_elements[$id] ) ) {
 
 					foreach( $children_elements[ $id ] as $child ){
 
-						if ( !isset($newlevel) ) {
+						if ( ! isset( $newlevel ) ) {
 							$newlevel = true;
 							//start the child delimiter
-							$cb_args = array_merge( array(&$output, $depth), $args);
-							call_user_func_array(array(&$this, 'start_lvl'), $cb_args);
+							$cb_args = array_merge( array( &$output, $depth ), $args );
+							call_user_func_array( array( &$this, 'start_lvl' ), $cb_args );
 						}
 						$this->display_element( $child, $children_elements, $max_depth, $depth + 1, $args, $output );
 					}
 						unset( $children_elements[ $id ] );
 				}
 
-				if ( isset($newlevel) && $newlevel ){
+				if ( isset( $newlevel ) && $newlevel ){
 					//end the child delimiter
-					$cb_args = array_merge( array(&$output, $depth), $args);
-					call_user_func_array(array(&$this, 'end_lvl'), $cb_args);
+					$cb_args = array_merge( array( &$output, $depth ), $args );
+					call_user_func_array( array( &$this, 'end_lvl' ), $cb_args );
 				}
 
 				//end this element
-				$cb_args = array_merge( array(&$output, $element, $depth), $args);
-				call_user_func_array(array(&$this, 'end_el'), $cb_args);
+				$cb_args = array_merge( array( &$output, $element, $depth ), $args );
+				call_user_func_array( array( &$this, 'end_el' ), $cb_args );
 
 			}
 
 		}
 }
+
 add_action( 'after_setup_theme', 'bootstrap_menus' );
 
 
@@ -541,42 +549,42 @@ add_action( 'after_setup_theme', 'bootstrap_menus' );
  * @return string
  * @author Jared Lang
  **/
-function cleanup($content){
+function cleanup( $content ) {
 	# Balance auto paragraphs
-	$lines = explode("\n", $content);
-	foreach($lines as $key=>$line){
+	$lines = explode( "\n", $content );
+	foreach( $lines as $key=>$line ){
 		$null = null;
-		$found_closed = preg_match_all('/<\/p>/', $line, $null);
-		$found_opened = preg_match_all('/<p[^>]*>/', $line, $null);
+		$found_closed = preg_match_all( '/<\/p>/', $line, $null );
+		$found_opened = preg_match_all( '/<p[^>]*>/', $line, $null );
 
 		$diff = $found_closed - $found_opened;
 		# Balanced tags
-		if ($diff == 0){continue;}
+		if ( $diff === 0 ) continue;
 
 		# missing closed
-		if ($diff < 0){
-			$lines[$key] = $lines[$key] . str_repeat('</p>', abs($diff));
+		if ( $diff < 0 ) {
+			$lines[$key] = $lines[$key] . str_repeat( '</p>', abs( $diff ) );
 		}
 
 		# missing open
-		if ($diff > 0){
-			$lines[$key] = str_repeat('<p>', abs($diff)) . $lines[$key];
+		if ( $diff > 0 ){
+			$lines[$key] = str_repeat( '<p>', abs( $diff ) ) . $lines[$key];
 		}
 	}
-	$content = implode("\n", $lines);
+	$content = implode( "\n", $lines );
 
 	#Remove incomplete tags at start and end
-	$content = preg_replace('/^<\/p>[\s]*/i', '', $content);
-	$content = preg_replace('/[\s]*<p>$/i', '', $content);
-	$content = preg_replace('/^<br \/>/i', '', $content);
-	$content = preg_replace('/<br \/>$/i', '', $content);
+	$content = preg_replace( '/^<\/p>[\s]*/i', '', $content );
+	$content = preg_replace( '/[\s]*<p>$/i', '', $content );
+	$content = preg_replace( '/^<br \/>/i', '', $content );
+	$content = preg_replace( '/<br \/>$/i', '', $content );
 
 	#Remove paragraph and linebreak tags wrapped around shortcodes
-	$content = preg_replace('/(<p>|<br \/>)\[/i', '[', $content);
-	$content = preg_replace('/\](<\/p>|<br \/>)/i', ']', $content);
+	$content = preg_replace( '/(<p>|<br \/>)\[/i', '[', $content );
+	$content = preg_replace( '/\](<\/p>|<br \/>)/i', ']', $content );
 
 	#Remove empty paragraphs
-	$content = preg_replace('/<p><\/p>/i', '', $content);
+	$content = preg_replace( '/<p><\/p>/i', '', $content );
 
 	return $content;
 }
@@ -589,9 +597,9 @@ function cleanup($content){
  * @return string
  * @author Jared Lang
  **/
-function create_attribute_string($attr){
+function create_attribute_string( $attr ) {
 	$attr_string = '';
-	foreach($attr as $key=>$value){
+	foreach( $attr as $key=>$value ){
 		$attr_string .= " {$key}='{$value}'";
 	}
 	return $attr_string;
@@ -608,12 +616,12 @@ function create_attribute_string($attr){
  * @return string
  * @author Jared Lang
  **/
-function create_html_element($tag, $attr=array(), $content=null, $self_close=True){
-	$attr_str = create_attribute_string($attr);
-	if ($content){
+function create_html_element( $tag, $attr=array(), $content=null, $self_close=true ){
+	$attr_str = create_attribute_string( $attr );
+	if ( $content ) {
 		$element = "<{$tag}{$attr_str}>{$content}</{$tag}>";
-	}else{
-		if ($self_close){
+	} else {
+		if ( $self_close ){
 			$element = "<{$tag}{$attr_str}/>";
 		}else{
 			$element = "<{$tag}{$attr_str}></{$tag}>";
@@ -627,9 +635,9 @@ function create_html_element($tag, $attr=array(), $content=null, $self_close=Tru
 /**
  * When called, prevents direct loads of the value of $page.
  **/
-function disallow_direct_load($page){
-	if ($page == basename($_SERVER['SCRIPT_FILENAME'])){
-		die('No');
+function disallow_direct_load( $page ) {
+	if ( $page === basename( $_SERVER['SCRIPT_FILENAME'] ) ) {
+		die( 'No' );
 	}
 }
 
@@ -641,11 +649,11 @@ function disallow_direct_load($page){
  * @return string
  * @author Jared Lang
  **/
-function get_custom_post_type($name){
+function get_custom_post_type( $name ) {
 	$installed = installed_custom_post_types();
-	foreach($installed as $object){
-		if ($object->options('name') == $name){
-			return get_class($object);
+	foreach( $installed as $object ){
+		if ( $object->options( 'name' ) === $name ){
+			return get_class( $object );
 		}
 	}
 	return null;
@@ -658,11 +666,11 @@ function get_custom_post_type($name){
 * @return array
 * @author Chris Conover
 **/
-function get_featured_image_url($post) {
-	if(has_post_thumbnail($post) && ($thumbnail_id = get_post_thumbnail_id($post)) && ($image = wp_get_attachment_image_src($thumbnail_id))) {
+function get_featured_image_url( $post ) {
+	if ( has_post_thumbnail( $post ) && ( $thumbnail_id = get_post_thumbnail_id( $post ) ) && ( $image = wp_get_attachment_image_src( $thumbnail_id ) ) ) {
 		return $image[0];
 	}
-	return False;
+	return false;
 }
 
 
@@ -673,26 +681,27 @@ function get_featured_image_url($post) {
  * @return array
  * @author Jared Lang
  **/
-function get_image_choices(){
+function get_image_choices() {
 	$image_mimes = array(
 		'image/jpeg',
 		'image/png',
 	);
 
-	$images = array('(None)' => null);
+	$images = array( '(None)' => null );
 	$args   = array(
 		'post_type'   => 'attachment',
 		'post_status' => 'inherit',
 		'numberposts' => -1,
 	);
 
-	$attachments = get_posts($args);
-	$attachments = array_filter($attachments, create_function('$a', '
+	$attachments = get_posts( $args );
+	$attachments = array_filter( $attachments, create_function( '$a', '
 		$is_image = (strpos($a->post_mime_type, "image/") !== False);
 		return $is_image;
-	'));
-	foreach($attachments as $image){
-		$filename = basename(get_attached_file($image->ID));
+	' ) );
+
+	foreach( $attachments as $image ) {
+		$filename = basename( get_attached_file( $image->ID ) );
 		$value    = $image->ID;
 		$key      = $image->post_title. " | {$filename}";
 		$images[$key] = $value;
@@ -715,28 +724,28 @@ function get_image_choices(){
  * @return void
  * @author Jared Lang
  **/
-function get_menu($name, $classes=null, $id=null, $callback=null){
+function get_menu( $name, $classes=null, $id=null, $callback=null ){
 	$locations = get_nav_menu_locations();
 	$menu      = @$locations[$name];
 
-	if (!$menu){
-		return "<div class='error'>No menu location found with name '{$name}'. Set up menus in the <a href='".get_admin_url()."nav-menus.php'>admin's appearance menu.</a></div>";
+	if ( ! $menu ){
+		return "<div class='error'>No menu location found with name '{$name}'. Set up menus in the <a href='" . get_admin_url() . "nav-menus.php'>admin's appearance menu.</a></div>";
 	}
 
-	$items = wp_get_nav_menu_items($menu);
+	$items = wp_get_nav_menu_items( $menu );
 
-	if ($callback === null){
+	if ( $callback === null ){
 		ob_start();
 		?>
-		<ul<?php if($classes):?> class="<?=$classes?>"<?php endif;?><?php if($id):?> id="<?=$id?>"<?php endif;?>>
-			<?php foreach($items as $key=>$item): $last = $key == count($items) - 1;?>
-			<li<?php if($last):?> class="last"<?php endif;?>><a href="<?=$item->url?>"><?=$item->title?></a></li>
+		<ul<?php if ( $classes ) : ?> class="<?php echo $classes; ?>"<?php endif; ?><?php if ( $id ) : ?> id="<?php echo $id; ?>"<?php endif; ?>>
+			<?php foreach ( $items as $key=>$item ) : $last = $key === count( $items ) - 1; ?>
+			<li<?php if ( $last ) : ?> class="last"<?php endif; ?>><a href="<?php echo $item->url; ?>"><?php echo $item->title; ?></a></li>
 			<?php endforeach;?>
 		</ul>
 		<?php
 		$menu = ob_get_clean();
-	}else{
-		$menu = call_user_func($callback, $items);
+	} else {
+		$menu = call_user_func( $callback, $items );
 	}
 
 	return $menu;
@@ -757,18 +766,22 @@ function get_search_results(
 		$per_page=null,
 		$domain=null,
 		$search_url="http://google.cc.ucf.edu/search"
-	){
-	$start     = ($start) ? $start : 0;
-	$per_page  = ($per_page) ? $per_page : 10;
-	$domain    = ($domain) ? $domain : $_SERVER['SERVER_NAME'];
+	) {
+
+	$start     = ( $start ) ? $start : 0;
+	$per_page  = ( $per_page ) ? $per_page : 10;
+	$domain    = ( $domain ) ? $domain : $_SERVER['SERVER_NAME'];
+
 	$results   = array(
 		'number' => 0,
 		'items'  => array(),
 	);
-	$query     = trim($query);
+
+	$query     = trim( $query );
 	$per_page  = (int)$per_page;
 	$start     = (int)$start;
-	$query     = urlencode($query);
+	$query     = urlencode( $query );
+
 	$arguments = array(
 		'num'        => $per_page,
 		'start'      => $start,
@@ -780,22 +793,22 @@ function get_search_results(
 		'q'          => $query,
 	);
 
-	if (strlen($query) > 0){
-		$query_string = http_build_query($arguments);
-		$url          = $search_url.'?'.$query_string;
-		$response     = file_get_contents($url);
+	if ( strlen( $query ) > 0 ) {
+		$query_string = http_build_query( $arguments );
+		$url          = $search_url . '?' . $query_string;
+		$response     = file_get_contents( $url );
 
-		if ($response){
-			$xml   = simplexml_load_string($response);
+		if ( $response ) {
+			$xml   = simplexml_load_string( $response );
 			$items = $xml->RES->R;
 			$total = $xml->RES->M;
 
 			$temp = array();
 
-			if ($total){
-				foreach($items as $result){
+			if ( $total ) {
+				foreach( $items as $result ) {
 					$item            = array();
-					$item['url']     = str_replace('https', 'http', $result->U);
+					$item['url']     = str_replace( 'https', 'http', $result->U );
 					$item['title']   = $result->T;
 					$item['rank']    = $result->RK;
 					$item['snippet'] = $result->S;
@@ -819,10 +832,10 @@ function get_search_results(
  * @author Jared Lang
  **/
 function is_login(){
-	return in_array($GLOBALS['pagenow'], array(
+	return in_array( $GLOBALS['pagenow'], array(
 			'wp-login.php',
 			'wp-register.php',
-	));
+	) );
 }
 
 
@@ -834,8 +847,8 @@ function is_login(){
  * @return string
  * @author Jared Lang
  **/
-function mimetype_to_application($mimetype){
-	switch($mimetype){
+function mimetype_to_application( $mimetype ){
+	switch( $mimetype ){
 		default:
 			$type = 'document';
 			break;
@@ -872,17 +885,17 @@ function mimetype_to_application($mimetype){
  * @return string
  * @author Jared Lang
  **/
-function post_type($post){
-	if (is_int($post)){
-		$post = get_post($post);
+function post_type( $post ) {
+	if ( is_int( $post ) ) {
+		$post = get_post( $post );
 	}
 
 	# check post_type field
 	$post_type = $post->post_type;
 
-	if ($post_type === 'revision'){
+	if ( $post_type === 'revision' ) {
 		$parent    = (int)$post->post_parent;
-		$post_type = post_type($parent);
+		$post_type = post_type( $parent );
 	}
 
 	return $post_type;
@@ -900,16 +913,16 @@ function post_type($post){
 * @return string
 * @author Jared Lang
 **/
-function sc_object_list($attrs, $options = array()){
-	if (!is_array($attrs)){return '';}
+function sc_object_list( $attrs, $options = array() ) {
+	if ( ! is_array( $attrs ) ) return '';
 
 	$default_options = array(
 		'default_content' => null,
 		'sort_func' => null,
-		'objects_only' => False
+		'objects_only' => false
 	);
 
-	extract(array_merge($default_options, $options));
+	extract( array_merge( $default_options, $options ) );
 
 	# set defaults and combine with passed arguments
 	$default_attrs = array(
@@ -921,29 +934,30 @@ function sc_object_list($attrs, $options = array()){
 		'order'   => 'ASC',
 		'offset'  => 0
 	);
-	$params = array_merge($default_attrs, $attrs);
+
+	$params = array_merge( $default_attrs, $attrs );
 
 	# verify options
-	if ($params['type'] == null){
+	if ( $params['type'] === null ) {
 		return '<p class="error">No type defined for object list.</p>';
 	}
-	if (!is_numeric($params['limit'])){
+	if ( ! is_numeric( $params['limit'] ) ) {
 		return '<p class="error">Invalid limit argument, must be a number.</p>';
 	}
-	if (!in_array(strtoupper($params['join']), array('AND', 'OR'))){
+	if ( ! in_array( strtoupper( $params['join'] ), array( 'AND', 'OR' ) ) ) {
 		return '<p class="error">Invalid join type, must be one of "and" or "or".</p>';
 	}
-	if (null == ($class = get_custom_post_type($params['type']))){
+	if ( null === ( $class = get_custom_post_type( $params['type'] ) ) ) {
 		return '<p class="error">Invalid post type.</p>';
 	}
 
 	$class = new $class;
 
 	# Use post type specified ordering?
-	if(!isset($attrs['orderby']) && !is_null($class->default_orderby)) {
+	if ( ! isset( $attrs['orderby'] ) && ! is_null( $class->default_orderby ) ) {
 		$params['orderby'] = $class->orderby;
 	}
-	if(!isset($attrs['order']) && !is_null($class->default_order)) {
+	if ( ! isset( $attrs['order'] ) && ! is_null( $class->default_order ) ) {
 		$params['order'] = $class->default_order;
 	}
 
@@ -953,18 +967,19 @@ function sc_object_list($attrs, $options = array()){
 		'categories' => 'category',
 		'org_groups' => 'org_groups'
 	);
-	$taxonomies = array_diff(array_keys($attrs), array_keys($default_attrs));
+
+	$taxonomies = array_diff( array_keys( $attrs ), array_keys( $default_attrs ) );
 
 	# assemble taxonomy query
 	$tax_queries = array();
-	$tax_queries['relation'] = strtoupper($params['join']);
+	$tax_queries['relation'] = strtoupper( $params['join'] );
 
-	foreach($taxonomies as $tax){
+	foreach( $taxonomies as $tax ){
 		$terms = $params[$tax];
-		$terms = trim(preg_replace('/\s+/', ' ', $terms));
-		$terms = explode(' ', $terms);
+		$terms = trim( preg_replace( '/\s+/', ' ', $terms ) );
+		$terms = explode( ' ', $terms );
 
-		if (array_key_exists($tax, $translate)){
+		if ( array_key_exists( $tax, $translate ) ) {
 			$tax = $translate[$tax];
 		}
 
@@ -986,28 +1001,28 @@ function sc_object_list($attrs, $options = array()){
 		'offset'         => $params['offset']
 	);
 
-	$query = new WP_Query($query_array);
+	$query = new WP_Query( $query_array );
 
 	global $post;
 	$objects = array();
-	while($query->have_posts()){
+	while( $query->have_posts() ){
 		$query->the_post();
 		$objects[] = $post;
 	}
 
 	# Custom sort if applicable
-	if ($sort_func !== null){
-		usort($objects, $sort_func);
+	if ( $sort_func !== null ) {
+		usort( $objects, $sort_func );
 	}
 
 	wp_reset_postdata();
 
-	if($objects_only) {
+	if ( $objects_only ) {
 		return $objects;
 	}
 
-	if (count($objects)){
-		$html = $class->objectsToHTML($objects, $params['class']);
+	if ( count( $objects ) ) {
+		$html = $class->objectsToHTML( $objects, $params['class'] );
 	}else{
 		$html = $default_content;
 	}
@@ -1022,30 +1037,30 @@ function sc_object_list($attrs, $options = array()){
  * @author Jared Lang
  **/
 function set_defaults_for_options(){
-	$values  = get_option(THEME_OPTIONS_NAME);
-	if ($values === False or is_string($values)){
-		add_option(THEME_OPTIONS_NAME);
+	$values  = get_option( THEME_OPTIONS_NAME );
+	if ( $values === false or is_string( $values ) ) {
+		add_option( THEME_OPTIONS_NAME );
 		$values = array();
 	}
 
 	$options = array();
-	foreach(Config::$theme_settings as $option){
-		if (is_array($option)){
-			$options = array_merge($option, $options);
+	foreach( Config::$theme_settings as $option ){
+		if ( is_array( $option ) ) {
+			$options = array_merge( $option, $options );
 		}else{
 			$options[] = $option;
 		}
 	}
 
-	foreach ($options as $option){
+	foreach ( $options as $option ){
 		$key = str_replace(
-			array(THEME_OPTIONS_NAME, '[', ']'),
-			array('', '', ''),
+			array( THEME_OPTIONS_NAME, '[', ']' ),
+			array( '', '', '' ),
 			$option->id
 		);
-		if ($option->default !== null and !isset($values[$key])){
+		if ( $option->default !== null && ! isset( $values[$key] ) ) {
 			$values[$key] = $option->default;
-			update_option(THEME_OPTIONS_NAME, $values);
+			update_option( THEME_OPTIONS_NAME, $values );
 		}
 	}
 }
@@ -1060,9 +1075,9 @@ function set_defaults_for_options(){
  * @return string
  * @author Jared Lang
  **/
-function slug($s, $spaces='-'){
-	$s = strtolower($s);
-	$s = preg_replace('/[-_\s\.]/', $spaces, $s);
+function slug( $s, $spaces='-' ) {
+	$s = strtolower( $s );
+	$s = preg_replace( '/[-_\s\.]/', $spaces, $s );
 	return $s;
 }
 
@@ -1084,22 +1099,22 @@ function slug($s, $spaces='-'){
  * @return string
  * @author Jared Lang
  **/
-function header_($tabs=2){
+function header_( $tabs=2 ) {
 	opengraph_setup();
-	remove_action('wp_head', 'adjacent_posts_rel_link_wp_head');
-	remove_action('wp_head', 'index_rel_link');
-	remove_action('wp_head', 'rel_canonical');
-	remove_action('wp_head', 'wp_generator');
-	remove_action('wp_head', 'wlwmanifest_link');
-	remove_action('wp_head', 'rsd_link');
+	remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head' );
+	remove_action( 'wp_head', 'index_rel_link' );
+	remove_action( 'wp_head', 'rel_canonical' );
+	remove_action( 'wp_head', 'wp_generator' );
+	remove_action( 'wp_head', 'wlwmanifest_link' );
+	remove_action( 'wp_head', 'rsd_link' );
 
 	ob_start();
-	print header_title()."\n";
-	print header_meta()."\n";
+	print header_title() . "\n";
+	print header_meta() . "\n";
 	wp_head();
-	print header_links()."\n";
+	print header_links() . "\n";
 
-	return indent(ob_get_clean(), $tabs);
+	return indent( ob_get_clean(), $tabs );
 }
 
 
@@ -1109,11 +1124,11 @@ function header_($tabs=2){
  * @return string
  * @author Jared Lang
  **/
-function footer_($tabs=2){
+function footer_( $tabs=2 ) {
 	ob_start();
 	wp_footer();
 	$html = ob_get_clean();
-	return indent($html, $tabs);
+	return indent( $html, $tabs );
 }
 
 
@@ -1124,81 +1139,81 @@ function footer_($tabs=2){
  * @return void
  * @author Jared Lang
  **/
-function opengraph_setup(){
-	$options = get_option(THEME_OPTIONS_NAME);
+function opengraph_setup() {
+	$options = get_option( THEME_OPTIONS_NAME );
 
-	if (!(bool)$options['enable_og']){return;}
-	if (is_search()){return;}
+	if ( ! (bool)$options['enable_og'] ) return;
+	if ( is_search() ) return;
 
 	global $post, $page;
-	setup_postdata($post);
+	setup_postdata( $post );
 
-	if (is_front_page()){
-		$title       = htmlentities(get_bloginfo('name'));
-		$url         = get_bloginfo('url');
+	if ( is_front_page() ) {
+		$title       = htmlentities( get_bloginfo( 'name' ) );
+		$url         = get_bloginfo( 'url' );
 		$site_name   = $title;
 	}else{
-		$title     = htmlentities($post->post_title);
-		$url       = get_permalink($post->ID);
-		$site_name = htmlentities(get_bloginfo('name'));
+		$title     = htmlentities( $post->post_title );
+		$url       = get_permalink( $post->ID );
+		$site_name = htmlentities( get_bloginfo( 'name' ) );
 	}
 
 	# Set description
-	if (is_front_page()){
-		$description = htmlentities(get_bloginfo('description'));
-	} elseif (single_post_title('', FALSE) == "News Archive") {
+	if ( is_front_page() ) {
+		$description = htmlentities( get_bloginfo( 'description' ) );
+	} elseif ( single_post_title( '', FALSE ) === "News Archive" ) {
 		$monthYear = _getArchiveMonthYear();
-		$description = "UCF " . date('F Y', strtotime($monthYear['year'] . '-' . $monthYear['mon'] . '-1')) . " News Stories, articles, and events happening around the University of Central Florida. Orlando, Florida news and college news";
-    } elseif (is_category()) {
-        $description = single_cat_title("Read all about ", false) . " news at UCF Today - University of Central Florida";
-	} elseif (is_tag()) {
-        $description = single_tag_title("Learn more about ", false) . " news at UCF Today - University of Central Florida";
-    } else{
+		$description = "UCF " . date( 'F Y', strtotime( $monthYear['year'] . '-' . $monthYear['mon'] . '-1' ) ) . " News Stories, articles, and events happening around the University of Central Florida. Orlando, Florida news and college news";
+    } elseif ( is_category() ) {
+        $description = single_cat_title( "Read all about ", false ) . " news at UCF Today - University of Central Florida";
+	} elseif ( is_tag() ) {
+        $description = single_tag_title( "Learn more about ", false ) . " news at UCF Today - University of Central Florida";
+    } else {
 		ob_start();
 		the_excerpt();
-		$description = trim(str_replace('[...]', '', ob_get_clean()));
+		$description = trim( str_replace( '[...]', '', ob_get_clean() ) );
 		# Generate a description if excerpt is unavailable
-		if (strlen($description) < 1){
+		if ( strlen( $description ) < 1 ){
 			ob_start();
 			the_content();
-			$description = apply_filters('the_excerpt', preg_replace(
+			$description = apply_filters( 'the_excerpt', preg_replace(
 				'/\s+/',
 				' ',
-				strip_tags(ob_get_clean()))
+				strip_tags( ob_get_clean() ) )
 			);
-			$words       = explode(' ', $description);
-			$description = implode(' ', array_slice($words, 0, 60));
+			$words       = explode( ' ', $description );
+			$description = implode( ' ', array_slice( $words, 0, 60 ) );
 		}
 	}
 
 	$metas = array(
-		array('property' => 'og:title'      , 'content' => $title),
-		array('property' => 'og:url'        , 'content' => $url),
-		array('property' => 'og:site_name'  , 'content' => $site_name),
-		array('property' => 'og:description', 'content' => $description),
+		array( 'property' => 'og:title'      , 'content' => $title ),
+		array( 'property' => 'og:url'        , 'content' => $url ),
+		array( 'property' => 'og:site_name'  , 'content' => $site_name ),
+		array( 'property' => 'og:description', 'content' => $description ),
 	);
 
-    if(is_tag() || is_category()) {
-        $metas[] = array('name' => 'description', 'content' => $description);
+    if ( is_tag() || is_category() ) {
+        $metas[] = array( 'name' => 'description', 'content' => $description );
     }
 
 	# Include image if available
-	if (!is_front_page() and has_post_thumbnail($post->ID)){
+	if ( ! is_front_page() && has_post_thumbnail( $post->ID ) ) {
 		$image = wp_get_attachment_image_src(
 			get_post_thumbnail_id( $post->ID ),
 			'single-post-thumbnail'
 		);
-		$metas[] = array('property' => 'og:image', 'content' => $image[0]);
+		$metas[] = array( 'property' => 'og:image', 'content' => $image[0] );
 	}
 
 
 	# Include admins if available
-	$admins = trim($options['fb_admins']);
-	if (strlen($admins) > 0){
-		$metas[] = array('property' => 'fb:admins', 'content' => $admins);
+	$admins = trim( $options['fb_admins'] );
+	if ( strlen( $admins ) > 0 ) {
+		$metas[] = array( 'property' => 'fb:admins', 'content' => $admins );
 	}
 
-	Config::$metas = array_merge(Config::$metas, $metas);
+	Config::$metas = array_merge( Config::$metas, $metas );
 }
 
 
@@ -1208,16 +1223,16 @@ function opengraph_setup(){
  * @return string
  * @author Jared Lang
  **/
-function header_meta(){
+function header_meta() {
 	$metas     = Config::$metas;
 	$meta_html = array();
 	$defaults  = array();
 
-	foreach($metas as $meta){
-		$meta        = array_merge($defaults, $meta);
-		$meta_html[] = create_html_element('meta', $meta);
+	foreach( $metas as $meta ){
+		$meta        = array_merge( $defaults, $meta );
+		$meta_html[] = create_html_element( 'meta', $meta );
 	}
-	$meta_html = implode("\n", $meta_html);
+	$meta_html = implode( "\n", $meta_html );
 	return $meta_html;
 }
 
@@ -1228,17 +1243,17 @@ function header_meta(){
  * @return string
  * @author Jared Lang
  **/
-function header_links(){
+function header_links() {
 	$links      = Config::$links;
 	$links_html = array();
 	$defaults   = array();
 
-	foreach($links as $link){
-		$link         = array_merge($defaults, $link);
-		$links_html[] = create_html_element('link', $link, null, True);
+	foreach( $links as $link ){
+		$link         = array_merge( $defaults, $link );
+		$links_html[] = create_html_element( 'link', $link, null, true );
 	}
 
-	$links_html = implode("\n", $links_html);
+	$links_html = implode( "\n", $links_html );
 	return $links_html;
 }
 
@@ -1246,49 +1261,49 @@ function header_links(){
 /**
  * Generates a title based on context page is viewed.  Stolen from Thematic
  **/
-function header_title(){
-	$site_name = get_bloginfo('name');
+function header_title() {
+	$site_name = get_bloginfo( 'name' );
 	$separator = '-';
 
 	if ( is_single() ) {
-		$content = single_post_title('', FALSE);
+		$content = single_post_title( '', false );
 	}
 	elseif ( is_home() || is_front_page() ) {
-		$content = get_bloginfo('name');
+		$content = get_bloginfo( 'name' );
 	}
 	elseif ( is_page() ) {
-		$content = single_post_title('', FALSE);
-		if ($content == "News Archive") {
+		$content = single_post_title( '', false );
+		if ( $content === "News Archive" ) {
 			$monthYear = _getArchiveMonthYear();
-			$content = "UCF News Archive - UCF News, Orlando FL News, " . date('F Y', strtotime($monthYear['year'] . '-' . $monthYear['mon'] . '-1'));
+			$content = "UCF News Archive - UCF News, Orlando FL News, " . date( 'F Y', strtotime( $monthYear['year'] . '-' . $monthYear['mon'] . '-1' ) );
 		}
 	}
 	elseif ( is_search() ) {
-		$content = esc_html(stripslashes(get_search_query()));
-		$content .= ' - '.__('Search Results');
+		$content = esc_html( stripslashes( get_search_query() ) );
+		$content .= ' - '.__( 'Search Results' );
 	}
 	elseif ( is_category() ) {
-		$content = single_cat_title("", false) . " News at the University of Central Florida";
+		$content = single_cat_title( "", false ) . " News at the University of Central Florida";
 	}
     elseif ( is_tag() ) {
-        $content = single_tag_title("UCF ", false) . " News from the University of Central Florida news source";
+        $content = single_tag_title( "UCF ", false ) . " News from the University of Central Florida news source";
     }
 	elseif ( is_404() ) {
-		$content = __('Not Found');
+		$content = __( 'Not Found' );
 	}
 	else {
-		$content = get_bloginfo('name');
+		$content = get_bloginfo( 'name' );
 	}
 
-	if (get_query_var('paged')) {
+	if ( get_query_var( 'paged' ) ) {
 		$content .= ' ' .$separator. ' ';
 		$content .= 'Page';
 		$content .= ' ';
-		$content .= get_query_var('paged');
+		$content .= get_query_var( 'paged' );
 	}
 
-	if($content) {
-		if (is_home() || is_front_page()) {
+	if ( $content ) {
+		if ( is_home() || is_front_page() ) {
 			$elements = array(
 				'site_name' => $site_name,
 			);
@@ -1306,14 +1321,14 @@ function header_title(){
 	}
 
 	// But if they don't, it won't try to implode
-	if(is_array($elements)) {
-		$doctitle = implode(' ', $elements);
+	if ( is_array( $elements ) ) {
+		$doctitle = implode( ' ', $elements );
 	}
 	else {
 		$doctitle = $elements;
 	}
 
-	$doctitle = "<title>". $doctitle ."</title>";
+	$doctitle = "<title>" . $doctitle . "</title>";
 
 	return $doctitle;
 }
@@ -1322,9 +1337,9 @@ function header_title(){
 /**
  * Returns string to use for value of class attribute on body tag
  **/
-function body_classes(){
+function body_classes() {
 	$classes = Config::$body_classes;
-	return implode(' ', $classes);
+	return implode( ' ', $classes );
 }
 
 
@@ -1342,12 +1357,12 @@ function body_classes(){
  * Adding custom post types to the installed array defined in this function
  * will activate and make available for use those types.
  **/
-function installed_custom_post_types(){
+function installed_custom_post_types() {
 	$installed = Config::$custom_post_types;
 
-	return array_map(create_function('$class', '
+	return array_map( create_function( '$class', '
 		return new $class;
-	'), $installed);
+	' ), $installed );
 }
 
 /**
@@ -1357,27 +1372,27 @@ function installed_custom_post_types(){
 function installed_custom_taxonomies(){
 	$installed = Config::$custom_taxonomies;
 
-	return array_map(create_function('$class', '
+	return array_map( create_function( '$class', '
 		return new $class;
-	'), $installed);
+	' ), $installed );
 }
 
 function flush_rewrite_rules_if_necessary(){
 	global $wp_rewrite;
-	$start    = microtime(True);
-	$original = get_option('rewrite_rules');
+	$start    = microtime( true );
+	$original = get_option( 'rewrite_rules' );
 	$rules    = $wp_rewrite->rewrite_rules();
 
-	if (!$rules or !$original){
+	if ( ! $rules or ! $original ) {
 		return;
 	}
-	ksort($rules);
-	ksort($original);
+	ksort( $rules );
+	ksort( $original );
 
-	$rules    = md5(implode('', array_keys($rules)));
-	$original = md5(implode('', array_keys($original)));
+	$rules    = md5( implode( '', array_keys( $rules ) ) );
+	$original = md5( implode( '', array_keys( $original ) ) );
 
-	if ($rules != $original){
+	if ( $rules != $original ) {
 		flush_rewrite_rules();
 	}
 }
@@ -1388,13 +1403,13 @@ function flush_rewrite_rules_if_necessary(){
  * @return void
  * @author Chris Conover
  **/
-function register_custom_taxonomies(){
+function register_custom_taxonomies() {
 	#Register custom post types
-	foreach(installed_custom_taxonomies() as $custom_taxonomy){
+	foreach( installed_custom_taxonomies() as $custom_taxonomy ){
 		$custom_taxonomy->register();
 	}
 }
-add_action('init', 'register_custom_taxonomies');
+add_action( 'init', 'register_custom_taxonomies' );
 
 /**
  * Registers all installed custom post types
@@ -1402,16 +1417,16 @@ add_action('init', 'register_custom_taxonomies');
  * @return void
  * @author Jared Lang
  **/
-function register_custom_post_types(){
+function register_custom_post_types() {
 	#Register custom post types
-	foreach(installed_custom_post_types() as $custom_post_type){
+	foreach( installed_custom_post_types() as $custom_post_type ){
 		$custom_post_type->register();
 	}
 
 	#This ensures that the permalinks for custom posts work
 	flush_rewrite_rules_if_necessary();
 }
-add_action('init', 'register_custom_post_types');
+add_action( 'init', 'register_custom_post_types' );
 
 /**
  * Registers all metaboxes for install custom post types
@@ -1421,11 +1436,11 @@ add_action('init', 'register_custom_post_types');
  **/
 function register_meta_boxes(){
 	#Register custom post types metaboxes
-	foreach(installed_custom_post_types() as $custom_post_type){
+	foreach( installed_custom_post_types() as $custom_post_type ){
 		$custom_post_type->register_metaboxes();
 	}
 }
-add_action('do_meta_boxes', 'register_meta_boxes');
+add_action( 'do_meta_boxes', 'register_meta_boxes' );
 
 
 
@@ -1443,18 +1458,18 @@ add_action('do_meta_boxes', 'register_meta_boxes');
  * @return void
  * @author Jared Lang
  **/
-function save_meta_data($post){
+function save_meta_data( $post ){
 	#Register custom post types metaboxes
-	foreach(installed_custom_post_types() as $custom_post_type){
-		if (post_type($post) == $custom_post_type->options('name')){
+	foreach( installed_custom_post_types() as $custom_post_type ){
+		if ( post_type( $post ) === $custom_post_type->options( 'name' ) ) {
 			$meta_box = $custom_post_type->metabox();
 			break;
 		}
 	}
-	return _save_meta_data($post, $meta_box);
+	return _save_meta_data( $post, $meta_box );
 
 }
-add_action('save_post', 'save_meta_data');
+add_action( 'save_post', 'save_meta_data' );
 
 
 /**
@@ -1463,27 +1478,27 @@ add_action('save_post', 'save_meta_data');
  * @return void
  * @author Jared Lang
  **/
-function show_meta_boxes($post){
+function show_meta_boxes( $post ) {
 	#Register custom post types metaboxes
-	foreach(installed_custom_post_types() as $custom_post_type){
-		if (post_type($post) == $custom_post_type->options('name')){
+	foreach( installed_custom_post_types() as $custom_post_type ) {
+		if ( post_type( $post ) === $custom_post_type->options( 'name' ) ) {
 			$meta_box = $custom_post_type->metabox();
 			break;
 		}
 	}
-	return _show_meta_boxes($post, $meta_box);
+	return _show_meta_boxes( $post, $meta_box );
 }
 
-function save_file($post_id, $field){
-	$file_uploaded = @!empty($_FILES[$field['id']]);
-	if ($file_uploaded){
-		require_once(ABSPATH.'wp-admin/includes/file.php');
+function save_file( $post_id, $field ) {
+	$file_uploaded = @!empty( $_FILES[$field['id']] );
+	if ( $file_uploaded ){
+		require_once( ABSPATH . 'wp-admin/includes/file.php' );
 		$override['action'] = 'editpost';
-		$file               = $_FILES[$field['id']];
-		$uploaded_file      = wp_handle_upload($file, $override);
+		$file               = $_FILES[$field['id']] ;
+		$uploaded_file      = wp_handle_upload( $file, $override );
 
 		# TODO: Pass reason for error back to frontend
-		if ($uploaded_file['error']){return;}
+		if ( $uploaded_file['error'] ) return;
 
 		$attachment = array(
 			'post_title'     => $file['name'],
@@ -1493,26 +1508,26 @@ function save_file($post_id, $field){
 			'post_mime_type' => $file['type'],
 			'guid'           => $uploaded_file['url'],
 		);
-		$id = wp_insert_attachment($attachment, $file['file'], $post_id);
+		$id = wp_insert_attachment( $attachment, $file['file'], $post_id );
 		wp_update_attachment_metadata(
 			$id,
-			wp_generate_attachment_metadata($id, $file['file'])
+			wp_generate_attachment_metadata( $id, $file['file'] )
 		);
-		update_post_meta($post_id, $field['id'], $id);
+		update_post_meta( $post_id, $field['id'], $id );
 	}
 }
 
-function save_default($post_id, $field){
-	$old = get_post_meta($post_id, $field['id'], true);
+function save_default( $post_id, $field ){
+	$old = get_post_meta( $post_id, $field['id'], true );
 	$new = $_POST[$field['id']];
 
 	# Update if new is not empty and is not the same value as old
-	if ($new !== "" and $new !== null and $new != $old) {
-		update_post_meta($post_id, $field['id'], $new);
+	if ( $new !== "" && $new !== null && $new !== $old ) {
+		update_post_meta( $post_id, $field['id'], $new );
 	}
 	# Delete if we're sending a new null value and there was an old value
-	elseif (($new === "" or is_null($new)) and $old) {
-		delete_post_meta($post_id, $field['id'], $old);
+	elseif ( ( $new === "" || is_null( $new ) ) && $old ) {
+		delete_post_meta( $post_id, $field['id'], $old );
 	}
 	# Otherwise we do nothing, field stays the same
 	return;
@@ -1524,33 +1539,33 @@ function save_default($post_id, $field){
  * @return void
  * @author Jared Lang
  **/
-function _save_meta_data($post_id, $meta_box){
+function _save_meta_data( $post_id, $meta_box ){
 	// verify nonce
-	if (!wp_verify_nonce($_POST['meta_box_nonce'], basename(__FILE__))) {
+	if ( ! wp_verify_nonce( $_POST['meta_box_nonce'], basename( __FILE__ ) ) ) {
 		return $post_id;
 	}
 
 	// check autosave
-	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 		return $post_id;
 	}
 
 	// check permissions
-	if ('page' == $_POST['post_type']) {
-		if (!current_user_can('edit_page', $post_id)) {
+	if ( 'page' === $_POST['post_type'] ) {
+		if ( ! current_user_can( ' edit_page', $post_id ) ) {
 			return $post_id;
 		}
-	} elseif (!current_user_can('edit_post', $post_id)) {
+	} elseif ( ! current_user_can( 'edit_post', $post_id ) ) {
 		return $post_id;
 	}
 
-	foreach ($meta_box['fields'] as $field) {
-		switch ($field['type']){
+	foreach ( $meta_box['fields'] as $field ) {
+		switch ( $field['type'] ) {
 			case 'file':
-				save_file($post_id, $field);
+				save_file( $post_id, $field );
 				break;
 			default:
-				save_default($post_id, $field);
+				save_default( $post_id, $field );
 				break;
 		}
 	}
@@ -1562,29 +1577,29 @@ function _save_meta_data($post_id, $meta_box){
  * @return void
  * @author Jared Lang
  **/
-function _show_meta_boxes($post, $meta_box){
+function _show_meta_boxes( $post, $meta_box ) {
 	?>
-	<input type="hidden" name="meta_box_nonce" value="<?=wp_create_nonce(basename(__FILE__))?>"/>
+	<input type="hidden" name="meta_box_nonce" value="<?php echo wp_create_nonce( basename( __FILE__ ) ); ?>"/>
 	<table class="form-table">
-	<?php foreach($meta_box['fields'] as $field):
-		$current_value = get_post_meta($post->ID, $field['id'], true);?>
+	<?php foreach( $meta_box['fields'] as $field ) :
+		$current_value = get_post_meta( $post->ID, $field['id'], true ); ?>
 		<tr>
-			<th><label for="<?=$field['id']?>"><?=$field['name']?></label></th>
+			<th><label for="<?php echo $field['id']; ?>"><?php echo $field['name']; ?></label></th>
 			<td>
-			<?php if($field['desc']):?>
+			<?php if ( $field['desc'] ) : ?>
 				<div class="description">
-					<?=$field['desc']?>
+					<?php echo $field['desc']; ?>
 				</div>
-			<?php endif;?>
+			<?php endif; ?>
 
-			<?php switch ($field['type']):
-				case 'text':?>
+			<?php switch ( $field['type'] ) :
+				case 'text' : ?>
 				<input type="text" name="<?php echo $field['id']; ?>" id="<?php echo $field['id']; ?>" value="<?php echo ( $current_value ) ? htmlentities( $current_value ) : $field['std']; ?>" />
 
-			<?php break; case 'date':?>
+			<?php break; case 'date' : ?>
 				<input type="date" name="<?php echo $field['id']; ?>" id="<?php echo $field['id']; ?>" value="<?php echo ( $current_value ) ? htmlentities( $current_value ) : $field['std']; ?>" />
 
-			<?php break; case 'textarea':?>
+			<?php break; case 'textarea' : ?>
 				<textarea name="<?php echo $field['id']; ?>" id="<?php echo $field['id']; ?>" cols="60" rows="4"><?php echo ( $current_value ) ? htmlentities( $current_value ) : $field['std']; ?></textarea>
 
 			<?php break; case 'wysiwyg' :
@@ -1597,53 +1612,53 @@ function _show_meta_boxes($post, $meta_box){
 			?>
 
 			<?php break; case 'select':?>
-				<select name="<?=$field['id']?>" id="<?=$field['id']?>">
-					<option value=""><?=($field['default']) ? $field['default'] : '--'?></option>
-				<?php foreach ($field['options'] as $k=>$v):?>
-					<option <?=($current_value == $v) ? ' selected="selected"' : ''?> value="<?=$v?>"><?=$k?></option>
+				<select name="<?php echo $field['id']; ?>" id="<?php echo $field['id']; ?>">
+					<option value=""><?php echo ( $field['default'] ) ? $field['default'] : '--'?></option>
+				<?php foreach ( $field['options'] as $k => $v ) :?>
+					<option <?php echo ( $current_value === $v ) ? ' selected="selected"' : ''; ?> value="<?php echo $v; ?>"><?php echo $k; ?></option>
 				<?php endforeach;?>
 				</select>
 
 			<?php break; case 'radio':?>
-				<?php foreach ($field['options'] as $k=>$v):?>
-				<label for="<?=$field['id']?>_<?=slug($k, '_')?>"><?=$k?></label>
-				<input type="radio" name="<?=$field['id']?>" id="<?=$field['id']?>_<?=slug($k, '_')?>" value="<?=$v?>"<?=($current_value == $v) ? ' checked="checked"' : ''?> />
-				<?php endforeach;?>
+				<?php foreach ( $field['options'] as $k => $v ) : ?>
+				<label for="<?php echo $field['id']; ?>_<?php echo slug( $k, '_' ); ?>"><?php echo $k; ?></label>
+				<input type="radio" name="<?php echo $field['id']; ?>" id="<?php echo $field['id']; ?>_<?php echo slug( $k, '_' ); ?>" value="<?php echo $v; ?>"<?php echo ( $current_value === $v ) ? ' checked="checked"' : ''; ?> />
+				<?php endforeach; ?>
 
-			<?php break; case 'checkbox':?>
-				<input type="checkbox" name="<?=$field['id']?>" id="<?=$field['id']?>"<?=($current_value) ? ' checked="checked"' : ''?> />
+			<?php break; case 'checkbox' : ?>
+				<input type="checkbox" name="<?php echo $field['id']; ?>" id="<?php echo $field['id']; ?>"<?php echo ( $current_value ) ? ' checked="checked"' : ''; ?> />
 
-			<?php break; case 'file':?>
+			<?php break; case 'file' : ?>
 				<?php
-					$document_id = get_post_meta($post->ID, $field['id'], True);
-					if ($document_id){
-						$document = get_post($document_id);
-						$url      = wp_get_attachment_url($document->ID);
-					}else{
+					$document_id = get_post_meta( $post->ID, $field['id'], true );
+					if ( $document_id ){
+						$document = get_post( $document_id );
+						$url      = wp_get_attachment_url( $document->ID );
+					} else {
 						$document = null;
 					}
 				?>
-				<?php if($document):?>
-				<a href="<?=$url?>"><?=$document->post_title?></a><br /><br />
+				<?php if ( $document ) : ?>
+				<a href="<?php echo $url; ?>"><?php echo $document->post_title; ?></a><br /><br />
 				<?php endif;?>
-				<input type="file" id="file_<?=$post->ID?>" name="<?=$field['id']?>"><br />
+				<input type="file" id="file_<?php echo $post->ID; ?>" name="<?php echo $field['id']; ?>"><br />
 
 			<?php break; case 'note':?>
-				<?=$current_value?>
+				<?php echo $current_value; ?>
 
 			<?php break; case 'help':?><!-- Do nothing for help -->
 			<?php break; default:?>
-				<p class="error">Don't know how to handle field of type '<?=$field['type']?>'</p>
+				<p class="error">Don't know how to handle field of type '<?php echo $field['type']; ?>'</p>
 			<?php break; endswitch;?>
 			<td>
 		</tr>
 	<?php endforeach;?>
 	</table>
 
-	<?php if($meta_box['helptxt']):?>
-	<p><?=$meta_box['helptxt']?></p>
-	<?php endif;?>
+	<?php if ( $meta_box['helptxt'] ) : ?>
+	<p><?php echo $meta_box['helptxt']; ?></p>
 	<?php
+		endif;
 }
 
 function _getArchiveMonthYear() {
@@ -1652,10 +1667,10 @@ function _getArchiveMonthYear() {
 	$year = $today["year"];
 
 	$url_path = explode( '/', $_SERVER['REQUEST_URI'] );
-	if (is_numeric($url_path[count($url_path) - 2])) {
-		$year = intval(substr($url_path[count($url_path) - 2], 0, 4));
-		$month = intval(substr($url_path[count($url_path) - 2], 4));
-		unset($url_path[count($url_path) - 2]);
+	if ( is_numeric( $url_path[count( $url_path ) - 2] ) ) {
+		$year = intval( substr( $url_path[count( $url_path ) - 2], 0, 4 ) );
+		$month = intval( substr( $url_path[count( $url_path ) - 2], 4 ) );
+		unset( $url_path[count( $url_path ) - 2] );
 	}
 
 	$monthYear = array(
