@@ -1,15 +1,15 @@
 <?php
-require_once('functions/base.php');             # Base theme functions
-require_once('functions/feeds.php');            # Where functions related to feed data live
-require_once('custom-taxonomies.php');          # Where per theme taxonomies are defined
-require_once('custom-post-types.php');          # Where per theme post types are defined
-require_once('functions/admin.php');            # Admin/login functions
-require_once('functions/config.php');           # Where per theme settings are registered
-require_once('functions/api.php');              # Custom wp-json points are defined here
-require_once('shortcodes.php');                 # Per theme shortcodes
-require_once('functions/gmucf-options.php');    # GMUCF Options page and functions
+require_once( 'functions/base.php' );             # Base theme functions
+require_once( 'functions/feeds.php' );            # Where functions related to feed data live
+require_once( 'custom-taxonomies.php' );          # Where per theme taxonomies are defined
+require_once( 'custom-post-types.php' );          # Where per theme post types are defined
+require_once( 'functions/admin.php' );            # Admin/login functions
+require_once( 'functions/config.php' );           # Where per theme settings are registered
+require_once( 'functions/api.php' );              # Custom wp-json points are defined here
+require_once( 'shortcodes.php' );                 # Per theme shortcodes
+require_once( 'functions/gmucf-options.php' );    # GMUCF Options page and functions
 
-require_once('third-party/wp-rss-media.php');   # Add images and media tag to the RSS feed for the Widget
+require_once( 'third-party/wp-rss-media.php' );   # Add images and media tag to the RSS feed for the Widget
 
 
 //Add theme-specific functions here.
@@ -45,18 +45,18 @@ function transition_rules()
 		'events'                          => 'events',
 		'research'                        => 'research');
 
-	$custom = Array();
+	$custom = array();
 
-	foreach($cats as $before=>$after) {
+	foreach( $cats as $before => $after ) {
 		// Rewrite category pages
-		$custom['section/(?:[^/]+/)?'.$before.'/?$'] = 'index.php?tag='.$after;
-		$custom['category/(?:[^/]+/)?'.$before.'/?$'] = 'index.php?tag='.$after;
+		$custom['section/(?:[^/]+/)?' . $before.'/?$'] = 'index.php?tag=' . $after;
+		$custom['category/(?:[^/]+/)?' . $before.'/?$'] = 'index.php?tag=' . $after;
 
 		// Rewrite feed pages
-		$custom['section/(?:[^/]+/)?'.$before.'/feed/(feed|rdf|rss|rss2|atom|json)/?$'] = 'index.php?tag='.$after.'&feed=$matches[1]';
-		$custom['section/(?:[^/]+/)?'.$before.'/(feed|rdf|rss|rss2|atom|json)/?$'] = 'index.php?tag='.$after.'&feed=$matches[1]';
-		$custom['category/(?:[^/]+/)?'.$before.'/feed/(feed|rdf|rss|rss2|atom|json)/?$'] = 'index.php?tag='.$after.'&feed=$matches[1]';
-		$custom['category/(?:[^/]+/)?'.$before.'/(feed|rdf|rss|rss2|atom|json)/?$'] = 'index.php?tag='.$after.'&feed=$matches[1]';
+		$custom['section/(?:[^/]+/)?' . $before.'/feed/(feed|rdf|rss|rss2|atom|json)/?$'] = 'index.php?tag=' . $after . '&feed=$matches[1]';
+		$custom['section/(?:[^/]+/)?' . $before.'/(feed|rdf|rss|rss2|atom|json)/?$'] = 'index.php?tag=' . $after . '&feed=$matches[1]';
+		$custom['category/(?:[^/]+/)?' . $before.'/feed/(feed|rdf|rss|rss2|atom|json)/?$'] = 'index.php?tag=' . $after . '&feed=$matches[1]';
+		$custom['category/(?:[^/]+/)?' . $before.'/(feed|rdf|rss|rss2|atom|json)/?$'] = 'index.php?tag=' . $after . '&feed=$matches[1]';
 	}
 	// Rewrite old category and tag pages
 	$custom['category/(?:[^/]+/)?(.+?)/feed/(feed|rdf|rss|rss2|atom|json)/?$'] = 'index.php?category_name=$matches[1]&feed=$matches[2]';
@@ -77,11 +77,11 @@ function transition_rules()
 
 	return $custom;
 }
-function rewrite_rules_filter($rules){
+function rewrite_rules_filter( $rules ) {
 	$custom = transition_rules();
 	return $custom + $rules;
 }
-add_filter('rewrite_rules_array', 'rewrite_rules_filter');
+add_filter( 'rewrite_rules_array', 'rewrite_rules_filter' );
 
 
 /**
@@ -100,7 +100,7 @@ function output_weather_data() {
  * displaying weather data in the site header.
  */
 function ucf_weather_default_today_nav( $data, $output ) {
-	if ( !class_exists( 'UCF_Weather_Common' ) ) { return; }
+	if ( ! class_exists( 'UCF_Weather_Common' ) ) return;
 
 	ob_start();
 	$icon = UCF_Weather_Common::get_weather_icon( $data->condition );
@@ -139,61 +139,60 @@ function get_embed_html( $media_url ) {
  * @return string
  * @author Chris Conover
  **/
-function gen_alerts_html()
-{
-		$alerts 		= get_posts(Array('post_type' => 'alert'));
-		$hidden_alerts	= Array();
-		$alerts_html 	= '';
+function gen_alerts_html() {
+		$alerts        = get_posts( array( 'post_type' => 'alert' ) );
+		$hidden_alerts = array();
+		$alerts_html   = '';
 
-		if ($alerts) {
+		if ( $alerts ) {
 			$alert_html = '<div class="row" id="alerts"><ul class="span12">';
 
-			foreach($alerts as $alert) {
+			foreach( $alerts as $alert ) {
 
-				$text       = get_post_meta($alert->ID, 'alert_text', True);
-				$link_text  = get_post_meta($alert->ID, 'alert_link_text', True);
-				$link_url   = get_post_meta($alert->ID, 'alert_link_url', True);
-				$type       = get_post_meta($alert->ID, 'alert_type', True);
-				$bg_color   = get_post_meta($alert->ID, 'alert_bg_color', True);
-				$text_color = get_post_meta($alert->ID, 'alert_text_color', True);
+				$text       = get_post_meta( $alert->ID, 'alert_text', true );
+				$link_text  = get_post_meta( $alert->ID, 'alert_link_text', true );
+				$link_url   = get_post_meta( $alert->ID, 'alert_link_url', true );
+				$type       = get_post_meta( $alert->ID, 'alert_type', true );
+				$bg_color   = get_post_meta( $alert->ID, 'alert_bg_color', true );
+				$text_color = get_post_meta( $alert->ID, 'alert_text_color', true );
 
-				$css_clss           = Array($type);
-				$li_inline_styles   = Array();
-				$span_inline_styles = Array();
+				$css_clss           = array( $type );
+				$li_inline_styles   = array();
+				$span_inline_styles = array();
 
-				$link_html = ($link_text && $link_url) ? "<a href=\"$link_url\">$link_text</a>" : '';
+				$link_html = ( $link_text && $link_url ) ? "<a href=\"$link_url\">$link_text</a>" : '';
 
-				$thumbnail_id = get_post_thumbnail_id($alert->ID);
-				if($thumbnail_id != '') {
-					$thumbnail = wp_get_attachment_image_src($thumbnail_id, 'alert');
-					array_push($li_inline_styles, 'background-image: url('.$thumbnail[0].');');
+				$thumbnail_id = get_post_thumbnail_id( $alert->ID );
+				if ( $thumbnail_id != '' ) {
+					$thumbnail = wp_get_attachment_image_src( $thumbnail_id, 'alert' );
+					array_push( $li_inline_styles, 'background-image: url(' . $thumbnail[0] . ');' );
 				}
 
-				if($bg_color != '') {
-					if(substr($bg_color, 0, 1) != '#') {
-						$bg_color = '#'.$bg_color;
+				if ( $bg_color != '' ) {
+					if ( substr( $bg_color, 0, 1 ) != '#' ) {
+						$bg_color = '#' . $bg_color;
 					}
-					array_push($span_inline_styles, 'background-color: '.$bg_color.';');
+					array_push( $span_inline_styles, 'background-color: ' . $bg_color . ';' );
 				}
-				if($text_color != '') {
-					if(substr($text_color, 0, 1) != '#') {
-						$text_color = '#'.$text_color;
+				if ( $text_color != '' ) {
+					if ( substr( $text_color, 0, 1 ) != '#' ) {
+						$text_color = '#' . $text_color;
 					}
-					array_push($span_inline_styles, 'color: '.$text_color.';');
+					array_push( $span_inline_styles, 'color: ' . $text_color . ';' );
 				}
 
 
-			 	$alert_html .= '<li style="'.implode( ' ', $li_inline_styles ).'" class="hidden '.implode( ' ', $css_clss ).'" id="alert-'.$alert->ID.'" data-post-modified="'.strtotime( $alert->post_modified ).'">
-									<span class="msg" style="'.implode(' ', $span_inline_styles).'">
-										'.$text.'
-										'.$link_html.'
+			 	$alert_html .= '<li style="'.implode( ' ', $li_inline_styles ).'" class="hidden '.implode( ' ', $css_clss ) . '" id="alert-' . $alert->ID . '" data-post-modified="' . strtotime( $alert->post_modified ) . '">
+									<span class="msg" style="'.implode(' ', $span_inline_styles) . '">
+										' . $text . '
+										' . $link_html . '
 										<a class="close" alt="Close Alert" title="Close Alert" href="#">&times;</a>
 									</span>
 								</li>';
 			}
 
 			$alert_html .= '</ul></div>';
-			$alerts_html .= $alert_html."\n";
+			$alerts_html .= $alert_html . "\n";
 
 		}
 		return $alerts_html;
@@ -206,33 +205,40 @@ function gen_alerts_html()
  * @return string or array
  * @author Chris Conover
  **/
-function get_img_html($post_id, $size = 'thumbnail', $options = Array())
+function get_img_html( $post_id, $size = 'thumbnail', $options = array() )
 {
 	global $wpdb, $_wp_additional_image_sizes;
 
-	if($size == 'photoset_photo') $size = 'full';
+	if ( $size === 'photoset_photo' ) {
+		$size = 'full';
+	}
 
-	$element_id		= (isset($options['element_id'])) ? $options['element_id'] : '';
-	$return_id		= (isset($options['return_id'])) ? $options['return_id'] : False;
-	$sent_attach	= (isset($options['sent_attach'])) ? $options['sent_attach'] : False;
+	$element_id  = ( isset( $options['element_id'] ) ) ? $options['element_id'] : '';
+	$return_id   = ( isset( $options['return_id'] ) ) ? $options['return_id'] : false;
+	$sent_attach = ( isset( $options['sent_attach'] ) ) ? $options['sent_attach'] : false;
 
 	$org_size = $size;
-	$img_alttext = get_the_title($post_id);
+	$img_alttext = get_the_title( $post_id );
 
-	if($sent_attach) {
+	if ( $sent_attach ) {
 		$attach_id = $post_id;
 	} else {
 
-		$attach_id 	= get_post_thumbnail_id($post_id);
+		$attach_id 	= get_post_thumbnail_id( $post_id );
 
 		// Look for image attachments that aren't featured images
-		if($attach_id === '') {
-			$attachments = get_posts(Array(	'post_type' => 'attachment',
-											'numberposts' => -1,
-											'post_status' => null,
-											'post_parent' => $post_id));
-			foreach($attachments as $attachment) {
-				if( substr($attachment->post_mime_type, 0, strlen('image')) === 'image') {
+		if ( $attach_id === '' ) {
+			$attachments = get_posts(
+				array(
+					'post_type' => 'attachment',
+					'numberposts' => -1,
+					'post_status' => null,
+					'post_parent' => $post_id
+				)
+			);
+
+			foreach( $attachments as $attachment ) {
+				if ( substr( $attachment->post_mime_type, 0, strlen( 'image' ) ) === 'image' ) {
 					$attach_id = $attachment->ID;
 					break;
 				}
@@ -241,41 +247,42 @@ function get_img_html($post_id, $size = 'thumbnail', $options = Array())
 
 		// Look for a WordPress image link that is simply present in the story
 		// (i.e. it was copied from some other story)
-		if($attach_id === '') {
-			$post = get_post($post_id);
-			preg_match('/src="([^"]+(?:jpg|jpeg|png|gif))"/', $post->post_content, $matches);
-			if($matches !== FALSE && count($matches) > 0 && ($img_url = parse_url($matches[1])) !== FALSE && !is_null($img_url['path'])) {
-
-				$attach_id = $wpdb->get_var($wpdb->prepare("SELECT * FROM $wpdb->posts WHERE guid LIKE '%%%s'", $img_url['path']));
+		if ( $attach_id === '' ) {
+			$post = get_post( $post_id );
+			preg_match( '/src="([^"]+(?:jpg|jpeg|png|gif))"/', $post->post_content, $matches );
+			if ( $matches !== FALSE && count( $matches ) > 0 && ( $img_url = parse_url( $matches[1] ) ) !== FALSE && ! is_null( $img_url['path'] ) ) {
+				$attach_id = $wpdb->get_var( $wpdb->prepare( "SELECT * FROM $wpdb->posts WHERE guid LIKE '%%%s'", $img_url['path'] ) );
 			}
 		}
 	}
 
 	$html = '';
 
-	if(in_array($size, Array('story', 'category_feature'))) $size = 'thumbnail';
+	if ( in_array( $size, array( 'story', 'category_feature' ) ) ) {
+		$size = 'thumbnail';
+	}
 
-	if($attach_id != '') {
+	if ( $attach_id != '' ) {
 
-		$thumb		= wp_get_attachment_image_src($attach_id, $size);
-		$element_id	= ($element_id != '') ? 'id="'.$element_id.'" ': '';
+		$thumb		= wp_get_attachment_image_src( $attach_id, $size );
+		$element_id	= ( $element_id != '' ) ? 'id="' . $element_id . '" ' : '';
 
-		$dims = Array('width' => $thumb[1], 'height' => $thumb[2]);
+		$dims = array( 'width' => $thumb[1], 'height' => $thumb[2] );
 
 		$org_dims = $_wp_additional_image_sizes[$org_size];
 
-		if(!is_null($org_dims) && ($dims['width'] > $org_dims['width'] || $dims['height'] > $org_dims['height'])) {
+		if ( ! is_null( $org_dims ) && ( $dims['width'] > $org_dims['width'] || $dims['height'] > $org_dims['height'] ) ) {
 			$dims['width'] = $org_dims['width'];
 			$dims['height'] = $org_dims['height'];
 		}
 
-	 	$html = (isset($thumb[0])) ? '<img src="'.$thumb[0].'" '.$element_id.'width="'.$dims['width'].'" height="'.$dims['height'].'" alt="'.$img_alttext.'" />' : '';
-	} else if($org_size != 'story_feature') {
-		$html = '<img src="'.get_bloginfo('stylesheet_directory').'/static/img/no-photo.png" '.$element_id.' alt="'.$img_alttext.'" />';
+	 	$html = ( isset( $thumb[0] ) ) ? '<img src="' . $thumb[0] . '" ' . $element_id . 'width="' . $dims['width'] . '" height="' . $dims['height'] . '" alt="' . $img_alttext . '" />' : '';
+	} elseif ( $org_size != 'story_feature' ) {
+		$html = '<img src="' . get_bloginfo( 'stylesheet_directory' ) . '/static/img/no-photo.png" ' . $element_id . ' alt="' . $img_alttext . '" />';
 	}
 
-	if($return_id) {
-		return Array('html' => $html, 'attachment_id' => $attach_id);
+	if ( $return_id ) {
+		return array( 'html' => $html, 'attachment_id' => $attach_id );
 	} else {
 		return $html;
 	}
@@ -289,53 +296,65 @@ function get_img_html($post_id, $size = 'thumbnail', $options = Array())
  * @return object or False
  * @author Chris Conover
  **/
-function resolve_posts($atts, $args = Array(), $filters = True, $strip_tags = True)
+function resolve_posts( $atts, $args = array(), $filters = true, $strip_tags = true )
 {
-	$home_page 	= (isset($atts['main_page'])) ? True : False;
-	$tag		= (isset($atts['tag'])) ? $atts['tag'] : False;
-	$category	= (isset($atts['category'])) ? $atts['category'] : False;
+	$home_page 	= ( isset( $atts['main_page'] ) ) ? true : false;
+	$tag		= ( isset( $atts['tag'] ) ) ? $atts['tag'] : false;
+	$category	= ( isset( $atts['category'] ) ) ? $atts['category'] : false;
 
-	$args = array_merge(Array(	'numberposts' => 1,
-								'offset' => 0,
-								'post_type' => 'post'), $args);
+	$args = array_merge(
+		array(
+			'numberposts' => 1,
+			'offset' => 0,
+			'post_type' => 'post'
+		),
+		$args
+	);
 
-	if($tag !== False) {
-		$posts = get_posts(array_merge($args, Array('tag' => $tag)));
-	} else if($category !== False) {
-		$posts = get_posts(array_merge($args, Array('category_name' => $category)));
-	} else if($home_page !== False) {
-		$posts = get_posts(array_merge($args, Array('meta_query' => Array(
-													Array(	'key' => $post_type.'_main_page',
-															'value' => 'on'
-													)
-												)
-										)));
+	if ( $tag !== false ) {
+		$posts = get_posts( array_merge( $args, array( 'tag' => $tag ) ) );
+	} elseif ( $category !== false ) {
+		$posts = get_posts( array_merge( $args, array( 'category_name' => $category ) ) );
+	} elseif ( $home_page !== false ) {
+		$posts = get_posts(
+			array_merge(
+				$args,
+				array(
+					'meta_query' => array(
+						array(
+							'key' => $post_type . '_main_page',
+							'value' => 'on'
+						)
+					)
+				)
+			)
+		);
 	}
-	if(!isset($posts) || count($posts) == 0) {
-		$posts = get_posts($args);
+	if ( ! isset( $posts ) || count( $posts ) === 0) {
+		$posts = get_posts( $args );
 	}
 
-	if($filters && $strip_tags) {
-		array_walk($posts, create_function('&$p', 'return "";'));
-	} else if($filters) {
-		array_walk($posts, create_function('$p', 'return apply_filters("the_content", $p->post_content);'));
-	} else if($strip_tags) {
-		array_walk($posts, create_function('$p', 'return strip_tags("the_content", $p->post_content);'));
+	if ( $filters && $strip_tags ) {
+		array_walk( $posts, create_function( '&$p', 'return "";' ) );
+	} elseif ( $filters ) {
+		array_walk( $posts, create_function( '$p', 'return apply_filters("the_content", $p->post_content);' ) );
+	} elseif ( $strip_tags ) {
+		array_walk( $posts, create_function( '$p', 'return strip_tags("the_content", $p->post_content);' ) );
 	}
 
-	if($filters) {
-		foreach($posts as $post) {
-			$post->post_content = apply_filters('the_content', $post->post_content);
-			$post->post_content = str_replace("]]>", "]]&gt;", $post->post_content);
+	if ( $filters ) {
+		foreach( $posts as $post ) {
+			$post->post_content = apply_filters( 'the_content', $post->post_content );
+			$post->post_content = str_replace( "]]>", "]]&gt;", $post->post_content );
 		}
 	}
-	if($strip_tags) {
-		foreach($posts as $post) {
-			$post->post_content = strip_tags($post->post_content);
+	if ( $strip_tags ) {
+		foreach( $posts as $post ) {
+			$post->post_content = strip_tags( $post->post_content );
 		}
 	}
 
-	return ($args['numberposts'] == 1) ? (count($posts) > 0) ? $posts[0] : False : $posts;
+	return ( $args['numberposts'] === 1 ) ? ( count( $posts ) > 0 ) ? $posts[0] : false : $posts;
 }
 
 
@@ -349,32 +368,32 @@ function resolve_posts($atts, $args = Array(), $filters = True, $strip_tags = Tr
  * @return string
  * @author Chris Conover
  **/
-function get_excerpt($post, $hl_term = '')
+function get_excerpt( $post, $hl_term = '' )
 {
-	setup_postdata($post);
+	setup_postdata( $post );
 
-	if($hl_term != '') {
-		$stripped_content = strip_tags($post->post_content);
-		if( ($term_loc = stripos($stripped_content, $hl_term)) !== False) {
+	if ( $hl_term != '' ) {
+		$stripped_content = strip_tags( $post->post_content );
+		if ( ( $term_loc = stripos( $stripped_content, $hl_term ) ) !== false ) {
 			// Get the actual term to preserve capitalization
-			$hl_term = substr($stripped_content, $term_loc, strlen($hl_term));
+			$hl_term = substr( $stripped_content, $term_loc, strlen( $hl_term ) );
 
 			// Get an excerpt around the highligh term
-			preg_match('/\b(?:[^\s]+\s+){0,20}'.preg_quote($hl_term).'\s?(?:[^\s]+\s+){0,20}/', $stripped_content, $matches);
-			$excerpt = strip_tags(trim($matches[0]));
+			preg_match( '/\b(?:[^\s]+\s+){0,20}' . preg_quote( $hl_term ) . '\s?(?:[^\s]+\s+){0,20}/', $stripped_content, $matches );
+			$excerpt = strip_tags( trim( $matches[0] ) );
 
 			// Place ellipses
-			if(substr($post->post_content, 0, strlen($excerpt)) !== $excerpt) $excerpt = '...'.$excerpt;
-			if(substr($post->post_content,strlen($excerpt) * -1) !== $excerpt) $excerpt = $excerpt.'...';
+			if ( substr( $post->post_content, 0, strlen( $excerpt) ) !== $excerpt) $excerpt = '...' . $excerpt;
+			if ( substr( $post->post_content, strlen( $excerpt) * -1 ) !== $excerpt) $excerpt = $excerpt . '...';
 
-			return str_replace($hl_term, '<span class="highlight">'.$hl_term.'</span>', $excerpt);
+			return str_replace( $hl_term, '<span class="highlight">' . $hl_term . '</span>', $excerpt );
 		}
 	}
 
-	if($post->post_excerpt != '') {
-		return strip_tags($post->post_excerpt);
+	if ( $post->post_excerpt != '' ) {
+		return strip_tags( $post->post_excerpt );
 	}
-	return strip_tags(get_the_excerpt());
+	return strip_tags( get_the_excerpt() );
 }
 
 
@@ -386,20 +405,20 @@ function get_excerpt($post, $hl_term = '')
  * @return void
  * @author Chris Conover
  **/
-function mainsite_tag_exists($post_id)
+function mainsite_tag_exists( $post_id )
 {
 	global $mainsite_tag_existed;
 
-	$mainsite_tag_existed = False;
-	$tags = wp_get_post_tags($post_id);
+	$mainsite_tag_existed = false;
+	$tags = wp_get_post_tags( $post_id );
 
-	foreach($tags as $tag) {
-		if($tag->slug == MAINSITE_TAG_SLUG) {
-			$mainsite_tag_existed = True;
+	foreach( $tags as $tag ) {
+		if ( $tag->slug === MAINSITE_TAG_SLUG ) {
+			$mainsite_tag_existed = true;
 		}
 	}
 }
-add_filter('pre_post_update', 'mainsite_tag_exists');
+add_filter( 'pre_post_update', 'mainsite_tag_exists' );
 
 
 /**
@@ -409,7 +428,7 @@ add_filter('pre_post_update', 'mainsite_tag_exists');
  * @return void
  * @author Chris Conover
  **/
-function check_mainsite_tag($post_id)
+function check_mainsite_tag( $post_id )
 {
 	global $current_user, $mainsite_tag_existed;
 
@@ -417,41 +436,41 @@ function check_mainsite_tag($post_id)
 
 	$mainsite_tag = get_mainsite_tag();
 
-	if($mainsite_tag !== FALSE) {
+	if ( $mainsite_tag !== false ) {
 
-		$post_tags = wp_get_post_tags($post_id);
-		$mainsite_tag_exists = False;
-		foreach($post_tags as $tag) {
-			if($tag->slug == MAINSITE_TAG_SLUG) {
-				$mainsite_tag_exists = True;
+		$post_tags = wp_get_post_tags( $post_id );
+		$mainsite_tag_exists = false;
+		foreach( $post_tags as $tag ) {
+			if ( $tag->slug === MAINSITE_TAG_SLUG ) {
+				$mainsite_tag_exists = true;
 				break;
 			}
 		}
 
-		if(!in_array('administrator', $roles) && !in_array('editor', $roles)) {
+		if ( ! in_array( 'administrator', $roles ) && ! in_array( 'editor', $roles ) ) {
 
 			// Maintsite tag was added
-			if($mainsite_tag_exists && !$mainsite_tag_existed) {
+			if ( $mainsite_tag_exists && ! $mainsite_tag_existed ) {
 				// Remove it
 
-				$new_tags = Array();
-				foreach($post_tags as $tag) {
-					if($tag->term_id != $mainsite_tag->term_id) {
-						array_push($new_tags, $tag->name);
+				$new_tags = array();
+				foreach( $post_tags as $tag ) {
+					if ( $tag->term_id != $mainsite_tag->term_id ) {
+						array_push( $new_tags, $tag->name );
 					}
 				}
-				wp_set_post_tags($post_id, implode(',', $new_tags));
-				wp_die('<div style="background-color:#FF0000;border:1px solid #FF0000;padding:15px;color: #FFF;">Only adminstrators or editors can add the Main Site Stories tag to a post.</div>');
+				wp_set_post_tags( $post_id, implode( ',', $new_tags ) );
+				wp_die( '<div style="background-color:#FF0000;border:1px solid #FF0000;padding:15px;color: #FFF;">Only adminstrators or editors can add the Main Site Stories tag to a post.</div>' );
 			// Mainsite tag we removed
-			} else if(!$mainsite_tag_exists && $mainsite_tag_existed) {
+			} elseif ( ! $mainsite_tag_exists && $mainsite_tag_existed) {
 				// Add it
-				wp_set_post_tags($post_id, $mainsite_tag->name, True);
-				wp_die('<div style="background-color:#FF0000;border:1px solid #FF0000;padding:15px;color: #FFF;">Only adminstrators or editors can remove the Main Site Stories tag from a post.</div>');
+				wp_set_post_tags( $post_id, $mainsite_tag->name, true );
+				wp_die( '<div style="background-color:#FF0000;border:1px solid #FF0000;padding:15px;color: #FFF;">Only adminstrators or editors can remove the Main Site Stories tag from a post.</div>' );
 			}
 		}
 	}
 }
-add_filter('save_post', 'check_mainsite_tag');
+add_filter( 'save_post', 'check_mainsite_tag' );
 
 
 /**
@@ -462,7 +481,7 @@ add_filter('save_post', 'check_mainsite_tag');
  **/
 function get_mainsite_tag()
 {
-	return get_term_by('slug', MAINSITE_TAG_SLUG, 'post_tag');
+	return get_term_by( 'slug', MAINSITE_TAG_SLUG, 'post_tag' );
 }
 
 
@@ -472,7 +491,7 @@ function get_mainsite_tag()
  *
  */
 function media_upload_display_scale_option() {
-	$checked = get_user_setting('upload_resize') ? ' checked="true"' : '';
+	$checked = get_user_setting( 'upload_resize' ) ? ' checked="true"' : '';
 	$a = $end = '';
 
 	if ( current_user_can( 'manage_options' ) ) {
@@ -501,9 +520,9 @@ add_action( 'post-upload-ui', 'media_upload_display_scale_option' );
 /**
  * Returns a theme option value or NULL if it doesn't exist
  **/
-function get_theme_option($key) {
+function get_theme_option( $key ) {
 	global $theme_options;
-	return isset($theme_options[$key]) ? $theme_options[$key] : NULL;
+	return isset( $theme_options[$key] ) ? $theme_options[$key] : null;
 }
 
 
@@ -513,7 +532,7 @@ function get_theme_option($key) {
  * @return string
  **/
 function get_header_title( $elem='' ) {
-	if ( !$elem ) {
+	if ( ! $elem ) {
 		$elem = ( is_home() || is_front_page() ) ? 'h1' : 'span';
 	}
 	ob_start();
@@ -557,19 +576,19 @@ function today_body_classes() {
 		$classes .= 'disable-md-navbar-toggle ';
 	}
 
-	if (is_home()) {
+	if ( is_home() ) {
 		$classes .= 'body-home ';
 	}
-	elseif (is_404()) {
+	elseif ( is_404() ) {
 		$classes .= 'body-404 ';
 	}
-	elseif (is_search()) {
+	elseif ( is_search() ) {
 		$classes .= 'body-search ';
 	}
-	elseif ($post->post_type == 'photoset') {
+	elseif ( $post->post_type === 'photoset' ) {
 		$classes .= 'body-photoset ';
 	}
-	elseif ( get_page_template_slug( $post ) == 'featured-single-post.php' ) {
+	elseif ( get_page_template_slug( $post ) === 'featured-single-post.php' ) {
 		$classes .= 'body-feature ';
 	}
 	else {
@@ -587,16 +606,18 @@ function today_body_classes() {
  * @return array
  * @author Jo Dickson
  **/
-function get_posts_search($query='', $post_type='post', $extra_args=array()) {
+function get_posts_search( $query='', $post_type='post', $extra_args=array() ) {
 	$args = array(
-		'post_type' => $post_type,
+		'post_type'   => $post_type,
 		'numberposts' => -1,
-		's'			=> $query,
+		's'			  => $query,
 	);
-	if ($extra_args) {
-		array_merge($args, $extra_args);
+
+	if ( $extra_args ) {
+		array_merge( $args, $extra_args );
 	}
-	return get_posts($args);
+
+	return get_posts( $args );
 }
 
 
@@ -622,13 +643,13 @@ function display_social( $url, $title, $layout='default' ) {
  *
  * See http://wordpress.stackexchange.com/questions/3326/301-redirect-instead-of-404-when-url-is-a-prefix-of-a-post-or-page-name
  **/
-function no_redirect_on_404($redirect_url) {
-    if (is_404()) {
+function no_redirect_on_404( $redirect_url ) {
+    if ( is_404() ) {
         return false;
     }
     return $redirect_url;
 }
-add_filter('redirect_canonical', 'no_redirect_on_404');
+add_filter( 'redirect_canonical', 'no_redirect_on_404' );
 
 
 /**
@@ -639,23 +660,23 @@ add_filter('redirect_canonical', 'no_redirect_on_404');
 function kill_unused_templates() {
 	global $wp_query, $post;
 
-	if (is_author() || is_attachment() || is_day()) {
-		wp_redirect(home_url());
+	if ( is_author() || is_attachment() || is_day() ) {
+		wp_redirect( home_url() );
 	}
 
-	if (is_feed()) {
-		$author = get_query_var('author_name');
-		$attachment = get_query_var('attachment');
-		$attachment = (empty($attachment)) ? get_query_var('attachment_id') : $attachment;
-		$day = get_query_var('day');
+	if ( is_feed() ) {
+		$author = get_query_var( 'author_name' );
+		$attachment = get_query_var( 'attachment' );
+		$attachment = ( empty( $attachment ) ) ? get_query_var( 'attachment_id' ) : $attachment;
+		$day = get_query_var( 'day' );
 
-		if (!empty($author) || !empty($attachment) || !empty($day)) {
-			wp_redirect(home_url());
+		if ( ! empty( $author ) || ! empty( $attachment ) || ! empty( $day ) ) {
+			wp_redirect( home_url() );
 			$wp_query->is_feed = false;
 		}
 	}
 }
-add_action('template_redirect', 'kill_unused_templates');
+add_action( 'template_redirect', 'kill_unused_templates' );
 
 
 /**
@@ -663,7 +684,7 @@ add_action('template_redirect', 'kill_unused_templates');
  **/
 function filter_media_comment_status( $open, $post_id ) {
 	$post = get_post( $post_id );
-	if( $post->post_type == 'attachment' ) {
+	if ( $post->post_type === 'attachment' ) {
 		return false;
 	}
 	return $open;
@@ -675,48 +696,50 @@ add_filter( 'comments_open', 'filter_media_comment_status', 10 , 2 );
  * Wrap a statement in a ESI include tag with a specified duration if the
  * enable_esi theme option is enabled.
  **/
-function esi_include($statementname, $argset=null, $print_results=false) {
-	if (!$statementname) { return null; }
+function esi_include( $statementname, $argset=null, $print_results=false ) {
+	if ( ! $statementname ) return null;
 
 	// Get the statement key
 	$statementkey = null;
-	foreach (Config::$esi_whitelist as $key=>$function) {
-		if ($function['name'] == $statementname) { $statementkey = $key;}
+	foreach ( Config::$esi_whitelist as $key=>$function ) {
+		if ( $function['name'] === $statementname ) $statementkey = $key;
 	}
-	if (!$statementkey) { return null; }
+
+	if ( ! $statementkey ) return null;
 
 	// Never include ESI over HTTPS
-	$enable_esi = get_theme_option('enable_esi');
-	if(!is_null($enable_esi) && $enable_esi === '1' && is_ssl() == false) {
-		$argset = ($argset !== null) ? $argset = '&args='.urlencode(base64_encode($argset)) : '';
-		$print_results = ($print_results === false) ? '0' : '1'; // whether or not to print results instead of return
+	$enable_esi = get_theme_option( 'enable_esi' );
+
+	if ( ! is_null( $enable_esi ) && $enable_esi === '1' && is_ssl() === false ) {
+		$argset = ( $argset !== null ) ? $argset = '&args=' . urlencode( base64_encode( $argset ) ) : '';
+		$print_results = ( $print_results === false ) ? '0' : '1'; // whether or not to print results instead of return
 		?>
-		<esi:include src="<?php echo ESI_INCLUDE_URL?>?print_results=<?=$print_results?>&statement=<?=$statementkey?><?=$argset?>" />
+		<esi:include src="<?php echo ESI_INCLUDE_URL?>?print_results=<?php echo $print_results; ?>&statement=<?php echo $statementkey; ?><?php echo $argset; ?>" />
 		<?php
-	} elseif (array_key_exists($statementkey, Config::$esi_whitelist)) {
+	} elseif ( array_key_exists( $statementkey, Config::$esi_whitelist ) ) {
 		$statementname = Config::$esi_whitelist[$statementkey]['name'];
 		$statementargs = Config::$esi_whitelist[$statementkey]['safe_args'];
 		// If no safe arguments are defined in the whitelist for this statement,
 		// run call_user_func(); otherwise check arguments and run call_user_func_array()
-		if (!is_array($statementargs) || $argset == null) {
-			if ($print_results) {
-				print call_user_func($statementname);
+		if ( ! is_array( $statementargs ) || $argset === null) {
+			if ( $print_results ) {
+				print call_user_func( $statementname );
 			}
 			else {
-				return call_user_func($statementname);
+				return call_user_func( $statementname );
 			}
 		}
 		else {
 			// Convert argset arrays to strings for easy comparison with our whitelist
-			$argset = is_array($argset) ? serialize($argset) : $argset;
-			if ($argset !== null && in_array($argset, $statementargs)) {
-				$argset = (unserialize($argset) !== false) ? unserialize($argset) : array($argset);
+			$argset = is_array( $argset ) ? serialize( $argset ) : $argset;
+			if ( $argset !== null && in_array( $argset, $statementargs ) ) {
+				$argset = ( unserialize( $argset ) !== false ) ? unserialize( $argset ) : array( $argset );
 
-				if ($print_results) {
-					print call_user_func_array($statementname, $argset);
+				if ( $print_results ) {
+					print call_user_func_array( $statementname, $argset );
 				}
 				else {
-					return call_user_func_array($statementname, $argset);
+					return call_user_func_array( $statementname, $argset );
 				}
 			}
 		}
@@ -732,8 +755,9 @@ function esi_include($statementname, $argset=null, $print_results=false) {
 function filter_archive_date_range( $where = '' ) {
     $monthYear = _getArchiveMonthYear();
 
-	$where .= " AND post_date <= '" . date('Y-m-t', strtotime($monthYear["year"] . '-' . $monthYear["mon"] . '-1')) .
-		"' AND post_date >= '" . date('Y-m-d', strtotime($monthYear["year"] . '-' . $monthYear["mon"] . '-1')) . "'";
+	$where .= ' AND post_date <= "' . date( 'Y-m-t', strtotime( $monthYear["year"] . '-' . $monthYear["mon"] . '-1' ) ) .
+		'" AND post_date >= "' . date( 'Y-m-d', strtotime( $monthYear["year"] . '-' . $monthYear["mon"] . '-1' ) ) . '"';
+
 	return $where;
 }
 
@@ -741,10 +765,10 @@ function filter_archive_date_range( $where = '' ) {
  * Returns the 'video_url' meta value for a video post type
  * as a protocol-agnostic URL.
  */
-function get_video_url($video_ID){
-	$video_url = get_post_meta($video_ID, 'video_url', True);
-	if (!empty($video_url)) {
-		$video_url = preg_replace('/^http(s)?:\/\//', CURRENT_PROTOCOL, $video_url);
+function get_video_url( $video_ID ) {
+	$video_url = get_post_meta( $video_ID, 'video_url', true );
+	if ( ! empty( $video_url ) ) {
+		$video_url = preg_replace( '/^http(s)?:\/\//', CURRENT_PROTOCOL, $video_url );
 	}
 	else {
 		$video_url = '';
@@ -756,10 +780,10 @@ function get_video_url($video_ID){
  * Force protocol-agnostic oembeds
  * http://wordpress.stackexchange.com/a/113550
  */
-function protocol_relative_oembed($html) {
-    return preg_replace('@src="https?:@', 'src="', $html);
+function protocol_relative_oembed( $html ) {
+    return preg_replace( '@src="https?:@', 'src="', $html );
 }
-add_filter('embed_oembed_html', 'protocol_relative_oembed');
+add_filter( 'embed_oembed_html', 'protocol_relative_oembed' );
 
 /*
  * Add responsive container to YouTube embeds and center other embeds
@@ -767,9 +791,9 @@ add_filter('embed_oembed_html', 'protocol_relative_oembed');
 function video_embed_html( $html, $url ) {
 	if ( strpos( $url, 'youtube.com' ) !== false || strpos( $url, 'youtu.be' ) !== false ) {
 		return '<div class="video-container">' . $html . '</div>';
-	} else if ( strpos( $url, 'facebook.com' ) !== false ) {
+	} elseif ( strpos( $url, 'facebook.com' ) !== false ) {
 		return '<div class="text-center">' . $html . '</div>';
-	} else if ( strpos( $url, 'twitter.com' ) !== false
+	} elseif ( strpos( $url, 'twitter.com' ) !== false
 		|| strpos( $url, 'instagram.com' ) !== false ) {
 		return '<div class="centered-embed">' . $html . '</div>';
 	} else {
@@ -783,33 +807,33 @@ add_filter( 'embed_oembed_html', 'video_embed_html', 10, 3 );
  * cropping settings which do not upscale small images.
  * http://wordpress.stackexchange.com/a/64953
  */
-function image_crop_dimensions($default, $orig_w, $orig_h, $new_w, $new_h, $crop){
-    if ( !$crop ) return null; // let the wordpress default function handle this
+function image_crop_dimensions( $default, $orig_w, $orig_h, $new_w, $new_h, $crop ) {
+    if ( ! $crop ) return null; // let the wordpress default function handle this
 
     $aspect_ratio = $orig_w / $orig_h;
-    $size_ratio = max($new_w / $orig_w, $new_h / $orig_h);
+    $size_ratio = max( $new_w / $orig_w, $new_h / $orig_h );
 
-    $crop_w = round($new_w / $size_ratio);
-    $crop_h = round($new_h / $size_ratio);
+    $crop_w = round( $new_w / $size_ratio );
+    $crop_h = round( $new_h / $size_ratio );
 
     $s_x = floor( ($orig_w - $crop_w) / 2 );
     $s_y = floor( ($orig_h - $crop_h) / 2 );
 
     return array( 0, 0, (int) $s_x, (int) $s_y, (int) $new_w, (int) $new_h, (int) $crop_w, (int) $crop_h );
 }
-add_filter('image_resize_dimensions', 'image_crop_dimensions', 10, 6);
+add_filter( 'image_resize_dimensions', 'image_crop_dimensions', 10, 6 );
 
 /**
  * Add ID attribute to registered University Header script.
  **/
-function add_id_to_ucfhb($url) {
-    if ( (false !== strpos($url, 'bar/js/university-header.js')) || (false !== strpos($url, 'bar/js/university-header-full.js')) ) {
-      remove_filter('clean_url', 'add_id_to_ucfhb', 10, 3);
+function add_id_to_ucfhb( $url ) {
+    if ( ( false !== strpos( $url, 'bar/js/university-header.js') ) || ( false !== strpos( $url, 'bar/js/university-header-full.js') ) ) {
+      remove_filter( 'clean_url', 'add_id_to_ucfhb', 10, 3 );
       return "$url' id='ucfhb-script";
     }
     return $url;
 }
-add_filter('clean_url', 'add_id_to_ucfhb', 10, 3);
+add_filter( 'clean_url', 'add_id_to_ucfhb', 10, 3 );
 
 class UCF_Feed_JSON {
 
@@ -907,7 +931,7 @@ function get_more_stories( $post ) {
 	$primary_tag = get_post_meta( $post->ID, 'primary_tag', TRUE );
 
 	if ( ! $primary_tag ) {
-		$tags = wp_get_post_tags($post->ID);
+		$tags = wp_get_post_tags( $post->ID );
 		if ( count( $tags ) > 0 ) {
 			$primary_tag = $tags[0];
 		} else {
@@ -962,7 +986,7 @@ function display_related_story( $story ) {
 	</a>
 	</div>
 <?php
-	return ob_get_clean ();
+	return ob_get_clean();
 }
 
 /**
@@ -974,16 +998,16 @@ function display_related_story( $story ) {
 */
 function update_rss_description_to_promo( $content ) {
 	global $post;
-	$promo_value = get_post_meta($post->ID, 'promo', true);
+	$promo_value = get_post_meta( $post->ID, 'promo', true );
 
-	if (has_tag('Main Site Stories') && !empty($promo_value)) {
+	if ( has_tag( 'Main Site Stories ') && ! empty( $promo_value ) ) {
 		return $promo_value;
 	} else {
-		$parts = explode(' ', $content, 30);
-		return implode(' ', array_slice($parts, 0, count($parts) - 1)).'...';
+		$parts = explode( ' ', $content, 30 );
+		return implode( ' ', array_slice( $parts, 0, count( $parts ) - 1 ) ) . '...';
 	}
 }
-add_action('the_excerpt_rss', 'update_rss_description_to_promo');
+add_action( 'the_excerpt_rss', 'update_rss_description_to_promo' );
 
 
 /**
@@ -1013,11 +1037,11 @@ add_filter( 'ucf_social_links_display_affixed_before', 'ucf_social_links_display
  * @return string
  */
  function display_news_schema( $post ) {
-	$post_promo = get_post_meta($post->ID, 'promo', true);
-	$excerpt = get_excerpt($post);
+	$post_promo = get_post_meta( $post->ID, 'promo', true );
+	$excerpt = get_excerpt( $post );
 	$thumbnail = get_the_post_thumbnail_url( $post->ID, 'medium' );
 	$thumbnail = $thumbnail ?: FEED_THUMBNAIL_FALLBACK;
-	$description = !empty($post_promo) ? $post_promo : $excerpt;
+	$description = ! empty( $post_promo ) ? $post_promo : $excerpt;
 	ob_start();
  ?>
 	<script type="application/ld+json">
@@ -1050,7 +1074,7 @@ add_filter( 'ucf_social_links_display_affixed_before', 'ucf_social_links_display
 		}
 	</script>
 <?php
-	return ob_get_clean ();
+	return ob_get_clean();
 }
 
 
@@ -1062,16 +1086,16 @@ add_filter( 'ucf_social_links_display_affixed_before', 'ucf_social_links_display
  * @return String
  **/
 function display_external_stories_list_item( $story_id, $show_description ) {
-	$story_url = get_post_meta( $story_id, 'externalstory_url', True );
-	$story_text = get_post_meta( $story_id, 'externalstory_text', True );
+	$story_url = get_post_meta( $story_id, 'externalstory_url', true );
+	$story_text = get_post_meta( $story_id, 'externalstory_text', true );
 	$source_name = wp_get_post_terms( $story_id, 'sources' );
 
-	if( !empty( $source_name ) ) {
+	if ( ! empty( $source_name ) ) {
 		$story_source = $source_name[0]->name;
 	} else {
-		$story_source = get_post_meta( $story_id, 'externalstory_source', True );
+		$story_source = get_post_meta( $story_id, 'externalstory_source', true );
 	}
-	$story_description = get_post_meta( $story_id, 'externalstory_description', True );
+	$story_description = get_post_meta( $story_id, 'externalstory_description', true );
 	ob_start();
 	// Does not show an external story post without having a value set for url, text or source
 	if ( $story_url && $story_text && $story_source ) :
@@ -1102,12 +1126,12 @@ function display_external_stories_list_item( $story_id, $show_description ) {
  * @author Cadie Brown
  **/
 function display_author_bio( $post ) {
-	$author_title = get_post_meta( $post->ID, 'author_title', True );
+	$author_title = get_post_meta( $post->ID, 'author_title', true );
 
-	$author_byline = get_post_meta( $post->ID, 'author_byline', True );
+	$author_byline = get_post_meta( $post->ID, 'author_byline', true );
 	$author_byline = ( $author_byline != '' ) ? $author_byline : get_the_author();
 
-	$author_bio = get_post_meta( $post->ID, 'author_bio', True );
+	$author_bio = get_post_meta( $post->ID, 'author_bio', true );
 
 	$featured_post_bio = is_page_template( 'featured-single-post.php' ) ? ' featured-author-bio' : '';
 

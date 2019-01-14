@@ -50,11 +50,11 @@
 
 		<?php
 		// START custom page stylesheet
-		$post_type = get_post_type($post->ID);
+		$post_type = get_post_type( $post->ID );
 
 		if (
-			( $stylesheet_id = get_post_meta( $post->ID, $post_type.'_stylesheet', True ) ) !== False
-			&& ( $stylesheet_url = wp_get_attachment_url( $stylesheet_id ) ) !== False
+			( $stylesheet_id = get_post_meta( $post->ID, $post_type.'_stylesheet', true ) ) !== false
+			&& ( $stylesheet_url = wp_get_attachment_url( $stylesheet_id ) ) !== false
 		):
 		?>
 			<link rel="stylesheet" href="<?php echo $stylesheet_url; ?>" type="text/css" media="all" />
@@ -113,7 +113,7 @@
 						<div class="site-header-desc"><?php echo wptexturize( get_theme_option( 'site_subtitle' ) ); ?></div>
 					</div>
 					<?php
-					echo wp_nav_menu( array(
+					wp_nav_menu( array(
 						'menu' => 'Top Navigation',
 						'container' => 'false',
 						'menu_class' => 'site-menu',
