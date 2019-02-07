@@ -435,6 +435,33 @@
                 "button_label": "Add Content",
                 "min": "",
                 "max": ""
+            },
+            {
+                "key": "field_5c5ca43d3a608",
+                "label": "GMUCF Announcements",
+                "name": "gmucf_announcements",
+                "type": "select",
+                "instructions": "Select the announcements to be displayed on the News and Announcements email.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "2706": "UCF’s Certified Financial Planner™ Certification Education Program-Registration is NOW OPEN!",
+                    "2803": "CAPS to Host Leadership Development Program Feb. 28",
+                    "2732": "Last Week to Apply for the Cuba Study Abroad Program",
+                    "2759": "Register for Interprofessional Healthcare Simulation Conference on March 7-8. Early-bird registration deadline is Feb. 7."
+                },
+                "default_value": [],
+                "allow_null": 1,
+                "multiple": 1,
+                "ui": 1,
+                "ajax": 1,
+                "return_format": "value",
+                "placeholder": ""
             }
         ],
         "location": [
