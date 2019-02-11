@@ -1155,3 +1155,32 @@ function display_author_bio( $post ) {
  * Rest API
  */
 add_action( 'rest_api_init', array( 'UCF_Today_Custom_API', 'register_rest_routes' ), 10, 0 );
+
+
+/**
+ * Pull announcements
+ */
+function load_announcement_choices( $field ) {
+	$field['choices'] = array();
+
+	$url = get_theme_option( 'announcements_api_url' );
+
+	$args = array(
+		'timeout' => 15
+	);
+
+	$response      = wp_remote_get( $url, $args );
+	$response_code = wp_remote_retrieve_response_code( $response );
+
+	if ( is_array( $response ) && is_int( $response_code ) && $response_code < 400 ) {
+		$results = json_decode( wp_remote_retrieve_body( $response ) );
+
+		foreach( $results as $result ) {
+			$field['choices'][$result->id] = $result->title;
+		}
+	}
+
+	return $field;
+}
+
+add_filter( 'acf/load_field/name=gmucf_announcements', 'load_announcement_choices' );
