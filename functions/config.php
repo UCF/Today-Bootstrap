@@ -309,7 +309,7 @@ Config::$theme_settings = array(
 			'id'          => THEME_OPTIONS_NAME . '[announcements_api_url]',
 			'description' => 'The URL of the announcements application\'s API.',
 			'default'     => 'https://www.ucf.edu/announcements/api/announcements/?time=this-week&exclude_ongoing=True&format=json',
-			'value'       => $theme_options['announcement_api_url']
+			'value'       => $theme_options['announcements_api_url']
 		))
 	)
 );
