@@ -1615,7 +1615,7 @@ function _show_meta_boxes( $post, $meta_box ) {
 				<select name="<?php echo $field['id']; ?>" id="<?php echo $field['id']; ?>">
 					<option value=""><?php echo ( $field['default'] ) ? $field['default'] : '--'?></option>
 				<?php foreach ( $field['options'] as $k => $v ) : ?>
-					<option <?php echo ( $current_value == $v ) ? ' selected="selected"' : ''; ?> value="<?php echo $v; ?>" autocomplete="off"><?php echo $k; ?></option>
+					<option <?php echo ( $current_value == $v ) ? ' selected=""' : ''; ?> value="<?php echo $v; ?>"><?php echo $k; ?></option>
 				<?php endforeach;?>
 				</select>
 
