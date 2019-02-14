@@ -269,7 +269,7 @@ class SelectField extends ChoicesField {
 	?>
 		<select name="<?php echo htmlentities( $this->id ); ?>" id="<?php echo htmlentities( $this->id ); ?>">
 		<?php foreach ( $this->choices as $key=>$value ) : ?>
-			<option value="<?php echo htmlentities( $value ); ?>"<?php echo ( $this->value === $value ) ? ' selected="selected"' : ''; ?>><?php echo htmlentities( $key ); ?></option>
+			<option value="<?php echo htmlentities( $value ); ?>"<?php echo ( $this->value == $value ) ? ' selected="selected"' : ''; ?>><?php echo htmlentities( $key ); ?></option>
 		<?php endforeach;?>
 		</select>
 	<?php
@@ -1614,8 +1614,8 @@ function _show_meta_boxes( $post, $meta_box ) {
 			<?php break; case 'select':?>
 				<select name="<?php echo $field['id']; ?>" id="<?php echo $field['id']; ?>">
 					<option value=""><?php echo ( $field['default'] ) ? $field['default'] : '--'?></option>
-				<?php foreach ( $field['options'] as $k => $v ) :?>
-					<option <?php echo ( $current_value === $v ) ? ' selected="selected"' : ''; ?> value="<?php echo $v; ?>"><?php echo $k; ?></option>
+				<?php foreach ( $field['options'] as $k => $v ) : ?>
+					<option <?php echo ( $current_value == $v ) ? ' selected=""' : ''; ?> value="<?php echo $v; ?>"><?php echo $k; ?></option>
 				<?php endforeach;?>
 				</select>
 
