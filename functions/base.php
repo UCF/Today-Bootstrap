@@ -269,7 +269,7 @@ class SelectField extends ChoicesField {
 	?>
 		<select name="<?php echo htmlentities( $this->id ); ?>" id="<?php echo htmlentities( $this->id ); ?>">
 		<?php foreach ( $this->choices as $key=>$value ) : ?>
-			<option value="<?php echo htmlentities( $value ); ?>"<?php echo ( $this->value == $value ) ? ' selected="selected"' : ''; ?>><?php echo htmlentities( $key ); ?></option>
+			<option value="<?php echo htmlentities( $value ); ?>"<?php echo ( $this->value == $value ) ? ' selected=""' : ''; ?>><?php echo htmlentities( $key ); ?></option>
 		<?php endforeach;?>
 		</select>
 	<?php
