@@ -863,7 +863,7 @@ function post_get_thumbnail( $object, $field_name, $request ) {
 	$image = null;
 
 	if ( $object['featured_media'] ) {
-		$image = wp_get_attachment_image_src( $object['featured_media'] );
+		$image = wp_get_attachment_image_src( $object['featured_media'], 'feature' );
 	} else {
 		$attachments = get_attached_media( 'image', $object['id'] );
 		if ( $attachments ) {
